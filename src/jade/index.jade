@@ -1,0 +1,22 @@
+doctype html
+html
+  head(lang='en')
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    title <%= appname %>
+    link(rel='stylesheet', href='css/app.css')
+  body
+    .welcome
+      h1 Hello, <%= appname %>
+      p We've created generator to speed up project starting process.
+      p Generator configured project for using:
+      ul
+        li gulp
+        li sass/scss + compass
+      p
+        | We've also added
+        code .editorconfig
+        |  and
+        code .jshintrc
+        |  to simplify your team collaboration.
+    script(src='js/app.js')
