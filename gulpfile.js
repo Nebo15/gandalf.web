@@ -97,7 +97,7 @@ gulp.task('watch', function() {
 // Deploy gh-pages
 gulp.task('deploy-prefix', function() {
   return gulp.src('./www/**/*.html')
-    .pipe(prefix('/swipe-cards'))
+    // .pipe(prefix('/swipe-cards'))
     .pipe(gulp.dest('./www'));
 });
 
