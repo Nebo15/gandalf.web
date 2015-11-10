@@ -33,25 +33,27 @@ gulp.task('clean', function () {
 
 // SASS to CSS
 gulp.task('build-styles', function() {
-    return gulp.src('./src/css/**/*.{sass,scss}')
-        .pipe(compass({
-            project: path.join(__dirname, ''),
-            http_images_path: '/images',
-            generated_images_path: 'www/images',
-            http_path: '/',
-            css: 'www/css',
-            sass: 'src/css',
-            image: 'src/images',
-            debug: !argv.production,
-            relative: true,
-            style: argv.production ? 'compressed' : 'nested'
-        }))
-        .pipe(autoprefixer({
-            browsers: ['last 4 versions', 'ie 8'],
-            cascade: false
-        }))
-        .pipe(gulp.dest('./www/css'));
+  return gulp.src('./src/css/**/*.{sass,scss}', {base: './'})
+    .pipe(compass({
+      config_file: './config.rb',
+      project: path.join(__dirname, ''),
+      http_images_path: '/images',
+      generated_images_path: 'www/images',
+      http_path: '/',
+      css: 'www/css',
+      sass: 'src/css',
+      image: 'src/images',
+      debug: !argv.production,
+      relative: true,
+      style: argv.production ? 'compressed' : 'nested'
+    }))
+    .pipe(autoprefixer({
+      browsers: ['last 4 versions', 'ie 8'],
+      cascade: false
+    }))
+    .pipe(gulp.dest('./www/css'));
 });
+
 
 // SVG to SVG sprites
 gulp.task('copy-images', function() {

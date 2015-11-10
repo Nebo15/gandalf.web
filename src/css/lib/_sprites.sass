@@ -1,0 +1,76 @@
+//	sprites with padding
+$icons: sprite-map("icons/*.png", $spacing: 10px)
+$icons_sprite_url: sprite-url($icons) // This will force sprite generation, we need it to use generated file while resizing it
+
+// sized sprites
+=image-size($path)
+  width: image-width($path)
+  height: image-height($path)
+
+//for retina
+=image-sizer($path)
+  width: image-width($path) / 2
+  height: image-height($path) / 2
+
+=sized-sprite($map, $sprite)
+  background: sprite($map, $sprite) no-repeat
+  +image-size(sprite-file($map, $sprite))
+
+//for retina
+=sized-spriter($map, $sprite)
+  background: sprite($map, $sprite) no-repeat
+  $ypos: round(nth(sprite-position($map, $sprite), 2) / 2)
+  background-position: 0 $ypos
+  +image-sizer(sprite-file($map, $sprite))
+  +background-size(ceil(image-width(sprite-path($map)) / 2), ceil(image-height(sprite-path($map)) / 2))
+
+//shortcut
+=s($sprite, $map: $icons)
+  background: sprite($map, $sprite) no-repeat
+  //background-image: inline-image('icons/'+$sprite+'.png','image/png')
+  +image-size(sprite-file($map, $sprite))
+
+//for retina
+=sr($sprite, $map: $icons)
+  background: sprite($map, $sprite) no-repeat
+  $ypos: round(nth(sprite-position($map, $sprite), 2) / 2)
+  background-position: 0 $ypos
+  +image-sizer(sprite-file($map, $sprite))
+  +background-size(ceil(image-width(sprite-path($map)) / 2), ceil(image-height(sprite-path($map)) / 2))
+
+//only image, when dimensions are useless
+=si($sprite, $map: $icons)
+  background: sprite($map, $sprite) no-repeat
+
+//only position of sprite, to remove flicker effect in chrome
+=sp($sprite, $map: $icons)
+  background-position: sprite-position($map, $sprite)
+
+=svg($name, $width, $height)
+  background: url("../images/svg/#{$name}.svg") no-repeat 0 0
+  //background-image: inline-image('icons/svg/'+$sprite+'.svg','image/svg'); // to switches sprites to base64, elegant
+  +background-size(#{$width}px #{$height}px)
+  width: #{$width}px
+  height: #{$height}px
+  display: inline-block
+
+=svgi($name, $width, $height)
+  background: url("../images/svg/#{$name}.svg") no-repeat 0 0
+  //background-image: inline-image('icons/svg/'+$sprite+'.svg','image/svg'); // to switches sprites to base64, elegant
+  +background-size(#{$width}px #{$height}px)
+
+=sz($sprite, $percent: 1, $map: $icons)
+
+  $spritePath:    sprite-path($map)
+
+  $spriteWidth:   image-width($spritePath)
+  $spriteHeight:  image-height($spritePath)
+
+  $width: image-width(sprite-file($map, $sprite))
+  $height: image-height(sprite-file($map, $sprite))
+
+  background: sprite($map, $sprite) no-repeat
+  +background-size(ceil($spriteWidth * $percent), ceil($spriteHeight * $percent))
+  width: ceil($width*$percent)
+  height: ceil($height*$percent)
+  background-position: 0 floor(nth(sprite-position($map, $sprite), 2)  * $percent)

@@ -1,11 +1,47 @@
+
+@import lib/base
+@import grid/grid
+
+.pull-right
+  float: right
+.pull-left
+  float: left
+.vertical-align
+  vertical-align: middle
+.center
+  text-align: center
+.uppercase
+  text-transform: uppercase
+
+.border-between > [class*='col-']
+  &:nth-child(2n)
+    border-color: #ccc
+    border-style: solid
+    border-width: 0 0 0 1px
+
+a
+  cursor: pointer
+
 body
   font: 200 14px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif
   background: #313949
+
+  overflow: auto
+  -webkit-overflow-scrolling: touch
+
 .welcome
   padding: 10px 20px 20px
   background: white
-  max-width: 600px
-  margin: 0 auto
 
+  p, ol, ul, h1, h2, h3, h4, h5
+    margin-top: .5em
+    margin-bottom: .8em
   h1
     text-align: center
+  ul, ol li
+    list-style: inherit
+    margin-left: inherit
+    padding-left: inherit
+
+
+@import icon
