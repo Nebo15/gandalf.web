@@ -33,7 +33,7 @@ gulp.task('clean', function () {
 
 // SASS to CSS
 gulp.task('build-styles', function() {
-  return gulp.src('./src/css/**/*.{sass,scss}', {base: './'})
+  return gulp.src('./src/sass/**/*.{sass,scss}', {base: './'})
     .pipe(compass({
       config_file: './config.rb',
       project: path.join(__dirname, ''),
@@ -41,7 +41,7 @@ gulp.task('build-styles', function() {
       generated_images_path: 'www/images',
       http_path: '/',
       css: 'www/css',
-      sass: 'src/css',
+      sass: 'src/sass',
       image: 'src/images',
       debug: !argv.production,
       relative: true,
@@ -88,7 +88,7 @@ gulp.task('build-jade', function() {
 
 // Watch for for changes
 gulp.task('watch', function() {
-    gulp.watch('./src/css/**/*', ['build-styles']);
+    gulp.watch('./src/sass/**/*', ['build-styles']);
     gulp.watch('./src/images/**/*', ['copy-images', 'build-styles']);
     gulp.watch('./src/js/**/*', ['copy-scripts']);
     gulp.watch('./src/jade/**/*', ['build-jade']);
