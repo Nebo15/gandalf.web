@@ -1,7 +1,6 @@
 {
   "name": "",
   "version": "0.0.0",
-  "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.9.6",
     "gulp": "^3.9.0",
@@ -9,9 +8,17 @@
     "gulp-clean": "^0.3.1",
     "gulp-compass": "^2.1.0",
     "gulp-gh-pages": "^0.5.2",
+    "gulp-if": "^2.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-l10n": "Nebo15/gulp-l10n",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-prefix": "0.0.14",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.1",
-    "yargs": "^3.25.0",
-    "gulp-jade": "^1.1.0"
+    "jstransformer-marked": "^1.0.1",
+    "lodash": "^4.0.1",
+    "yargs": "^3.25.0"
   }
 }
