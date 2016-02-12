@@ -23,7 +23,7 @@ var gulp = require('gulp'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
   _ = require('lodash'),
-  ngConstant = require('gulp-ng-constant')
+  ngConstant = require('gulp-ng-constant'),
   gutil = require('gulp-util'),
   stream = require('stream');
 
@@ -105,7 +105,7 @@ gulp.task('copy-images', function () {
 });
 
 // Static files
-gulp.task('copy-statics', function () {
+gulp.task('copy-statics', ['build-jade'], function () {
   return gulp.src(['./src/static/**/*'], {base: './src/static'})
     .pipe(gulp.dest('./www'));
 });
@@ -163,15 +163,15 @@ gulp.task('config', ['copy-scripts'],function () {
 
 
 gulp.task('minimize', function (cb) {
-  //if (!argv.production) {
-  //  return cb();
-  //}
+  if (!argv.production) {
+    return cb();
+  }
 
   return gulp.src(['www/*.html', 'www/templates/*.html'], {base: 'www'})
     .pipe(useref())
-    //.pipe(gulpif('*.css', minifyCss()))
-    //.pipe(gulpif('*.js', uglify()))
-    //.pipe(gulpif('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
+    .pipe(gulpif('*.css', minifyCss()))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
     .pipe(gulp.dest('www'));
 });
 
