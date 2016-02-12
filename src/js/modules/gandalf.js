@@ -35,6 +35,7 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, Condition,
     this.id = options.id;
     this.priority = options.priority;
     this.result = options.result;
+    this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
       return new RuleCondition(item);
     });

@@ -25,7 +25,9 @@ html(ng-app="app")
               tr(ng-repeat="rule in rules | orderBy: rule.priority")
                 td {{rule.priority}}
                 td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
-                td {{rule.result}}
+                td.decision-table__description-wrap {{rule.result}}
+                  .decision-table__description {{rule.description}}
+
 
     // build:js js/app.min.js
 

@@ -62,8 +62,25 @@ $table-footer-bg: #f9f9f9
       &:active
         background-color: #f6f6f6
 
+  &__description
+    color: $gray
+    position: absolute
+    left: 100%
+    width: 200px
+    text-align: left
+    opacity: .6
+    margin-left: 10px
+    font-size: 12px
 
+    top: 50%
+    transform: translateY(-50%)
+    //bottom: $table-cell-padding
 
+    overflow: hidden
+    text-overflow: ellipsis
+
+    &-wrap
+      position: relative
   .table
     margin: 0
     td,th
