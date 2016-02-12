@@ -1,6 +1,7 @@
 {
-  "name": "",
-  "version": "0.0.0",
+  "name": "decision-table",
+  "version": "1.0.0",
+  "repository": "",
   "scripts": {
     "postinstall": "bower install",
     "start": "gulp",
