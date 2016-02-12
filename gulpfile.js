@@ -14,7 +14,9 @@ var gulp = require('gulp'),
   gulpif = require('gulp-if'),
   replace = require('gulp-replace'),
   rename = require('gulp-rename'),
-  l10n = require('gulp-l10n');
+  l10n = require('gulp-l10n'),
+
+  ngAnnotate = require('gulp-ng-annotate'),
 
   useref = require('gulp-useref'),
   uglify = require('gulp-uglify'),
@@ -27,8 +29,6 @@ var gulp = require('gulp'),
   gutil = require('gulp-util'),
   stream = require('stream');
 
-
-
 var src = {
   jade: ['src/jade/*.jade','src/jade/templates/*.jade'],
   html: ['www/*.html','www/templates/*.html']
@@ -36,7 +36,7 @@ var src = {
 
 //the title and icon that will be used for the Grunt notifications
 var notifyInfo = {
-  title: 'Gulp',
+  title: 'Gulp'
   //icon: path.join(__dirname, 'gulp.png')
 };
 
@@ -170,6 +170,7 @@ gulp.task('minimize', function (cb) {
   return gulp.src(['www/*.html', 'www/templates/*.html'], {base: 'www'})
     .pipe(useref())
     .pipe(gulpif('*.css', minifyCss()))
+    .pipe(gulpif('*.js', ngAnnotate()))
     .pipe(gulpif('*.js', uglify()))
     .pipe(gulpif('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
     .pipe(gulp.dest('www'));
@@ -181,7 +182,6 @@ var l10nOpts = {
   base: 'en',
   enforce: argv.production ? 'strict' : 'warn'
 };
-
 
 gulp.task('extract-locales', ['build-jade','copy-statics'], function () {
   return gulp.src('www/**/*.html')
@@ -228,9 +228,9 @@ gulp.task('watch', function () {
 });
 
 // Deploy gh-pages
-gulp.task('deploy-prefix', function () {
+gulp.task('deploy-prefix', ['production'], function () {
   return gulp.src('./www/**/*.html')
-    .pipe(prefix('/forza-web'))
+    .pipe(prefix('/gandalf.web'))
     .pipe(gulp.dest('./www'));
 });
 
@@ -243,4 +243,8 @@ gulp.task('deploy', ['deploy-prefix'], function () {
 gulp.task('default', sequence('build', ['server', 'watch']));
 gulp.task('build', function (cb) {
   sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'extract-locales', 'localize', 'minimize')(cb);
+});
+gulp.task('production', function (cb) {
+  argv.production = true;
+  sequence('build')(cb);
 });

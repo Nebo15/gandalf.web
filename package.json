@@ -21,6 +21,7 @@
     "gulp-jade": "^1.1.0",
     "gulp-l10n": "Nebo15/gulp-l10n",
     "gulp-minify-css": "^1.2.3",
+    "gulp-ng-annotate": "^1.1.0",
     "gulp-ng-constant": "^1.1.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
