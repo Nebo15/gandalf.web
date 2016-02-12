@@ -1,50 +1,35 @@
 doctype html
-html
+html(ng-app="app")
   head(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
-    title <%= appname %>
+    title Decision Table
     link(rel='stylesheet', href='css/app.css')
-  body.container.app
+  body.container.app(ng-controller="MainController")
     .row
       .col.col-md-12
-        .decision-table.table-responsive
-          table.table
-            thead
-              tr
-                th.decision-table__col--order #
-                th Col1
-                th Col1
-                th Col1
-                th.decision-table__col---result Result
-            tfoot.table-footer
-              tr
-                td(colspan="5") Add new row
-            tbody
-              tr
-                td 0
-                td true
-                td Some value
-                td > 500
-                td Approve
-              tr
-                td 0
-                td true
-                td Some value
-                td > 500
-                td Approve
-              tr
-                td 0
-                td true
-                td Some value
-                td > 500
-                td Approve
-
+        .table-responsive
+          .decision-table.ng-cloak(ng-if="rules")
+            table.table
+              thead
+                tr
+                  th #
+                  th(ng-repeat="condition in conditions") {{condition.title}}
+                  th.decision-table__add-column
+                    a.decision-table__add-column__icon(ng-click="addNewCondition()") +
+                    | Result
+              tfoot.table-footer
+                tr
+                  td(colspan="{{conditions.length + 2}}") Add new row
+              tbody
+                tr(ng-repeat="rule in rules | orderBy: rule.priority")
+                  td {{rule.priority}}
+                  td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
+                  td {{rule.result}}
 
     // build:js js/app.min.js
 
-    // bower:js
-    // endbower
+    script(src='bower_components/angular/angular.js')
 
     script(src='js/config.js')
     script(src='js/app.js')

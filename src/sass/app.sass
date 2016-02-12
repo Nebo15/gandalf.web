@@ -9,14 +9,59 @@ $table-bg: white
 
 $table-footer-bg: #f9f9f9
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
+  display: none !important
+
 .decision-table
-  margin-top: 40px
+  margin: 50px 10px
   border-radius: 4px
   border: 1px solid $table-border-color
-  overflow: hidden
   box-sizing: border-box
-
   box-shadow: 0 2px 10px -5px rgba(black, .5)
+
+  &__add-column
+    position: relative
+    user-select: none
+    &__icon
+      width: 30px
+      height: 30px
+      line-height: 25px
+
+      vertical-align: middle
+
+      color: $gray
+
+      border: 1px solid $table-border-color
+      border-radius: 50%
+      display: block
+
+      position: absolute
+      top: -40px
+      left: -16px
+
+      text-decoration: none
+      background-color: $table-bg
+
+      cursor: pointer
+      text-align: center
+
+      &:after
+        content: ''
+        width: 1px
+        height: 10px
+        background-color: $table-border-color
+        position: absolute
+        top: 100%
+        left: 14px
+
+      &:hover
+        background-color: #f9f9f9
+        text-decoration: none
+        color: #666
+      &:active
+        background-color: #f6f6f6
+
+
 
   .table
     margin: 0
@@ -31,7 +76,3 @@ $table-footer-bg: #f9f9f9
           border-left: 1px solid $table-border-color
     tfoot, thead
       background-color: $table-footer-bg
-
-
-
-

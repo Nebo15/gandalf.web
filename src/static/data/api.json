@@ -1,0 +1,89 @@
+{
+  "fields":[
+    {
+      "name":"borrowers_phone_name",
+      "title":"Borrowers Phone Name",
+      "source":"request",
+      "type":"string"
+    },
+    {
+      "name":"contact_person_phone_verification",
+      "title":"Contact Person Phone Verification",
+      "source":"request",
+      "type":"bool"
+    },
+    {
+      "name":"car_data",
+      "title":"Car Data",
+      "source":"request",
+      "type":"string"
+    },
+    {
+      "name":"scoring_result",
+      "title":"PFBC Scoring Result",
+      "type":"number",
+      "source":"connectors::pfbc",
+      "modifier":{
+        "condition":"$lt",
+        "value":50
+      }
+    }
+  ],
+  "rules":[
+    {
+      "id":"12301",
+      "priority":0,
+      "result":"approve",
+      "conditions":[
+        {
+          "field_name":"borrowers_phone_verification",
+          "condition":"$eq",
+          "value":true
+        },
+        {
+          "field_name":"contact_person_phone_verification",
+          "condition":"$eq",
+          "value":true
+        },
+        {
+          "field_name":"car_data",
+          "condition":"$eq",
+          "value":null
+        },
+        {
+          "field_name":"scoring_result",
+          "condition":"$eq",
+          "value": "approve"
+        }
+      ],
+      "description":"Описание для заметки о работе правила"
+    },
+    {
+      "id":"12300",
+      "priority":1,
+      "result":"decline",
+      "conditions":[
+        {
+          "field_name":"borrowers_phone_verification",
+          "condition":"$eq",
+          "value":true
+        },
+        {
+          "field_name":"contact_person_phone_verification",
+          "condition":"$eq",
+          "value":true
+        },
+        {
+          "field_name":"car_data",
+          "condition":"$eq",
+          "value":"vw"
+        },
+        {
+          "field_name":"scoring_result",
+          "condition":"$eq",
+          "value": "decline"
+        }
+      ]
+    }
+  ]
+}
