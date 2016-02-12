@@ -1,5 +1,5 @@
-(function () {'use strict';
+'use strict';
 
-  window.appName = '<%= appname %>';
+window.appName = '<%= appname %>';
 
-})();
+

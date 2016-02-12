@@ -15,7 +15,18 @@ var gulp = require('gulp'),
   replace = require('gulp-replace'),
   rename = require('gulp-rename'),
   l10n = require('gulp-l10n');
-_ = require('lodash');
+
+  useref = require('gulp-useref'),
+  uglify = require('gulp-uglify'),
+  htmlmin = require('gulp-htmlmin'),
+  minifyCss = require('gulp-minify-css'),
+  imagemin = require('gulp-imagemin'),
+  pngquant = require('imagemin-pngquant'),
+  _ = require('lodash'),
+  ngConstant = require('gulp-ng-constant')
+  gutil = require('gulp-util'),
+  stream = require('stream');
+
 
 
 var src = {
@@ -126,11 +137,49 @@ gulp.task('build-jade', function () {
     .pipe(gulp.dest('www'));
 });
 
+
+function string_src (filename, string) {
+  var src = stream.Readable({ objectMode: true });
+  src._read = function () {
+    this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }));
+    this.push(null)
+  };
+  return src
+}
+
+gulp.task('config', ['copy-scripts'],function () {
+  var configObj = require('./settings/config');
+  var defaultConfig = configObj['default'];
+
+  var envName = argv.production ? 'production' : 'dev';
+  var targetConfig = configObj[envName];
+
+  var resultConfig = _.defaultsDeep({}, defaultConfig, targetConfig);
+
+  return string_src('config.js', 'window.env = ' + JSON.stringify(resultConfig, null, 2) + ';')
+    // Writes config.js to dist/ folder
+    .pipe(gulp.dest('www/js'));
+});
+
+
+gulp.task('minimize', function (cb) {
+  //if (!argv.production) {
+  //  return cb();
+  //}
+
+  return gulp.src(['www/*.html', 'www/templates/*.html'], {base: 'www'})
+    .pipe(useref())
+    //.pipe(gulpif('*.css', minifyCss()))
+    //.pipe(gulpif('*.js', uglify()))
+    //.pipe(gulpif('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
+    .pipe(gulp.dest('www'));
+});
+
 var l10nOpts = {
   elements: [],
   native: 'origin.tmp',
   base: 'en',
-  enforce: 'warn'
+  enforce: argv.production ? 'strict' : 'warn'
 };
 
 
@@ -168,13 +217,14 @@ gulp.task('localize', ['build-jade', 'copy-statics', 'load-locales'], function (
 gulp.task('watch', function () {
   gulp.watch('./src/sass/**/*', ['build-styles']);
   gulp.watch('./src/images/**/*', ['copy-images', 'build-styles']);
-  gulp.watch('./src/js/**/*', ['copy-scripts']);
+  gulp.watch('./src/js/**/*', ['copy-scripts','config']);
   gulp.watch('./src/jade/**/*', ['build-jade', 'localize']);
   gulp.watch('./src/bower_components/**/*.js', ['copy-bower']);
   gulp.watch('./src/static/**/*', ['copy-statics']);
   gulp.watch('./src/fonts/**/*', ['copy-fonts']);
 
   gulp.watch('./locales/**/*', ['localize']);
+  gulp.watch('./settings/config.json', ['config']);
 });
 
 // Deploy gh-pages
@@ -192,10 +242,5 @@ gulp.task('deploy', ['deploy-prefix'], function () {
 // Base tasks
 gulp.task('default', sequence('build', ['server', 'watch']));
 gulp.task('build', function (cb) {
-  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'build-styles', 'build-jade'], 'extract-locales', 'localize')(cb);
-});
-
-gulp.task('production', function (cb) {
-  l10nOpts.enforce = 'strict';
-  sequence('build')(cb);
+  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'extract-locales', 'localize', 'minimize')(cb);
 });

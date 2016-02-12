@@ -1,0 +1,9 @@
+{
+  "default": {
+    "debug": false
+  },
+  "dev": {
+    "debug": true
+  },
+  "production": {}
+}
