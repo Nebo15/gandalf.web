@@ -22,11 +22,7 @@
       "name":"scoring_result",
       "title":"PFBC Scoring Result",
       "type":"number",
-      "source":"connectors::pfbc",
-      "modifier":{
-        "condition":"$lt",
-        "value":50
-      }
+      "source":"connectors::pfbc"
     }
   ],
   "rules":[
@@ -52,8 +48,8 @@
         },
         {
           "field_name":"scoring_result",
-          "condition":"$eq",
-          "value": "approve"
+          "condition":"$gte",
+          "value": 50
         }
       ],
       "description":"Описание для заметки о работе правила"
@@ -80,8 +76,8 @@
         },
         {
           "field_name":"scoring_result",
-          "condition":"$eq",
-          "value": "decline"
+          "condition":"$lte",
+          "value": 80
         }
       ]
     }
