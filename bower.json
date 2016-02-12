@@ -1,5 +1,5 @@
 {
-  "name": "decision-table",
+  "name": "gandalf",
   "version": "1.0.0",
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
