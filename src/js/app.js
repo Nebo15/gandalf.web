@@ -14,7 +14,7 @@ angular.module('app').controller('MainController', function ($scope, $uibModal, 
   var table = null;
   DecisionTable.current().then(function (resp) {
     table = resp;
-    table.rules[0].edit();
+    //table.rules[0].edit();
 
     $scope.table = resp;
   });
