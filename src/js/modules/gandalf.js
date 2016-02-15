@@ -36,10 +36,20 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
   return DecisionField;
 }).factory('DecisionRule', function () {
 
+  function guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+
   function Rule (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.id = options.id;
+    this.id = options.id || guid();
     this.priority = options.priority;
     this.result = options.result;
     this.description = options.description;
@@ -51,6 +61,12 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
     this.conditions.push(new RuleCondition({
       name: field.name
     }))
+  };
+  Rule.prototype.edit = function () {
+    this.isEditing = true;
+  };
+  Rule.prototype.save = function () {
+    this.isEditing = false;
   };
 
   Rule.fromFields = function (fields, options) {
@@ -95,6 +111,11 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
 
   DecisionTable.prototype.addRule = function (rule) {
     this.rules.push(rule);
+  };
+  DecisionTable.prototype.deleteRule = function (rule) {
+    this.rules = this.rules.filter(function (item) {
+      return item.id !== rule.id;
+    })
   };
 
   DecisionTable.prototype.save = function () {

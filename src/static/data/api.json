@@ -27,7 +27,6 @@
   ],
   "rules":[
     {
-      "id":"12301",
       "priority":0,
       "result":"approve",
       "conditions":[
@@ -55,7 +54,6 @@
       "description":"Описание для заметки о работе правила"
     },
     {
-      "id":"12300",
       "priority":1,
       "result":"decline",
       "conditions":[

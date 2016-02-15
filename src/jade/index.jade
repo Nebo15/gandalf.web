@@ -17,22 +17,38 @@ html(ng-app="app")
               tr
                 th #
                 th(ng-repeat="condition in table.fields") {{condition.title}}
+                th Action
                 th.decision-table__add-column
                   a.decision-table__add-column__icon(ng-click="addNewField()") +
                   | Result
             tfoot.table-footer
               tr
-                td(colspan="{{table.fields.length + 2}}")
+                td(colspan="{{table.fields.length + 3}}")
                   .pull-right
                     button.btn.btn-default(ng-click="save()") Save
             tbody
               tr(ng-repeat="rule in table.rules | orderBy: rule.priority")
-                td {{$index}}
-                td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
-                td.decision-table__description-wrap {{rule.result}}
+                td
+                  .form-control-static {{$index}}
+                td(ng-repeat="condition in rule.conditions")
+                  div.form-control-static(ng-if="!rule.isEditing") {{condition.value.toString()}}
+                  div(ng-if="rule.isEditing")
+                    input.form-control(ng-model="condition.value")
+                td
+                  .decision-table__actions.form-control-static
+                    a.btn.btn-default(ng-click="rule.save()", ng-if="rule.isEditing")
+                      i.glyphicon.glyphicon-ok
+                    a.btn.btn-default(ng-click="rule.edit()", ng-if="!rule.isEditing")
+                      i.glyphicon.glyphicon-pencil
+                    a.btn.btn-default(ng-click="table.deleteRule(rule)")
+                      i.glyphicon.glyphicon-remove
+                td.decision-table__description-wrap
+                  div.form-control-static(ng-if="!rule.isEditing") {{rule.result}}
+                  div(ng-if="rule.isEditing")
+                    input.form-control(ng-model="rule.result")
                   .decision-table__description {{rule.description}}
               tr.decision-table__add-row
-                td(colspan="{{table.fields.length + 2}}")
+                td(colspan="{{table.fields.length + 3}}")
                   a(ng-click="addNewRule()") Add new row
 
     // build:js js/app.min.js
