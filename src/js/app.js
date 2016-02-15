@@ -5,7 +5,8 @@ angular.module('app', [
   'ng-gandalf',
   'ui.router',
   'ngStorage',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.sortable'
 ]);
 
 
@@ -18,6 +19,11 @@ angular.module('app').controller('MainController', function ($scope, $uibModal, 
 
     $scope.table = resp;
   });
+
+  $scope.sortableOptions = {
+    axis: 'y',
+    handle: '> .decision-table__handler'
+  };
 
   $scope.addNewField = function () {
 

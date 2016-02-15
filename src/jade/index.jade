@@ -25,10 +25,12 @@ html(ng-app="app")
                 td(colspan="{{table.fields.length + 3}}")
                   .pull-right
                     button.btn.btn-default(ng-click="save()") Save
-            tbody
-              tr(ng-repeat="rule in table.rules | orderBy: rule.priority")
-                td
-                  .form-control-static {{$index}}
+            tbody(ui-sortable="sortableOptions", ng-model="table.rules")
+              tr(ng-repeat="rule in table.rules")
+                td.decision-table__handler
+                  i.glyphicon.glyphicon-menu-hamburger
+                  //.form-control-static {{$index}}
+
                 td(ng-repeat="condition in rule.conditions")
                   div.form-control-static(ng-if="!rule.isEditing")
                     span(ng-switch="condition.condition")
@@ -93,13 +95,17 @@ html(ng-app="app")
 
     // build:js js/app.min.js
 
+    script(src='bower_components/jquery/dist/jquery.js')
+    script(src='bower_components/jquery-ui/jquery-ui.js')
+
     script(src='bower_components/angular/angular.js')
     script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
     script(src='bower_components/ngstorage/ngStorage.js')
 
     script(src='bower_components/angular-bootstrap/ui-bootstrap.js')
     script(src='bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
-    script(src='bower_components/jquery/dist/jquery.js')
+
+    script(src='bower_components/angular-ui-sortable/sortable.js')
 
     script(src='js/config.js')
     script(src='js/modules/gandalf.js')
