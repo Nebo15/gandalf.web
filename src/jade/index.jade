@@ -27,10 +27,10 @@ html(ng-app="app")
                     button.btn.btn-default(ng-click="save()") Save
             tbody
               tr(ng-repeat="rule in table.rules | orderBy: rule.priority")
-                td {{rule.priority}}
+                td {{$index}}
                 td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
                 td.decision-table__description-wrap {{rule.result}}
-                .decision-table__description {{rule.description}}
+                  .decision-table__description {{rule.description}}
               tr.decision-table__add-row
                 td(colspan="{{table.fields.length + 2}}")
                   a(ng-click="addNewRule()") Add new row
