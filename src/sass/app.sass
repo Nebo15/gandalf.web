@@ -112,17 +112,26 @@ $table-footer-bg: #f9f9f9
       border: 0
   .table
     margin: 0
+    table-layout: fixed
     td,th
       text-align: center
+      vertical-align: middle
 
     tbody, thead
       th, td
         &:first-child
           border-right: 1px solid $table-border-color
+          width: 50px
         &:last-child
           border-left: 1px solid $table-border-color
     tfoot, thead
       background-color: $table-footer-bg
+
+    .checkbox
+      margin: 0
+      input
+        margin: 0
+        position: static
 
 .btns-bar
   margin-top: 20px

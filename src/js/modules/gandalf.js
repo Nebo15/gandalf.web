@@ -119,7 +119,7 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
   };
 
   DecisionTable.prototype.save = function () {
-    return $gandlaf.update(this); //placeholder
+    return $gandlaf.update(angular.toJson(this)); //placeholder
   };
 
   DecisionTable.current = function () {

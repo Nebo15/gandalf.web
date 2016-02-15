@@ -8,6 +8,7 @@ angular.module('app', [
   'ui.bootstrap'
 ]);
 
+
 angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionField, DecisionRule) {
 
   var table = null;

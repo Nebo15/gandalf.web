@@ -31,9 +31,47 @@ html(ng-app="app")
                 td
                   .form-control-static {{$index}}
                 td(ng-repeat="condition in rule.conditions")
-                  div.form-control-static(ng-if="!rule.isEditing") {{condition.value.toString()}}
+                  div.form-control-static(ng-if="!rule.isEditing")
+                    span(ng-switch="condition.condition")
+                      span(ng-switch-when="$eq") =
+                      span(ng-switch-when="$gt") >
+                      span(ng-switch-when="$gte") >=
+                      span(ng-switch-when="$lt") <
+                      span(ng-switch-when="$lte") <=
+                      span(ng-switch-when="$ne") !=
+                    | &nbsp;
+                    span {{condition.value.toString()}}
                   div(ng-if="rule.isEditing")
-                    input.form-control(ng-model="condition.value")
+                    div(ng-switch="table.fields[$index].type")
+                      .input-group(ng-switch-when="number")
+                        .input-group-addon
+                          select(ng-model="condition.condition")
+                            option(value="$eq") =
+                            option(value="$gt") >
+                            option(value="$gte") >=
+                            option(value="$lt") <
+                            option(value="$lte") <=
+                            option(value="$neq") !=
+                            option(value="$in") in
+                            option(value="$nin") not in
+                        input.form-control(ng-model="condition.value")
+                      div.form-control-static(ng-switch-when="bool")
+                        .checkbox
+                          input(type="checkbox", ng-model="condition.value")
+                      .input-group(ng-switch-when="string")
+                        .input-group-addon
+                          select(ng-model="condition.condition")
+                            option(value="$eq") =
+                            option(value="$neq") !=
+                            option(value="$in") in
+                            option(value="$nin") not in
+                            option(value="$contains") contains
+                        input.form-control(ng-model="condition.value")
+                      .input-group(ng-switch-default)
+                        .input-group-addon
+                          select(ng-model="condition.condition", disabled="true")
+                            option(value="$eq") =
+                        input.form-control(ng-model="condition.value")
                 td
                   .decision-table__actions.form-control-static
                     a.btn.btn-default(ng-click="rule.save()", ng-if="rule.isEditing")
@@ -45,7 +83,10 @@ html(ng-app="app")
                 td.decision-table__description-wrap
                   div.form-control-static(ng-if="!rule.isEditing") {{rule.result}}
                   div(ng-if="rule.isEditing")
-                    input.form-control(ng-model="rule.result")
+                    select.form-control(ng-model="rule.result")
+                      option(value="approve") approve
+                      option(value="decline") decline
+                      option(value="manual") manual
                   .decision-table__description {{rule.description}}
               tr.decision-table__add-row
                 td(colspan="{{table.fields.length + 3}}")
