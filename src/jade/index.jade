@@ -27,15 +27,22 @@ html(ng-app="app")
                 td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
                 td.decision-table__description-wrap {{rule.result}}
                   .decision-table__description {{rule.description}}
+        .btns-bar
+          .btn-group
+            button.btn.btn-default(ng-click="save()") Save
 
 
     // build:js js/app.min.js
 
     script(src='bower_components/angular/angular.js')
+    script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+    script(src='bower_components/ngstorage/ngStorage.js')
+
+    script(src='bower_components/angular-bootstrap/ui-bootstrap.js')
+    script(src='bower_components/jquery/dist/jquery.js')
 
     script(src='js/config.js')
     script(src='js/modules/gandalf.js')
     script(src='js/app.js')
-    script(src='js/services/editor-service.js')
     // endbuild
 

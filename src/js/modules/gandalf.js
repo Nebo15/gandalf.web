@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng-gandalf', []).service('$gandlaf', function ($http, DecisionField, DecisionRule) {
+angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, DecisionField, DecisionRule) {
 
   this.get = function (decisionTableId) {
     return $http.get('data/api.json').then(function (resp) {
@@ -14,7 +14,11 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, DecisionFi
       });
       return data;
     })
-  }
+  };
+  this.update = function (decisionTableObj) {
+    return $q.when(decisionTableObj);
+  };
+
 }).factory('DecisionField', function () {
 
   function DecisionField (obj) {
@@ -62,4 +66,42 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, DecisionFi
     this.value = options.value;
   }
   return Rule;
+}).factory('DecisionTable', function ($gandlaf, $q) {
+
+  function DecisionTable (id) {
+    this.id = id;
+    this.fields = [];
+    this.rules = [];
+  }
+
+  DecisionTable.prototype.fetch = function () {
+    return $gandlaf.get(this.id).then(function (resp) {
+      this.fields = resp.fields;
+      this.rules = resp.rules;
+
+      return this;
+    }.bind(this))
+  };
+
+  DecisionTable.prototype.addField = function (field) {
+    this.fields.push(field);
+    this.rules.forEach(function (item) {
+      item.addCondition(field);
+    });
+  };
+
+  DecisionTable.prototype.addRule = function (rule) {
+    this.rules.push(rule);
+  };
+
+  DecisionTable.prototype.save = function () {
+    return $gandlaf.update(this); //placeholder
+  };
+
+  DecisionTable.current = function () {
+    return new DecisionTable().fetch();
+  };
+
+  return DecisionTable;
+
 });
