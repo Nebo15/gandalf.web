@@ -1,23 +1,23 @@
 'use strict';
 
-angular.module('ng-gandalf', []).service('$gandlaf', function ($http, Condition, Rule) {
+angular.module('ng-gandalf', []).service('$gandlaf', function ($http, DecisionField, DecisionRule) {
 
-  this.get = function () {
+  this.get = function (decisionTableId) {
     return $http.get('data/api.json').then(function (resp) {
       return resp.data;
     }).then(function (data) {
       data.fields = data.fields.map(function (item) {
-        return new Condition(item);
+        return new DecisionField(item);
       });
       data.rules = data.rules.map(function (item) {
-        return new Rule(item);
+        return new DecisionRule(item);
       });
       return data;
     })
   }
-}).factory('Condition', function () {
+}).factory('DecisionField', function () {
 
-  function Condition (obj) {
+  function DecisionField (obj) {
     var options = obj ? angular.copy(obj) : {};
 
     this.name = options.name;
@@ -26,8 +26,8 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, Condition,
     this.source = options.source;
   }
 
-  return Condition;
-}).factory('Rule', function () {
+  return DecisionField;
+}).factory('DecisionRule', function () {
 
   function Rule (obj) {
     var options = obj ? angular.copy(obj) : {};
@@ -40,15 +40,15 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, Condition,
       return new RuleCondition(item);
     });
   }
-  Rule.prototype.addCondition = function (condition) {
+  Rule.prototype.addCondition = function (field) {
     this.conditions.push(new RuleCondition({
-      name: condition.name
+      name: field.name
     }))
   };
 
-  Rule.fromConditions = function (conditions, options) {
+  Rule.fromFields = function (fields, options) {
     var rule = new Rule(options);
-    conditions.forEach(function (item) {
+    fields.forEach(function (item) {
       rule.addCondition(item);
     });
     return rule;

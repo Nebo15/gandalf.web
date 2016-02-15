@@ -9,20 +9,20 @@ html(ng-app="app")
   body.container.app(ng-controller="MainController")
     .row
       .col.col-md-12
-        .decision-table.ng-cloak(ng-if="rules")
+        .decision-table.ng-cloak(ng-if="table")
           table.table
             thead
               tr
                 th #
-                th(ng-repeat="condition in conditions") {{condition.title}}
+                th(ng-repeat="condition in table.fields") {{condition.title}}
                 th.decision-table__add-column
-                  a.decision-table__add-column__icon(ng-click="addNewCondition()") +
+                  a.decision-table__add-column__icon(ng-click="addNewField()") +
                   | Result
             tfoot.table-footer
               tr
-                td(colspan="{{conditions.length + 2}}", ng-click="addNewRule()") Add new row
+                td(colspan="{{table.fields.length + 2}}", ng-click="addNewRule()") Add new row
             tbody
-              tr(ng-repeat="rule in rules | orderBy: rule.priority")
+              tr(ng-repeat="rule in table.rules | orderBy: rule.priority")
                 td {{rule.priority}}
                 td(ng-repeat="condition in rule.conditions") {{condition.value.toString()}}
                 td.decision-table__description-wrap {{rule.result}}
@@ -36,5 +36,6 @@ html(ng-app="app")
     script(src='js/config.js')
     script(src='js/modules/gandalf.js')
     script(src='js/app.js')
+    script(src='js/services/editor-service.js')
     // endbuild
 

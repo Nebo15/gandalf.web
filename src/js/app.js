@@ -5,48 +5,61 @@ angular.module('app', [
   'ng-gandalf'
 ]);
 
-angular.module('app').service('Store', function ($sessionStorage, $gandlaf) {
+angular.module('app').factory('DecisionTable', function ($gandlaf) {
 
-  var storage = $sessionStorage.$default({
-    'rules': [],
-    'conditions': []
-  });
+  function DecisionTable (id) {
+    this.id = id;
+    this.fields = [];
+    this.rules = [];
+  }
 
-  this.fetch = function () {
-    return $gandlaf.get().then(function (resp) {
-      storage.conditions = resp.fields;
-      storage.rules = resp.rules;
-      return storage;
+  DecisionTable.prototype.fetch = function () {
+    return $gandlaf.get(this.id).then(function (resp) {
+      this.fields = resp.fields;
+      this.rules = resp.rules;
+
+      return this;
+    }.bind(this))
+  };
+
+  DecisionTable.prototype.addField = function (field) {
+    this.fields.push(field);
+    this.rules.forEach(function (item) {
+      item.addCondition(field);
     });
   };
-  this.get = function () {
-    return storage;
+
+  DecisionTable.current = function () {
+    return new DecisionTable().fetch();
   };
+
+  return DecisionTable;
+
 });
 
-angular.module('app').controller('MainController', function ($scope, $gandlaf, Condition, Rule) {
+angular.module('app').controller('MainController', function ($scope, DecisionTable, DecisionField, DecisionRule) {
 
-  $scope.conditions = [];
-  $scope.rules = [];
-
-  $gandlaf.get().then(function (resp) {
-    $scope.conditions = resp.fields;
-    $scope.rules = resp.rules;
+  var table = null;
+  DecisionTable.current().then(function (resp) {
+    table = resp;
+    $scope.table = resp;
   });
 
-  $scope.addNewCondition = function () {
-    var newCondition = new Condition({
+  $scope.addNewField = function () {
+    var newCondition = new DecisionField({
       title: 'new name'
     });
-    $scope.conditions.push(newCondition);
-    $scope.rules.forEach(function (item) {
-      item.addCondition(newCondition);
-    });
+
+    table.addField(newCondition);
   };
   $scope.addNewRule = function () {
-    $scope.rules.push(Rule.fromConditions($scope.conditions, {
-      priority: $scope.rules.length
+    table.rules.push(DecisionRule.fromFields(table.fields, {
+      priority: table.fields.length
     }));
+  };
+
+  $scope.save = function () {
+
   }
 
 });
