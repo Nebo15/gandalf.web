@@ -29,8 +29,6 @@ html(ng-app="app")
               tr(ng-repeat="rule in table.rules")
                 td.decision-table__handler
                   i.glyphicon.glyphicon-menu-hamburger
-                  //.form-control-static {{$index}}
-
                 td(ng-repeat="condition in rule.conditions")
                   div.form-control-static(ng-if="!rule.isEditing")
                     span(ng-switch="condition.condition")
@@ -89,7 +87,8 @@ html(ng-app="app")
                     a.btn.btn-default(ng-click="table.deleteRule(rule)")
                       i.glyphicon.glyphicon-remove
                     .decision-table__description {{rule.description}}
-              tr.decision-table__add-row
+            tbody.decision-table__add-row
+              tr
                 td(colspan="{{table.fields.length + 3}}")
                   a(ng-click="addNewRule()") Add new row
 
