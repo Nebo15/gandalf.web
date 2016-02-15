@@ -8,23 +8,6 @@ angular.module('app', [
   'ui.bootstrap'
 ]);
 
-angular.module('app').controller('AddFieldController', function ($scope, $uibModalInstance, DecisionField) {
-
-  var field = new DecisionField({
-    type: 'string'
-  });
-  $scope.field = field;
-
-  $scope.save = function (form) {
-    if (form.$invalid) return;
-    $uibModalInstance.close(field);
-  };
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-});
-
-
 angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionField, DecisionRule) {
 
   var table = null;
