@@ -1,0 +1,48 @@
+form(ng-submit="save(form)", name="form")
+  .modal-header
+    h3.modal-title Create new column
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-2.control-label Title
+        .col-sm-10
+          input.form-control(
+            type="text",
+            ng-model="field.title",
+            required,
+            placeholder="eg. Person age..."
+          )
+      .form-group
+        label.col-sm-2.control-label Alias
+        .col-sm-10
+          input.form-control(
+          type="text",
+          ng-model="field.alias",
+          required,
+          pattern="[a-zA-Z\\_\\-]*"
+          placeholder="person-age"
+          )
+          span.help-block Latin alias (for API). Use only alphabet characters, dash and underscore. <code>a-z,A-Z,_,-</code>
+      .form-group
+        label.col-sm-2.control-label Type
+        .col-sm-10
+          select.form-control(
+          type="text",
+          ng-model="field.type",
+          required,
+          )
+            option(value="number") Number
+            option(value="string") String
+            option(value="bool") Boolean
+
+      .form-group
+        label.col-sm-2.control-label Default Value
+        .col-sm-10
+          input.form-control(
+            type="text",
+            ng-model="field.defaultValue",
+          )
+
+  .modal-footer
+    button.btn.btn-primary(type='submit') Save
+    button.btn.btn-warning(type='button', ng-click='cancel()') Cancel

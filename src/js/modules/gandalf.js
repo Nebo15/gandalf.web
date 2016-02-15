@@ -24,10 +24,13 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
   function DecisionField (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.name = options.name;
+    this.alias = options.alias;
     this.type = options.type;
     this.title = options.title;
+
     this.source = options.source;
+
+    this.defaultValue = options.defaultValue;
   }
 
   return DecisionField;
@@ -61,7 +64,7 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.field_name = options.field_name;
+    this.field_alias = options.field_alias;
     this.condition = options.condition;
     this.value = options.value;
   }

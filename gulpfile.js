@@ -30,8 +30,8 @@ var gulp = require('gulp'),
   stream = require('stream');
 
 var src = {
-  jade: ['src/jade/*.jade','src/jade/templates/*.jade'],
-  html: ['www/*.html','www/templates/*.html']
+  jade: ['src/jade/*.jade','src/jade/templates/**/*.jade'],
+  html: ['www/*.html','www/templates/**/*.html']
 };
 
 //the title and icon that will be used for the Grunt notifications

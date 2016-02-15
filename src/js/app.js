@@ -8,7 +8,24 @@ angular.module('app', [
   'ui.bootstrap'
 ]);
 
-angular.module('app').controller('MainController', function ($scope, DecisionTable, DecisionField, DecisionRule) {
+angular.module('app').controller('AddFieldController', function ($scope, $uibModalInstance, DecisionField) {
+
+  var field = new DecisionField({
+    type: 'string'
+  });
+  $scope.field = field;
+
+  $scope.save = function (form) {
+    if (form.$invalid) return;
+    $uibModalInstance.close(field);
+  };
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+
+angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionField, DecisionRule) {
 
   var table = null;
   DecisionTable.current().then(function (resp) {
@@ -17,15 +34,20 @@ angular.module('app').controller('MainController', function ($scope, DecisionTab
   });
 
   $scope.addNewField = function () {
-    var newCondition = new DecisionField({
-      title: 'new name'
+
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/add-field.html',
+      controller: 'AddFieldController'
     });
-    table.addField(newCondition);
+    modalInstance.result.then(function (newField) {
+      table.addField(newField);
+    });
+
   };
   $scope.addNewRule = function () {
 
     var rule = DecisionRule.fromFields(table.fields, {
-      priority: table.fields.length
+      priority: table.rules.length
     }); // can be different
 
     table.addRule(rule);

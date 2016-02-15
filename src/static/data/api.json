@@ -1,25 +1,25 @@
 {
   "fields":[
     {
-      "name":"borrowers_phone_name",
+      "alias":"borrowers_phone_name",
       "title":"Borrowers Phone Name",
       "source":"request",
       "type":"string"
     },
     {
-      "name":"contact_person_phone_verification",
+      "alias":"contact_person_phone_verification",
       "title":"Contact Person Phone Verification",
       "source":"request",
       "type":"bool"
     },
     {
-      "name":"car_data",
+      "alias":"car_data",
       "title":"Car Data",
       "source":"request",
       "type":"string"
     },
     {
-      "name":"scoring_result",
+      "alias":"scoring_result",
       "title":"PFBC Scoring Result",
       "type":"number",
       "source":"connectors::pfbc"
@@ -32,22 +32,22 @@
       "result":"approve",
       "conditions":[
         {
-          "field_name":"borrowers_phone_verification",
+          "field_alias":"borrowers_phone_verification",
           "condition":"$eq",
           "value":true
         },
         {
-          "field_name":"contact_person_phone_verification",
+          "field_alias":"contact_person_phone_verification",
           "condition":"$eq",
           "value":true
         },
         {
-          "field_name":"car_data",
+          "field_alias":"car_data",
           "condition":"$eq",
           "value":null
         },
         {
-          "field_name":"scoring_result",
+          "field_alias":"scoring_result",
           "condition":"$gte",
           "value": 50
         }
@@ -60,22 +60,22 @@
       "result":"decline",
       "conditions":[
         {
-          "field_name":"borrowers_phone_verification",
+          "field_alias":"borrowers_phone_verification",
           "condition":"$eq",
           "value":true
         },
         {
-          "field_name":"contact_person_phone_verification",
+          "field_alias":"contact_person_phone_verification",
           "condition":"$eq",
           "value":true
         },
         {
-          "field_name":"car_data",
+          "field_alias":"car_data",
           "condition":"$eq",
           "value":"vw"
         },
         {
-          "field_name":"scoring_result",
+          "field_alias":"scoring_result",
           "condition":"$lte",
           "value": 80
         }
@@ -83,3 +83,4 @@
     }
   ]
 }
+
