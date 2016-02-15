@@ -85,6 +85,9 @@ $table-footer-bg: #f9f9f9
       &:active
         background-color: #f6f6f6
 
+  &__result-column
+    width: 120px
+    background-color: rgba($brand-primary, .03)
   &__description
     color: $gray
     position: absolute
@@ -117,6 +120,8 @@ $table-footer-bg: #f9f9f9
       text-align: center
       vertical-align: middle
 
+    .border-left
+      border-left: 1px solid $table-border-color
     tbody, thead
       th, td
         &:first-child
@@ -124,6 +129,7 @@ $table-footer-bg: #f9f9f9
           width: 50px
         &:last-child
           border-left: 1px solid $table-border-color
+          width: 100px
     tfoot, thead
       background-color: $table-footer-bg
 
