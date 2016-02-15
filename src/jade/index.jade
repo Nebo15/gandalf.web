@@ -34,10 +34,10 @@ html(ng-app="app")
                   div.form-control-static(ng-if="!rule.isEditing")
                     span(ng-switch="condition.condition")
                       span(ng-switch-when="$eq") =
-                      span(ng-switch-when="$gt") >
-                      span(ng-switch-when="$gte") >=
-                      span(ng-switch-when="$lt") <
-                      span(ng-switch-when="$lte") <=
+                      span(ng-switch-when="$gt") &#62;
+                      span(ng-switch-when="$gte") &#62;=
+                      span(ng-switch-when="$lt") &#60;
+                      span(ng-switch-when="$lte") &#60;=
                       span(ng-switch-when="$ne") !=
                     | &nbsp;
                     span {{condition.value.toString()}}
@@ -47,10 +47,10 @@ html(ng-app="app")
                         .input-group-addon
                           select(ng-model="condition.condition")
                             option(value="$eq") =
-                            option(value="$gt") >
-                            option(value="$gte") >=
-                            option(value="$lt") <
-                            option(value="$lte") <=
+                            option(value="$gt") &#62;
+                            option(value="$gte") &#62;=
+                            option(value="$lt") &#60;
+                            option(value="$lte") &#60;=
                             option(value="$neq") !=
                             option(value="$in") in
                             option(value="$nin") not in
