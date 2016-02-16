@@ -11,7 +11,33 @@ angular.module('app', [
   'ui.sortable'
 ]);
 
-angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionField, DecisionRule) {
+angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
+
+  $stateProvider.state('editor', {
+    url: '/',
+    controller: 'MainController',
+    templateUrl: 'templates/editor.html'
+  }).state('history', {
+    url: '/history',
+    controller: 'HistoryController',
+    templateUrl: 'templates/history.html'
+  });
+
+  $urlRouterProvider.otherwise('/');
+
+});
+
+angular.module('app').controller('HistoryController', function ($scope, $uibModal, DecisionTable) {
+
+  $scope.tables = [];
+  DecisionTable.find().then(function (resp) {
+    console.log(resp);
+    $scope.tables = resp.data;
+  })
+
+});
+
+angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionRule) {
 
   var table = null;
   DecisionTable.current().then(function (resp) {

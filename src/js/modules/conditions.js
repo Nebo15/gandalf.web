@@ -12,8 +12,7 @@ var CONDITION_TYPES = {
   CONTAINS: '$contains'
 };
 
-angular.module('conditions', []);
-angular.module('conditions').value('CONDITION_SYMBOLS', {
+angular.module('conditions', []).value('CONDITION_SYMBOLS', {
   $eq: '=',
   $gt: '>',
   $gte: '>=',
@@ -25,10 +24,7 @@ angular.module('conditions').value('CONDITION_SYMBOLS', {
   $nin: 'not in',
 
   $contains: 'contains'
-});
-
-angular.module('conditions').constant('CONDITION_TYPES', CONDITION_TYPES);
-angular.module('conditions').constant('CONDITIONS', {
+}).constant('CONDITION_TYPES', CONDITION_TYPES).constant('CONDITIONS', {
   number: [
     CONDITION_TYPES.EQUAL,
     CONDITION_TYPES.GREATER_THEN,
@@ -46,9 +42,7 @@ angular.module('conditions').constant('CONDITIONS', {
     CONDITION_TYPES.NOT_IN,
     CONDITION_TYPES.CONTAINS
   ]
-});
-
-angular.module('conditions').filter('condition', function (CONDITION_SYMBOLS) {
+}).filter('condition', function (CONDITION_SYMBOLS) {
   return function (cond) {
     return CONDITION_SYMBOLS[cond];
   };

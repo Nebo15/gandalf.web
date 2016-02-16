@@ -29,7 +29,7 @@
   "rules":[
     {
       "priority":0,
-      "result":"approve",
+      "decision":"approve",
       "conditions":[
         {
           "field_alias":"borrowers_phone_verification",
@@ -56,7 +56,7 @@
     },
     {
       "priority":1,
-      "result":"decline",
+      "decision":"decline",
       "conditions":[
         {
           "field_alias":"borrowers_phone_verification",
