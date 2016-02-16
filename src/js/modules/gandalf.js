@@ -89,6 +89,8 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
     this.fields = [];
     this.rules = [];
     this.defaultResult = null;
+    this.createdAt = null;
+    this.updatedAt = null;
 
     if (data) this.parse(data);
   }
@@ -131,6 +133,8 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
     });
 
     this.defaultResult = data.default_decision;
+    this.createdAt = new Date(data.created_at);
+    this.updatedAt = new Date(data.updated_at);
 
     return this;
   };

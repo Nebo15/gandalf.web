@@ -1,6 +1,6 @@
 .history: div.history__item(ng-repeat="table in tables")
-  .decision-table-title Decision Table <i>{{table.id}}</i>
-  p: b(ng-if="!table.rules.length") No rules
+  p.decision-table-title <b>{{table.createdAt | date: 'short'}}</b> <small><i>{{table.id}}</i></small>
+  div(ng-if="!table.rules.length") No rules
 
   .decision-table(ng-if="table.rules.length")
     table.table
