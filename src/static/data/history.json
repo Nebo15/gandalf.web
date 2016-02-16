@@ -1,0 +1,138 @@
+[
+  {
+    "default_decision": "approve",
+    "fields": [
+      {
+        "alias": "borrowers_phone_name",
+        "title": "Borrowers Phone Name",
+        "source": "request",
+        "type": "string"
+      },
+      {
+        "alias": "contact_person_phone_verification",
+        "title": "Contact person phone verification",
+        "source": "request",
+        "type": "bool"
+      }
+    ],
+    "rules": [
+      {
+        "decision": "approve",
+        "description": "my",
+        "conditions": [
+          {
+            "field_alias": "borrowers_phone_name",
+            "condition": "$eq",
+            "value": "Vodaphone",
+            "matched": true
+          },
+          {
+            "field_alias": "contact_person_phone_verification",
+            "condition": "$eq",
+            "value": "true",
+            "matched": false
+          }
+        ],
+        "result": null
+      },
+      {
+        "decision": "decline",
+        "description": "new",
+        "conditions": [
+          {
+            "field_alias": "borrowers_phone_name",
+            "condition": "$eq",
+            "value": "Life",
+            "matched": false
+          },
+          {
+            "field_alias": "contact_person_phone_verification",
+            "condition": "$eq",
+            "value": "true",
+            "matched": false
+          }
+        ],
+        "result": null
+      }
+    ],
+    "updated_at": "2016-02-16 13:06:03",
+    "created_at": "2016-02-16 13:06:03",
+    "_id": "56c31ebba60ad68b060041a7"
+  },
+  {
+    "default_decision": "decline",
+    "fields": [
+      {
+        "alias": "borrowers_phone_name",
+        "title": "Borrowers Phone Name",
+        "source": "request",
+        "type": "string"
+      },
+      {
+        "alias": "contact_person_phone_verification",
+        "title": "Contact person phone verification",
+        "source": "request",
+        "type": "bool"
+      },
+      {
+        "alias":"car_data",
+        "title":"Car Data",
+        "source":"request",
+        "type":"string"
+      }
+    ],
+    "rules": [
+      {
+        "decision": "approve",
+        "description": "my",
+        "conditions": [
+          {
+            "field_alias": "borrowers_phone_name",
+            "condition": "$eq",
+            "value": "Vodaphone",
+            "matched": true
+          },
+          {
+            "field_alias": "contact_person_phone_verification",
+            "condition": "$eq",
+            "value": "true",
+            "matched": false
+          },
+          {
+            "field_alias":"car_data",
+            "condition":"$eq",
+            "value":null
+          }
+        ],
+        "result": null
+      },
+      {
+        "decision": "decline",
+        "description": "new",
+        "conditions": [
+          {
+            "field_alias": "borrowers_phone_name",
+            "condition": "$eq",
+            "value": "Life",
+            "matched": false
+          },
+          {
+            "field_alias": "contact_person_phone_verification",
+            "condition": "$eq",
+            "value": "true",
+            "matched": false
+          },
+          {
+            "field_alias":"car_data",
+            "condition":"$eq",
+            "value": "bmw"
+          }
+        ],
+        "result": null
+      }
+    ],
+    "updated_at": "2016-02-15 13:06:03",
+    "created_at": "2016-02-15 13:06:03",
+    "_id": "56c31ebba60ad68b060041a8"
+  }
+]

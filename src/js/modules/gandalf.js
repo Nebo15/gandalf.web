@@ -98,7 +98,7 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
     return $gandlaf.get(this.id).then(function (resp) {
       this.fields = resp.fields;
       this.rules = resp.rules;
-      this.defaultResult = resp.defaultResult;
+      this.defaultResult = resp.default_decision;
 
       return this;
     }.bind(this))
