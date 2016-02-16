@@ -1,0 +1,17 @@
+div
+  .input-group(ng-show="type == 'number'")
+    .input-group-addon
+      select(ng-model="condition", ng-options="(item | condition) for item in conditions.number")
+    input.form-control(ng-model="value")
+  div.form-control-static(ng-show="type == 'bool'")
+    .checkbox
+      input(type="checkbox", ng-model="value")
+  .input-group(ng-show="type == 'string'")
+    .input-group-addon
+      select(ng-model="condition", ng-options="(item | condition) for item in conditions.string")
+    input.form-control(ng-model="value")
+  // .input-group(ng-switch-default)
+    .input-group-addon
+      select(ng-model="condition", disabled="true")
+        option(value="$eq") =
+    input.form-control(ng-model="value")

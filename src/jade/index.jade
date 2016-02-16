@@ -8,69 +8,34 @@ html(ng-app="app")
 
   body.container.app
     .row
-      // .col.col-md-12(ng-controller="AddFieldController")
-        include templates/modal/add-field
+
       .col.col-md-12(ng-controller="MainController")
         .decision-table.ng-cloak(ng-if="table")
           table.table
-            thead
-              tr
-                th #
-                th(ng-repeat="condition in table.fields") {{condition.title}}
-                th.border-left.decision-table__result-column.decision-table__add-column Result
-                  a.decision-table__add-column__icon(ng-click="addNewField()") +
-                th Action
-            tfoot.table-footer
-              tr
-                td(colspan="{{table.fields.length + 3}}")
-                  .pull-right
-                    button.btn.btn-default(ng-click="save()") Save
+            thead: tr
+              th #
+              th(ng-repeat="condition in table.fields") {{condition.title}}
+              th.border-left.decision-table__result-column.decision-table__add-column Result
+                a.decision-table__add-column__icon(ng-click="addNewField()") +
+              th Action
+            tfoot.table-footer: tr: td(colspan="{{table.fields.length + 3}}")
+
+              .decision-table__default-result.pull-left
+                .form-inline: .form-group
+                  label Default result:
+                  select.form-control(ng-model="table.defaultResult")
+                    option(value="approve") approve
+                    option(value="decline") decline
+                    option(value="manual") manual
+              .pull-right
+                button.btn.btn-default(ng-click="save()") Save
+
             tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-              tr(ng-repeat="rule in table.rules")
-                td.decision-table__handler
-                  i.glyphicon.glyphicon-menu-hamburger
+              tr(ng-repeat="rule in table.rules"): td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
                 td(ng-repeat="condition in rule.conditions")
-                  div.form-control-static(ng-if="!rule.isEditing")
-                    span(ng-switch="condition.condition")
-                      span(ng-switch-when="$eq") =
-                      span(ng-switch-when="$gt") &#62;
-                      span(ng-switch-when="$gte") &#62;=
-                      span(ng-switch-when="$lt") &#60;
-                      span(ng-switch-when="$lte") &#60;=
-                      span(ng-switch-when="$ne") !=
-                    | &nbsp;
-                    span {{condition.value.toString()}}
-                  div(ng-if="rule.isEditing")
-                    div(ng-switch="table.fields[$index].type")
-                      .input-group(ng-switch-when="number")
-                        .input-group-addon
-                          select(ng-model="condition.condition")
-                            option(value="$eq") =
-                            option(value="$gt") &#62;
-                            option(value="$gte") &#62;=
-                            option(value="$lt") &#60;
-                            option(value="$lte") &#60;=
-                            option(value="$neq") !=
-                            option(value="$in") in
-                            option(value="$nin") not in
-                        input.form-control(ng-model="condition.value")
-                      div.form-control-static(ng-switch-when="bool")
-                        .checkbox
-                          input(type="checkbox", ng-model="condition.value")
-                      .input-group(ng-switch-when="string")
-                        .input-group-addon
-                          select(ng-model="condition.condition")
-                            option(value="$eq") =
-                            option(value="$neq") !=
-                            option(value="$in") in
-                            option(value="$nin") not in
-                            option(value="$contains") contains
-                        input.form-control(ng-model="condition.value")
-                      .input-group(ng-switch-default)
-                        .input-group-addon
-                          select(ng-model="condition.condition", disabled="true")
-                            option(value="$eq") =
-                        input.form-control(ng-model="condition.value")
+                  div.form-control-static(ng-if="!rule.isEditing") {{condition.condition | condition}} {{condition.value.toString()}}
+                  field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
+
                 td.border-left
                   div.form-control-static(ng-if="!rule.isEditing") {{rule.result}}
                   div(ng-if="rule.isEditing")
@@ -78,21 +43,19 @@ html(ng-app="app")
                       option(value="approve") approve
                       option(value="decline") decline
                       option(value="manual") manual
+
                 td.decision-table__description-wrap
                   .decision-table__actions.form-control-static
-                    a.btn.btn-default(ng-click="rule.save()", ng-if="rule.isEditing")
-                      i.glyphicon.glyphicon-ok
-                    a.btn.btn-default(ng-click="rule.edit()", ng-if="!rule.isEditing")
-                      i.glyphicon.glyphicon-pencil
-                    a.btn.btn-default(ng-click="table.deleteRule(rule)")
-                      i.glyphicon.glyphicon-remove
-                    .decision-table__description(ng-if="rule.isEditing")
-                      textarea.form-control(ng-model="rule.description")
+
+                    a.btn.btn-default(ng-click="rule.save()", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+                    a.btn.btn-default(ng-click="rule.edit()", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+                    a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
+
+                    .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
                     .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
-            tbody.decision-table__add-row
-              tr
-                td(colspan="{{table.fields.length + 3}}")
-                  a(ng-click="addNewRule()") Add new row
+
+            tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
+              a(ng-click="addNewRule()") Add new row
 
     // build:js js/app.min.js
 

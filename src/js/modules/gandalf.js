@@ -91,12 +91,14 @@ angular.module('ng-gandalf', []).service('$gandlaf', function ($http, $q, Decisi
     this.id = id;
     this.fields = [];
     this.rules = [];
+    this.defaultResult = null;
   }
 
   DecisionTable.prototype.fetch = function () {
     return $gandlaf.get(this.id).then(function (resp) {
       this.fields = resp.fields;
       this.rules = resp.rules;
+      this.defaultResult = resp.defaultResult;
 
       return this;
     }.bind(this))

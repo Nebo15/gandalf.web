@@ -1,4 +1,5 @@
 {
+  "defaultResult": "approve",
   "fields":[
     {
       "alias":"borrowers_phone_name",
