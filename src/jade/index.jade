@@ -86,7 +86,9 @@ html(ng-app="app")
                       i.glyphicon.glyphicon-pencil
                     a.btn.btn-default(ng-click="table.deleteRule(rule)")
                       i.glyphicon.glyphicon-remove
-                    .decision-table__description {{rule.description}}
+                    .decision-table__description(ng-if="rule.isEditing")
+                      textarea.form-control(ng-model="rule.description")
+                    .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
             tbody.decision-table__add-row
               tr
                 td(colspan="{{table.fields.length + 3}}")
