@@ -1,19 +1,82 @@
 'use strict';
 
-angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
+angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
-  this.get = function (decisionTableId) {
-    return $http.get('data/api.json').then(function (resp) {
-      return resp.data;
-    });
+  var config = {
+    apiEnpoint: 'http://gandalf.api/api/v1/'
   };
-  this.history = function (count, page) {
-    return $http.get('data/history.json').then(function (resp) {
-      return resp.data;
-    });
-  };
-  this.update = function (decisionTableObj) {
-    return $q.when(decisionTableObj);
+
+  return {
+    setEndpoint: function (endpoint) {
+      config.apiEnpoint = endpoint;
+    },
+    $get: function ($httpParamSerializer, $http, $log, $q, $filter) {
+
+      function $request(opts, data) {
+
+        var endpoint = opts.endpoint,
+          method = opts.method || 'get',
+          params = opts.params || {};
+
+        if (angular.isUndefined(endpoint)) {
+          throw Error('undefined request enpoint');
+        }
+
+        endpoint = config.apiEnpoint + endpoint;
+        endpoint += '?' + $httpParamSerializer(params);
+
+        var headers = {
+          'Content-type': 'application/json'
+        };
+        if (config.token) {
+          headers['Authorization'] = 'Bearer ' + config.token;
+        }
+
+        return $http({
+          method: method,
+          url: endpoint,
+          headers: headers,
+          data: data || null
+        }).then(function (resp) {
+          $log.debug('$request: response', resp);
+          return resp.data;
+        });
+      }
+
+      $request.get = function (url, options) {
+        var config = angular.extend({
+          endpoint: url,
+          method: 'get'
+        }, options);
+
+        return $request(config);
+      };
+
+      var self = {};
+
+      self.decisions = function () {
+        return $request.get('decisions');
+      };
+      self.decisionById = function (id) {
+        return self.decisions().then(function (resp) {
+          resp.data = resp.data[0];
+          return resp;
+        })
+      };
+
+      self.historyById = function (historyId) {
+        return $request.get('scoring/'+historyId);
+      };
+      self.history = function (count, page) {
+        return $request.get('scoring');
+      };
+
+      self.update = function (decisionTableObj) {
+        return $q.when(decisionTableObj);
+      };
+      return self;
+
+    }
   };
 
 }).factory('DecisionField', function () {
@@ -48,7 +111,7 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
 
     this.id = options.id || guid();
     this.priority = options.priority;
-    this.result = options.decision;
+    this.decision = options.decision;
     this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
       return new RuleCondition(item);
@@ -80,24 +143,24 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
     this.field_alias = options.field_alias;
     this.condition = options.condition;
     this.value = options.value;
+    this.matched = options.matched === true;
   }
   return Rule;
 }).factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
 
   function DecisionTable (id, data) {
+    console.log('decision table', arguments);
     this.id = id;
     this.fields = [];
     this.rules = [];
     this.defaultResult = null;
-    this.createdAt = null;
-    this.updatedAt = null;
 
     if (data) this.parse(data);
   }
 
   DecisionTable.prototype.fetch = function () {
-    return $gandalf.get(this.id).then(function (resp) {
-      return this.parse(resp);
+    return $gandalf.decisionById(this.id).then(function (resp) {
+      return this.parse(resp.data);
     }.bind(this))
   };
 
@@ -133,8 +196,6 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
     });
 
     this.defaultResult = data.default_decision;
-    this.createdAt = new Date(data.created_at);
-    this.updatedAt = new Date(data.updated_at);
 
     return this;
   };
@@ -143,16 +204,49 @@ angular.module('ng-gandalf', []).service('$gandalf', function ($http, $q) {
     return new DecisionTable().fetch();
   };
 
-  DecisionTable.find = function (size, page) {
+  return DecisionTable;
+
+}).factory('DecisionHistory', function ($gandalf, DecisionTable) {
+
+  function DecisionHistory () {
+
+    this.decision = null;
+    this.request = null;
+    this.createdAt = null;
+    this.updatedAt = null;
+
+    DecisionTable.apply(this, arguments);
+  }
+  DecisionHistory.prototype = DecisionTable.prototype;
+
+  var parseFn = DecisionTable.prototype.parse;
+  DecisionHistory.prototype.parse = function (data) {
+    parseFn.call(this, data);
+
+    this.decision = data.final_decision;
+    this.request = data.request;
+    this.createdAt = new Date(data.created_at);
+    this.updatedAt = new Date(data.updated_at);
+
+    return this;
+  };
+
+  DecisionHistory.find = function (size, page) {
     var self = this;
     return $gandalf.history(size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
-        return new self(item.id, item);
+        return new self(item._id, item);
       });
       return resp;
     });
   };
 
-  return DecisionTable;
+  DecisionHistory.prototype.fetch = function () {
+    return $gandalf.historyById(this.id).then(function (resp) {
+      return this.parse(resp.data);
+    }.bind(this))
+  };
+
+  return DecisionHistory;
 
 });

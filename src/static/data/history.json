@@ -4,76 +4,9 @@
   },
   "data": [
     {
-      "_id": "56c31d56a60ad689060041a7",
-      "default_decision": null,
-      "fields": [],
-      "rules": [],
-      "updated_at": "2016-02-16 13:00:06",
-      "created_at": "2016-02-16 13:00:06"
-    },
-    {
-      "_id": "56c31e85a60ad689060041a8",
-      "default_decision": null,
-      "fields": [
-        {
-          "alias": "borrowers_phone_name",
-          "title": "Borrowers Phone Name",
-          "source": "request",
-          "type": "string"
-        },
-        {
-          "alias": "contact_person_phone_verification",
-          "title": "Contact person phone verification",
-          "source": "request",
-          "type": "bool"
-        }
-      ],
-      "rules": [
-        {
-          "decision": "approve",
-          "description": "my",
-          "conditions": [
-            {
-              "field_alias": "borrowers_phone_name",
-              "condition": "$eq",
-              "value": "Vodaphone",
-              "matched": true
-            },
-            {
-              "field_alias": "contact_person_phone_verification",
-              "condition": "$eq",
-              "value": "true",
-              "matched": false
-            }
-          ],
-          "result": null
-        },
-        {
-          "decision": "decline",
-          "description": "new",
-          "conditions": [
-            {
-              "field_alias": "borrowers_phone_name",
-              "condition": "$eq",
-              "value": "Life",
-              "matched": false
-            },
-            {
-              "field_alias": "contact_person_phone_verification",
-              "condition": "$eq",
-              "value": "true",
-              "matched": false
-            }
-          ],
-          "result": null
-        }
-      ],
-      "updated_at": "2016-02-16 13:05:09",
-      "created_at": "2016-02-16 13:05:09"
-    },
-    {
-      "_id": "56c31e9ea60ad622070041a7",
+      "_id": "56c32f02a60ad689060041a9",
       "default_decision": "approve",
+      "final_decision": "decline",
       "fields": [
         {
           "alias": "borrowers_phone_name",
@@ -92,6 +25,7 @@
         {
           "decision": "approve",
           "description": "my",
+          "result": null,
           "conditions": [
             {
               "field_alias": "borrowers_phone_name",
@@ -105,12 +39,12 @@
               "value": "true",
               "matched": false
             }
-          ],
-          "result": null
+          ]
         },
         {
           "decision": "decline",
           "description": "new",
+          "result": null,
           "conditions": [
             {
               "field_alias": "borrowers_phone_name",
@@ -124,16 +58,20 @@
               "value": "true",
               "matched": false
             }
-          ],
-          "result": null
+          ]
         }
       ],
-      "updated_at": "2016-02-16 13:05:34",
-      "created_at": "2016-02-16 13:05:34"
+      "request": {
+        "borrowers_phone_name": "Vodaphone",
+        "contact_person_phone_verification": 123
+      },
+      "updated_at": "2016-02-16 14:15:30",
+      "created_at": "2016-02-16 14:15:30"
     },
     {
-      "_id": "56c31ebba60ad68b060041a7",
+      "_id": "56c32f02a60ad689060041a8",
       "default_decision": "approve",
+      "final_decision": "approve",
       "fields": [
         {
           "alias": "borrowers_phone_name",
@@ -152,6 +90,7 @@
         {
           "decision": "approve",
           "description": "my",
+          "result": null,
           "conditions": [
             {
               "field_alias": "borrowers_phone_name",
@@ -165,12 +104,12 @@
               "value": "true",
               "matched": false
             }
-          ],
-          "result": null
+          ]
         },
         {
           "decision": "decline",
           "description": "new",
+          "result": null,
           "conditions": [
             {
               "field_alias": "borrowers_phone_name",
@@ -184,17 +123,20 @@
               "value": "true",
               "matched": false
             }
-          ],
-          "result": null
+          ]
         }
       ],
-      "updated_at": "2016-02-16 13:06:03",
-      "created_at": "2016-02-16 13:06:03"
+      "request": {
+        "borrowers_phone_name": "Vodaphone",
+        "contact_person_phone_verification": 123
+      },
+      "updated_at": "2016-02-16 13:15:30",
+      "created_at": "2016-02-16 13:15:30"
     }
   ],
   "paginate": {
     "size": 20,
-    "total": 4,
+    "total": 1,
     "current_page": 1,
     "last_page": 1
   }

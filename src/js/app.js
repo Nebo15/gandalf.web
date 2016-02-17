@@ -21,19 +21,38 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/history',
     controller: 'HistoryController',
     templateUrl: 'templates/history.html'
+  }).state('history-details', {
+    url: '/history/:id',
+    controller: 'HistoryDetailsController',
+    templateUrl: 'templates/history-details.html',
+    resolve: {
+      historyResult: function (DecisionHistory, $stateParams) {
+        var res = new DecisionHistory($stateParams.id);
+        return res.fetch();
+      }
+    }
   });
 
   $urlRouterProvider.otherwise('/');
 
 });
 
-angular.module('app').controller('HistoryController', function ($scope, $uibModal, DecisionTable) {
+angular.module('app').controller('HistoryDetailsController', function ($scope, $stateParams, historyResult) {
+
+  $scope.table = historyResult;
+
+});
+
+angular.module('app').controller('HistoryController', function ($scope, DecisionHistory) {
 
   $scope.tables = [];
-  DecisionTable.find().then(function (resp) {
-    console.log(resp);
+  DecisionHistory.find().then(function (resp) {
     $scope.tables = resp.data;
-  })
+  });
+
+  $scope.toggleExpandTable = function (table) {
+    table.isExpanded = !table.isExpanded;
+  };
 
 });
 

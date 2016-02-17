@@ -3,7 +3,7 @@
     thead: tr
       th #
       th(ng-repeat="condition in table.fields") {{condition.title}}
-      th.border-left.decision-table__result-column.decision-table__add-column Result
+      th.border-left.decision-table__result-column.decision-table__add-column Decision
         a.decision-table__add-column__icon(ng-click="addNewField()") +
       th Action
     tfoot.table-footer: tr: td(colspan="{{table.fields.length + 3}}")
@@ -25,9 +25,9 @@
           field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
 
         td.border-left
-          div.form-control-static(ng-if="!rule.isEditing") {{rule.result}}
+          div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
           div(ng-if="rule.isEditing")
-            select.form-control(ng-model="rule.result")
+            select.form-control(ng-model="rule.decision")
               option(value="approve") approve
               option(value="decline") decline
               option(value="manual") manual

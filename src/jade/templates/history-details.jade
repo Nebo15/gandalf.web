@@ -1,0 +1,19 @@
+
+h4 History Detail
+.history-detail
+  h5 Request
+  pre: code {{table.request}}
+  h5 Decision
+  p {{table.decision}}
+  .history-detail__table.decision-table.ng-cloak(ng-if="table"): table.table
+    thead: tr
+      th #
+      th(ng-repeat="condition in table.fields") {{condition.title}}
+      th Decision
+    tbody
+      tr(ng-repeat="rule in table.rules"): td {{$index}}
+        td.decision-table__condition(
+            ng-repeat="condition in rule.conditions",
+            ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
+        td.border-left.decision-table__description-wrap {{rule.decision}}
+          .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}

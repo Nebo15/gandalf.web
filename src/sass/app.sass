@@ -112,6 +112,11 @@ $table-footer-bg: #f9f9f9
     &-wrap
       position: relative
 
+  &__condition
+    &.is-matched
+      background-color: rgba(green, .3)
+    &.is-unmatched
+      background-color: rgba(red, .3)
   &__default-result
     label + .form-control
       margin-left: 5px
@@ -159,6 +164,29 @@ $table-footer-bg: #f9f9f9
 tr.ui-sortable-helper
   display: inline-table
 
+.history-page
+  padding-top: 50px
+
 .history
-  .history__item
-    margin-top: 30px
+  border-radius: 4px
+  overflow: hidden
+  box-sizing: border-box
+  border: 1px solid $table-border-color
+  box-shadow: 0 2px 10px -5px rgba(black, .5)
+
+  &__table
+    margin: 0
+  &__head
+    background: #f9f9f9
+  &_details
+    padding: 0 !important
+    background: #f1f1f1
+  &_details-table.table
+
+    background: none
+    border: none
+    margin: 0
+    //color: white
+.history-detail
+  &__table
+    margin-top: 20px
