@@ -3,7 +3,7 @@
 angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
   var config = {
-    apiEnpoint: 'http://gandalf.api/api/v1/'
+    apiEnpoint: '/api/v1/'
   };
 
   return {
