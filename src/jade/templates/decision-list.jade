@@ -1,0 +1,9 @@
+.decision-list
+  br
+  .panel.panel-default
+    .panel-heading Tables list
+    .panel-body
+      .list-group
+        a.list-group-item(ui-sref="decision-details({id: table.id})", ng-repeat="table in tables") {{table.id}}
+          span.pull-right {{table.defaultResult}}
+    div.panel-footer: a + Add table

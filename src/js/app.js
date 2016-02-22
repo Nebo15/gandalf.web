@@ -19,13 +19,22 @@ angular.module('app').config(function ($gandalfProvider, ENV) {
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
-  $stateProvider.state('editor', {
+  $stateProvider.state('decision-list', {
     url: '/',
-    controller: 'MainController',
-    templateUrl: 'templates/editor.html'
+    controller: 'DecisionListController',
+    templateUrl: 'templates/decision-list.html'
+  }).state('decision-details', {
+    url: '/decision/:id',
+    controller: 'DecisionDetailsController',
+    templateUrl: 'templates/decision-details.html',
+    resolve: {
+      decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+        return DecisionTable.byId($stateParams.id);
+      }]
+    }
   }).state('history', {
     url: '/history',
-    controller: 'HistoryController',
+    controller: 'HistoryListController',
     templateUrl: 'templates/history.html'
   }).state('history-details', {
     url: '/history/:id',
@@ -49,7 +58,7 @@ angular.module('app').controller('HistoryDetailsController', function ($scope, $
 
 });
 
-angular.module('app').controller('HistoryController', function ($scope, DecisionHistory) {
+angular.module('app').controller('HistoryListController', function ($scope, DecisionHistory) {
 
   $scope.tables = [];
   DecisionHistory.find().then(function (resp) {
@@ -62,13 +71,20 @@ angular.module('app').controller('HistoryController', function ($scope, Decision
 
 });
 
-angular.module('app').controller('MainController', function ($scope, $uibModal, DecisionTable, DecisionRule) {
 
-  var table = null;
-  DecisionTable.current().then(function (resp) {
-    table = resp;
-    $scope.table = resp;
+angular.module('app').controller('DecisionListController', function ($scope, $uibModal, DecisionTable) {
+
+  $scope.tables = null;
+  DecisionTable.find().then(function (resp) {
+    $scope.tables = resp;
   });
+
+});
+
+
+angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, decision, DecisionRule) {
+
+  $scope.table = decision;
 
   $scope.sortableOptions = {
     axis: 'y',

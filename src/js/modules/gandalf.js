@@ -65,17 +65,36 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
         return $request.get('admin/tables');
       };
       self.decisionById = function (id) {
-        return self.decisions().then(function (resp) {
-          resp.data = resp.data[0];
-          return resp;
-        })
+        return $request.get('admin/tables/'+id);
+      };
+      self.createDecision = function (obj) {
+        return $request({
+          endpoint: 'admin/tables/'+id,
+          method: 'post'
+        }, {
+          decision: obj
+        });
+      };
+      self.updateDecisionById = function (id, obj) {
+        return $request({
+          endpoint: 'admin/tables/'+id,
+          method: 'put'
+        }, {
+          decision: obj
+        });
+      };
+      self.deleteDecisionById= function (id) {
+        return $request({
+          endpoint: 'admin/tables/'+id,
+          method: 'delete'
+        });
       };
 
-      self.historyById = function (historyId) {
-        return $request.get('scoring/'+historyId);
-      };
       self.history = function (count, page) {
-        return $request.get('scoring');
+        return $request.get('admin/decisions');
+      };
+      self.historyById = function (historyId) {
+        return $request.get('admin/decisions/'+historyId);
       };
 
       self.update = function (decisionTableObj) {
@@ -91,7 +110,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   function DecisionField (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.alias = options.alias;
+    this.alias = options.key;
     this.type = options.type;
     this.title = options.title;
 
@@ -147,7 +166,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.field_alias = options.field_alias;
+    this.field_alias = options.field_key;
     this.condition = options.condition;
     this.value = options.value;
     this.matched = options.matched === true;
@@ -207,8 +226,16 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     return this;
   };
 
-  DecisionTable.current = function () {
-    return new DecisionTable().fetch();
+  DecisionTable.find = function () {
+    return $gandalf.decisions().then(function (resp) {
+      return resp.data.map(function (item) {
+        return new DecisionTable (null, item);
+      });
+    })
+  };
+  DecisionTable.byId = function (id) {
+    var table = new DecisionTable(id);
+    return table.fetch();
   };
 
   return DecisionTable;
