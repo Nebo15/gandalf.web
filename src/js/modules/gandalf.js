@@ -72,7 +72,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
           endpoint: 'admin/tables/',
           method: 'post'
         }, {
-          decision: obj
+          table: obj
         });
       };
       self.updateDecisionById = function (id, obj) {
@@ -242,7 +242,13 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   };
 
   DecisionTable.prototype.save = function () {
-    return $gandalf.updateDecisionById(this.id, this); //placeholder
+    return $gandalf.updateDecisionById(this.id, this);
+  };
+  DecisionTable.prototype.create = function () {
+    return $gandalf.createDecision(this).then(function (obj) {
+      this.id = obj.data.id;
+      return this;
+    });
   };
 
   DecisionTable.prototype.parse = function (data) {

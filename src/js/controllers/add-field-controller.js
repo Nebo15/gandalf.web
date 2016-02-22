@@ -3,7 +3,8 @@
 angular.module('app').controller('AddFieldController', function ($scope, $uibModalInstance, DecisionField) {
 
   var field = new DecisionField({
-    type: 'string'
+    type: 'string',
+    source: 'request'
   });
   $scope.field = field;
 

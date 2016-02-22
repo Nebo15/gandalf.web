@@ -6,4 +6,4 @@
       .list-group
         a.list-group-item(ui-sref="decision-details({id: table.id})", ng-repeat="table in tables") {{table.id}}
           span.pull-right {{table.defaultResult}}
-    div.panel-footer: a + Add table
+    div.panel-footer: a(ui-sref="decision-create") + Add table

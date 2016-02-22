@@ -4,6 +4,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/',
     controller: 'DecisionListController',
     templateUrl: 'templates/decision-list.html'
+  }).state('decision-create', {
+    url: '/decision/create',
+    controller: 'DecisionCreateController',
+    templateUrl: 'templates/decision-details.html'
   }).state('decision-details', {
     url: '/decision/:id',
     controller: 'DecisionDetailsController',
@@ -13,7 +17,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
         return DecisionTable.byId($stateParams.id);
       }]
     }
-  }).state('history', {
+  });
+
+  $stateProvider.state('history', {
     url: '/history',
     controller: 'HistoryListController',
     templateUrl: 'templates/history.html'
