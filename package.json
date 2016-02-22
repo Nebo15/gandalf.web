@@ -1,7 +1,7 @@
 {
-  "name": "gandalf",
+  "name": "gandalf.web",
   "version": "1.0.0",
-  "repository": "",
+  "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
     "postinstall": "bower install",
     "start": "gulp",
