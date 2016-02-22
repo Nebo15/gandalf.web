@@ -118,9 +118,17 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
     this.defaultValue = options.defaultValue;
   }
+  DecisionField.prototype.toJSON = function () {
+    return {
+      key: this.alias,
+      type: this.type,
+      title: this.title,
+      source: this.source
+    };
+  };
 
   return DecisionField;
-}).factory('DecisionRule', function () {
+}).factory('DecisionRule', function (DecisionRuleCondition) {
 
   function guid() {
     function s4() {
@@ -137,10 +145,10 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
     this.id = options.id || guid();
     this.priority = options.priority;
-    this.decision = options.decision;
+    this.decision = options.than;
     this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
-      return new RuleCondition(item);
+      return new DecisionRuleCondition(item);
     });
   }
   Rule.prototype.addCondition = function (field) {
@@ -155,6 +163,16 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     this.isEditing = false;
   };
 
+  Rule.prototype.toJSON = function () {
+    return {
+      id: this.id,
+      priority: this.priority,
+      than: this.decision,
+      description: this.description,
+      conditions: JSON.parse(JSON.stringify(this.conditions))
+    };
+  };
+
   Rule.fromFields = function (fields, options) {
     var rule = new Rule(options);
     fields.forEach(function (item) {
@@ -162,6 +180,10 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     });
     return rule;
   };
+
+  return Rule;
+
+}).factory('DecisionRuleCondition', function () {
 
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
@@ -171,7 +193,16 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     this.value = options.value;
     this.matched = options.matched === true;
   }
-  return Rule;
+  RuleCondition.prototype.toJSON = function () {
+    return {
+      field_key: this.field_alias,
+      condition: this.condition,
+      value: this.value,
+      matched: this.matched
+    };
+  };
+
+  return RuleCondition;
 }).factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
 
   function DecisionTable (id, data) {
@@ -207,7 +238,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   };
 
   DecisionTable.prototype.save = function () {
-    return $gandalf.update(angular.toJson(this)); //placeholder
+    return $gandalf.updateDecisionById(this.id, this); //placeholder
   };
 
   DecisionTable.prototype.parse = function (data) {
@@ -224,6 +255,14 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     this.defaultResult = data.default_decision;
 
     return this;
+  };
+  DecisionTable.prototype.toJSON = function () {
+    return {
+      _id: this.id,
+      fields: JSON.parse(JSON.stringify(this.fields)),
+      rules: JSON.parse(JSON.stringify(this.rules)),
+      default_decision: this.defaultResult
+    };
   };
 
   DecisionTable.find = function () {
@@ -265,6 +304,21 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     return this;
   };
 
+  DecisionHistory.prototype.fetch = function () {
+    return $gandalf.historyById(this.id).then(function (resp) {
+      return this.parse(resp.data);
+    }.bind(this))
+  };
+  DecisionHistory.prototype.toJSON = function () {
+    var res = DecisionTable.prototype.toJSON.call(this);
+    res.final_decision = this.decision;
+    res.request = this.request;
+    res.created_at = this.createdAt;
+    res.updated_at = this.updatedAt;
+
+    return res;
+  };
+
   DecisionHistory.find = function (size, page) {
     var self = this;
     return $gandalf.history(size, page).then(function (resp) {
@@ -275,11 +329,6 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     });
   };
 
-  DecisionHistory.prototype.fetch = function () {
-    return $gandalf.historyById(this.id).then(function (resp) {
-      return this.parse(resp.data);
-    }.bind(this))
-  };
 
   return DecisionHistory;
 

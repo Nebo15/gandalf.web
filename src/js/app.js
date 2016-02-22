@@ -84,7 +84,8 @@ angular.module('app').controller('DecisionListController', function ($scope, $ui
 
 angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, decision, DecisionRule) {
 
-  $scope.table = decision;
+  var table = decision;
+  $scope.table = table;
 
   $scope.sortableOptions = {
     axis: 'y',
@@ -113,7 +114,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   $scope.save = function () {
     table.save().then(function () {
-
+      console.log('save success')
+    }, function () {
+      console.warn('save error')
     })
   }
 

@@ -12,9 +12,9 @@
         .form-inline: .form-group
           label Default result:
           select.form-control(ng-model="table.defaultResult")
-            option(value="approve") approve
-            option(value="decline") decline
-            option(value="manual") manual
+            option(value="Approve") Approve
+            option(value="Decline") Decline
+            option(value="Manual") Manual
       .pull-right
         button.btn.btn-default(ng-click="save()") Save
 
@@ -28,9 +28,9 @@
           div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
           div(ng-if="rule.isEditing")
             select.form-control(ng-model="rule.decision")
-              option(value="approve") approve
-              option(value="decline") decline
-              option(value="manual") manual
+              option(value="Approve") Approve
+              option(value="Decline") Decline
+              option(value="Manual") Manual
 
         td.decision-table__description-wrap
           .decision-table__actions.form-control-static
