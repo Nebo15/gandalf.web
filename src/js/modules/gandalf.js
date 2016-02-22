@@ -3,12 +3,16 @@
 angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
   var config = {
-    apiEnpoint: '/api/v1/'
+    apiEnpoint: '/api/v1/',
+    authorization: null
   };
 
   return {
     setEndpoint: function (endpoint) {
       config.apiEnpoint = endpoint;
+    },
+    setAuthorization: function (apiKey, apiSecret) {
+      config.authorization = [apiKey, apiSecret].join(':');
     },
     $get: function ($httpParamSerializer, $http, $log, $q, $filter) {
 
@@ -30,6 +34,9 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
         };
         if (config.token) {
           headers['Authorization'] = 'Bearer ' + config.token;
+        }
+        if (config.authorization) {
+          headers['Authorization'] = config.authorization;
         }
 
         return $http({
@@ -55,7 +62,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       var self = {};
 
       self.decisions = function () {
-        return $request.get('decisions');
+        return $request.get('admin/tables');
       };
       self.decisionById = function (id) {
         return self.decisions().then(function (resp) {

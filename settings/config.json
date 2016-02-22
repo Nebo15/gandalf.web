@@ -1,9 +1,21 @@
 {
   "default": {
-    "debug": false
+    "debug": false,
+    "api": {
+      "endpoint": "//gandalf-api.nebo15.com/api/v1/",
+      "apiKey": "admin",
+      "apiSecret": "vqj66myg6xfp"
+    }
+
   },
   "dev": {
     "debug": true
   },
-  "production": {}
+  "production": {
+    "api": {
+      "endpoint": "http://gandalf.nebo15.com/api/v1/",
+      "apiKey": "admin",
+      "apiSecret": "vqj66myg6xfp"
+    }
+  }
 }
