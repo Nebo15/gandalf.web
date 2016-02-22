@@ -154,7 +154,7 @@ gulp.task('config', ['copy-scripts'],function () {
   var envName = argv.production ? 'production' : 'dev';
   var targetConfig = configObj[envName];
 
-  var resultConfig = _.defaultsDeep({}, defaultConfig, targetConfig);
+  var resultConfig = _.defaultsDeep(targetConfig, defaultConfig);
 
   return string_src('config.js', 'window.env = ' + JSON.stringify(resultConfig, null, 2) + ';')
     // Writes config.js to dist/ folder
