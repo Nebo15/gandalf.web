@@ -69,7 +69,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       };
       self.createDecision = function (obj) {
         return $request({
-          endpoint: 'admin/tables/'+id,
+          endpoint: 'admin/tables/',
           method: 'post'
         }, {
           decision: obj
@@ -80,7 +80,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
           endpoint: 'admin/tables/'+id,
           method: 'put'
         }, {
-          decision: obj
+          table: obj
         });
       };
       self.deleteDecisionById= function (id) {
@@ -118,6 +118,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
     this.defaultValue = options.defaultValue;
   }
+
   DecisionField.prototype.toJSON = function () {
     return {
       key: this.alias,
@@ -152,9 +153,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     });
   }
   Rule.prototype.addCondition = function (field) {
-    this.conditions.push(new RuleCondition({
-      name: field.name
-    }))
+    this.conditions.push(DecisionRuleCondition.fromField(field))
   };
   Rule.prototype.edit = function () {
     this.isEditing = true;
@@ -168,7 +167,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       id: this.id,
       priority: this.priority,
       than: this.decision,
-      description: this.description,
+      description: this.description || "",
       conditions: JSON.parse(JSON.stringify(this.conditions))
     };
   };
@@ -189,17 +188,22 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     var options = obj ? angular.copy(obj) : {};
 
     this.field_alias = options.field_key;
-    this.condition = options.condition;
+    this.condition = options.condition || '$eq';
     this.value = options.value;
     this.matched = options.matched === true;
   }
   RuleCondition.prototype.toJSON = function () {
     return {
       field_key: this.field_alias,
-      condition: this.condition,
-      value: this.value,
+      condition: this.condition || '',
+      value: this.value || '',
       matched: this.matched
     };
+  };
+  RuleCondition.fromField = function (field) {
+    var cond = new RuleCondition();
+    cond.field_alias = field.alias;
+    return cond;
   };
 
   return RuleCondition;
@@ -245,14 +249,16 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
     this.id = data._id;
 
-    this.fields = data.fields.map(function (item) {
+    this.fields = (data.fields || []).map(function (item) {
       return new DecisionField(item);
     });
-    this.rules = data.rules.map(function (item) {
+    this.rules = (data.rules || []).map(function (item) {
       return new DecisionRule(item);
     });
 
     this.defaultResult = data.default_decision;
+    this.title = data.title;
+    this.description = data.description;
 
     return this;
   };
@@ -261,7 +267,9 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       _id: this.id,
       fields: JSON.parse(JSON.stringify(this.fields)),
       rules: JSON.parse(JSON.stringify(this.rules)),
-      default_decision: this.defaultResult
+      default_decision: this.defaultResult,
+      title: this.title,
+      description: this.description
     };
   };
 
