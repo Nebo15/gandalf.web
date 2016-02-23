@@ -304,7 +304,9 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
     DecisionTable.apply(this, arguments);
   }
-  DecisionHistory.prototype = DecisionTable.prototype;
+  DecisionHistory.prototype = Object.create(DecisionTable.prototype);
+  DecisionHistory.prototype.constructor = DecisionHistory;
+
 
   var parseFn = DecisionTable.prototype.parse;
   DecisionHistory.prototype.parse = function (data) {
