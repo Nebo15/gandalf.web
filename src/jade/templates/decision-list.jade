@@ -4,6 +4,6 @@
     .panel-heading Tables list
     .panel-body
       .list-group
-        a.list-group-item(ui-sref="decision-details({id: table.id})", ng-repeat="table in tables") {{table.id}}
-          span.pull-right {{table.defaultResult}}
+        a.list-group-item(ui-sref="decision-details({id: table.id})", ng-repeat="table in tables") {{table.title || 'Untitled project'}}
+          i.pull-right {{table.description}}
     div.panel-footer: a(ui-sref="decision-create") + Add table
