@@ -17,6 +17,9 @@ $table-footer-bg: #f9f9f9
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
 
+[ui-sref], [ng-click], [on-click]
+  cursor: pointer
+
 .text-light
   font-weight: 400
 
@@ -51,6 +54,9 @@ $table-footer-bg: #f9f9f9
     td, th
       border-left: 0 !important
       padding: 0 !important
+
+    th[ng-click]
+      text-decoration: underline
     a
       display: block
       width: 100%
@@ -82,7 +88,8 @@ $table-footer-bg: #f9f9f9
       display: block
 
       position: absolute
-      top: -35px
+      margin-top: -15px
+      top: 50%
       left: -16px
 
       text-decoration: none
@@ -91,14 +98,14 @@ $table-footer-bg: #f9f9f9
       cursor: pointer
       text-align: center
 
-      &:after
-        content: ''
-        width: 1px
-        height: 5px
-        background-color: $table-border-color
-        position: absolute
-        top: 100%
-        left: 14px
+      //&:after
+      //  content: ''
+      //  width: 1px
+      //  height: 5px
+      //  background-color: $table-border-color
+      //  position: absolute
+      //  top: 100%
+      //  left: 14px
 
       &:hover
         background-color: #f9f9f9
