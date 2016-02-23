@@ -19,7 +19,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $stateProvider.state('history', {
+  $stateProvider.state('history-list', {
     url: '/history',
     controller: 'HistoryListController',
     templateUrl: 'templates/history.html'
