@@ -1,10 +1,11 @@
 
-h4 History Detail
+h4 History Details
 .history-detail
   h5 Request
   pre: code {{table.request | json: 2}}
-  h5 Decision
+  h5 Final Decision
   p {{table.decision}}
+  h5 Decision Flow
   .history-detail__table.decision-table.ng-cloak(ng-if="table"): table.table
     thead: tr
       th #
