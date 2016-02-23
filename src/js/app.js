@@ -8,9 +8,7 @@ angular.module('app', [
   'ui.router',
   'ngStorage',
   'ui.bootstrap',
-  'ui.sortable',
-
-  'contenteditable'
+  'ui.sortable'
 ]);
 
 angular.module('app').constant('ENV', window.env);
