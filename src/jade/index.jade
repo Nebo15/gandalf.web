@@ -6,15 +6,18 @@ html(ng-app="app")
     title Gandalf
     link(rel='stylesheet', href='css/app.css')
 
-  body.container.app
+  body.app
     include ./partitials/navbar
-    div(ncy-breadcrumb)
-    .row: .col.col-md-12(ui-view)
+    .container
+      div(ncy-breadcrumb)
+      .row: .col.col-md-12(ui-view)
 
     // build:js js/app.min.js
 
     script(src='bower_components/jquery/dist/jquery.js')
     script(src='bower_components/jquery-ui/jquery-ui.js')
+
+    script(src='bower_components/bootstrap-sass/assets/javascripts/bootstrap.js')
 
     script(src='bower_components/angular/angular.js')
     script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
