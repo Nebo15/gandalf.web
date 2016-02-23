@@ -246,9 +246,9 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   };
   DecisionTable.prototype.create = function () {
     return $gandalf.createDecision(this).then(function (obj) {
-      this.id = obj.data.id;
+      this.id = obj.data._id;
       return this;
-    });
+    }.bind(this));
   };
 
   DecisionTable.prototype.parse = function (data) {
