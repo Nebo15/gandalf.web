@@ -4,12 +4,12 @@
     thead.history__head
       tr: th(colspan=3) Decisions
       tr
-        th ID
         th Timestamp
+        th Table ID
         th Decision
     tr(ng-repeat-start="table in tables", ng-click="toggleExpandTable(table)")
-      td {{table.id}}
       td {{table.createdAt | date: 'short'}}
+      td {{table.id}}
       td {{table.decision}}
     tr(ng-repeat-end, ng-show="table.isExpanded"): td.history_details(colspan=3)
       table.table.history_details-table
