@@ -16,7 +16,11 @@
             option(value="Decline") Decline
             option(value="Manual") Manual
       .pull-right
-        button.btn.btn-default(ng-click="save()") Save
+        button.btn.btn-default(ng-click="save()", ng-if="!saved") Save
+        button.btn.btn-default(disabled, ng-if="saved")
+          i.glyphicon.glyphicon-check
+          | &nbsp;
+          | Saved
 
     tbody(ui-sortable="sortableOptions", ng-model="table.rules")
       tr(ng-repeat="rule in table.rules"): td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger

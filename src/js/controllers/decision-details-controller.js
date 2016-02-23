@@ -1,9 +1,9 @@
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, decision, DecisionRule) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, $timeout, decision, DecisionRule) {
 
   var table = decision;
+  $scope.saved = true;
   $scope.table = table;
-
   $scope.sortableOptions = {
     axis: 'y',
     handle: '> .decision-table__handler'
@@ -31,28 +31,28 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   $scope.save = function () {
     table.save().then(function () {
-      console.log('save success')
+      console.log('save success');
+      $scope.saved = true;
     }, function () {
       console.warn('save error')
     })
-  }
+  };
 
-});
+  $scope.$watch('table', function () {
+    console.log('table change');
+    $scope.saved = false;
+  }, true);
 
-angular.module('app').controller('DecisionCreateController', function ($scope, $controller, $state, DecisionTable) {
+  var fnOnBeforeUnload = window.onbeforeunload;
+  window.onbeforeunload = function () {
+    return $scope.saved ? null : 'You have unsaved data';
+  };
+  $scope.$on('$destroy', function () {
+    window.onbeforeunload = fnOnBeforeUnload;
+  });
 
-  $controller('DecisionDetailsController', {
-    $scope: $scope,
-    decision: new DecisionTable()
-  }); //This works
-
-  $scope.save = function () {
-    console.log('create');
-    $scope.table.create().then(function (resp) {
-      $state.go('decision-details', {id: resp.id});
-    }).catch(function (resp) {
-      console.warn('error create', resp);
-    })
-  }
+  $timeout(function () {
+    $scope.saved = true;
+  })
 
 });
