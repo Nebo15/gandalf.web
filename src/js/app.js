@@ -14,8 +14,3 @@ angular.module('app', [
 
 angular.module('app').constant('ENV', window.env);
 
-angular.module('app').filter('noEmpty', function () {
-  return function (val) {
-    return val || ' '
-  };
-});

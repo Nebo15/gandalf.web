@@ -2,7 +2,7 @@
 h4 History Detail
 .history-detail
   h5 Request
-  pre: code {{table.request}}
+  pre: code {{table.request | json: 2}}
   h5 Decision
   p {{table.decision}}
   .history-detail__table.decision-table.ng-cloak(ng-if="table"): table.table
