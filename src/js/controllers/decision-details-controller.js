@@ -28,12 +28,25 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     });
 
     return JSON.stringify(example);
-  }
+  };
+
+  $scope.editField = function (field) {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/add-field.html',
+      controller: 'AddFieldController',
+      resolve: {
+        field: field
+      }
+    });
+  };
   $scope.addNewField = function () {
 
     var modalInstance = $uibModal.open({
       templateUrl: 'templates/modal/add-field.html',
-      controller: 'AddFieldController'
+      controller: 'AddFieldController',
+      resolve: {
+        field: null
+      }
     });
     modalInstance.result.then(function (newField) {
       table.addField(newField);

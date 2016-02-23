@@ -5,7 +5,7 @@
     table.table
       thead: tr
         th #
-        th(ng-repeat="condition in table.fields") {{condition.title}}
+        th(ng-repeat="condition in table.fields", ng-click="editField(condition)") {{condition.title}}
           .small.text-light {{condition.alias}}
         th.border-left.decision-table__result-column.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +

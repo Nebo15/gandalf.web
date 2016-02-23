@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app').controller('AddFieldController', function ($scope, $uibModalInstance, DecisionField) {
+angular.module('app').controller('AddFieldController', function ($scope, $uibModalInstance, DecisionField, field) {
 
-  var field = new DecisionField({
+  var field = field || new DecisionField({
     type: 'string',
     source: 'request'
   });
