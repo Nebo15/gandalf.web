@@ -38,6 +38,12 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
         field: field
       }
     });
+    modalInstance.result.then(function (field) {
+      if (!field.typeChanged) return;
+      table.findConditionsByField(field).forEach(function (item) {
+        item.reset();
+      });
+    })
   };
   $scope.addNewField = function () {
 

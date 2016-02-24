@@ -34,9 +34,8 @@
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
         tr(ng-repeat="rule in table.rules"): td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
           td(ng-repeat="condition in rule.conditions")
-            div.form-control-static(ng-if="!rule.isEditing") {{condition.condition | condition}} {{condition.value.toString()}}
+            div.form-control-static(ng-if="!rule.isEditing") {{condition.condition | condition}} {{condition.value | string}}
             field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
-
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
             div(ng-if="rule.isEditing")

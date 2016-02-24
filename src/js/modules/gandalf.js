@@ -218,11 +218,17 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       matched: this.matched
     };
   };
+  RuleCondition.prototype.reset = function () {
+    this.value = null;
+  };
+
   RuleCondition.fromField = function (field) {
     var cond = new RuleCondition();
     cond.field_alias = field.alias;
     return cond;
   };
+
+
 
   return RuleCondition;
 }).factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
@@ -257,6 +263,14 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     this.rules = this.rules.filter(function (item) {
       return item.id !== rule.id;
     })
+  };
+
+  DecisionTable.prototype.findConditionsByField = function (field) {
+    return [].concat.apply([], this.rules.map(function (item) {
+      return item.conditions;
+    })).filter(function (condition) {
+      return condition.field_alias === field.alias;
+    });
   };
 
   DecisionTable.prototype.save = function () {

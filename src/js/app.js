@@ -14,3 +14,9 @@ angular.module('app', [
 
 angular.module('app').constant('ENV', window.env);
 
+
+angular.module('app').filter('string', function () {
+  return function (str) {
+    return str == null ? 'null' : str.toString();
+  };
+});
