@@ -2,22 +2,23 @@
 .history-page
   .history: table.table.history__table
     thead.history__head
-      tr: th(colspan=3) Decisions
       tr
         th Timestamp
         th Table Name
         th Decision
-    tr(ng-repeat-start="table in tables", ng-click="toggleExpandTable(table)")
+        th Link
+    tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
       td {{table.createdAt | date: 'short'}}
       td {{table.title}}
       td {{table.decision}}
-    tr(ng-repeat-end, ng-show="table.isExpanded"): td.history_details(colspan=3)
-      table.table.history_details-table
-        tr
-          td
-            b Request
-            p {{table.request}}
-            p: a(ui-sref="history-details({id: table.id})") Show details
+      td: a(ui-sref="history-details({id: table.id})") Show details
+    //tr(ng-repeat-end, ng-show="table.isExpanded"): td.history_details(colspan=3)
+    //  table.table.history_details-table
+    //    tr
+    //      td
+    //        b Request
+    //        p {{table.request}}
+    //        p: a(ui-sref="history-details({id: table.id})") Show details
   //
   //p.decision-table-title <b>{{table.createdAt | date: 'short'}}</b> <small><i>{{table.id}}</i></small>
   //div(ng-if="!table.rules.length") No rules
