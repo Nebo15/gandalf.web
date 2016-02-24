@@ -8,12 +8,12 @@
         th Timestamp
         th Table Name
         th Decision
-        th Link
+        th Action
     tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
       td {{table.createdAt | date: 'short'}}
       td {{table.title}}
       td {{table.decision}}
-      td: a(ui-sref="history-details({id: table.id})") Show details
+      td: a(ui-sref="history-details({id: table.id})") Show Details
     //tr(ng-repeat-end, ng-show="table.isExpanded"): td.history_details(colspan=3)
     //  table.table.history_details-table
     //    tr
