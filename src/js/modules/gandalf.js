@@ -90,8 +90,14 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
         });
       };
 
-      self.history = function (count, page) {
-        return $request.get('admin/decisions');
+      self.history = function (tableId, size, page) {
+        return $request.get('admin/decisions', {
+          params: {
+            table_id: tableId,
+            size: size,
+            page: page
+          }
+        });
       };
       self.historyById = function (historyId) {
         return $request.get('admin/decisions/'+historyId);

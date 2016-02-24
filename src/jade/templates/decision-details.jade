@@ -58,3 +58,6 @@
       | $ curl http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/check \
       |   -H "Authorization: API_KEY:API_SECRET" \
       |   -d '{{getSampleCheck(table)}}'
+
+    h5 History
+    a(ui-sref="history-list({tableId: table.id})") Decisions History for this Table

@@ -1,8 +1,14 @@
 
-angular.module('app').controller('HistoryListController', function ($scope, DecisionHistory) {
+angular.module('app').controller('HistoryListController', function ($scope, $stateParams, DecisionHistory) {
 
   $scope.tables = [];
-  DecisionHistory.find().then(function (resp) {
+  $scope.filters = {
+    tableId: $stateParams.tableId,
+    page: 0,
+    size: undefined
+  };
+
+  DecisionHistory.find($scope.filters.tableId, $scope.filters.size, $scope.filters.page).then(function (resp) {
     $scope.tables = resp.data;
   });
 
