@@ -12,7 +12,7 @@ Column can have following settings:
 
 - ```Title``` - human-readable string that describes field in interface.
 - ```Field API Key``` - field name from witch data will be taken. For eg. if you add field with key ```name``` than all API consumers should provide JSON with this field: ```{"name": "Some User Name"}```.
-- ```Type``` - type of data that will be submitted in this field. ```String```, ```Number```, ```Boolean``` or special type ```Preset```.
+- ```Type``` - type of data that will be submitted in this field. ```String```, ```Number``` or ```Boolean```.
 
 You can modify field value for table rows by adding field preset. For example, you have field called salary and it's too routine to add a "salaries greater than 1000" condition in each row, instead you can create preset that turns ```Numeric``` salary into ```Boolean``` type and simply turn on this validation in each row.
 
@@ -20,7 +20,7 @@ It should look something like this:
 
 - ```Title``` = ```Sufficient Salary```;
 - ```Field API Key``` = ```salary```;
-- ```Type``` = ```Preset```;
+- ```Type``` = ```Number```;
 - ```Preset Condition``` = ```greater than```;
 - ```Preset Value``` = ```1000```.
 
