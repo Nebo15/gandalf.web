@@ -1,5 +1,11 @@
 'use strict';
 
+var utils = {
+  orNull: function (val) {
+    return typeof val !== 'undefined' ? val : null;
+  }
+};
+
 angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
   var config = {
@@ -179,7 +185,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       id: this.id,
       priority: this.priority,
       than: this.decision,
-      description: this.description || "",
+      description: utils.orNull(this.description),
       conditions: JSON.parse(JSON.stringify(this.conditions))
     };
   };
@@ -207,8 +213,8 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
   RuleCondition.prototype.toJSON = function () {
     return {
       field_key: this.field_alias,
-      condition: this.condition || '',
-      value: this.value || '',
+      condition: utils.orNull(this.condition),
+      value: utils.orNull(this.value),
       matched: this.matched
     };
   };
