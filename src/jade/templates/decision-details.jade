@@ -52,12 +52,14 @@
 
       tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
         a(ng-click="addNewRule()") + Add new row
-  .editor__example
-    h5 Example curl
+
+  p: a(ui-sref="history-list({tableId: table.id})"): h4.pull-right Decisions History for this Table →
+  br
+  .page-description
+    include:marked ../content/guides/decision-tables.md
     pre
       | $ curl http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/check \
       |   -H "Authorization: API_KEY:API_SECRET" \
       |   -d '{{getSampleCheck(table)}}'
 
-    h5 History
-    a(ui-sref="history-list({tableId: table.id})") Decisions History for this Table
+
