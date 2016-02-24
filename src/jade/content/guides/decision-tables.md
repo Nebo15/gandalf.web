@@ -36,7 +36,7 @@ Rules are checked in a same order as you see them in a table. You can reorder th
 
 All cells in a row represent validations in a ```AND``` logical operator style. We will return row final decision only when all columns will pass the validations.
 
-Cells with a "skip" rule will always pass the check.
+Cells with a "has any value" rule will always pass the check. You can use it whenever you need to skip one of fileds in a decision rule.
 
 ### Default Decision
 
