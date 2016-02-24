@@ -42,7 +42,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     controller: 'HistoryDetailsController',
     templateUrl: 'templates/history-details.html',
     ncyBreadcrumb: {
-      label: 'Detail: {{table.id}}',
+      label: 'Decision: {{table.id}}',
       parent: 'history-list'
     },
     resolve: {
@@ -54,6 +54,4 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   });
 
   $urlRouterProvider.otherwise('/');
-
 });
-
