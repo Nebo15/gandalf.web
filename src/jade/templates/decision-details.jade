@@ -1,7 +1,7 @@
 .alert.alert-warning(ng-if="!saved").ng-cloak
   .alert-btn-right
     button.btn.btn-default(ng-click="save()") Save
-  p You have unsaved data
+  p This table have unsaved data. You need to save changes manually.
 
 .editor.ng-cloak(ng-if="table")
   .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
@@ -57,7 +57,7 @@
       tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
         a(ng-click="addNewRule()") + Add new row
 
-  div: h4: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
+  div: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
   br
   br
   br
