@@ -99,7 +99,7 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
       config.apiEnpoint = endpoint;
     },
     setAuthorization: function (apiKey, apiSecret) {
-      config.authorization = [apiKey, apiSecret].join(':');
+      config.authorization = 'Basic ' + base64.encode([apiKey, apiSecret].join(':'));
     },
     $get: function ($httpParamSerializer, $http, $log, $q, $filter) {
 
