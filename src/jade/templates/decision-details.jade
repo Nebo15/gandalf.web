@@ -53,9 +53,11 @@
       tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
         a(ng-click="addNewRule()") + Add new row
 
-  p: a(ui-sref="history-list({tableId: table.id})"): h4.pull-right Decisions History for this Table →
+  div: h4: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
   br
-  .page-description
+  br
+  br
+  .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-tables.md
     pre
       | $ curl http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/check \
