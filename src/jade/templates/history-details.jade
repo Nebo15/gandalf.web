@@ -5,6 +5,8 @@ h4 History Details
   pre: code {{table.request | json: 2}}
   h5 Final Decision
   p {{table.decision}}
+  h5 Default Decision
+  p {{table.defaultResult}}
   h5 Decision Flow
   .history-detail__table.decision-table.ng-cloak(ng-if="table"): table.table
     thead: tr
