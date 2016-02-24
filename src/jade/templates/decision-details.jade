@@ -1,3 +1,8 @@
+.alert.alert-warning(ng-if="!saved").ng-cloak
+  .alert-btn-right
+    button.btn.btn-default(ng-click="save()") Save
+  p You have unsaved data
+
 .editor.ng-cloak(ng-if="table")
   .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
   .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
