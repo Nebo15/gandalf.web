@@ -9,8 +9,8 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
     total: 0
   };
 
-  $scope.$watchGroup(['filters.tableId','filters.page','filters.size'], function (val) {
-    DecisionHistory.find(val[0], val[2], val[1]).then(function (resp) {
+  $scope.$watchGroup(['filters.tableId','filters.size','filters.page'], function (val) {
+    DecisionHistory.find(val[0], val[1], val[2]).then(function (resp) {
       $scope.filters.total = resp.paging.total;
       $scope.tables = resp.data;
     });

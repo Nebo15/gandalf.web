@@ -61,8 +61,14 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
 
       var self = {};
 
-      self.decisions = function () {
-        return $request.get('admin/tables');
+      self.decisions = function (size, page) {
+        console.log('size, pages', size, page);
+        return $request.get('admin/tables', {
+          params: {
+            size: size,
+            page: page
+          }
+        });
       };
       self.decisionById = function (id) {
         return $request.get('admin/tables/'+id);
@@ -285,11 +291,12 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     };
   };
 
-  DecisionTable.find = function () {
-    return $gandalf.decisions().then(function (resp) {
-      return resp.data.map(function (item) {
+  DecisionTable.find = function (size, page) {
+    return $gandalf.decisions(size, page).then(function (resp) {
+      resp.data = resp.data.map(function (item) {
         return new DecisionTable (null, item);
       });
+      return resp;
     })
   };
   DecisionTable.byId = function (id) {

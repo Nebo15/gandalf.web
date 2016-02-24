@@ -7,3 +7,4 @@ p.list-group
     b.list-group-item-heading {{table.title || 'Untitled project'}}
     br
     span: i.list-group-item-text {{table.description}}
+uib-pagination(total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")

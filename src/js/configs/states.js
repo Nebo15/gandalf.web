@@ -1,7 +1,7 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('decision-list', {
-    url: '/',
+    url: '/?size?page',
     controller: 'DecisionListController',
     templateUrl: 'templates/decision-list.html',
     ncyBreadcrumb: {
