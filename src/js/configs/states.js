@@ -34,9 +34,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/history?tableId?size?page',
     controller: 'HistoryListController',
     templateUrl: 'templates/history.html',
-    params: {
-      tableId: null
-    },
     ncyBreadcrumb: {
       label: 'History'
     }

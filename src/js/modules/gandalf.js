@@ -341,9 +341,9 @@ angular.module('ng-gandalf', []).provider('$gandalf', function () {
     return res;
   };
 
-  DecisionHistory.find = function (size, page) {
+  DecisionHistory.find = function (tableId, size, page) {
     var self = this;
-    return $gandalf.history(size, page).then(function (resp) {
+    return $gandalf.history(tableId, size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
         return new self(item._id, item);
       });

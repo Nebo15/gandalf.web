@@ -40,3 +40,4 @@
   //          div.form-control-static {{rule.result}}
   //          .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
   //          .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
+  uib-pagination(total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
