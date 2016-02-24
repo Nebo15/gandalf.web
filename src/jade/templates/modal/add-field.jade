@@ -34,6 +34,7 @@ form(ng-submit="save(form)", name="form")
             option(value="number") Number
             option(value="string") String
             option(value="bool") Boolean
+      .alert.alert-danger(ng-if="isTypeEdited()") Type changing will reset values in all rules in this field
 
       // .form-group
         label.col-sm-2.control-label Default Value
