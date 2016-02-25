@@ -14,30 +14,5 @@
       td {{table.title}}
       td {{table.decision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
-    //tr(ng-repeat-end, ng-show="table.isExpanded"): td.history_details(colspan=3)
-    //  table.table.history_details-table
-    //    tr
-    //      td
-    //        b Request
-    //        p {{table.request}}
-    //        p: a(ui-sref="history-details({id: table.id})") Show details
-  //
-  //p.decision-table-title <b>{{table.createdAt | date: 'short'}}</b> <small><i>{{table.id}}</i></small>
-  //div(ng-if="!table.rules.length") No rules
-  //
-  //.decision-table(ng-if="table.rules.length")
-  //  table.table
-  //    thead: tr
-  //      th #
-  //      th(ng-repeat="condition in table.fields") {{condition.title}}
-  //      th.border-left.decision-table__result-column Result
-  //    // tfoot.table-footer: tr: td(colspan="{{table.fields.length + 2}}")
-  //    tbody()
-  //      tr(ng-repeat="rule in table.rules"): td {{$index}}
-  //        td(ng-repeat="condition in rule.conditions", ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}")
-  //          div.form-control-static {{condition.condition | condition}} {{condition.value.toString()}}
-  //        td.border-left.decision-table__description-wrap
-  //          div.form-control-static {{rule.result}}
-  //          .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
-  //          .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
+
   uib-pagination(total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
