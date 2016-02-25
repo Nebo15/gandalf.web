@@ -150,7 +150,6 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       var self = {};
 
       self.decisions = function (size, page) {
-        console.log('size, pages', size, page);
         return $request.get('admin/tables', {
           params: {
             size: size,

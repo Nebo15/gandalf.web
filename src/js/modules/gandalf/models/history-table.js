@@ -1,7 +1,6 @@
 angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf, DecisionTable, DecisionHistoryRule) {
 
   function DecisionHistoryTable () {
-
     this.decision = null;
     this.request = null;
     this.createdAt = null;
@@ -9,13 +8,17 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
 
     DecisionTable.apply(this, arguments);
   }
-  DecisionHistoryTable.prototype = Object.create(DecisionTable.prototype);
+  DecisionHistoryTable.prototype = Object.create(DecisionTable.prototype, {
+    _modelRule: {
+      value: DecisionHistoryRule
+    }
+  });
   DecisionHistoryTable.prototype.constructor = DecisionHistoryTable;
 
-  DecisionHistoryTable.prototype.models.rule = DecisionHistoryRule;
-
   DecisionHistoryTable.prototype.parse = function (data) {
+
     DecisionTable.prototype.parse.call(this, data);
+    console.log('parse');
 
     this.decision = data.final_decision;
     this.request = data.request;
@@ -26,6 +29,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
   };
 
   DecisionHistoryTable.prototype.fetch = function () {
+    console.log('fetch');
     return $gandalf.historyById(this.id).then(function (resp) {
       return this.parse(resp.data);
     }.bind(this));
@@ -51,7 +55,6 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
       return resp;
     });
   };
-
 
   return DecisionHistoryTable;
 

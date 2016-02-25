@@ -18,16 +18,18 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
     this.decision = options.than;
     this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
-      return new this.models.condition(item);
+      return new this._modelCondition(item);
     }.bind(this));
   }
 
-  Rule.prototype.models = {
-    condition: DecisionRuleCondition
-  };
+  Rule.prototype = Object.create({}, {
+    _modelCondition: {
+      value: DecisionRuleCondition
+    }
+  });
 
   Rule.prototype.addCondition = function (field) {
-    this.conditions.push(this.models.condition.fromField(field))
+    this.conditions.push(new this._modelCondition.fromField(field))
   };
   Rule.prototype.edit = function () {
     this.isEditing = true;

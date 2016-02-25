@@ -1,7 +1,6 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule, DecisionRuleCondition) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
 
   function DecisionTable (id, data) {
-    console.log('decision table', arguments);
     this.id = id;
     this.fields = [];
     this.rules = [];
@@ -9,10 +8,14 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
 
     if (data) this.parse(data);
   }
-  DecisionTable.prototype.models = {
-    rule: DecisionRule,
-    field: DecisionField
-  };
+  DecisionTable.prototype = Object.create({}, {
+    _modelRule: {
+      value: DecisionRule
+    },
+    _modelField: {
+      value: DecisionField
+    }
+  });
 
   DecisionTable.prototype.fetch = function () {
     return $gandalf.decisionById(this.id).then(function (resp) {
@@ -59,10 +62,10 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
     this.id = data._id;
 
     this.fields = (data.fields || []).map(function (item) {
-      return new this.models.field(item);
+      return new this._modelField(item);
     }.bind(this));
     this.rules = (data.rules || []).map(function (item) {
-      return new this.models.rule(item);
+      return new this._modelRule(item);
     }.bind(this));
 
     this.defaultResult = data.default_decision;
