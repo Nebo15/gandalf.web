@@ -31,7 +31,9 @@
             | Saved
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-        tr(ng-repeat="rule in table.rules"): td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
+        tr(ng-repeat="rule in table.rules", ng-form="ruleForm")
+          td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
+
           td(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
             field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
@@ -41,22 +43,25 @@
               select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions")
 
           td.decision-table__description-wrap
+
             .decision-table__actions.form-control-static
 
-              a.btn.btn-default(ng-click="saveRule(rule)", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+              a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
               a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
               a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-              .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
-              .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
+            .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
+            .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
 
       tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
         a(ng-click="addNewRule()") + Add new row
 
+  br
   div: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
   br
   br
   br
+
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-tables.md
     pre

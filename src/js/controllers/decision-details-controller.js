@@ -82,7 +82,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   $scope.editRule = function (rule) {
     rule.isEditing = true;
   };
-  $scope.saveRule = function (rule) {
+  $scope.saveRule = function (rule, form) {
+    console.log('save rule', form);
+    if (form.$invalid) return;
     rule.isEditing = false;
   };
 

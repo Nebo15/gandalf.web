@@ -1,15 +1,15 @@
-div.field
-  .input-group(ng-show="type == 'number'")
+.field
+  .input-group(ng-if="type == 'number'")
     .input-group-addon
-      select(ng-model="condition", ng-options="(item | condition) for item in conditions.number")
-    input.form-control(ng-model="value", ng-disabled="!hasInput(condition)")
-  div.form-control-static(ng-show="type == 'bool'")
+      select(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
+    input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", required)
+  div.form-control-static(ng-if="type == 'bool'")
     .checkbox
-      input(type="checkbox", ng-model="value")
-  .input-group(ng-show="type == 'string'")
+      select(ng-model="$parent.booleanSelect", ng-options="item.name for item in booleanValues", required)
+  .input-group(ng-if="type == 'string'")
     .input-group-addon
-      select(ng-model="condition", ng-options="(item | condition) for item in conditions.string")
-    input.form-control(ng-model="value", ng-disabled="!hasInput(condition)")
+      select(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.string")
+    input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", required)
   // .input-group(ng-switch-default)
     .input-group-addon
       select(ng-model="condition", disabled="true")

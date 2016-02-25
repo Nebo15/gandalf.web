@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITION_OPTIONS) {
+angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITION_TYPES, CONDITION_OPTIONS) {
   return {
     restrict: 'E',
     scope: {
@@ -15,6 +15,27 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
       scope.hasInput = function (condition) {
         return CONDITION_OPTIONS.hasNotValue.indexOf(condition) === -1;
       };
+
+      scope.booleanValues = [{
+        value: true,
+        condition: CONDITION_TYPES.EQUAL,
+        name: 'true'
+      }, {
+        value: false,
+        condition: CONDITION_TYPES.EQUAL,
+        name: 'false'
+      }, {
+        condition: CONDITION_TYPES.IS_SET,
+        value: null,
+        name: 'any'
+      }];
+
+      scope.$watch('booleanSelect', function (val) {
+        if (!val) return;
+        console.log('booleanSelect', val);
+        scope.condition = val.condition;
+        scope.value = val.value;
+      }, true)
     }
   };
 
