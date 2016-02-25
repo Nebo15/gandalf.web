@@ -27,7 +27,7 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
       }, {
         condition: CONDITION_TYPES.IS_SET,
         value: null,
-        name: 'any'
+        name: 'is set'
       }];
 
       scope.$watch('booleanSelect', function (val) {
