@@ -30,12 +30,18 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
         name: 'is set'
       }];
 
-      scope.$watch('booleanSelect', function (val) {
-        if (!val) return;
-        console.log('booleanSelect', val);
-        scope.condition = val.condition;
-        scope.value = val.value;
-      }, true)
+      if (scope.type == 'bool') {
+        scope.booleanSelect = scope.booleanValues.filter(function (item) {
+          return item.condition == scope.condition && item.value === scope.value;
+        })[0];
+
+        scope.$watch('booleanSelect', function (val) {
+          if (!val) return;
+          console.log('booleanSelect', val);
+          scope.condition = val.condition;
+          scope.value = val.value;
+        }, true)
+      }
     }
   };
 
