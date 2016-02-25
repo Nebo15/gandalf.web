@@ -47,5 +47,10 @@ form(ng-submit="save(form)", name="form", novalidate)
           )
 
   .modal-footer
-    button.btn.btn-primary(type='submit') Save
-    button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+    div(ng-if="!field.isDeleted")
+      .pull-left(ng-if="isEdit")
+        button.btn.btn-danger(type="button", ng-click="delete()") Delete
+      button.btn.btn-primary(type='submit') Save
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+
+    button.btn.btn-default(ng-if="field.isDeleted", type="button", ng-click="revert()") Revert

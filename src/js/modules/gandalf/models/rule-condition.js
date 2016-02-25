@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionRuleCondition', function () {
+angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
 
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};

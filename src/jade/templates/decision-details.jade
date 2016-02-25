@@ -12,7 +12,7 @@
     table.table
       thead: tr
         th #
-        th(ng-repeat="condition in table.fields", ng-click="editField(condition)") {{condition.title}}
+        th(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
           .small.text-light {{condition.alias}}
         th.border-left.decision-table__result-column.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +
@@ -35,7 +35,7 @@
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
         tr(ng-repeat="rule in table.rules"): td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
-          td(ng-repeat="condition in rule.conditions")
+          td(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
             field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
           td.border-left

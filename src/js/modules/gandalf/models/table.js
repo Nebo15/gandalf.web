@@ -29,13 +29,21 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
       item.addCondition(field);
     });
   };
+  DecisionTable.prototype.deleteField = function (field) {
+    this.fields = this.fields.filter(function (item) {
+      return item !== field;
+    });
+    this.rules.forEach(function (item) {
+      item.removeConditionByField(field);
+    })
+  };
 
   DecisionTable.prototype.addRule = function (rule) {
     this.rules.push(rule);
   };
   DecisionTable.prototype.deleteRule = function (rule) {
     this.rules = this.rules.filter(function (item) {
-      return item.id !== rule.id;
+      return item !== rule;
     })
   };
 
@@ -48,6 +56,13 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
   };
 
   DecisionTable.prototype.save = function () {
+    this.fields.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (field) {
+      console.log('delete', field);
+      this.deleteField(field);
+    }.bind(this));
+
     return $gandalf.updateDecisionById(this.id, this);
   };
   DecisionTable.prototype.create = function () {

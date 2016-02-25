@@ -1,11 +1,5 @@
 'use strict';
 
-var utils = {
-  orNull: function (val) {
-    return typeof val !== 'undefined' ? val : null;
-  }
-};
-
 var base64 = (function () {
   var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 

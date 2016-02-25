@@ -10,10 +10,19 @@ angular.module('app').controller('AddFieldController', function ($scope, $uibMod
   $scope.startField = angular.copy(field);
   $scope.field = fieldModel;
 
+  $scope.isEdit = !!$scope.startField;
+
   $scope.isTypeChanged = function () {
     return $scope.startField && $scope.field.type !== $scope.startField.type;
   };
 
+  $scope.delete = function () {
+    fieldModel.isDeleted = true;
+    $uibModalInstance.close(fieldModel);
+  };
+  $scope.revert = function () {
+    fieldModel.isDeleted = false;
+  };
   $scope.save = function (form) {
     if (form.$invalid) return;
 
