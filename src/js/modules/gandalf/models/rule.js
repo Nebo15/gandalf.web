@@ -18,11 +18,16 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
     this.decision = options.than;
     this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
-      return new DecisionRuleCondition(item);
-    });
+      return new this.models.condition(item);
+    }.bind(this));
   }
+
+  Rule.prototype.models = {
+    condition: DecisionRuleCondition
+  };
+
   Rule.prototype.addCondition = function (field) {
-    this.conditions.push(DecisionRuleCondition.fromField(field))
+    this.conditions.push(this.models.condition.fromField(field))
   };
   Rule.prototype.edit = function () {
     this.isEditing = true;
@@ -42,7 +47,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
   };
 
   Rule.fromFields = function (fields, options) {
-    var rule = new Rule(options);
+    var rule = new this(options);
     fields.forEach(function (item) {
       rule.addCondition(item);
     });

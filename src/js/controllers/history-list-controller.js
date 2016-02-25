@@ -1,5 +1,5 @@
 
-angular.module('app').controller('HistoryListController', function ($scope, $stateParams, DecisionHistory) {
+angular.module('app').controller('HistoryListController', function ($scope, $stateParams, DecisionHistoryTable) {
 
   $scope.tables = [];
   $scope.filters = {
@@ -10,7 +10,7 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
   };
 
   $scope.$watchGroup(['filters.tableId','filters.size','filters.page'], function (val) {
-    DecisionHistory.find(val[0], val[1], val[2]).then(function (resp) {
+    DecisionHistoryTable.find(val[0], val[1], val[2]).then(function (resp) {
       $scope.filters.total = resp.paging.total;
       $scope.tables = resp.data;
     });

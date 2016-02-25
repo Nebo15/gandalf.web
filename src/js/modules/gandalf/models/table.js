@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule, DecisionRuleCondition) {
 
   function DecisionTable (id, data) {
     console.log('decision table', arguments);
@@ -9,6 +9,10 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
 
     if (data) this.parse(data);
   }
+  DecisionTable.prototype.models = {
+    rule: DecisionRule,
+    field: DecisionField
+  };
 
   DecisionTable.prototype.fetch = function () {
     return $gandalf.decisionById(this.id).then(function (resp) {
@@ -55,11 +59,11 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
     this.id = data._id;
 
     this.fields = (data.fields || []).map(function (item) {
-      return new DecisionField(item);
-    });
+      return new this.models.field(item);
+    }.bind(this));
     this.rules = (data.rules || []).map(function (item) {
-      return new DecisionRule(item);
-    });
+      return new this.models.rule(item);
+    }.bind(this));
 
     this.defaultResult = data.default_decision;
     this.title = data.title;
@@ -79,15 +83,17 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
   };
 
   DecisionTable.find = function (size, page) {
+
+    var self = this;
     return $gandalf.decisions(size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
-        return new DecisionTable (null, item);
+        return new self (null, item);
       });
       return resp;
     })
   };
   DecisionTable.byId = function (id) {
-    var table = new DecisionTable(id);
+    var table = new this(id);
     return table.fetch();
   };
 

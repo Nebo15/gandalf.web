@@ -46,10 +46,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       parent: 'history-list'
     },
     resolve: {
-      historyResult: function (DecisionHistory, $stateParams) {
-        var res = new DecisionHistory($stateParams.id);
+      historyResult: ['DecisionHistoryTable', '$stateParams', function (DecisionHistoryTable, $stateParams) {
+        var res = new DecisionHistoryTable($stateParams.id);
         return res.fetch();
-      }
+      }]
     }
   });
 

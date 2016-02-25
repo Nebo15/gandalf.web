@@ -1,6 +1,6 @@
-angular.module('ng-gandalf').factory('DecisionHistory', function ($gandalf, DecisionTable) {
+angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf, DecisionTable, DecisionHistoryRule) {
 
-  function DecisionHistory () {
+  function DecisionHistoryTable () {
 
     this.decision = null;
     this.request = null;
@@ -9,13 +9,13 @@ angular.module('ng-gandalf').factory('DecisionHistory', function ($gandalf, Deci
 
     DecisionTable.apply(this, arguments);
   }
-  DecisionHistory.prototype = Object.create(DecisionTable.prototype);
-  DecisionHistory.prototype.constructor = DecisionHistory;
+  DecisionHistoryTable.prototype = Object.create(DecisionTable.prototype);
+  DecisionHistoryTable.prototype.constructor = DecisionHistoryTable;
 
+  DecisionHistoryTable.prototype.models.rule = DecisionHistoryRule;
 
-  var parseFn = DecisionTable.prototype.parse;
-  DecisionHistory.prototype.parse = function (data) {
-    parseFn.call(this, data);
+  DecisionHistoryTable.prototype.parse = function (data) {
+    DecisionTable.prototype.parse.call(this, data);
 
     this.decision = data.final_decision;
     this.request = data.request;
@@ -25,12 +25,14 @@ angular.module('ng-gandalf').factory('DecisionHistory', function ($gandalf, Deci
     return this;
   };
 
-  DecisionHistory.prototype.fetch = function () {
+  DecisionHistoryTable.prototype.fetch = function () {
     return $gandalf.historyById(this.id).then(function (resp) {
       return this.parse(resp.data);
-    }.bind(this))
+    }.bind(this));
   };
-  DecisionHistory.prototype.toJSON = function () {
+
+
+  DecisionHistoryTable.prototype.toJSON = function () {
     var res = DecisionTable.prototype.toJSON.call(this);
     res.final_decision = this.decision;
     res.request = this.request;
@@ -40,7 +42,7 @@ angular.module('ng-gandalf').factory('DecisionHistory', function ($gandalf, Deci
     return res;
   };
 
-  DecisionHistory.find = function (tableId, size, page) {
+  DecisionHistoryTable.find = function (tableId, size, page) {
     var self = this;
     return $gandalf.history(tableId, size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
@@ -51,6 +53,6 @@ angular.module('ng-gandalf').factory('DecisionHistory', function ($gandalf, Deci
   };
 
 
-  return DecisionHistory;
+  return DecisionHistoryTable;
 
 });
