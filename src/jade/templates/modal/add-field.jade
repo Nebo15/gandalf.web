@@ -1,35 +1,37 @@
-form(ng-submit="save(form)", name="form")
+form(ng-submit="save(form)", name="form", novalidate)
   .modal-header
     h3.modal-title Create new column
   .modal-body
     .form-horizontal
-      .form-group
+      .form-group(show-errors)
         label.col-sm-2.control-label Title
         .col-sm-10
           input.form-control(
+            name="title",
             type="text",
             ng-model="field.title",
             required,
             placeholder="eg. Person age..."
           )
-      .form-group
+      .form-group(show-errors)
         label.col-sm-2.control-label API Field Key
         .col-sm-10
           input.form-control(
-          type="text",
-          ng-model="field.alias",
-          required,
-          pattern="[a-zA-Z\\_\\-]*"
-          placeholder="person-age"
+            name="alias",
+            type="text",
+            ng-model="field.alias",
+            required,
+            pattern="[a-zA-Z\\_\\-]*"
+            placeholder="person-age"
           )
           span.help-block Latin key (for API). Use only alphabet characters, dash and underscore. <code>a-z,A-Z,_,-</code>
-      .form-group
+      .form-group(show-errors)
         label.col-sm-2.control-label Type
         .col-sm-10
           select.form-control(
-          type="text",
-          ng-model="field.type",
-          required,
+            name="type",
+            ng-model="field.type",
+            required,
           )
             option(value="number") Number
             option(value="string") String

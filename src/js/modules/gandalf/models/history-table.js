@@ -47,11 +47,11 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
   };
 
   DecisionHistoryTable.find = function (tableId, size, page) {
-    var self = this;
     return $gandalf.history(tableId, size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
-        return new self(item._id, item);
+        return new DecisionHistoryTable(item._id, item);
       });
+      console.log(resp.data);
       return resp;
     });
   };
