@@ -49,8 +49,8 @@
           td.decision-table__description-wrap
             .decision-table__actions.form-control-static
 
-              a.btn.btn-default(ng-click="rule.save()", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-              a.btn.btn-default(ng-click="rule.edit()", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+              a.btn.btn-default(ng-click="saveRule(rule)", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+              a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
               a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
               .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")

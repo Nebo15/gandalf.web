@@ -11,7 +11,7 @@ angular.module('app').directive('fieldStatic', function (CONDITION_OPTIONS) {
     link: function (scope) {
       scope.hasValue = function (condition) {
         return CONDITION_OPTIONS.hasNotValue.indexOf(condition) === -1;
-      }
+      };
     }
   };
 

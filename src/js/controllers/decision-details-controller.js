@@ -1,4 +1,4 @@
-angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, $timeout, decision, DecisionRule) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
 
   var table = decision;
   $scope.saved = true;
@@ -75,6 +75,13 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     }, function () {
       console.warn('save error')
     })
+  };
+
+  $scope.editRule = function (rule) {
+    rule.isEditing = true;
+  };
+  $scope.saveRule = function (rule) {
+    rule.isEditing = false;
   };
 
   $scope.$watch('table', function () {

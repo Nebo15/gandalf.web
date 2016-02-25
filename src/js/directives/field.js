@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').directive('field', function (CONDITIONS, CONDITION_OPTIONS) {
+angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITION_OPTIONS) {
   return {
     restrict: 'E',
     scope: {
@@ -14,7 +14,7 @@ angular.module('app').directive('field', function (CONDITIONS, CONDITION_OPTIONS
 
       scope.hasInput = function (condition) {
         return CONDITION_OPTIONS.hasNotValue.indexOf(condition) === -1;
-      }
+      };
     }
   };
 

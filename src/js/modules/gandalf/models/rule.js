@@ -31,12 +31,6 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
   Rule.prototype.addCondition = function (field) {
     this.conditions.push(new this._modelCondition.fromField(field))
   };
-  Rule.prototype.edit = function () {
-    this.isEditing = true;
-  };
-  Rule.prototype.save = function () {
-    this.isEditing = false;
-  };
 
   Rule.prototype.toJSON = function () {
     return {
