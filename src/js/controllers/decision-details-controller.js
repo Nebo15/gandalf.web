@@ -7,6 +7,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     axis: 'y',
     handle: '> .decision-table__handler'
   };
+  $scope.decisions = ['Approve', 'Decline', 'Manual'];
 
   $scope.getSampleCheck = function (table) {
     var example = {};
@@ -61,9 +62,10 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   };
   $scope.addNewRule = function () {
 
-    var rule = DecisionRule.fromFields(table.fields, {
-      priority: table.rules.length
-    }); // can be different
+    var rule = DecisionRule.fromFields(table.fields); // can be different
+
+    rule.priority = table.rules.length;
+    rule.decision = table.defaultResult;
 
     table.addRule(rule);
   };

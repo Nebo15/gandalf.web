@@ -22,10 +22,7 @@
         .decision-table__default-result.pull-left
           .form-inline: .form-group
             label Default Decision:
-            select.form-control(ng-model="table.defaultResult")
-              option(value="Approve") Approve
-              option(value="Decline") Decline
-              option(value="Manual") Manual
+            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions")
         .pull-right
           button.btn.btn-default(ng-click="save()", ng-if="!saved") Save
           button.btn.btn-default(disabled, ng-if="saved")
@@ -41,10 +38,7 @@
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
             div(ng-if="rule.isEditing")
-              select.form-control(ng-model="rule.decision")
-                option(value="Approve") Approve
-                option(value="Decline") Decline
-                option(value="Manual") Manual
+              select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions")
 
           td.decision-table__description-wrap
             .decision-table__actions.form-control-static
