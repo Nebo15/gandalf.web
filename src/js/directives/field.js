@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').directive('field', function (CONDITIONS) {
+angular.module('app').directive('field', function (CONDITIONS, CONDITION_OPTIONS) {
   return {
     restrict: 'E',
     scope: {
@@ -11,6 +11,10 @@ angular.module('app').directive('field', function (CONDITIONS) {
     templateUrl: 'templates/directives/field.html',
     link: function (scope) {
       scope.conditions = CONDITIONS;
+
+      scope.hasInput = function (condition) {
+        return CONDITION_OPTIONS.hasNotValue.indexOf(condition) === -1;
+      }
     }
   };
 
