@@ -1,14 +1,14 @@
 .field
   .input-group(ng-if="type == 'number'")
-    .input-group-addon
-      select(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
+    //.input-group-addon
+    select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
     input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")
   div.form-control-static(ng-if="type == 'bool'")
     .checkbox
       select(ng-model="$parent.booleanSelect", ng-options="item.name for item in booleanValues", required)
   .input-group(ng-if="type == 'string'")
-    .input-group-addon
-      select(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.string")
+    //.input-group-addon
+    select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.string")
     input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")
   // .input-group(ng-switch-default)
     .input-group-addon

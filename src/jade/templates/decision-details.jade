@@ -19,17 +19,6 @@
         th.border-left.decision-table__column--decision.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +
         th.decision-table__column--action Action
-      tfoot.table-footer: tr: td(colspan="{{table.fields.length + 4}}")
-        .decision-table__default-result.pull-left
-          .form-inline: .form-group
-            label Default Decision:
-            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions")
-        .pull-right
-          button.btn.btn-default(ng-click="save()", ng-if="!saved") Save
-          button.btn.btn-default(disabled, ng-if="saved")
-            i.glyphicon.glyphicon-check
-            | &nbsp;
-            | Saved
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
         tr(ng-repeat="rule in table.rules", ng-form="ruleForm")
@@ -54,8 +43,21 @@
             a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
             a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-      tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 4}}")
+    // fixed table footer and add row link
+    table.table
+      tbody.decision-table__add-row: tr: td
         a(ng-click="addNewRule()") + Add new row
+      tfoot.table-footer: tr: td
+        .decision-table__default-result.pull-left
+          .form-inline: .form-group
+            label Default Decision:
+            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions")
+        .pull-right
+          button.btn.btn-default(ng-click="save()", ng-if="!saved") Save
+          button.btn.btn-default(disabled, ng-if="saved")
+            i.glyphicon.glyphicon-check
+            | &nbsp;
+            | Saved
 
   br
   div: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
