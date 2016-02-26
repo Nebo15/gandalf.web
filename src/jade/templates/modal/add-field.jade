@@ -47,7 +47,7 @@ form(ng-submit="save(form)", name="form", novalidate)
         label.col-sm-2.control-label Preset
         .col-sm-10
           field(type="field.type", condition="field.preset.condition", value="field.preset.value")
-
+      .alert.alert-danger(ng-if="isPresetChanged()") Preset changing will reset values in all rules in this field
       // .form-group
         label.col-sm-2.control-label Default Value
         .col-sm-10

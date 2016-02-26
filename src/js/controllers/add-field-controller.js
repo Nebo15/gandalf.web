@@ -16,6 +16,9 @@ angular.module('app').controller('AddFieldController', function ($scope, $uibMod
   $scope.isTypeChanged = function () {
     return $scope.startField && $scope.field.type !== $scope.startField.type;
   };
+  $scope.isPresetChanged = function () {
+    return $scope.startField && $scope.field.preset !== $scope.startField.preset;
+  };
 
   $scope.delete = function () {
     fieldModel.isDeleted = true;
@@ -27,7 +30,10 @@ angular.module('app').controller('AddFieldController', function ($scope, $uibMod
   $scope.save = function (form) {
     if (form.$invalid) return;
 
-    fieldModel.typeChanged = $scope.isTypeChanged();
+    if (!$scope.isEnablePreset) {
+      $scope.field.preset = null;
+    }
+    fieldModel.typeChanged = $scope.isTypeChanged() || $scope.isPresetChanged(); // will clear values in a rules
     $uibModalInstance.close(fieldModel);
   };
   $scope.cancel = function () {
