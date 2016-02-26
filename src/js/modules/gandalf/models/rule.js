@@ -28,6 +28,11 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
       return item.field_alias !== field.alias;
     });
   };
+  Rule.prototype.removeConditionByIndex = function (idx) {
+    if (idx > -1) {
+      this.conditions.splice(idx, 1);
+    }
+  };
 
   Rule.prototype.toJSON = function () {
     return {

@@ -30,11 +30,12 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
     });
   };
   DecisionTable.prototype.deleteField = function (field) {
+    var fieldIdx = this.fields.indexOf(field);
     this.fields = this.fields.filter(function (item) {
       return item !== field;
     });
     this.rules.forEach(function (item) {
-      item.removeConditionByField(field);
+      item.removeConditionByIndex(fieldIdx);
     })
   };
 
