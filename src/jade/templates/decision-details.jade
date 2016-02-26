@@ -12,7 +12,8 @@
     table.table
       thead: tr
         th #
-        th Title
+        th.border-right  Title
+          .small.text-light Description
         th(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
           .small.text-light {{condition.alias}}
         th.border-left.decision-table__result-column.decision-table__add-column Decision
@@ -33,9 +34,13 @@
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
         tr(ng-repeat="rule in table.rules", ng-form="ruleForm")
           td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
-          td
-            textarea.form-control(ng-model="rule.description", ng-if="rule.isEditing")
-            div(ng-if="!rule.isEditing") {{rule.description}}
+          td.border-right
+            div(ng-if="rule.isEditing")
+              input.form-control(ng-model="rule.title", placeholder="Title")
+              input.form-control(ng-model="rule.description", placeholder="Description")
+            div(ng-if="!rule.isEditing")
+              b {{rule.title}}
+              .small {{rule.description}}
           td(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
             field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")

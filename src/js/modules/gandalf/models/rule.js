@@ -7,6 +7,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
     this.id = options.id || utils.guid();
     this.priority = options.priority;
     this.decision = options.than;
+    this.title = options.title;
     this.description = options.description;
     this.conditions = (options.conditions || []).map(function (item) {
       return new this._modelCondition(item);
@@ -33,6 +34,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
       id: this.id,
       priority: this.priority,
       than: this.decision,
+      title: utils.orNull(this.title),
       description: utils.orNull(this.description),
       conditions: JSON.parse(JSON.stringify(this.conditions))
     };
