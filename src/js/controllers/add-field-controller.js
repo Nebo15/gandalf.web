@@ -11,6 +11,7 @@ angular.module('app').controller('AddFieldController', function ($scope, $uibMod
   $scope.field = fieldModel;
 
   $scope.isEdit = !!$scope.startField;
+  $scope.isEnablePreset = !!$scope.field.preset;
 
   $scope.isTypeChanged = function () {
     return $scope.startField && $scope.field.type !== $scope.startField.type;

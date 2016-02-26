@@ -11,6 +11,8 @@ angular.module('ng-gandalf').factory('DecisionField', function (utils) {
 
     this.source = options.source;
 
+    this.preset = options.preset;
+
     this.defaultValue = options.defaultValue;
   }
 
@@ -19,7 +21,8 @@ angular.module('ng-gandalf').factory('DecisionField', function (utils) {
       key: this.alias,
       type: this.type,
       title: this.title,
-      source: this.source
+      source: this.source,
+      preset: this.preset
     };
   };
 
