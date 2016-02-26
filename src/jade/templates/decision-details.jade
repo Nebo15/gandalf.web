@@ -61,11 +61,13 @@
             | Saved
 
   br
-  div: a.pull-right(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
+  div.row
+    .col.col-xs-6
+      a.btn.btn-danger(ng-click="deleteTable(table)") Delete
+    .col.col-xs-6.text-right
+      a(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
   br
   br
-  br
-
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-tables.md
     pre

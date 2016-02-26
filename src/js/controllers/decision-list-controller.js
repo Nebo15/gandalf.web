@@ -6,7 +6,7 @@ angular.module('app').controller('DecisionListController', function ($scope, $ti
   $scope.filters = {
     //tableId: $stateParams.tableId,
     page: $stateParams.page,
-    size: $stateParams.size || 5,
+    size: $stateParams.size,
     total: undefined
   };
 

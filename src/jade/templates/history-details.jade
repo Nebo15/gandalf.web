@@ -14,8 +14,8 @@ h4 History Details
   .history-detail__table.decision-table.ng-cloak(ng-if="table")
     .table-responsive: table.table
         thead: tr
-          th #
-          th Title
+          th.decision-table__column--index #
+          th.decision-table__column--title Title
             .small.text-light description
           th(ng-repeat="condition in table.fields") {{condition.title}}
           th Decision

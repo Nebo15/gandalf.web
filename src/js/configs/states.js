@@ -31,6 +31,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('decision-list', {
     parent: 'private',
     url: '/?size?page',
+    params: {
+      size: '25'
+    },
     controller: 'DecisionListController',
     templateUrl: 'templates/decision-list.html',
     ncyBreadcrumb: {
@@ -64,6 +67,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('history-list', {
     parent: 'private',
     url: '/history?tableId?size?page',
+    params: {
+      size: '25'
+    },
     controller: 'HistoryListController',
     templateUrl: 'templates/history.html',
     ncyBreadcrumb: {

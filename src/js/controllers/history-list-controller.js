@@ -5,7 +5,7 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
   $scope.filters = {
     tableId: $stateParams.tableId,
     page: $stateParams.page,
-    size: $stateParams.size || 10,
+    size: $stateParams.size,
     total: null
   };
 
