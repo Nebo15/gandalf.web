@@ -11,15 +11,22 @@ h4 History Details
   h5 Default Decision
   p {{table.defaultResult}}
   h5 Decision Flow
-  .history-detail__table.decision-table.ng-cloak(ng-if="table"): table.table
-    thead: tr
-      th #
-      th(ng-repeat="condition in table.fields") {{condition.title}}
-      th Decision
-    tbody
-      tr(ng-repeat="rule in table.rules"): td {{$index}}
-        td.decision-table__condition(
-            ng-repeat="condition in rule.conditions",
-            ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
-        td.border-left.decision-table__description-wrap {{rule.decision}}
-          .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
+  .history-detail__table.decision-table.ng-cloak(ng-if="table")
+    .table-responsive: table.table
+        thead: tr
+          th #
+          th Title
+            .small.text-light description
+          th(ng-repeat="condition in table.fields") {{condition.title}}
+          th Decision
+        tbody
+          tr(ng-repeat="rule in table.rules")
+            td {{$index}}
+            td
+              b {{rule.title}}
+              .small {{rule.description}}
+            td.decision-table__condition(
+                ng-repeat="condition in rule.conditions",
+                ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
+            td.border-left {{rule.decision}}
+
