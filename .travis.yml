@@ -13,4 +13,3 @@ before_script:
   - 'bower install'
 script:
   - 'gulp build'
-  - 'npm test'
