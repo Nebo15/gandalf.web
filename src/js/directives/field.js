@@ -33,7 +33,7 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
       // convert boolean value to booleanValues item and back
       if (scope.type == 'bool') {
         scope.booleanSelect = scope.booleanValues.filter(function (item) {
-          return item.condition == scope.condition && item.value === scope.value;
+          return item.condition == scope.condition && (item.value === scope.value || item.value === null);
         })[0];
 
         scope.$watch('booleanSelect', function (val) {

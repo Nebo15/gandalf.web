@@ -21,6 +21,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
   RuleCondition.fromField = function (field) {
     var cond = new this();
     cond.field_alias = field.alias;
+
     return cond;
   };
 

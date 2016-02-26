@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision,
+                                                                        CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule) {
 
   var table = decision;
   $scope.saved = true;
@@ -77,6 +78,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
     var rule = DecisionRule.fromFields(table.fields); // can be different
 
+    rule.conditions.forEach(function (condition) {
+      condition.condition = CONDITION_TYPES.IS_SET;
+    });
     rule.priority = table.rules.length;
     rule.decision = table.defaultResult;
 
