@@ -119,9 +119,6 @@ $table-footer-bg: #f9f9f9
       &:active
         background-color: #f6f6f6
 
-  &__result-column
-    width: 120px
-    background-color: rgba($brand-primary, .03)
   &__description
     color: $gray
     position: absolute
@@ -157,7 +154,6 @@ $table-footer-bg: #f9f9f9
       border: 0
   .table
     margin: 0
-    table-layout: fixed
     td,th
       text-align: center
       vertical-align: middle
@@ -171,7 +167,6 @@ $table-footer-bg: #f9f9f9
       th, td
         &:first-child
           border-right: 1px solid $table-border-color
-          width: 50px
         &:last-child
           border-left: 1px solid $table-border-color
           width: 100px
@@ -183,6 +178,20 @@ $table-footer-bg: #f9f9f9
       input
         margin: 0
         position: static
+
+.decision-table__column
+  &--condition
+    min-width: 120px
+  &--index
+    min-width: 50px
+    max-width: 50px
+  &--decision
+    min-width: 120px
+    background-color: rgba($brand-primary, .03)
+  &--action
+    min-width: 100px
+  &--title
+    min-width: 120px
 
 .btns-bar
   margin-top: 20px

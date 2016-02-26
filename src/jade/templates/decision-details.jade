@@ -9,16 +9,16 @@
   .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
 
   .decision-table
-    table.table
+    .table-responsive: table.table
       thead: tr
-        th #
-        th.border-right  Title
+        th.decision-table__column--index #
+        th.border-right.decision-table__column--title  Title
           .small.text-light Description
-        th(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
+        th.decision-table__column--condition(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
           .small.text-light {{condition.alias}}
-        th.border-left.decision-table__result-column.decision-table__add-column Decision
+        th.border-left.decision-table__column--decision.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +
-        th Action
+        th.decision-table__column--action Action
       tfoot.table-footer: tr: td(colspan="{{table.fields.length + 4}}")
         .decision-table__default-result.pull-left
           .form-inline: .form-group
