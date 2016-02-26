@@ -15,4 +15,4 @@
       td {{table.decision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
 
-  uib-pagination(total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
+  uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
