@@ -1,0 +1,6 @@
+.modal-header
+  h3.modal-title Revert field {{field.name}}
+.modal-body This column is marked as deleted. You can restore it before saving table.
+.modal-footer
+  button.btn.btn-default(type="button", ng-click="cancel()") Cancel
+  button.btn.btn-success(type="button", ng-click="revert()") Revert

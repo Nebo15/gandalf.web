@@ -1,15 +1,4 @@
-
-angular.module('app').directive('stopPropagation', function () {
-  return {
-    restrict: 'A',
-    link: function (scope, el, attrs) {
-
-      el.bind(attrs.stopPropagation, function (e) {
-        e.stopPropagation();
-      })
-    }
-  }
-});
+'use strict';
 
 angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
 
@@ -44,7 +33,18 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     return JSON.stringify(example);
   };
 
+  $scope.revertField = function (field) {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/revert-field.html',
+      controller: 'RevertFieldController',
+      resolve: {
+        field: field
+      }
+    });
+  };
   $scope.editField = function (field) {
+    if (field.isDeleted) return $scope.revertField(field);
+
     var modalInstance = $uibModal.open({
       templateUrl: 'templates/modal/add-field.html',
       controller: 'AddFieldController',
