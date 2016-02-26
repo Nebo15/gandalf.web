@@ -3,6 +3,7 @@
 
 angular.module('app', [
   'conditions',
+  'ng-equal',
 
   'ng-gandalf',
   'ui.router',

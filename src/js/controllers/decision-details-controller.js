@@ -1,4 +1,4 @@
-angular.module('app').controller('DecisionDetailsController', function ($scope, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
 
   var table = decision;
   $scope.saved = true;
@@ -79,6 +79,21 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     }, function () {
       console.warn('save error')
     })
+  };
+
+  $scope.deleteTable = function (table) {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/delete-table.html',
+      controller: 'DeleteTableController',
+      resolve: {
+        table: table
+      }
+    });
+    modalInstance.result.then(function () {
+      table.delete().then(function () {
+        $state.go('decision-list');
+      });
+    });
   };
 
   $scope.editRule = function (rule) {

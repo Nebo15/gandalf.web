@@ -73,6 +73,10 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
     }.bind(this));
   };
 
+  DecisionTable.prototype.delete = function () {
+    return $gandalf.deleteDecisionById(this.id);
+  };
+
   DecisionTable.prototype.parse = function (data) {
 
     this.id = data._id;

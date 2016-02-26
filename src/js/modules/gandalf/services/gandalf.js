@@ -161,6 +161,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.decisionById = function (id) {
         return $request.get('admin/tables/'+id);
       };
+
       self.createDecision = function (obj) {
         return $request({
           endpoint: 'admin/tables/',
