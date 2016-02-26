@@ -16,6 +16,7 @@
           .small.text-light Description
         th.decision-table__column--condition(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
           .small.text-light {{condition.alias}}
+            span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
         th.border-left.decision-table__column--decision.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +
         th.decision-table__column--action Action

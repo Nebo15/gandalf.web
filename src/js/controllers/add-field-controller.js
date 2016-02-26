@@ -17,7 +17,7 @@ angular.module('app').controller('AddFieldController', function ($scope, $uibMod
     return $scope.startField && $scope.field.type !== $scope.startField.type;
   };
   $scope.isPresetChanged = function () {
-    return $scope.startField && $scope.field.preset !== $scope.startField.preset;
+    return $scope.startField && !$scope.field.preset !== !$scope.startField.preset; // exist and not exist
   };
 
   $scope.delete = function () {
