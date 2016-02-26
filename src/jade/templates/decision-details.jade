@@ -1,6 +1,6 @@
 .alert.alert-warning(ng-if="!saved").ng-cloak
   .alert-btn-right
-    button.btn.btn-default(ng-click="save()") Save
+    button.btn.btn-success(ng-click="save()") Save
   p This table have unsaved data. You need to save changes manually.
 
 .editor.ng-cloak(ng-if="table")
@@ -53,7 +53,7 @@
             label Default Decision:
             select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions")
         .pull-right
-          button.btn.btn-default(ng-click="save()", ng-if="!saved") Save
+          button.btn.btn-success(ng-click="save()", ng-if="!saved") Save
           button.btn.btn-default(disabled, ng-if="saved")
             i.glyphicon.glyphicon-check
             | &nbsp;
