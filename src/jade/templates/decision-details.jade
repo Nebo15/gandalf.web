@@ -68,8 +68,7 @@
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-tables.md
     pre
-      | $ curl http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/check \
-      |   -H "Authorization: API_KEY:API_SECRET" \
+      | $ curl -uAPI_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
       |   -d '{{getSampleCheck(table)}}'
 
 
