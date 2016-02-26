@@ -1,0 +1,25 @@
+form(ng-submit="submit(authForm)", name="loginForm", novalidate)
+  .form-horizontal
+    .form-group(show-errors)
+      .col.col-sm-2 Username
+      .col-sm-10
+        input.form-control(
+          name="username",
+          type="text",
+          ng-model="model.username",
+          required,
+          placeholder="Username"
+        )
+    .form-group
+      .col.col-sm-2 Password
+      .col-sm-10
+        input.form-control(
+        name="password",
+        type="password",
+        ng-model="model.password",
+        required,
+        placeholder="Password"
+        )
+    .form-group
+      .col-sm-10.col-sm-offset-2
+        button.btn.btn-primary(type="submit") Submit

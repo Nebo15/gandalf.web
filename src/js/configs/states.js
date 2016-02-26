@@ -1,5 +1,14 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
+  $stateProvider.state('sign-in', {
+    url: '/sign-in?username',
+    controller: 'SignInController',
+    templateUrl: 'templates/sign-in.html',
+    ncyBreadcrumb: {
+      label: 'Sign in to Gandalf'
+    }
+  });
+
   $stateProvider.state('decision-list', {
     url: '/?size?page',
     controller: 'DecisionListController',

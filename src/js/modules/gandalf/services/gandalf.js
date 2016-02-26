@@ -85,16 +85,12 @@ var base64 = (function () {
 angular.module('ng-gandalf').provider('$gandalf', function () {
 
   var config = {
-    apiEnpoint: '/api/v1/',
-    authorization: null
+    apiEnpoint: '/api/v1/'
   };
 
   return {
     setEndpoint: function (endpoint) {
       config.apiEnpoint = endpoint;
-    },
-    setAuthorization: function (apiKey, apiSecret) {
-      config.authorization = 'Basic ' + base64.encode([apiKey, apiSecret].join(':'));
     },
     $get: function ($httpParamSerializer, $http, $log, $q, $filter) {
 
@@ -114,9 +110,6 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         var headers = {
           'Content-type': 'application/json'
         };
-        if (config.token) {
-          headers['Authorization'] = 'Bearer ' + config.token;
-        }
         if (config.authorization) {
           headers['Authorization'] = config.authorization;
         }
@@ -143,6 +136,17 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       var self = {};
 
+      self.setAuthorization = function (apiKey, apiSecret) {
+        config.authorization = 'Basic ' + base64.encode([apiKey, apiSecret].join(':'));
+      };
+      self.testAuthorization = function (apiKey, apiSecret) {
+        var oldAuthorization = config.authorization;
+        this.setAuthorization(apiKey, apiSecret);
+
+        return this.decisions().finally(function () {
+          config.authorization = oldAuthorization;
+        });
+      };
       self.decisions = function (size, page) {
         return $request.get('admin/tables', {
           params: {
