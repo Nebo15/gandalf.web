@@ -30,6 +30,7 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
         name: 'is set'
       }];
 
+      // convert boolean value to booleanValues item and back
       if (scope.type == 'bool') {
         scope.booleanSelect = scope.booleanValues.filter(function (item) {
           return item.condition == scope.condition && item.value === scope.value;
