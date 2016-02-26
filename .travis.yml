@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+before_script:
+  - 'gem install sass --version "=3.4.12"'
+  - 'gem install compass --version "=1.0.3"'
+  - 'npm install -g bower grunt-cli'
+  - 'bower install'
+script:
+  - 'gulp build'
