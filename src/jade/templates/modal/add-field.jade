@@ -37,6 +37,16 @@ form(ng-submit="save(form)", name="form", novalidate)
             option(value="string") String
             option(value="bool") Boolean
       .alert.alert-danger(ng-if="isTypeChanged()") Type changing will reset values in all rules in this field
+      .form-group
+        .col-sm-10.col-sm-offset-2
+          .checkbox
+            label
+              input(type="checkbox", ng-model="isEnablePreset")
+              | Enable preset
+      .form-group(ng-if="isEnablePreset")
+        label.col-sm-2.control-label Preset
+        .col-sm-10
+          field(type="field.type", condition="field.preset.condition", value="field.preset.value")
 
       // .form-group
         label.col-sm-2.control-label Default Value
