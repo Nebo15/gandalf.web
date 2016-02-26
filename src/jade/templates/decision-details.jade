@@ -32,7 +32,7 @@
               .small {{rule.description}}
           td(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
-            field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
+            field(ng-if="rule.isEditing", type="table.fields[$index].preset ? 'bool' : table.fields[$index].type", condition="condition.condition", value="condition.value")
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
             div(ng-if="rule.isEditing")
