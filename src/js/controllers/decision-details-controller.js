@@ -68,6 +68,8 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     rule.decision = table.defaultResult;
 
     table.addRule(rule);
+
+    $scope.editRule(rule);
   };
 
   $scope.save = function () {
