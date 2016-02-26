@@ -1,5 +1,5 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
-
+  
   $stateProvider.state('sign-in', {
     url: '/sign-in?username',
     controller: 'SignInController',

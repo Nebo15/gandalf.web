@@ -1,4 +1,5 @@
-form(ng-submit="submit(authForm)", name="loginForm", novalidate)
+.alert.alert-danger(ng-if="error") Verify username and password and try again.
+form(ng-submit="submit(form)", name="form", novalidate)
   .form-horizontal
     .form-group(show-errors)
       .col.col-sm-2 Username
