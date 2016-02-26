@@ -139,6 +139,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.setAuthorization = function (apiKey, apiSecret) {
         config.authorization = 'Basic ' + base64.encode([apiKey, apiSecret].join(':'));
       };
+      self.resetAuthorization = function () {
+        config.authorization = null;
+      };
       self.testAuthorization = function (apiKey, apiSecret) {
         var oldAuthorization = config.authorization;
         this.setAuthorization(apiKey, apiSecret);

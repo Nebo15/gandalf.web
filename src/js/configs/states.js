@@ -1,5 +1,24 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
-  
+
+  $stateProvider.state('main', {
+
+    abstract: true,
+    template: '<ui-view />'
+  });
+
+  $stateProvider.state('private', {
+    parent: 'auth',
+    abstract: true,
+    auth: true,
+    template: '<ui-view />'
+  });
+  $stateProvider.state('public', {
+    parent: 'auth',
+    abstract: true,
+    auth: false,
+    template: '<ui-view />'
+  });
+
   $stateProvider.state('sign-in', {
     url: '/sign-in?username',
     controller: 'SignInController',
@@ -10,6 +29,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state('decision-list', {
+    parent: 'private',
     url: '/?size?page',
     controller: 'DecisionListController',
     templateUrl: 'templates/decision-list.html',
@@ -17,6 +37,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Tables'
     }
   }).state('decision-create', {
+    parent: 'private',
     url: '/decision/create',
     controller: 'DecisionCreateController',
     templateUrl: 'templates/decision-details.html',
@@ -25,6 +46,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       parent: 'decision-list'
     }
   }).state('decision-details', {
+    parent: 'private',
     url: '/decision/:id',
     controller: 'DecisionDetailsController',
     templateUrl: 'templates/decision-details.html',
@@ -40,6 +62,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state('history-list', {
+    parent: 'private',
     url: '/history?tableId?size?page',
     controller: 'HistoryListController',
     templateUrl: 'templates/history.html',
@@ -47,6 +70,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'History'
     }
   }).state('history-details', {
+    parent: 'private',
     url: '/history/:id',
     controller: 'HistoryDetailsController',
     templateUrl: 'templates/history-details.html',
