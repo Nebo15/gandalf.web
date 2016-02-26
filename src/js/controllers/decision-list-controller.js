@@ -11,6 +11,8 @@ angular.module('app').controller('DecisionListController', function ($scope, $st
   };
 
   $scope.$watchGroup(['filters.size','filters.page'], function (val) {
+
+
     DecisionTable.find(val[0], val[1]).then(function (resp) {
       console.log('resp', resp, resp.data);
       $scope.filters.total = resp.paging.total;
