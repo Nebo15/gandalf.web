@@ -1,26 +1,28 @@
-.alert.alert-danger(ng-if="error") Verify username and password and try again.
-form(ng-submit="submit(form)", name="form", novalidate)
-  .form-horizontal
-    .form-group(show-errors)
-      .col.col-sm-2 Username
-      .col-sm-10
-        input.form-control(
-          name="username",
-          type="text",
-          ng-model="model.username",
-          required,
-          placeholder="Username"
-        )
-    .form-group
-      .col.col-sm-2 Password
-      .col-sm-10
-        input.form-control(
-        name="password",
-        type="password",
-        ng-model="model.password",
-        required,
-        placeholder="Password"
-        )
-    .form-group
-      .col-sm-10.col-sm-offset-2
-        button.btn.btn-primary(type="submit") Submit
+.row
+  .col.col-md-6.col-md-offset-1
+    .alert.alert-danger(ng-if="error") Verify username and password and try again.
+    form(ng-submit="submit(form)", name="form", novalidate)
+      .form-horizontal
+        .form-group(show-errors)
+          .col.col-sm-2.control-label  Username
+          .col-sm-10
+            input.form-control(
+            name="username",
+            type="text",
+            ng-model="model.username",
+            required,
+            placeholder="Username"
+            )
+        .form-group
+          .col.col-sm-2.control-label  Password
+          .col-sm-10
+            input.form-control(
+            name="password",
+            type="password",
+            ng-model="model.password",
+            required,
+            placeholder="Password"
+            )
+        .form-group
+          .col-sm-10.col-sm-offset-2
+            button.btn.btn-primary(type="submit") Submit
