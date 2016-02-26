@@ -12,13 +12,13 @@
     table.table
       thead: tr
         th #
+        th Title
         th(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
           .small.text-light {{condition.alias}}
         th.border-left.decision-table__result-column.decision-table__add-column Decision
           a.decision-table__add-column__icon(ng-click="addNewField()") +
         th Action
-      tfoot.table-footer: tr: td(colspan="{{table.fields.length + 3}}")
-
+      tfoot.table-footer: tr: td(colspan="{{table.fields.length + 4}}")
         .decision-table__default-result.pull-left
           .form-inline: .form-group
             label Default Decision:
@@ -33,7 +33,9 @@
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
         tr(ng-repeat="rule in table.rules", ng-form="ruleForm")
           td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
-
+          td
+            textarea.form-control(ng-model="rule.description", ng-if="rule.isEditing")
+            div(ng-if="!rule.isEditing") {{rule.description}}
           td(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
             field(ng-if="rule.isEditing", type="table.fields[$index].type", condition="condition.condition", value="condition.value")
@@ -42,18 +44,12 @@
             div(ng-if="rule.isEditing")
               select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions")
 
-          td.decision-table__description-wrap
+          td: .decision-table__actions.form-control-static
+            a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+            a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+            a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-            .decision-table__actions.form-control-static
-
-              a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-              a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
-              a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
-
-            .decision-table__description(ng-if="rule.isEditing"): textarea.form-control(ng-model="rule.description")
-            .decision-table__description(ng-if="!rule.isEditing") {{rule.description}}
-
-      tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 3}}")
+      tbody.decision-table__add-row: tr: td(colspan="{{table.fields.length + 4}}")
         a(ng-click="addNewRule()") + Add new row
 
   br
