@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '5.1.0'
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+before_script:
+  - 'npm install -g bower'
+  - 'gem install sass --version "=3.4.12"'
+  - 'gem install compass --version "=1.0.3"'
+  - 'npm install -g bower grunt-cli'
+  - 'bower install'
+script:
+  - 'gulp build'
