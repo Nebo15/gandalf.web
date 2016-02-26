@@ -1,3 +1,16 @@
+
+angular.module('app').directive('stopPropagation', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, el, attrs) {
+
+      el.bind(attrs.stopPropagation, function (e) {
+        e.stopPropagation();
+      })
+    }
+  }
+});
+
 angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, CONDITION_OPTIONS, DecisionRule) {
 
   var table = decision;
@@ -97,6 +110,8 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   };
 
   $scope.editRule = function (rule) {
+    console.log('edit rule', rule);
+    if (rule.isEditing) return;
     rule.isEditing = true;
   };
   $scope.saveRule = function (rule, form) {
