@@ -85,7 +85,19 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     $scope.editRule(rule);
   };
 
+  $scope.deleteRule = function (rule) {
+    rule.isDeleted = true;
+  };
+  $scope.revertRule = function (rule) {
+    rule.isDeleted = false;
+  };
   $scope.save = function () {
+    table.rules.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (item) {
+      table.deleteRule(item);
+    });
+
     table.save().then(function () {
       console.log('save success');
       $scope.saved = true;

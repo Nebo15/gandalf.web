@@ -22,7 +22,7 @@
         th.decision-table__column--action Action
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-        tr(ng-repeat="rule in table.rules", ng-form="ruleForm", ng-click="editRule(rule)")
+        tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted}", ng-form="ruleForm", ng-click="editRule(rule)")
           td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
           td.border-right
             div(ng-if="rule.isEditing")
@@ -40,9 +40,12 @@
               select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions")
 
           td: .decision-table__actions.form-control-static
-            a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-            a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
-            a.btn.btn-default(ng-click="table.deleteRule(rule)"): i.glyphicon.glyphicon-remove
+            div(ng-if="rule.isDeleted")
+              a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
+            div(ng-if="!rule.isDeleted")
+              a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+              a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+              a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
     // fixed table footer and add row link
     table.table
