@@ -86,6 +86,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   };
   $scope.saveRule = function (rule, form) {
     console.log('save rule', form);
+    form.$setSubmitted(true);
     if (form.$invalid) return;
     rule.isEditing = false;
   };
