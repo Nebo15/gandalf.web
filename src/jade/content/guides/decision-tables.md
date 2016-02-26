@@ -46,28 +46,28 @@ Available rules can differ based on a column type. Generally you should consider
 ```{request_field_vale} {condition} {condition_value}```. For some conditions you can omit their value.
 
 String fileds support following conditions:
-- = - validation will pass if field value equals specified value.
-- != - validation will pass if field value does not equal specified value.
-- in - validation will pass if field value eqals to one of listed values. Separate values by comma with space. If searched string have comma you can surround value by single qoute. For example: ```d,e``` in ```a, b, c, 'd,e'``` will return true.
-- not in - validation will pass if field value does not eqal to any of listed values.
-- contains - validation will pass if field value is contains specified value. 
-- is set - validation will always pass. (Use it to skip some columns.)
+- ```=``` - validation will pass if field value equals specified value.
+- ```!=``` - validation will pass if field value does not equal specified value.
+- ```in``` - validation will pass if field value eqals to one of listed values. Separate values by comma with space. If searched string have comma you can surround value by single qoute. For example: ```d,e``` in ```a, b, c, 'd,e'``` will return true.
+- ```not in``` - validation will pass if field value does not eqal to any of listed values.
+- ```contains``` - validation will pass if field value is contains specified value. 
+- ```is set``` - validation will always pass. (Use it to skip some columns.)
 
 Number supports:
-- = - validation will pass if field value equals specified value.
-- > - validation will pass if field value is greater than specified value.
-- >= - validation will pass if field value is greater or equal to a specified value.
-- < - validation will pass if field value is less than specified value.
-- <= - validation will pass if field value is less or equal to a specified value.
-- != - validation will pass if field value does not equal specified value.
-- in - validation will pass if field value eqals to one of listed values. Separate values by comma with space. If searched string have comma you can surround value by single qoute. For example: ```d,e``` in ```a, b, c, 'd,e'``` will return true.
-- not in - validation will pass if field value does not eqal to any of listed values.
-- is set - validation will always pass. (Use it to skip some columns.)
+- ```=``` - validation will pass if field value equals specified value.
+- ```>``` - validation will pass if field value is greater than specified value.
+- ```>=``` - validation will pass if field value is greater or equal to a specified value.
+- ```<``` - validation will pass if field value is less than specified value.
+- ```<=``` - validation will pass if field value is less or equal to a specified value.
+- ```!=``` - validation will pass if field value does not equal specified value.
+- ```in``` - validation will pass if field value eqals to one of listed values. Separate values by comma with space. If searched string have comma you can surround value by single qoute. For example: ```d,e``` in ```a, b, c, 'd,e'``` will return true.
+- ```not in``` - validation will pass if field value does not eqal to any of listed values.
+- ```is set``` - validation will always pass. (Use it to skip some columns.)
 
 Boolean supports:
-- true - will pass if field value is ```true```, ```"true"```, ```'true'```, ```1```, ```"1"``` or ```'1'```.
-- false - will pass if field value is ```false```, ```"false"```, ```'false'```, ```0```, ```"0"``` or ```'0'```.
-- is set - validation will always pass. (Use it to skip some columns.)
+- ```true``` - will pass if field value is ```true```, ```"true"```, ```'true'```, ```1```, ```"1"``` or ```'1'```.
+- ```false``` - will pass if field value is ```false```, ```"false"```, ```'false'```, ```0```, ```"0"``` or ```'0'```.
+- ```is set``` - validation will always pass. (Use it to skip some columns.)
 
 ### Decision Making
 
