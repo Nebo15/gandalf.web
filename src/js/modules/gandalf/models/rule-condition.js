@@ -16,6 +16,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
   };
   RuleCondition.prototype.reset = function () {
     this.value = null;
+    this.condition = '$eq';
   };
 
   RuleCondition.fromField = function (field) {

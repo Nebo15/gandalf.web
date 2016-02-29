@@ -25,6 +25,9 @@ form(ng-submit="save(form)", name="form", novalidate)
             placeholder="person-age"
           )
           span.help-block Latin key (for API). Use only alphabet characters, dash and underscore. <code>a-z,A-Z,_,-</code>
+      .form-group(ng-if="sameKeyColumns.length")
+        .col.col-sm-10.col-sm-offset-2
+          .alert.alert-warning You have {{sameKeyColumns.length}} column(s) with same API Field Key
       .form-group(show-errors)
         label.col-sm-2.control-label Type
         .col-sm-10
@@ -36,18 +39,31 @@ form(ng-submit="save(form)", name="form", novalidate)
             option(value="number") Number
             option(value="string") String
             option(value="bool") Boolean
-      .alert.alert-danger(ng-if="isTypeChanged()") Type changing will reset values in all rules in this field
+
+      .form-group(ng-if="hasDifferentType()")
+        .col.col-sm-10.col-sm-offset-2
+          .alert.alert-warning Columns with same API Field Key have type <b>{{sameKeyColumnsType}}</b>
+            p Setting another type will affect changing in all relative fields and reset values in rules.
+            p Set type to <b>{{sameKeyColumnsType}}</b> to prevent this behaviour.
+      .form-group(ng-if="isTypeChanged()")
+        .col-sm-10.col-sm-offset-2
+          .alert.alert-danger Type changing will reset values in all rules in this field
+
       .form-group
         .col-sm-10.col-sm-offset-2
           .checkbox
             label
               input(type="checkbox", ng-model="isEnablePreset")
               | Enable preset
+
       .form-group(ng-if="isEnablePreset")
         label.col-sm-2.control-label Preset
         .col-sm-10
           field(type="field.type", condition="field.preset.condition", value="field.preset.value")
-      .alert.alert-danger(ng-if="isPresetChanged()") Preset changing will reset values in all rules in this field
+
+      .form-group(ng-if="isPresetChanged()")
+        .col-sm-10.col-sm-offset-2
+          .alert.alert-danger Preset changing will reset values in all rules in this field
       // .form-group
         label.col-sm-2.control-label Default Value
         .col-sm-10

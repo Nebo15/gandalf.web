@@ -50,7 +50,12 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       templateUrl: 'templates/modal/add-field.html',
       controller: 'AddFieldController',
       resolve: {
-        field: field
+        field: function () {
+          return field;
+        },
+        table: function () {
+          return table;
+        }
       }
     });
     modalInstance.result.then(function (field) {
@@ -66,7 +71,12 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       templateUrl: 'templates/modal/add-field.html',
       controller: 'AddFieldController',
       resolve: {
-        field: null
+        field: function () {
+          return null;
+        },
+        table: function () {
+          return table;
+        }
       }
     });
     modalInstance.result.then(function (newField) {
