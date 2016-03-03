@@ -1,9 +1,15 @@
-.alert.alert-warning(ng-if="!saved").ng-cloak
-  .alert-btn-right
-    button.btn.btn-success(ng-click="save()") Save
-  p This table have unsaved data. You need to save changes manually.
+form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
 
-.editor.ng-cloak(ng-if="table")
+  .alert.alert-warning(ng-if="!saved").ng-cloak
+    .alert-btn-right
+      button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}") Save
+        .btn-loader
+          .glyphicon.glyphicon-refresh
+    p This table have unsaved data. You need to save changes manually.
+
+  .alert.alert-danger(ng-if="error").ng-cloak
+    h4 Error
+    p Check you data and <b>try again</b>.
 
   .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
   .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
@@ -37,7 +43,7 @@
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
             div(ng-if="rule.isEditing")
-              select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions")
+              select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions", required)
 
           td: .decision-table__actions.form-control-static
             div(ng-if="rule.isDeleted")
@@ -55,9 +61,11 @@
         .decision-table__default-result.pull-left
           .form-inline: .form-group
             label Default Decision:
-            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions")
+            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions", required)
         .pull-right
-          button.btn.btn-success(ng-click="save()", ng-if="!saved") Save
+          button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}") Save
+            .btn-loader
+              .glyphicon.glyphicon-refresh
           button.btn.btn-default(disabled, ng-if="saved")
             i.glyphicon.glyphicon-check
             | &nbsp;
@@ -76,5 +84,3 @@
     pre
       | $ curl -uAPI_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
       |   -d '{{getSampleCheck(table)}}'
-
-

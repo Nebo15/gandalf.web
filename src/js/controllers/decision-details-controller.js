@@ -5,6 +5,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   var table = decision;
   $scope.saved = true;
+  $scope.isSaving = false;
+  $scope.error = null;
+
   $scope.table = table;
   $scope.sortableOptions = {
     axis: 'y',
@@ -108,7 +111,15 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   $scope.revertRule = function (rule) {
     rule.isDeleted = false;
   };
+
+  $scope.submit = function (form) {
+    if (form.$invalid) return;
+    $scope.save();
+  };
+
   $scope.save = function () {
+    if ($scope.isSaving) return;
+    $scope.isSaving = true;
     table.rules.filter(function (item) {
       return item.isDeleted;
     }).forEach(function (item) {
@@ -117,10 +128,14 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
     table.save().then(function () {
       console.log('save success');
+      $scope.error = null;
       $scope.saved = true;
-    }, function () {
-      console.warn('save error')
-    })
+    }, function (err) {
+      $scope.error = err;
+      console.warn('save error', err);
+    }).finally(function () {
+      $scope.isSaving = false;
+    });
   };
 
   $scope.deleteTable = function (table) {
