@@ -20,6 +20,8 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
     DecisionTable.prototype.parse.call(this, data);
     console.log('parse');
 
+    this.table = new DecisionTable(data.table.id, data.table);
+
     this.decision = data.final_decision;
     this.request = data.request;
     this.createdAt = new Date(data.created_at);
