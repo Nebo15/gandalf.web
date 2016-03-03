@@ -111,6 +111,12 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   $scope.revertRule = function (rule) {
     rule.isDeleted = false;
   };
+
+  $scope.submit = function (form) {
+    if (form.$invalid) return;
+    $scope.save();
+  };
+
   $scope.save = function () {
     if ($scope.isSaving) return;
     $scope.isSaving = true;
@@ -126,7 +132,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       $scope.saved = true;
     }, function (err) {
       $scope.error = err;
-      console.warn('save error')
+      console.warn('save error', err);
     }).finally(function () {
       $scope.isSaving = false;
     });
