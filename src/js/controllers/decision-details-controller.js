@@ -6,6 +6,8 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   var table = decision;
   $scope.saved = true;
   $scope.isSaving = false;
+  $scope.error = null;
+
   $scope.table = table;
   $scope.sortableOptions = {
     axis: 'y',
@@ -120,8 +122,10 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
     table.save().then(function () {
       console.log('save success');
+      $scope.error = null;
       $scope.saved = true;
-    }, function () {
+    }, function (err) {
+      $scope.error = err;
       console.warn('save error')
     }).finally(function () {
       $scope.isSaving = false;

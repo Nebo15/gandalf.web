@@ -5,6 +5,10 @@
         .glyphicon.glyphicon-refresh
   p This table have unsaved data. You need to save changes manually.
 
+.alert.alert-danger(ng-if="error").ng-cloak
+  h4 Error
+  p Check you data and <b>try again</b>.
+
 .editor.ng-cloak(ng-if="table")
 
   .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
