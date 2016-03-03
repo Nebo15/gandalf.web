@@ -81,6 +81,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     });
     modalInstance.result.then(function (newField) {
       table.addField(newField);
+      table.findConditionsByField(field).forEach(function (item) {
+        item.reset();
+      });
     });
 
   };

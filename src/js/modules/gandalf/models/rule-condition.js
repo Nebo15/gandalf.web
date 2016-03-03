@@ -4,8 +4,10 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
     var options = obj ? angular.copy(obj) : {};
 
     this.field_alias = options.field_key;
-    this.condition = options.condition || '$eq';
     this.value = options.value;
+
+    this.condition = options.condition ? options.condition : options.value ? '$eq' : '$is_set';
+
   }
   RuleCondition.prototype.toJSON = function () {
     return {
@@ -16,7 +18,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
   };
   RuleCondition.prototype.reset = function () {
     this.value = null;
-    this.condition = '$eq';
+    this.condition = '$is_set';
   };
 
   RuleCondition.fromField = function (field) {
