@@ -6,12 +6,16 @@
     thead.history__head
       tr
         th Timestamp
+        th Decision name
+          .small.light Decision description
         th Table Name
         th Decision
         th Action
     tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
-      td {{table.createdAt | date: 'short'}}
+      td {{table.createdAt | date: 'M/d/yy HH:mm:ss'}}
       td {{table.title}}
+        .small.light {{table.description}}
+      td {{table.table.title}}
       td {{table.decision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
 
