@@ -146,7 +146,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         var oldAuthorization = config.authorization;
         this.setAuthorization(apiKey, apiSecret);
 
-        return this.decisions().finally(function () {
+        return this.decisions(0,0).finally(function () {
           config.authorization = oldAuthorization;
         });
       };

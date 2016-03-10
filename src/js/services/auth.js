@@ -2,32 +2,19 @@
 
 angular.module('app').run(function ($rootScope, $state) {
 
-  function annotatedStateObject(state, $current) {
-    state = angular.extend({}, state);
-    var resolveData = $current.locals.resolve.$$values;
-    state.params = resolveData.$stateParams;
-    state.resolve = angular.copy(resolveData);
-    delete state.resolve.$stateParams;
-    state.includes = $current.includes;
-    return state;
-  }
-
-
   function isAuthRequired (state) {
     return state.self.auth || state.parent && isAuthRequired(state.parent) || false;
   }
 
-  $rootScope.$on('$stateChangeSuccess', function (e, toState) {
-
-    toState = annotatedStateObject(toState, $state.$current);
-    $rootScope.user = toState.resolve.user;
-
-    var auth = isAuthRequired($state.$current);
-
-    if (auth && toState.resolve.user == null) {
+  $rootScope.$on('$stateChangeStart', function (e, toState, toStateParams, fromState, fromStateParams) {
+    $state.nextState = toState.$$state();
+    $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
+  });
+  $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
+    if (error.message = "LoginRequired") {
       $rootScope.$broadcast('login:required');
     }
-  });
+  })
 
 }).service('AuthService', function ($gandalf, $localStorage) {
 
