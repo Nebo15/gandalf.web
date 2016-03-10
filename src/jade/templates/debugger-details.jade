@@ -1,0 +1,21 @@
+h4 Debugger
+
+br
+
+.row
+  .col.col-md-6
+    form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
+      .form-group(ng-repeat="field in fields")
+        label.col-sm-2.control-label {{field.title}}
+        .col-sm-10
+          input.form-control(
+          type="text",
+          ng-model="field.value",
+          required,
+          ng-placeholder="field.description"
+          )
+      .form-group
+        .col-sm-10.col-sm-offset-2
+          button.btn.btn-default(type="submit") Send
+  .col.col-sm-6
+    pre: code.language-json

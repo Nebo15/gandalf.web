@@ -92,5 +92,20 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
+  $stateProvider.state('debugger-details', {
+    parent: 'private',
+    url: '/debugger/:id',
+    controller: 'DebuggerDetailsController',
+    templateUrl: 'templates/debugger-details.html',
+    ncyBreadcrumb: {
+      label: 'Debugger: {{table.id}}'
+    },
+    resolve: {
+      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+        return DecisionTable.byId($stateParams.id);
+      }]
+    }
+  });
+
   $urlRouterProvider.otherwise('/');
 });

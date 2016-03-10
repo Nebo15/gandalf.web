@@ -4,6 +4,7 @@
 angular.module('app', [
   'conditions',
   'ng-equal',
+  'lodash',
 
   'ng-gandalf',
   'ui.router',
