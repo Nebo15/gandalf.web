@@ -8,6 +8,8 @@ angular.module('app', [
 
   'ng-gandalf',
   'ui.router',
+  'ct.ui.router.extras',
+
   'ngStorage',
   'ui.bootstrap',
   'ui.sortable',
