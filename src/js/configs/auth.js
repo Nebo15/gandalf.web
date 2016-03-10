@@ -5,18 +5,17 @@ angular.module('app').config(function($stateProvider) {
     abstract: true,
     template: '<ui-view />',
     resolve: {
-      user: ['AuthService','$state','$rootScope', function (AuthService, $state, $rootScope) {
+      user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
         console.log('auth resolve', $state.transition);
         return AuthService.signInFromStorage().then(function (resp) {
           console.log('auth', resp);
           $rootScope.user = resp;
           return resp;
         }).catch(function (resp) {
-          console.log('error auth', resp);
           if ($state.nextState.isAuthRequired) {
-            return new Error('LoginRequired');
+            console.log('login required');
+            return $q.reject(new Error('LoginRequired'));
           }
-
           return null;
         });
       }]
