@@ -11,7 +11,9 @@ angular.module('app').run(function ($rootScope, $state) {
     $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
-    if (error.message = "LoginRequired") {
+    console.log('$stateChangeError', error);
+    if (error.message == "LoginRequired") {
+      console.log('login required');
       $rootScope.$broadcast('login:required');
     }
   })
