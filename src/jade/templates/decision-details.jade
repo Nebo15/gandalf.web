@@ -51,6 +51,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
             div(ng-if="!rule.isDeleted")
               a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
               a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+              a.btn.btn-default(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
               a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
     // fixed table footer and add row link
@@ -76,7 +77,8 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
     .col.col-xs-6
       a.btn.btn-danger(ng-click="deleteTable(table)") Delete
     .col.col-xs-6.text-right
-      a(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
+      a.btn.btn-clear(ui-sref="debugger-details({id: table.id})") Open Debugger
+      a.btn.btn-clear(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
   br
   br
   .panel.panel-default: .panel-body

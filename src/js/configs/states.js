@@ -71,7 +71,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       size: '25'
     },
     controller: 'HistoryListController',
-    templateUrl: 'templates/history.html',
+    templateUrl: 'templates/history-list.html',
     ncyBreadcrumb: {
       label: 'History'
     }
@@ -88,6 +88,26 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       historyResult: ['DecisionHistoryTable', '$stateParams', function (DecisionHistoryTable, $stateParams) {
         var res = new DecisionHistoryTable($stateParams.id);
         return res.fetch();
+      }]
+    }
+  });
+
+  $stateProvider.state('debugger-details', {
+    parent: 'private',
+    url: '/table/:id/debug',
+    controller: 'DebuggerDetailsController',
+    templateUrl: 'templates/debugger-details.html',
+    ncyBreadcrumb: {
+      label: 'Debugger: {{table.id}}',
+      parent: 'decision-details'
+    },
+    params: {
+      id: null,
+      decision: null
+    },
+    resolve: {
+      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+        return DecisionTable.byId($stateParams.id);
       }]
     }
   });
