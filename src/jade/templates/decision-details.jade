@@ -51,6 +51,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
             div(ng-if="!rule.isDeleted")
               a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
               a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+              a.btn.btn-default(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
               a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
     // fixed table footer and add row link

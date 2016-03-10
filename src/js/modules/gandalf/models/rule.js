@@ -44,6 +44,11 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
       conditions: JSON.parse(JSON.stringify(this.conditions))
     };
   };
+  Rule.prototype.clone = function () {
+    var obj = this.toJSON();
+    delete obj.id;
+    return new Rule(obj);
+  };
 
   Rule.fromFields = function (fields, options) {
     var rule = new this(options);

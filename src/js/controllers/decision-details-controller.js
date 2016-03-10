@@ -164,6 +164,10 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     if (form.$invalid) return;
     rule.isEditing = false;
   };
+  $scope.copyRule = function (rule, form) {
+    console.log('copy rule', form);
+    table.copyRule(rule);
+  };
 
   $scope.$watch('table', function () {
     console.log('table change');

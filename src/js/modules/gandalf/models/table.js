@@ -42,6 +42,14 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
   DecisionTable.prototype.addRule = function (rule) {
     this.rules.push(rule);
   };
+  DecisionTable.prototype.copyRule = function (rule) {
+    var idx = this.rules.indexOf(rule);
+    if (idx == -1) throw new Error('copy rule not found in table rules');
+    var newRule = rule.clone();
+    this.rules.splice(++idx, 0, newRule);
+    return this;
+  };
+
   DecisionTable.prototype.deleteRule = function (rule) {
     this.rules = this.rules.filter(function (item) {
       return item !== rule;
