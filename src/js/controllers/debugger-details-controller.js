@@ -23,11 +23,13 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
   }
 
   $scope.fields = angular.copy(unique(table.fields, 'alias'));
-  $scope.response = null;
+  $scope.response = {name: "ivan"};
 
   $scope.submit = function (form) {
     if (form.$invalid) return;
-    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'alias', 'value')).then(function (resp) {
+    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'alias', 'value')).catch(function (resp) {
+      return resp;
+    }).then(function (resp) {
       $scope.response = resp.data;
     })
   };

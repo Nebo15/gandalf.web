@@ -5,7 +5,8 @@ html(ng-app="app")
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
     title Gandalf
     link(rel='stylesheet', href='css/app.css')
-    link(rel='stylesheet', href='bower_components/prism/themes/prism.css')
+    link(rel='stylesheet', href='bower_components/highlightjs/styles/github.css')
+    //link(rel='stylesheet', href='bower_components/prism/themes/prism.css')
 
   body.app
     include ./partitials/navbar
@@ -33,7 +34,10 @@ html(ng-app="app")
 
     script(src='bower_components/lodash/lodash.js')
 
-    script(src='bower_components/prism/prism.js')
+    //script(src='bower_components/prism/prism.js')
+    script(src='bower_components/highlightjs/highlight.pack.js')
+
+    script(src='bower_components/angular-highlightjs/angular-highlightjs.js')
 
     script(src='js/config.js')
 

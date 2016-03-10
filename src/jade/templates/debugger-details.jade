@@ -11,6 +11,7 @@ br
           input.form-control(
           type="text",
           ng-model="field.value",
+          name="{{field.alias}}",
           required,
           ng-placeholder="field.description"
           )
@@ -18,4 +19,5 @@ br
         .col-sm-10.col-sm-offset-2
           button.btn.btn-default(type="submit") Send
   .col.col-sm-6
-    pre: code.language-json {{response}}
+    div(hljs, hljs-source="(response | json: 2)")
+
