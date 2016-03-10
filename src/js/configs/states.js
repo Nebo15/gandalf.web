@@ -71,7 +71,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       size: '25'
     },
     controller: 'HistoryListController',
-    templateUrl: 'templates/history.html',
+    templateUrl: 'templates/history-list.html',
     ncyBreadcrumb: {
       label: 'History'
     }
