@@ -5,7 +5,13 @@
 h4 History Details
 .history-detail
   h5 Request
-  pre: code {{table.request | json: 2}}
+  div.preview
+    div.preview__external
+      a.btn.btn-clear(ui-sref="debugger-details({id: table.table.id, decision: table})") Debug
+        | &#32;
+        i.glyphicon.glyphicon-export
+    div.preview__response(hljs, hljs-source="(table.request | json: 2)")
+
   h5 Final Decision
   p {{table.decision}}
   h5 Default Decision

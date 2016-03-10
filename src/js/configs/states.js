@@ -94,11 +94,16 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('debugger-details', {
     parent: 'private',
-    url: '/debugger/:id',
+    url: '/table/:id/debug',
     controller: 'DebuggerDetailsController',
     templateUrl: 'templates/debugger-details.html',
     ncyBreadcrumb: {
-      label: 'Debugger: {{table.id}}'
+      label: 'Debugger: {{table.id}}',
+      parent: 'decision-details'
+    },
+    params: {
+      id: null,
+      decision: null
     },
     resolve: {
       table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
