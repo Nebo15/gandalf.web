@@ -22,15 +22,22 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     return res;
   }
 
+  $scope.table = table;
   $scope.fields = angular.copy(unique(table.fields, 'alias'));
-  $scope.response = {name: "ivan"};
+  $scope.response = {
+    step1: "fill form",
+    step2: "click on Send button"
+  };
 
+  $scope.loading = false;
   $scope.submit = function (form) {
-    if (form.$invalid) return;
+    if (form.$invalid || $scope.loading) return;
+    $scope.loading = true;
     $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'alias', 'value')).catch(function (resp) {
       return resp;
     }).then(function (resp) {
       $scope.response = resp.data;
+      $scope.loading = false;
     })
   };
 
