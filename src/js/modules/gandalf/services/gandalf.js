@@ -201,6 +201,18 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.update = function (decisionTableObj) {
         return $q.when(decisionTableObj);
       };
+
+      self.consumer = {};
+      self.consumer.send = function (tableId, obj) {
+        return $request({
+          endpoint: 'tables/' + tableId + '/decisions',
+          method: 'post'
+        }, obj);
+      };
+      self.consumer.check = function (decisionId) {
+        return $request.get('decisions/' + decisionId);
+      };
+
       return self;
 
     }
