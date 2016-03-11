@@ -5,7 +5,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.fields = [];
     this.rules = [];
     this.defaultResult = null;
-    this.matchingType = null;
+    this.matchingType = 'first';
 
     if (data) this.parse(data);
   }
