@@ -1,11 +1,11 @@
 .field
-  div(ng-if="type == 'number'")
+  div(ng-if="type == $root.APP.types.number")
     //.input-group-addon
     select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
     input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")
-  div(ng-if="type == 'bool'")
+  div(ng-if="type == $root.APP.types.bool")
     select.form-control(ng-model="$parent.booleanSelect", ng-options="item.name for item in booleanValues", required)
-  di(ng-if="type == 'string'")
+  di(ng-if="type == $root.APP.types.string")
     //.input-group-addon
     select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.string")
     input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")

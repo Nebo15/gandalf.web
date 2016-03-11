@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision,
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, APP,
                                                                         CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule, _) {
 
   var table = decision;
@@ -20,16 +20,16 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     var example = {};
     table.fields.forEach(function (item) {
       switch (item.type) {
-        case 'number':
+        case APP.types.number:
           example[item.alias] = 100;
           break;
-        case 'string':
+        case APP.types.string:
           example[item.alias] = 'sample';
           break;
-        case 'bool':
+        case APP.types.bool:
           example[item.alias] = true;
           break;
-        case 'default':
+        default:
           example[item.alias] = 'sample';
           break;
       }

@@ -19,7 +19,15 @@ angular.module('app', [
 ]);
 
 angular.module('app').constant('ENV', window.env);
-
+angular.module('app').constant('APP', {
+  types: {
+    number: 'numeric',
+    string: 'string',
+    bool: 'boolean'
+  }
+}).run(function ($rootScope, APP) {
+  $rootScope.APP = APP;
+});
 
 angular.module('app').filter('string', function () {
   return function (str) {

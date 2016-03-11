@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITION_TYPES, CONDITION_OPTIONS) {
+angular.module('app').directive('field', function ($timeout, APP, CONDITIONS, CONDITION_TYPES, CONDITION_OPTIONS) {
   return {
     restrict: 'E',
     scope: {
@@ -31,7 +31,7 @@ angular.module('app').directive('field', function ($timeout, CONDITIONS, CONDITI
       }];
 
       // convert boolean value to booleanValues item and back
-      if (scope.type == 'bool') {
+      if (scope.type == APP.types.bool) {
         scope.booleanSelect = scope.booleanValues.filter(function (item) {
           return item.condition == scope.condition && (item.value === scope.value || item.value === null);
         })[0];
