@@ -16,7 +16,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
       value: utils.orNull(this.value)
     };
     if (res.condition == '$is_set') {
-      res.value = true; // Because @bardack said what it is a good way
+      res.value = true; // Because @bardack and @samorai have said what it is a good way
     }
     return res;
   };
