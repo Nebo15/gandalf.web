@@ -54,15 +54,20 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
               a.btn.btn-default(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
               a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-    // fixed table footer and add row link
     table.table
       tbody.decision-table__add-row: tr: td
         a(ng-click="addNewRule()") + Add new row
+    table.table
+      tbody: tr
+        th Default Decision
+        td
+          input.form-control(type="text", ng-model="table.defaultResult", typeahead-min-length="0",  uib-typeahead="decision for decision in decisions" , required)
+        td
+          input.form-control(type="text", ng-model="table.defaultResultTitle", placeholder="Title")
+        td
+          input.form-control(type="text", ng-model="table.defaultResultDescription", placeholder="Description")
+    table.table
       tfoot.table-footer: tr: td
-        .decision-table__default-result.pull-left
-          .form-inline: .form-group
-            label Default Decision:
-            input.form-control(type="text", ng-model="table.defaultResult", typeahead-min-length="0",  uib-typeahead="decision for decision in decisions" , required)
         .pull-right
           button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}") Save
             .btn-loader
