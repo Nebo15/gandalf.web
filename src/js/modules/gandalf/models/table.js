@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, DecisionField, DecisionRule) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule) {
 
   function DecisionTable (id, data) {
     this.id = id;
@@ -111,6 +111,15 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, De
       title: this.title,
       description: this.description
     };
+  };
+
+  DecisionTable.prototype.getDecisionVariants = function () {
+
+    var variants = this.rules.map(function (item) { return item.decision; });
+    if (this.defaultResult) {
+      variants.push(this.defaultResult);
+    }
+    return _.uniq(variants);
   };
 
   DecisionTable.find = function (size, page) {

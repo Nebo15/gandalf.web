@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision,
-                                                                        CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule) {
+                                                                        CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule, _) {
 
   var table = decision;
   $scope.saved = true;
@@ -13,7 +13,8 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     axis: 'y',
     handle: '> .decision-table__handler'
   };
-  $scope.decisions = ['Approve', 'Decline', 'Manual'];
+
+  $scope.decisions = table.getDecisionVariants();
 
   $scope.getSampleCheck = function (table) {
     var example = {};
@@ -163,6 +164,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     form.$setSubmitted(true);
     if (form.$invalid) return;
     rule.isEditing = false;
+
+    $scope.decisions.push(rule.decision);
+    $scope.decisions = _.uniq($scope.decisions);
   };
   $scope.copyRule = function (rule, form) {
     console.log('copy rule', form);

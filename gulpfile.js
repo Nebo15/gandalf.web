@@ -246,3 +246,7 @@ gulp.task('production', function (cb) {
   argv.production = true;
   sequence('build')(cb);
 });
+
+gulp.on('err', function(e){
+  process.exit(1);
+});
