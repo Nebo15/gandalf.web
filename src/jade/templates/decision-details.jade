@@ -43,7 +43,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
             div(ng-if="rule.isEditing")
-              select.form-control(ng-model="rule.decision", ng-options="decision for decision in decisions", required)
+              input.form-control(type="text", ng-model="rule.decision", typeahead-min-length="0", uib-typeahead="decision for decision in decisions", required)
 
           td: .decision-table__actions.form-control-static
             div(ng-if="rule.isDeleted")
@@ -62,7 +62,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         .decision-table__default-result.pull-left
           .form-inline: .form-group
             label Default Decision:
-            select.form-control(ng-model="table.defaultResult", ng-options="decision for decision in decisions", required)
+            input.form-control(type="text", ng-model="table.defaultResult", typeahead-min-length="0",  uib-typeahead="decision for decision in decisions" , required)
         .pull-right
           button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}") Save
             .btn-loader
