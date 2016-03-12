@@ -53,6 +53,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     rule.decision = this.defaultResult;
 
     this.addRule(rule);
+    return rule;
   };
   DecisionTable.prototype.addRule = function (rule) {
     this.rules.push(rule);

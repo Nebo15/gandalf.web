@@ -16,8 +16,10 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   $scope.decisions = table.getDecisionVariants();
 
+  // Fields
+
   $scope.revertField = function (field) {
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'templates/modal/revert-field.html',
       controller: 'RevertFieldController',
       resolve: {
@@ -48,25 +50,38 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     })
   };
 
-  $scope.addNewRule = function () {
+  // Rules
 
-    table.createRule();
-    $scope.editRule(rule);
+  $scope.editRule = function (rule) {
+    rule.isEditing = true;
   };
-
-  $scope.onChangeMatchingType = function (type) {
-    $log.debug('change type', type);
-    table.rules.forEach(function (item) {
-      item.decision = null;
-    })
+  $scope.saveRule = function (rule, form) {
+    form.$setSubmitted(true);
+    if (form.$invalid) return;
+    rule.isEditing = false;
   };
-
+  $scope.copyRule = function (rule, form) {
+    table.copyRule(rule);
+  };
 
   $scope.deleteRule = function (rule) {
     rule.isDeleted = true;
   };
   $scope.revertRule = function (rule) {
     rule.isDeleted = false;
+  };
+
+  $scope.addNewRule = function () {
+    $scope.editRule(table.createRule());
+  };
+
+  // Table
+
+  $scope.onChangeMatchingType = function (type) {
+    $log.debug('change type', type);
+    table.rules.forEach(function (item) {
+      item.decision = null;
+    })
   };
 
   $scope.submit = function (form) {
@@ -108,25 +123,6 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
         $state.go('decision-list');
       });
     });
-  };
-
-  $scope.editRule = function (rule) {
-    console.log('edit rule', rule);
-    if (rule.isEditing) return;
-    rule.isEditing = true;
-  };
-  $scope.saveRule = function (rule, form) {
-    console.log('save rule', form);
-    form.$setSubmitted(true);
-    if (form.$invalid) return;
-    rule.isEditing = false;
-
-    $scope.decisions.push(rule.decision);
-    $scope.decisions = _.uniq($scope.decisions);
-  };
-  $scope.copyRule = function (rule, form) {
-    console.log('copy rule', form);
-    table.copyRule(rule);
   };
 
   $scope.$watch('table', function () {
