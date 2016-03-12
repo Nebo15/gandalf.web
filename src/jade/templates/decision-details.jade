@@ -42,13 +42,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
             field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
           td.border-left
             div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
-            div(ng-if="rule.isEditing")
-              //decision-input(ng-model="rule.decision")
-              div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-                input.form-control(type="text", ng-model="rule.decision", typeahead-min-length="0", uib-typeahead="decision for decision in decisions", required)
-              div(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-                input.form-control(type="number", ng-model="rule.decision", required)
-
+            decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.decision")
           td: .decision-table__actions.form-control-static
             div(ng-if="rule.isDeleted")
               a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
@@ -64,25 +58,17 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
     table.table
       tbody: tr
         th Default Decision
-        td
-          div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-            input.form-control(type="text", ng-model="table.defaultResult", typeahead-min-length="0", uib-typeahead="decision for decision in decisions", required)
-          div(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-            input.form-control(type="number", ng-model="table.defaultResult", required)
-        td
-          input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
-        td
-          input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
+        td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultResult")
+        td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
+        td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
     table.table
       tfoot.table-footer: tr
         td: div.decision-table__matching-type.row: div.form-horizontal(show-errors)
-            label.col-sm-6.control-label Matching type
-            .col-sm-6
-              select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+          label.col-sm-6.control-label Matching type
+          .col-sm-6: select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
         td: div.pull-right
           button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}") Save
-            .btn-loader
-              .glyphicon.glyphicon-refresh
+            .btn-loader: .glyphicon.glyphicon-refresh
           button.btn.btn-default(disabled, ng-if="saved")
             i.glyphicon.glyphicon-check
             | &nbsp;
