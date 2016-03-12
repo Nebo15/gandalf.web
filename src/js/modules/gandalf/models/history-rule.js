@@ -1,7 +1,10 @@
 angular.module('ng-gandalf').factory('DecisionHistoryRule', function (DecisionRule, HistoryRuleCondition) {
 
-  function HistoryRule () {
+  function HistoryRule (data) {
     DecisionRule.apply(this, arguments);
+    if (data) {
+      this.finalDecision = data.decision;
+    }
   }
 
   HistoryRule.prototype = Object.create(DecisionRule.prototype, {
@@ -9,6 +12,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryRule', function (DecisionRu
       value: HistoryRuleCondition
     }
   });
+
   HistoryRule.prototype.constructor = HistoryRule;
 
   return HistoryRule;
