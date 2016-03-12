@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision, APP,
-                                                                        CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule, _) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision) {
 
   var table = decision;
   $scope.saved = true;
@@ -16,30 +15,10 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   $scope.decisions = table.getDecisionVariants();
 
-  $scope.getSampleCheck = function (table) {
-    var example = {};
-    table.fields.forEach(function (item) {
-      switch (item.type) {
-        case APP.types.number:
-          example[item.alias] = 100;
-          break;
-        case APP.types.string:
-          example[item.alias] = 'sample';
-          break;
-        case APP.types.bool:
-          example[item.alias] = true;
-          break;
-        default:
-          example[item.alias] = 'sample';
-          break;
-      }
-    });
-
-    return JSON.stringify(example);
-  };
+  // Fields
 
   $scope.revertField = function (field) {
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'templates/modal/revert-field.html',
       controller: 'RevertFieldController',
       resolve: {
@@ -69,56 +48,39 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       });
     })
   };
-  $scope.addNewField = function () {
 
-    var modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/add-field.html',
-      controller: 'AddFieldController',
-      resolve: {
-        field: function () {
-          return null;
-        },
-        table: function () {
-          return table;
-        }
-      }
-    });
-    modalInstance.result.then(function (newField) {
-      table.addField(newField);
-      table.findConditionsByField(field).forEach(function (item) {
-        item.reset();
-      });
-    });
+  // Rules
 
+  $scope.editRule = function (rule) {
+    rule.isEditing = true;
   };
-  $scope.addNewRule = function () {
-
-    var rule = DecisionRule.fromFields(table.fields); // can be different
-
-    rule.conditions.forEach(function (condition) {
-      condition.condition = CONDITION_TYPES.IS_SET;
-    });
-    rule.priority = table.rules.length;
-    rule.decision = table.defaultResult;
-
-    table.addRule(rule);
-
-    $scope.editRule(rule);
+  $scope.saveRule = function (rule, form) {
+    form.$setSubmitted(true);
+    if (form.$invalid) return;
+    rule.isEditing = false;
   };
-
-  $scope.onChangeMatchingType = function (type) {
-    $log.debug('change type', type);
-    table.rules.forEach(function (item) {
-      item.decision = null;
-    })
+  $scope.copyRule = function (rule, form) {
+    table.copyRule(rule);
   };
-
 
   $scope.deleteRule = function (rule) {
     rule.isDeleted = true;
   };
   $scope.revertRule = function (rule) {
     rule.isDeleted = false;
+  };
+
+  $scope.addNewRule = function () {
+    $scope.editRule(table.createRule());
+  };
+
+  // Table
+
+  $scope.onChangeMatchingType = function (type) {
+    $log.debug('change type', type);
+    table.rules.forEach(function (item) {
+      item.decision = null;
+    })
   };
 
   $scope.submit = function (form) {
@@ -160,25 +122,6 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
         $state.go('decision-list');
       });
     });
-  };
-
-  $scope.editRule = function (rule) {
-    console.log('edit rule', rule);
-    if (rule.isEditing) return;
-    rule.isEditing = true;
-  };
-  $scope.saveRule = function (rule, form) {
-    console.log('save rule', form);
-    form.$setSubmitted(true);
-    if (form.$invalid) return;
-    rule.isEditing = false;
-
-    $scope.decisions.push(rule.decision);
-    $scope.decisions = _.uniq($scope.decisions);
-  };
-  $scope.copyRule = function (rule, form) {
-    console.log('copy rule', form);
-    table.copyRule(rule);
   };
 
   $scope.$watch('table', function () {

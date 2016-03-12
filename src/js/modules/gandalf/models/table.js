@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, CONDITION_TYPES) {
 
   function DecisionTable (id, data) {
     this.id = id;
@@ -42,9 +42,23 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     })
   };
 
+  DecisionTable.prototype.createRule = function () {
+
+    var rule = this._modelRule.fromFields(this.fields); // can be different
+
+    rule.conditions.forEach(function (condition) {
+      condition.condition = CONDITION_TYPES.IS_SET;
+    });
+    rule.priority = this.rules.length;
+    rule.decision = this.defaultResult;
+
+    this.addRule(rule);
+    return rule;
+  };
   DecisionTable.prototype.addRule = function (rule) {
     this.rules.push(rule);
   };
+
   DecisionTable.prototype.copyRule = function (rule) {
     var idx = this.rules.indexOf(rule);
     if (idx == -1) throw new Error('copy rule not found in table rules');
