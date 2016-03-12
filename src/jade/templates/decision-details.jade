@@ -20,7 +20,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         th.decision-table__column--index #
         th.border-right.decision-table__column--title  Title
           .small.text-light Description
-        th.decision-table__column--condition(ng-repeat="condition in table.fields", ng-click="editField(condition)", ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
+        th.decision-table__column--condition(ng-repeat="condition in table.fields", ng-click="editField(condition)",
+          ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
+
           .small.text-light {{condition.alias}}
             span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
         th.border-left.decision-table__column--decision.decision-table__add-column Decision
@@ -86,5 +88,5 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-tables.md
     pre
-      | $ curl -uAPI_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
-      |   -d '{{getSampleCheck(table)}}'
+      | $ curl -u API_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
+      |   -d '{{table | sampleCurl}}'
