@@ -71,16 +71,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   };
   $scope.addNewRule = function () {
 
-    var rule = DecisionRule.fromFields(table.fields); // can be different
-
-    rule.conditions.forEach(function (condition) {
-      condition.condition = CONDITION_TYPES.IS_SET;
-    });
-    rule.priority = table.rules.length;
-    rule.decision = table.defaultResult;
-
-    table.addRule(rule);
-
+    table.createRule();
     $scope.editRule(rule);
   };
 
