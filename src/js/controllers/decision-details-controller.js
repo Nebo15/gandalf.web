@@ -51,6 +51,11 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   // Rules
 
+  $scope.validateRule = function (rule, form) {
+    $scope.editRule(rule);
+    $scope.saveRule(rule, form);
+  };
+
   $scope.editRule = function (rule) {
     rule.isEditing = true;
   };
@@ -79,8 +84,8 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
   $scope.onChangeMatchingType = function (type) {
     $log.debug('change type', type);
     table.rules.forEach(function (item) {
-      item.decision = null;
-    })
+      $scope.editRule(item);
+    });
   };
 
   $scope.submit = function (form) {
@@ -101,6 +106,11 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       console.log('save success');
       $scope.error = null;
       $scope.saved = true;
+
+      table.rules.forEach(function (item) {
+        item.isEditing = false;
+      });
+
     }, function (err) {
       $scope.error = err;
       console.warn('save error', err);
