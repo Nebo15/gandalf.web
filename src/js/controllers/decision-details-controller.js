@@ -47,28 +47,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
       });
     })
   };
-  $scope.addNewField = function () {
 
-    var modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/add-field.html',
-      controller: 'AddFieldController',
-      resolve: {
-        field: function () {
-          return null;
-        },
-        table: function () {
-          return table;
-        }
-      }
-    });
-    modalInstance.result.then(function (newField) {
-      table.addField(newField);
-      table.findConditionsByField(field).forEach(function (item) {
-        item.reset();
-      });
-    });
-
-  };
   $scope.addNewRule = function () {
 
     table.createRule();
