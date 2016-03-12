@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision, APP,
-                                                                        CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule, _) {
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision) {
 
   var table = decision;
   $scope.saved = true;
