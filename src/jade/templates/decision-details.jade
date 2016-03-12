@@ -63,9 +63,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         td
           input.form-control(type="text", ng-model="table.defaultResult", typeahead-min-length="0",  uib-typeahead="decision for decision in decisions" , required)
         td
-          input.form-control(type="text", ng-model="table.defaultResultTitle", placeholder="Title")
+          input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
         td
-          input.form-control(type="text", ng-model="table.defaultResultDescription", placeholder="Description")
+          input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
     table.table
       tfoot.table-footer: tr: td
         .pull-right

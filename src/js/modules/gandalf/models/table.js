@@ -5,6 +5,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.fields = [];
     this.rules = [];
     this.defaultResult = null;
+    this.defaultTitle = null;
+    this.defaultDescription = null;
     this.matchingType = 'first';
 
     if (data) this.parse(data);
@@ -99,6 +101,9 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
     this.matchingType = data.matching_type || 'first';
     this.defaultResult = data.default_decision;
+    this.defaultTitle = data.default_title;
+    this.defaultDescription = data.default_description;
+
     this.title = data.title;
     this.description = data.description;
 
@@ -110,6 +115,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       fields: JSON.parse(JSON.stringify(this.fields)),
       rules: JSON.parse(JSON.stringify(this.rules)),
       default_decision: this.defaultResult,
+      default_title: this.defaultTitle,
+      default_description: this.defaultDescription,
       title: this.title,
       description: this.description,
       matching_type: this.matchingType
