@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $uibModal, $timeout, decision, APP,
+angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision, APP,
                                                                         CONDITION_OPTIONS, CONDITION_TYPES, DecisionRule, _) {
 
   var table = decision;
@@ -105,6 +105,14 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
     $scope.editRule(rule);
   };
+
+  $scope.onChangeMatchingType = function (type) {
+    $log.debug('change type', type);
+    table.rules.forEach(function (item) {
+      item.decision = null;
+    })
+  };
+
 
   $scope.deleteRule = function (rule) {
     rule.isDeleted = true;

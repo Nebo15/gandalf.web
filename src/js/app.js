@@ -23,7 +23,11 @@ angular.module('app').constant('APP', {
   types: {
     number: 'numeric',
     string: 'string',
-    bool: 'boolean'
+    bool  : 'boolean'
+  },
+  matchingTypes: {
+    first : 'first', // decision table
+    all   : 'all'    // scoring
   }
 }).run(function ($rootScope, APP) {
   $rootScope.APP = APP;
