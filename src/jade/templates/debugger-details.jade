@@ -15,7 +15,7 @@
         .col-sm-8
           div(ng-switch="field.type")
             input.form-control(
-              ng-switch-when="number"
+              ng-switch-when="$root.APP.types.number"
               type="number",
               ng-model="field.value",
               name="{{field.alias}}",
@@ -30,7 +30,7 @@
               required,
               placeholder="{{field.type}}"
             )
-            .checkbox(ng-switch-when="bool")
+            .checkbox(ng-switch-when="$root.APP.types.bool")
               label
                 input(type="checkbox", ng-model="field.value",
                   name="{{field.alias}}",)

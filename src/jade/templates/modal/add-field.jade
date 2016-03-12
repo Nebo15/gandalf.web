@@ -36,9 +36,9 @@ form(ng-submit="save(form)", name="form", novalidate)
             ng-model="field.type",
             required,
           )
-            option(value="number") Number
-            option(value="string") String
-            option(value="bool") Boolean
+            option(value="{{$root.APP.types.number}}") Number
+            option(value="{{$root.APP.types.string}}") String
+            option(value="{{$root.APP.types.bool}}") Boolean
 
       .form-group(ng-if="hasDifferentType()")
         .col.col-sm-10.col-sm-offset-2

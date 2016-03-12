@@ -10,14 +10,18 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
 
   }
   RuleCondition.prototype.toJSON = function () {
-    return {
+    var res = {
       field_key: this.field_alias,
       condition: utils.orNull(this.condition),
       value: utils.orNull(this.value)
     };
+    if (res.condition == '$is_set') {
+      res.value = true; // Because @bardack and @samorai have said what it is a good way
+    }
+    return res;
   };
   RuleCondition.prototype.reset = function () {
-    this.value = null;
+    this.value = true;
     this.condition = '$is_set';
   };
 
