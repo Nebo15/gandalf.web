@@ -15,7 +15,8 @@ angular.module('app', [
   'ui.sortable',
   'ncy-angular-breadcrumb',
 
-  'hljs'
+  'hljs',
+  'angular-bugsnag'
 ]);
 
 angular.module('app').constant('ENV', window.env);

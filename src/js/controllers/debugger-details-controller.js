@@ -22,6 +22,8 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     return res;
   }
 
+  $scope.booleanVariants = [ true, false ];
+
   $scope.table = table;
   $scope.fields = angular.copy(unique(table.fields, 'alias'));
 
