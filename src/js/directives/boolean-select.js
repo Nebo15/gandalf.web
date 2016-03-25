@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').directive('booleanSelect', function (CONDITION_TYPES) {
+angular.module('app').directive('booleanSelect', function (CONDITION_TYPES, $filter) {
   return {
     restrict: 'E',
     scope: {
@@ -21,7 +21,11 @@ angular.module('app').directive('booleanSelect', function (CONDITION_TYPES) {
       }, {
         condition: CONDITION_TYPES.IS_SET,
         value: null,
-        name: 'is set'
+        name: $filter('condition')(CONDITION_TYPES.IS_SET)
+      }, {
+        condition: CONDITION_TYPES.IS_NULL,
+        value: null,
+        name: $filter('condition')(CONDITION_TYPES.IS_NULL)
       }];
 
       // convert boolean value to booleanValues item and back

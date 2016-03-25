@@ -10,7 +10,8 @@ var CONDITION_TYPES = {
   IN: '$in',
   NOT_IN: '$nin',
   CONTAINS: '$contains',
-  IS_SET: '$is_set'
+  IS_SET: '$is_set',
+  IS_NULL: '$is_null'
 };
 
 angular.module('conditions', []).value('CONDITION_SYMBOLS', {
@@ -26,9 +27,11 @@ angular.module('conditions', []).value('CONDITION_SYMBOLS', {
 
   $contains: 'contains',
 
-  $is_set: 'is set'
+  $is_set: 'is set',
+
+  $is_null: 'is null'
 }).constant('CONDITION_OPTIONS', {
-  hasNotValue: [CONDITION_TYPES.IS_SET]
+  hasNotValue: [CONDITION_TYPES.IS_SET, CONDITION_TYPES.IS_NULL]
 }).constant('CONDITION_TYPES', CONDITION_TYPES).constant('CONDITIONS', {
   number: [
     CONDITION_TYPES.EQUAL,
@@ -39,7 +42,8 @@ angular.module('conditions', []).value('CONDITION_SYMBOLS', {
     CONDITION_TYPES.NOT_EQUAL,
     CONDITION_TYPES.IN,
     CONDITION_TYPES.NOT_IN,
-    CONDITION_TYPES.IS_SET
+    CONDITION_TYPES.IS_SET,
+    CONDITION_TYPES.IS_NULL
   ],
   string: [
     CONDITION_TYPES.EQUAL,
@@ -47,7 +51,8 @@ angular.module('conditions', []).value('CONDITION_SYMBOLS', {
     CONDITION_TYPES.IN,
     CONDITION_TYPES.NOT_IN,
     CONDITION_TYPES.CONTAINS,
-    CONDITION_TYPES.IS_SET
+    CONDITION_TYPES.IS_SET,
+    CONDITION_TYPES.IS_NULL
   ]
 }).filter('condition', function (CONDITION_SYMBOLS) {
   return function (cond) {

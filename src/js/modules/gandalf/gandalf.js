@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('ng-gandalf', []);
+angular.module('ng-gandalf', [
+  'conditions'
+]);
