@@ -13,27 +13,35 @@
       .form-group(ng-repeat="field in fields")
         label.col-sm-4.control-label {{field.title}}
         .col-sm-8
+
           div(ng-switch="field.type")
             input.form-control(
-              ng-switch-when="$root.APP.types.number"
+              ng-if="field.type == $root.APP.types.number"
               type="number",
-              ng-model="field.value",
+              ng-model="$parent.field.value",
               name="{{field.alias}}",
               required,
               placeholder="{{field.type}}"
             )
+            select.form-control(
+              ng-if="field.type == $root.APP.types.bool",
+              ng-model="$parent.field.value",
+              ng-options="val for val in booleanVariants",
+              ng-init="$parent.field.value = booleanVariants[0]"
+              required
+              )
             input.form-control(
-              ng-switch-default,
+              ng-if="field.type == $root.APP.types.string"
               type="text",
-              ng-model="field.value",
+              ng-model="$parent.field.value",
               name="{{field.alias}}",
               required,
               placeholder="{{field.type}}"
             )
-            .checkbox(ng-switch-when="$root.APP.types.bool")
-              label
-                input(type="checkbox", ng-model="field.value",
-                  name="{{field.alias}}",)
+            //.checkbox(ng-switch-when="$root.APP.types.bool")
+            //  label
+            //    input(type="checkbox", ng-model="field.value",
+            //      name="{{field.alias}}",)
       .form-group
         .col-sm-8.col-sm-offset-4
           button.btn.btn-primary.btn-loading(type="submit", ng-class="{'is-active': loading}") Send
