@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
+angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, CONDITION_OPTIONS) {
 
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
@@ -15,7 +15,8 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils) {
       condition: utils.orNull(this.condition),
       value: utils.orNull(this.value)
     };
-    if (res.condition == '$is_set') {
+    // not return is_set and is_null with undefined value field
+    if (CONDITION_OPTIONS.hasNotValue.indexOf(res.condition) !== -1) {
       res.value = true; // Because @bardack and @samorai have said what it is a good way
     }
     return res;
