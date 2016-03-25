@@ -83,7 +83,26 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
   $scope.onChangeMatchingType = function (type) {
     $log.debug('change type', type);
+    var transformFn = function (val) {
+      return val
+    };
+    switch (type) {
+      case $scope.APP.matchingTypes.first:
+        transformFn = function (val) {
+          return '' + val;
+        };
+        break;
+      case $scope.APP.matchingTypes.all:
+        transformFn = function (val) {
+          return parseInt(val, 10);
+        };
+        break;
+    }
+
+    table.defaultResult = transformFn(table.defaultResult);
     table.rules.forEach(function (item) {
+      item.decision = transformFn(item.decision);
+
       $scope.editRule(item);
     });
   };

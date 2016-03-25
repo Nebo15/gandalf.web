@@ -33,7 +33,7 @@ angular.module('app').directive('selectMatchingType', function () {
     modalInstance.close();
   };
   $scope.confirm = function () {
-    $scope.callback()($scope.model);
+    $scope.callback()($scope.matchingType);
     $scope.model = $scope.matchingType;
     modalInstance.close();
   }
