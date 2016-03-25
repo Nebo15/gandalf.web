@@ -3,16 +3,31 @@
     "debug": false,
     "api": {
       "endpoint": "//gandalf-api.nebo15.com/api/v1/"
+    },
+    "providers": {
+      "bugsnag": {
+        "apiKey": "5ff0d43fd2dd6e9a5d2509485e5317ea",
+        "stage": null
+      }
     }
-
   },
   "dev": {
-    "debug": true
+    "debug": true,
+    "providers": {
+      "bugsnag": {
+        "stage": "development"
+      }
+    }
   },
   "production": {
     "debug": false,
     "api": {
       "endpoint": "/api/v1/"
+    },
+    "providers": {
+      "bugsnag": {
+        "stage": "production"
+      }
     }
   }
 }
