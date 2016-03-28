@@ -1,3 +1,3 @@
 div(ng-switch="type")
-  doubled-input(ng-switch-when="$is_between", value="$parent.value", disabled="disabled", required="required")
+  doubled-input(ng-switch-when="$between", value="$parent.value", disabled="disabled", required="required")
   input.form-control(ng-switch-default, ng-model="$parent.value", ng-disabled="disabled", ng-required="required")
