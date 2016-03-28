@@ -2,10 +2,11 @@
   div(ng-if="type == $root.APP.types.number")
     //.input-group-addon
     select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
-    input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")
+    condition-input(type="condition", value="$parent.value", disabled="!hasInput(condition)", required="hasInput(condition)")
   div(ng-if="type == $root.APP.types.bool")
     boolean-select(value="$parent.value", condition="$parent.condition")
   di(ng-if="type == $root.APP.types.string")
     //.input-group-addon
     select.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.string")
-    input.form-control(ng-model="$parent.value", ng-disabled="!hasInput(condition)", ng-required="hasInput(condition)")
+    condition-input(type="condition", value="$parent.value", disabled="!hasInput(condition)", required="hasInput(condition)")
+    //input.form-control(ng-model="$parent.value", )
