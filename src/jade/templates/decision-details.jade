@@ -30,7 +30,8 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         th.decision-table__column--action Action
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-        tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted}", ng-form="ruleForm", ng-click="editRule(rule)")
+        tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted}", skip-form="rule.isDeleted",
+            ng-form="ruleForm", ng-click="editRule(rule)")
           td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
           td.border-right
             div(ng-if="rule.isEditing")
