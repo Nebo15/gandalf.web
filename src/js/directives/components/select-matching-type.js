@@ -4,8 +4,8 @@ angular.module('app').directive('selectMatchingType', function () {
   return {
     restrict: 'E',
     template: '<select name="matching_type" required="required" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" class="form-control"> ' +
-      '<option value="{{$root.APP.matchingTypes.all}}">All</option> ' +
-      '<option value="{{$root.APP.matchingTypes.first}}">First</option> ' +
+      '<option value="{{$root.APP.matchingTypes.all}}">Scoring Table - Return Total of all Passed Rules</option> ' +
+      '<option value="{{$root.APP.matchingTypes.first}}">Decision Table - Return First Passed Rule</option> ' +
     '</select>',
     scope: {
       model: '=ngModel',
