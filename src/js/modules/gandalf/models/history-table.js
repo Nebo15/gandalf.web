@@ -32,11 +32,10 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
 
   DecisionHistoryTable.prototype.fetch = function () {
     console.log('fetch');
-    return $gandalf.historyById(this.id).then(function (resp) {
+    return $gandalf.admin.getDecisionById(this.id).then(function (resp) {
       return this.parse(resp.data);
     }.bind(this));
   };
-
 
   DecisionHistoryTable.prototype.toJSON = function () {
     var res = DecisionTable.prototype.toJSON.call(this);
@@ -49,7 +48,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
   };
 
   DecisionHistoryTable.find = function (tableId, size, page) {
-    return $gandalf.history(tableId, size, page).then(function (resp) {
+    return $gandalf.admin.getDecisions(tableId, size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
         return new DecisionHistoryTable(item._id, item);
       });
