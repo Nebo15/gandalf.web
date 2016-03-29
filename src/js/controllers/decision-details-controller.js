@@ -101,7 +101,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
 
     table.defaultResult = transformFn(table.defaultResult);
     table.rules.forEach(function (item) {
-      item.decision = transformFn(item.decision);
+      item.than = transformFn(item.than);
 
       $scope.editRule(item);
     });

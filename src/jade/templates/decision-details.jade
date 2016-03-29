@@ -44,8 +44,8 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
             field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
             field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
           td.border-left
-            div.form-control-static(ng-if="!rule.isEditing") {{rule.decision}}
-            decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.decision")
+            div.form-control-static(ng-if="!rule.isEditing") {{rule.than}}
+            decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than")
           td: .decision-table__actions.form-control-static
             div(ng-if="rule.isDeleted")
               a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat

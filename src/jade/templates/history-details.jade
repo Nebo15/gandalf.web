@@ -35,4 +35,4 @@ h4 History Details
           ng-repeat="condition in rule.conditions",
           ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
           td.border-left.decision-table__condition(ng-class="{'is-matched': rule.finalDecision, 'is-unmatched': !rule.finalDecision}")
-            | {{rule.decision}}
+            | {{rule.than}}

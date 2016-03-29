@@ -139,7 +139,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.getDecisionVariants = function () {
 
-    var variants = this.rules.map(function (item) { return item.decision; });
+    var variants = this.rules.map(function (item) { return item.than; });
     if (this.defaultResult) {
       variants.push(this.defaultResult);
     }
