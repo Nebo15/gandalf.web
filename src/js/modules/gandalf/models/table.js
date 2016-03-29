@@ -77,7 +77,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return [].concat.apply([], this.rules.map(function (item) {
       return item.conditions;
     })).filter(function (condition) {
-      return condition.field_alias === field.key;
+      return condition.fieldKey === field.key;
     });
   };
 

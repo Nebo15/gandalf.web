@@ -3,7 +3,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, C
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.field_alias = options.field_key;
+    this.fieldKey = options.field_key;
     this.value = options.value;
 
     this.condition = options.condition ? options.condition : options.value ? '$eq' : '$is_set';
@@ -11,7 +11,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, C
   }
   RuleCondition.prototype.toJSON = function () {
     var res = {
-      field_key: this.field_alias,
+      field_key: this.fieldKey,
       condition: utils.orNull(this.condition),
       value: utils.orNull(this.value)
     };
@@ -28,7 +28,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, C
 
   RuleCondition.fromField = function (field) {
     var cond = new this();
-    cond.field_alias = field.key;
+    cond.fieldKey = field.key;
 
     return cond;
   };
