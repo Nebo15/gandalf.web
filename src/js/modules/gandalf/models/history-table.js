@@ -1,7 +1,7 @@
 angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf, DecisionTable, DecisionHistoryRule) {
 
   function DecisionHistoryTable () {
-    this.decision = null;
+    this.finalDecision = null;
     this.request = null;
     this.createdAt = null;
     this.updatedAt = null;
@@ -22,7 +22,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
 
     this.table = new DecisionTable(data.table.id, data.table);
 
-    this.decision = data.final_decision;
+    this.finalDecision = data.final_decision;
     this.request = data.request;
     this.createdAt = new Date(data.created_at);
     this.updatedAt = new Date(data.updated_at);
@@ -39,7 +39,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
 
   DecisionHistoryTable.prototype.toJSON = function () {
     var res = DecisionTable.prototype.toJSON.call(this);
-    res.final_decision = this.decision;
+    res.final_decision = this.finalDecision;
     res.request = this.request;
     res.created_at = this.createdAt;
     res.updated_at = this.updatedAt;
