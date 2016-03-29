@@ -12,9 +12,9 @@ angular.module('app').controller('AddFieldController', function ($scope, APP, $u
 
   $scope.sameKeyColumns = [];
   $scope.sameKeyColumnsType = null;
-  $scope.$watch('field.alias', function (val) {
+  $scope.$watch('field.key', function (val) {
     $scope.sameKeyColumns = table.fields.filter(function (item) {
-      return item.alias === val && item !== fieldModel;
+      return item.key === val && item !== fieldModel;
     });
     $scope.sameKeyColumnsType = ($scope.sameKeyColumns[0] || {}).type;
   });
@@ -46,7 +46,7 @@ angular.module('app').controller('AddFieldController', function ($scope, APP, $u
       $scope.field.preset = null;
     }
 
-    // same type if the fields with the same alias
+    // same type if the fields with the same key
     if ($scope.sameKeyColumns && $scope.field.type !== $scope.sameKeyColumnsType) {
       $scope.sameKeyColumns.forEach(function (field) {
         field.type = $scope.field.type;

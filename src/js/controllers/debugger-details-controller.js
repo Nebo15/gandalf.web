@@ -25,7 +25,7 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
   $scope.booleanVariants = [ true, false ];
 
   $scope.table = table;
-  $scope.fields = angular.copy(unique(table.fields, 'alias'));
+  $scope.fields = angular.copy(unique(table.fields, 'key'));
 
   $scope.response = {
     step1: "fill form",
@@ -34,7 +34,7 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
 
   if ($stateParams.decision) {
     $scope.fields.forEach(function (item) {
-      item.value = $stateParams.decision.request[item.alias];
+      item.value = $stateParams.decision.request[item.key];
     });
     $gandalf.consumer.check($stateParams.decision.id).then(function (resp) {
       $scope.response = resp.data;
@@ -46,7 +46,7 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
   $scope.submit = function (form) {
     if (form.$invalid || $scope.loading) return;
     $scope.loading = true;
-    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'alias', 'value')).catch(function (resp) {
+    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'key', 'value')).catch(function (resp) {
       return resp;
     }).then(function (resp) {
       $scope.response = resp.data;

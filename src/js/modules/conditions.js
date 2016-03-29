@@ -11,7 +11,8 @@ var CONDITION_TYPES = {
   NOT_IN: '$nin',
   CONTAINS: '$contains',
   IS_SET: '$is_set',
-  IS_NULL: '$is_null'
+  IS_NULL: '$is_null',
+  BETWEEN: '$between'
 };
 
 angular.module('conditions', []).value('CONDITION_SYMBOLS', {
@@ -29,7 +30,9 @@ angular.module('conditions', []).value('CONDITION_SYMBOLS', {
 
   $is_set: 'is set',
 
-  $is_null: 'is null'
+  $is_null: 'is null',
+
+  $between: 'between'
 }).constant('CONDITION_OPTIONS', {
   hasNotValue: [CONDITION_TYPES.IS_SET, CONDITION_TYPES.IS_NULL]
 }).constant('CONDITION_TYPES', CONDITION_TYPES).constant('CONDITIONS', {
@@ -43,7 +46,8 @@ angular.module('conditions', []).value('CONDITION_SYMBOLS', {
     CONDITION_TYPES.IN,
     CONDITION_TYPES.NOT_IN,
     CONDITION_TYPES.IS_SET,
-    CONDITION_TYPES.IS_NULL
+    CONDITION_TYPES.IS_NULL,
+    CONDITION_TYPES.BETWEEN
   ],
   string: [
     CONDITION_TYPES.EQUAL,

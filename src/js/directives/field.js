@@ -11,7 +11,6 @@ angular.module('app').directive('field', function ($timeout, APP, CONDITIONS, CO
     templateUrl: 'templates/directives/field.html',
     link: function (scope) {
       scope.conditions = CONDITIONS;
-
       scope.hasInput = function (condition) {
         return CONDITION_OPTIONS.hasNotValue.indexOf(condition) === -1;
       };

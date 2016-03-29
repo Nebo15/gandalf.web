@@ -16,7 +16,7 @@
       td {{table.title}}
         .small.light {{table.description}}
       td {{table.table.title}}
-      td {{table.decision}}
+      td {{table.finalDecision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
 
   uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")

@@ -3,7 +3,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryRule', function (DecisionRu
   function HistoryRule (data) {
     DecisionRule.apply(this, arguments);
     if (data) {
-      this.finalDecision = data.decision;
+      this.decision = data.decision;
     }
   }
 
