@@ -4,7 +4,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.id = id;
     this.fields = [];
     this.rules = [];
-    this.defaultResult = null;
+    this.defaultDecision = null;
     this.defaultTitle = null;
     this.defaultDescription = null;
     this.matchingType = 'first';
@@ -50,7 +50,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       condition.condition = CONDITION_TYPES.IS_SET;
     });
     rule.priority = this.rules.length;
-    rule.decision = this.defaultResult;
+    rule.decision = this.defaultDecision;
 
     this.addRule(rule);
     return rule;
@@ -114,7 +114,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     }.bind(this));
 
     this.matchingType = data.matching_type || 'first';
-    this.defaultResult = data.default_decision;
+    this.defaultDecision = data.default_decision;
     this.defaultTitle = data.default_title;
     this.defaultDescription = data.default_description;
 
@@ -128,7 +128,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       _id: this.id,
       fields: JSON.parse(JSON.stringify(this.fields)),
       rules: JSON.parse(JSON.stringify(this.rules)),
-      default_decision: this.defaultResult,
+      default_decision: this.defaultDecision,
       default_title: this.defaultTitle,
       default_description: this.defaultDescription,
       title: this.title,
@@ -140,8 +140,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   DecisionTable.prototype.getDecisionVariants = function () {
 
     var variants = this.rules.map(function (item) { return item.than; });
-    if (this.defaultResult) {
-      variants.push(this.defaultResult);
+    if (this.defaultDecision) {
+      variants.push(this.defaultDecision);
     }
     return _.uniq(variants);
   };

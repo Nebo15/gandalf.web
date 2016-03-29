@@ -99,7 +99,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
         break;
     }
 
-    table.defaultResult = transformFn(table.defaultResult);
+    table.defaultDecision = transformFn(table.defaultDecision);
     table.rules.forEach(function (item) {
       item.than = transformFn(item.than);
 
