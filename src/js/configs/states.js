@@ -28,31 +28,31 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $stateProvider.state('decision-list', {
+  $stateProvider.state('tables-list', {
     parent: 'private',
     url: '/?size?page',
     params: {
       size: '25'
     },
-    controller: 'DecisionListController',
-    templateUrl: 'templates/decision-list.html',
+    controller: 'TablesListController',
+    templateUrl: 'templates/tables-list.html',
     ncyBreadcrumb: {
       label: 'Tables'
     }
-  }).state('decision-create', {
+  }).state('tables-create', {
     parent: 'private',
-    url: '/decision/create',
-    controller: 'DecisionCreateController',
-    templateUrl: 'templates/decision-details.html',
+    url: '/tables/create',
+    controller: 'TablesCreateController',
+    templateUrl: 'templates/tables-details.html',
     ncyBreadcrumb: {
       label: 'Create new table',
-      parent: 'decision-list'
+      parent: 'tables-list'
     }
-  }).state('decision-details', {
+  }).state('tables-details', {
     parent: 'private',
-    url: '/decision/:id',
-    controller: 'DecisionDetailsController',
-    templateUrl: 'templates/decision-details.html',
+    url: '/tables/:id',
+    controller: 'TablesDetailsController',
+    templateUrl: 'templates/tables-details.html',
     resolve: {
       decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return DecisionTable.byId($stateParams.id);
@@ -60,7 +60,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Edit: {{table.title}}',
-      parent: 'decision-list'
+      parent: 'tables-list'
     }
   });
 
@@ -94,12 +94,12 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('debugger-details', {
     parent: 'private',
-    url: '/table/:id/debug',
+    url: '/tables/:id/debug',
     controller: 'DebuggerDetailsController',
     templateUrl: 'templates/debugger-details.html',
     ncyBreadcrumb: {
       label: 'Debugger: {{table.id}}',
-      parent: 'decision-details'
+      parent: 'tables-details'
     },
     params: {
       id: null,
