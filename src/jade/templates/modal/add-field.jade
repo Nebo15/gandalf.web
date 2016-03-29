@@ -17,9 +17,9 @@ form(ng-submit="save(form)", name="form", novalidate)
         label.col-sm-2.control-label API Field Key
         .col-sm-10
           input.form-control(
-            name="alias",
+            name="key",
             type="text",
-            ng-model="field.alias",
+            ng-model="field.key",
             required,
             pattern="[a-zA-Z\\_\\-]*"
             placeholder="person-age"

@@ -1,5 +1,5 @@
 
-angular.module('app').controller('DecisionListController', function ($scope, $timeout, $state, $stateParams, DecisionTable) {
+angular.module('app').controller('TablesListController', function ($scope, $timeout, $state, $stateParams, DecisionTable) {
 
   $scope.tables = null;
 

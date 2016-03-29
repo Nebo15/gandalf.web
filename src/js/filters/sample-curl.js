@@ -6,16 +6,16 @@ angular.module('app').filter('sampleCurl', function (APP) {
     table.fields.forEach(function (item) {
       switch (item.type) {
         case APP.types.number:
-          example[item.alias] = 100;
+          example[item.key] = 100;
           break;
         case APP.types.string:
-          example[item.alias] = 'sample';
+          example[item.key] = 'sample';
           break;
         case APP.types.bool:
-          example[item.alias] = true;
+          example[item.key] = true;
           break;
         default:
-          example[item.alias] = 'sample';
+          example[item.key] = 'sample';
           break;
       }
     });

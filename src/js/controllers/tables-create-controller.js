@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app').controller('DecisionCreateController', function ($scope, $controller, $state, DecisionTable) {
+angular.module('app').controller('TablesCreateController', function ($scope, $controller, $state, DecisionTable) {
 
-  $controller('DecisionDetailsController', {
+  $controller('TablesDetailsController', {
     $scope: $scope,
     decision: new DecisionTable()
   }); //This works
@@ -12,7 +12,7 @@ angular.module('app').controller('DecisionCreateController', function ($scope, $
     $scope.table.create().then(function (resp) {
       $scope.error = null;
       console.log('created table', resp);
-      $state.go('decision-details', {id: resp.id});
+      $state.go('tables-details', {id: resp.id});
     }).catch(function (resp) {
       $scope.error = resp;
       console.warn('error create', resp);

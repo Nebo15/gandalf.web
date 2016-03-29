@@ -4,7 +4,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.id = id;
     this.fields = [];
     this.rules = [];
-    this.defaultResult = null;
+    this.defaultDecision = null;
     this.defaultTitle = null;
     this.defaultDescription = null;
     this.matchingType = 'first';
@@ -21,7 +21,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   });
 
   DecisionTable.prototype.fetch = function () {
-    return $gandalf.decisionById(this.id).then(function (resp) {
+    return $gandalf.admin.getTableById(this.id).then(function (resp) {
       return this.parse(resp.data);
     }.bind(this))
   };
@@ -50,7 +50,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       condition.condition = CONDITION_TYPES.IS_SET;
     });
     rule.priority = this.rules.length;
-    rule.decision = this.defaultResult;
+    rule.decision = this.defaultDecision;
 
     this.addRule(rule);
     return rule;
@@ -77,7 +77,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return [].concat.apply([], this.rules.map(function (item) {
       return item.conditions;
     })).filter(function (condition) {
-      return condition.field_alias === field.alias;
+      return condition.fieldKey === field.key;
     });
   };
 
@@ -89,17 +89,17 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       this.deleteField(field);
     }.bind(this));
 
-    return $gandalf.updateDecisionById(this.id, this);
+    return $gandalf.admin.updateTableById(this.id, this);
   };
   DecisionTable.prototype.create = function () {
-    return $gandalf.createDecision(this).then(function (obj) {
+    return $gandalf.admin.createTable(this).then(function (obj) {
       this.id = obj.data._id;
       return this;
     }.bind(this));
   };
 
   DecisionTable.prototype.delete = function () {
-    return $gandalf.deleteDecisionById(this.id);
+    return $gandalf.admin.deleteTableById(this.id);
   };
 
   DecisionTable.prototype.parse = function (data) {
@@ -114,7 +114,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     }.bind(this));
 
     this.matchingType = data.matching_type || 'first';
-    this.defaultResult = data.default_decision;
+    this.defaultDecision = data.default_decision;
     this.defaultTitle = data.default_title;
     this.defaultDescription = data.default_description;
 
@@ -128,7 +128,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       _id: this.id,
       fields: JSON.parse(JSON.stringify(this.fields)),
       rules: JSON.parse(JSON.stringify(this.rules)),
-      default_decision: this.defaultResult,
+      default_decision: this.defaultDecision,
       default_title: this.defaultTitle,
       default_description: this.defaultDescription,
       title: this.title,
@@ -139,9 +139,9 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.getDecisionVariants = function () {
 
-    var variants = this.rules.map(function (item) { return item.decision; });
-    if (this.defaultResult) {
-      variants.push(this.defaultResult);
+    var variants = this.rules.map(function (item) { return item.than; });
+    if (this.defaultDecision) {
+      variants.push(this.defaultDecision);
     }
     return _.uniq(variants);
   };
@@ -149,7 +149,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   DecisionTable.find = function (size, page) {
 
     var self = this;
-    return $gandalf.decisions(size, page).then(function (resp) {
+    return $gandalf.admin.getTables(size, page).then(function (resp) {
       resp.data = resp.data.map(function (item) {
         return new self (null, item);
       });

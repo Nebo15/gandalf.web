@@ -1,9 +1,9 @@
 .panel.panel-default: .panel-body
   include:marked ../content/guides/decision-tables-list.md
-div: a.btn.btn-default(ui-sref="decision-create") + Add table
+div: a.btn.btn-default(ui-sref="tables-create") + Add table
 br
 p.list-group
-  a.list-group-item(ui-sref="decision-details({id: table.id})", ng-repeat="table in tables")
+  a.list-group-item(ui-sref="tables-details({id: table.id})", ng-repeat="table in tables")
     b.list-group-item-heading {{table.title || 'Untitled project'}}
     br
     span: i.list-group-item-text {{table.description}}

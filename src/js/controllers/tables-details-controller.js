@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DecisionDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision) {
+angular.module('app').controller('TablesDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision) {
 
   var table = decision;
   $scope.saved = true;
@@ -99,9 +99,9 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
         break;
     }
 
-    table.defaultResult = transformFn(table.defaultResult);
+    table.defaultDecision = transformFn(table.defaultDecision);
     table.rules.forEach(function (item) {
-      item.decision = transformFn(item.decision);
+      item.than = transformFn(item.than);
 
       $scope.editRule(item);
     });
@@ -148,7 +148,7 @@ angular.module('app').controller('DecisionDetailsController', function ($scope, 
     });
     modalInstance.result.then(function () {
       table.delete().then(function () {
-        $state.go('decision-list');
+        $state.go('tables-list');
       });
     });
   };

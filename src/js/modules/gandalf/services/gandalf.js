@@ -146,11 +146,13 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         var oldAuthorization = config.authorization;
         this.setAuthorization(apiKey, apiSecret);
 
-        return this.decisions(0,0).finally(function () {
+        return this.admin.getTables(0,0).finally(function () {
           config.authorization = oldAuthorization;
         });
       };
-      self.decisions = function (size, page) {
+
+      self.admin = {};
+      self.admin.getTables = function (size, page) {
         return $request.get('admin/tables', {
           params: {
             size: size,
@@ -158,11 +160,11 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           }
         });
       };
-      self.decisionById = function (id) {
+      self.admin.getTableById = function (id) {
         return $request.get('admin/tables/'+id);
       };
 
-      self.createDecision = function (obj) {
+      self.admin.createTable= function (obj) {
         return $request({
           endpoint: 'admin/tables/',
           method: 'post'
@@ -170,7 +172,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           table: obj
         });
       };
-      self.updateDecisionById = function (id, obj) {
+      self.admin.updateTableById = function (id, obj) {
         return $request({
           endpoint: 'admin/tables/'+id,
           method: 'put'
@@ -178,14 +180,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           table: obj
         });
       };
-      self.deleteDecisionById= function (id) {
+      self.admin.deleteTableById= function (id) {
         return $request({
           endpoint: 'admin/tables/'+id,
           method: 'delete'
         });
       };
 
-      self.history = function (tableId, size, page) {
+      self.admin.getDecisions = function (tableId, size, page) {
         return $request.get('admin/decisions', {
           params: {
             table_id: tableId,
@@ -194,13 +196,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           }
         });
       };
-      self.historyById = function (historyId) {
+      self.admin.getDecisionById = function (historyId) {
         return $request.get('admin/decisions/'+historyId);
       };
 
-      self.update = function (decisionTableObj) {
-        return $q.when(decisionTableObj);
-      };
 
       self.consumer = {};
       self.consumer.send = function (tableId, obj) {

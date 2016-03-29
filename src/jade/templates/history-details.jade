@@ -13,9 +13,9 @@ h4 History Details
     div.preview__response(hljs, hljs-source="(table.request | json: 2)")
 
   h5 Final Decision
-  p {{table.decision}}
+  p {{table.finalDecision}}
   h5 Default Decision
-  p {{table.defaultResult}}
+  p {{table.defaultDecision}}
   h5 Decision Flow
   .history-detail__table.decision-table.ng-cloak(ng-if="table")
     .table-responsive: table.table
@@ -34,5 +34,5 @@ h4 History Details
           td.decision-table__condition(
           ng-repeat="condition in rule.conditions",
           ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
-          td.border-left.decision-table__condition(ng-class="{'is-matched': rule.finalDecision, 'is-unmatched': !rule.finalDecision}")
-            | {{rule.decision}}
+          td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
+            | {{rule.than}}
