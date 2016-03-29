@@ -19,7 +19,7 @@
               ng-if="field.type == $root.APP.types.number"
               type="number",
               ng-model="$parent.field.value",
-              name="{{field.alias}}",
+              name="{{field.key}}",
               required,
               placeholder="{{field.type}}"
             )
@@ -34,7 +34,7 @@
               ng-if="field.type == $root.APP.types.string"
               type="text",
               ng-model="$parent.field.value",
-              name="{{field.alias}}",
+              name="{{field.key}}",
               required,
               placeholder="{{field.type}}"
             )

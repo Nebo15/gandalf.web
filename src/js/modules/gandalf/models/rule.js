@@ -25,7 +25,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
   };
   Rule.prototype.removeConditionByField = function (field) {
     this.conditions = this.conditions.filter(function (item) {
-      return item.field_alias !== field.alias;
+      return item.field_alias !== field.key;
     });
   };
   Rule.prototype.removeConditionByIndex = function (idx) {
