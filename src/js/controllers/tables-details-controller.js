@@ -15,6 +15,12 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
 
   $scope.decisions = table.getDecisionVariants();
 
+  $scope.onReorderFields = function (curIdx, nextIdx) {
+
+    $scope.table.rules.forEach(function (rule) {
+      rule.conditions[curIdx] = rule.conditions.splice(nextIdx, 1, rule.conditions[curIdx])[0];
+    });
+  };
   // Fields
 
   $scope.revertField = function (field) {

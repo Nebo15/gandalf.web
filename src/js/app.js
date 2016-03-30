@@ -16,7 +16,8 @@ angular.module('app', [
   'ncy-angular-breadcrumb',
 
   'hljs',
-  'angular-bugsnag'
+  'angular-bugsnag',
+  'dragcolumns'
 ]);
 
 angular.module('app').constant('ENV', window.env);

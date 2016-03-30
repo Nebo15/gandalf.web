@@ -14,6 +14,7 @@
     "angular-highlightjs": "^0.5.1",
     "highlightjs": "^9.2.0",
     "ui-router-extras": "^0.1.0",
-    "angular-bugsnag": "^0.2.0"
+    "angular-bugsnag": "^0.2.0",
+    "angular-drag-columns": "*"
   }
 }
