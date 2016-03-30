@@ -34,7 +34,10 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
   }];
 
   $scope.table = table;
-  $scope.fields = angular.copy(unique(table.fields, 'key'));
+  $scope.fields = angular.copy(unique(table.fields, 'key')).map(function (item) {
+    item.value = item.value || null;
+    return item;
+  });
 
   $scope.response = {
     step1: "fill form",
