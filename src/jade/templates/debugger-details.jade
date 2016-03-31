@@ -20,22 +20,18 @@
               type="number",
               ng-model="$parent.field.value",
               name="{{field.key}}",
-              required,
               placeholder="{{field.type}}"
             )
             select.form-control(
               ng-if="field.type == $root.APP.types.bool",
               ng-model="$parent.field.value",
-              ng-options="val for val in booleanVariants",
-              ng-init="$parent.field.value = booleanVariants[0]"
-              required
+              ng-options="val.value as val.title for val in booleanVariants"
               )
             input.form-control(
               ng-if="field.type == $root.APP.types.string"
               type="text",
               ng-model="$parent.field.value",
               name="{{field.key}}",
-              required,
               placeholder="{{field.type}}"
             )
             //.checkbox(ng-switch-when="$root.APP.types.bool")

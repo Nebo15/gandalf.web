@@ -22,10 +22,22 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     return res;
   }
 
-  $scope.booleanVariants = [ true, false ];
+  $scope.booleanVariants = [{
+    title: 'true',
+    value: true
+  }, {
+    title: 'false',
+    value: false
+  }, {
+    title: 'null',
+    value: null
+  }];
 
   $scope.table = table;
-  $scope.fields = angular.copy(unique(table.fields, 'key'));
+  $scope.fields = angular.copy(unique(table.fields, 'key')).map(function (item) {
+    item.value = item.value || null;
+    return item;
+  });
 
   $scope.response = {
     step1: "fill form",

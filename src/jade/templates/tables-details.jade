@@ -15,12 +15,12 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
   .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
 
   .decision-table
-    .table-responsive: table.table.table-hover
-      thead: tr
+    .table-responsive: table.table.table-hover.decision-table__table(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
+      thead(table-fixed-row): tr
         th.decision-table__column--index #
         th.border-right.decision-table__column--title  Title
           .small.text-light Description
-        th.decision-table__column--condition(ng-repeat="condition in table.fields", ng-click="editField(condition)",
+        th.decision-table__column--condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
           ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
 
           .small.text-light {{condition.key}}
@@ -55,16 +55,16 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
               a.btn.btn-default(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
               a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-    table.table
+    table.table.decision-table__table
       tbody.decision-table__add-row: tr: td
         a(ng-click="addNewRule()") + Add new row
-    table.table
+    table.table.decision-table__table
       tbody: tr
         th Default Decision
         td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
         td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
         td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
-    table.table
+    table.table.decision-table__table
       tfoot.table-footer: tr
         td: div.decision-table__matching-type.row: div.form-horizontal(show-errors)
           label.col-sm-6.control-label Matching type
