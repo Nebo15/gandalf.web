@@ -16,7 +16,7 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
 
   .decision-table
     .table-responsive: table.table.table-hover.decision-table__table(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
-      thead: tr
+      thead(table-fixed-row): tr
         th.decision-table__column--index #
         th.border-right.decision-table__column--title  Title
           .small.text-light Description
