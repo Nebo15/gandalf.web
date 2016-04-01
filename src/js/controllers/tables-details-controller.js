@@ -15,6 +15,10 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
 
   $scope.decisions = table.getDecisionVariants();
 
+  table.getChangelogs().then(function (resp) {
+    $scope.changelogs = resp;
+  });
+
   $scope.onReorderFields = function (curIdx, nextIdx) {
 
     $scope.table.rules.forEach(function (rule) {
@@ -113,6 +117,11 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
     });
   };
 
+  $scope.rollbackChangelog = function (changelog) {
+    return changelog.rollback().then(function () {
+      return table.fetch()
+    });
+  };
   $scope.submit = function (form) {
     if (form.$invalid) return;
     $scope.save();

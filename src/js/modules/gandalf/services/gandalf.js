@@ -192,19 +192,19 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Changelog
 
-      self.admin.getTablesChangelog = function () {
+      self.admin.getTablesChangelogs = function () {
         return $request({
           endpoint: 'admin/changelog/tables',
           method: 'get'
         });
       };
-      self.admin.getTableChangelog = function (tableId) {
+      self.admin.getTableChangelogs = function (tableId) {
         return $request({
           endpoint: 'admin/changelog/tables/' + tableId,
           method: 'get'
         });
       };
-      self.admin.getTableChangelogDiff = function (tableId) {
+      self.admin.getTableChangelogsDiff = function (tableId) {
         return $request({
           endpoint: 'admin/changelog/tables/' + tableId + '/diff',
           method: 'get'
