@@ -68,8 +68,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     controller: 'TablesAnalyticsController',
     templateUrl: 'templates/tables-analytics.html',
     resolve: {
-      analytics: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
-        return DecisionTable.byId($stateParams.id);
+      analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
+        return AnalyticsTable.byId($stateParams.id);
       }]
     },
     ncyBreadcrumb: {
