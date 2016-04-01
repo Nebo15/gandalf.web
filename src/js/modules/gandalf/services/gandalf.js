@@ -92,7 +92,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
     setEndpoint: function (endpoint) {
       config.apiEnpoint = endpoint;
     },
-    $get: function ($httpParamSerializer, $http, $log, $q, $filter) {
+    $get: function ($httpParamSerializer, $http, $log, $q, $filter)  {
 
       function $request(opts, data) {
 
@@ -152,6 +152,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
 
       self.admin = {};
+
+      // Tables
+
       self.admin.getTables = function (size, page) {
         return $request.get('admin/tables', {
           params: {
@@ -186,6 +189,35 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'delete'
         });
       };
+
+      // Changelog
+
+      self.admin.getTablesChangelog = function () {
+        return $request({
+          endpoint: 'admin/changelog/tables',
+          method: 'get'
+        });
+      };
+      self.admin.getTableChangelog = function (tableId) {
+        return $request({
+          endpoint: 'admin/changelog/tables/' + tableId,
+          method: 'get'
+        });
+      };
+      self.admin.getTableChangelogDiff = function (tableId) {
+        return $request({
+          endpoint: 'admin/changelog/tables/' + tableId + '/diff',
+          method: 'get'
+        });
+      };
+      self.admin.rollbackTableToChangelog = function (tableId, rollbackId) {
+        return $request({
+          endpoint: 'admin/changelog/tables/' + tableId + '/rollback/' + rollbackId,
+          method: 'post'
+        });
+      };
+
+      // Decisions
 
       self.admin.getDecisions = function (tableId, size, page) {
         return $request.get('admin/decisions', {
