@@ -1,4 +1,5 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, CONDITION_TYPES) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionTableChangelog,
+                                                                CONDITION_TYPES) {
 
   function DecisionTable (id, data) {
     this.id = id;
@@ -100,6 +101,14 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.delete = function () {
     return $gandalf.admin.deleteTableById(this.id);
+  };
+
+  DecisionTable.prototype.getChangelogs = function () {
+    return $gandalf.admin.getTableChangelogs(this.id).then(function (item) {
+      return item.data.map(function (item) {
+        return new DecisionTableChangelog(item);
+      });
+    });
   };
 
   DecisionTable.prototype.parse = function (data) {
