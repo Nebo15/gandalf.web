@@ -2,6 +2,12 @@
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-history-list.md
 
+  form.form-horizontal
+    .form-group
+      input.form-control(type="search", ng-model="filters.table.title", placeholder="Enter table name..",
+      typeahead-on-select="onSelectTable($item, $model, $label, $event)",
+      uib-typeahead="table.title for table in searchHistories($viewValue)")
+
   .history: table.table.history__table
     thead.history__head
       tr
@@ -20,6 +26,7 @@
       td {{table.table.title}}
       td {{table.finalDecision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
+
 
   uib-pagination(ng-if="filters.total", total-items="filters.total", boundary-link-numbers="true", rotate="true",
     ng-model="filters.page", items-per-page="filters.size", max-size="5")
