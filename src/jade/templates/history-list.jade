@@ -2,22 +2,28 @@
   .panel.panel-default: .panel-body
     include:marked ../content/guides/decision-history-list.md
 
-  .history: table.table.history__table
-    thead.history__head
-      tr
-        th Timestamp
-        th Decision name
-          .small.light Decision description
-        th Table Name
-        th Decision
-        th Action
-    tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
-      td {{table.createdAt | date: 'M/d/yy HH:mm:ss'}}
-      td {{table.title}}
-        .small.light {{table.description}}
-      td {{table.table.title}}
-      td {{table.finalDecision}}
-      td: a(ui-sref="history-details({id: table.id})") Show Details
+  form.form-horizontal
+    .form-group
+      input.form-control(type="search", ng-model="filters.table.title", placeholder="Enter table name..",
+        typeahead-on-select="onSelectTable($item, $model, $label, $event)",
+        uib-typeahead="table.title for table in searchHistories($viewValue)")
+  .history
+    table.table.history__table
+      thead.history__head
+        tr
+          th Timestamp
+          th Decision name
+            .small.light Decision description
+          th Table Name
+          th Decision
+          th Action
+      tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
+        td {{table.createdAt | date: 'M/d/yy HH:mm:ss'}}
+        td {{table.title}}
+          .small.light {{table.description}}
+        td {{table.table.title}}
+        td {{table.finalDecision}}
+        td: a(ui-sref="history-details({id: table.id})") Show Details
 
   uib-pagination(ng-if="filters.total", total-items="filters.total", boundary-link-numbers="true", rotate="true",
     ng-model="filters.page", items-per-page="filters.size", max-size="5")
