@@ -18,7 +18,9 @@ angular.module('app', [
   'hljs',
   'angular-bugsnag',
   'dragcolumns',
-  'table-fixed-rows'
+  'table-fixed-rows',
+
+  'angular-loading-bar'
 ]);
 
 angular.module('app').constant('ENV', window.env);
