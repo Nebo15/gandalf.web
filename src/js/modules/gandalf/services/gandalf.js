@@ -155,11 +155,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Tables
 
-      self.admin.getTables = function (size, page) {
+      self.admin.getTables = function (size, page, filter) {
+        var options = filter || {};
         return $request.get('admin/tables', {
           params: {
             size: size,
-            page: page
+            page: page,
+            title: options.title,
+            description: options.description
           }
         });
       };
@@ -217,6 +220,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
 
+      // Analytics
+
+      self.admin.getTableAnalytics = function (tableId) {
+        return $request({
+          endpoint: 'admin/tables/' + tableId + '/analytics',
+          method: 'get'
+        });
+      };
       // Decisions
 
       self.admin.getDecisions = function (tableId, size, page) {

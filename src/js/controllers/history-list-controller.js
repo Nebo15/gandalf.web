@@ -1,12 +1,26 @@
 
-angular.module('app').controller('HistoryListController', function ($scope, $state, $stateParams, DecisionHistoryTable) {
+angular.module('app').controller('HistoryListController', function ($scope, $state, $stateParams, selectedTable, DecisionHistoryTable, DecisionTable) {
 
   $scope.tables = [];
   $scope.filters = {
     tableId: $stateParams.tableId,
     page: $stateParams.page,
     size: $stateParams.size,
-    total: null
+    total: null,
+    table: selectedTable
+  };
+
+  $scope.onSelectTable = function (item) {
+    $scope.filters.table = item;
+    $scope.filters.tableId = item.id;
+  };
+
+  $scope.searchHistories = function (title) {
+    return DecisionTable.find(10, 0, {
+      title: title
+    }).then(function (resp) {
+      return resp.data;
+    });
   };
 
   $scope.$watchGroup(['filters.tableId','filters.size','filters.page'], function (val) {

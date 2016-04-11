@@ -8,6 +8,7 @@ html(ng-app="app")
     link(rel="shortcut icon", href="/images/favicon.ico?v=123123", type="image/x-icon")
     link(rel='stylesheet', href='css/app.css')
     link(rel='stylesheet', href='bower_components/highlightjs/styles/github.css')
+    link(rel='stylesheet', href='bower_components/angular-loading-bar/build/loading-bar.css')
 
   body.app
     include ./partitials/navbar
@@ -41,6 +42,8 @@ html(ng-app="app")
     script(src='bower_components/angular-ui-sortable/sortable.js')
     script(src='bower_components/angular-breadcrumb/dist/angular-breadcrumb.js')
 
+    script(src='bower_components/angular-loading-bar/build/loading-bar.js')
+
     script(src='bower_components/lodash/lodash.js')
 
     script(src='bower_components/highlightjs/highlight.pack.js')
@@ -55,8 +58,13 @@ html(ng-app="app")
 
     script(src='js/modules/gandalf/models/rule.js')
     script(src='js/modules/gandalf/models/rule-condition.js')
+
     script(src='js/modules/gandalf/models/table.js')
     script(src='js/modules/gandalf/models/table-changelog.js')
+
+    script(src='js/modules/gandalf/models/analytics-table.js')
+    script(src='js/modules/gandalf/models/analytics-rule.js')
+    script(src='js/modules/gandalf/models/analytics-rule-condition.js')
 
     script(src='js/modules/gandalf/models/history-table.js')
     script(src='js/modules/gandalf/models/history-rule.js')
@@ -81,6 +89,7 @@ html(ng-app="app")
     script(src='js/directives/bigger-then.js')
 
     script(src='js/directives/boolean-select.js')
+    script(src='js/directives/green-red-gradient.js')
 
     script(src='js/directives/condition-input.js')
     script(src='js/directives/doubled-input.js')
@@ -102,6 +111,7 @@ html(ng-app="app")
     script(src='js/filters/json.js')
     script(src='js/filters/no-empty.js')
     script(src='js/filters/sample-curl.js')
+    script(src='js/filters/last.js')
 
     script(src='js/services/auth.js')
 
@@ -117,6 +127,8 @@ html(ng-app="app")
     script(src='js/controllers/tables-details-controller.js')
     script(src='js/controllers/tables-create-controller.js')
     script(src='js/controllers/tables-list-controller.js')
+
+    script(src='js/controllers/tables-analytics-controller.js')
 
     script(src='js/controllers/history-details-controller.js')
     script(src='js/controllers/history-list-controller.js')

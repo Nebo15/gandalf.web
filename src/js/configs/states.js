@@ -62,6 +62,20 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Edit: {{table.title}}',
       parent: 'tables-list'
     }
+  }).state('tables-analytics', {
+    parent: 'private',
+    url: '/tables/:id/analytics',
+    controller: 'TablesAnalyticsController',
+    templateUrl: 'templates/tables-analytics.html',
+    resolve: {
+      analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
+        return AnalyticsTable.byId($stateParams.id);
+      }]
+    },
+    ncyBreadcrumb: {
+      label: 'Analytics',
+      parent: 'tables-details'
+    }
   });
 
   $stateProvider.state('history-list', {
@@ -74,6 +88,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/history-list.html',
     ncyBreadcrumb: {
       label: 'History'
+    },
+    resolve: {
+      selectedTable: ['DecisionTable','$stateParams', function (DecisionTable, $stateParams) {
+        return $stateParams.tableId ? DecisionTable.byId($stateParams.tableId) : null;
+      }]
     }
   }).state('history-details', {
     parent: 'private',

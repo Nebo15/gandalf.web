@@ -16,6 +16,7 @@
     "ui-router-extras": "^0.1.0",
     "angular-bugsnag": "^0.2.0",
     "angular-drag-columns": "*",
-    "angular-table-fixed-rows": "*"
+    "angular-table-fixed-rows": "*",
+    "angular-loading-bar": "^0.9.0"
   }
 }
