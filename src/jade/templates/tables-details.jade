@@ -83,7 +83,8 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
       a.btn.btn-danger(ng-click="deleteTable(table)") Delete
     .col.col-xs-6.text-right
       a.btn.btn-clear(ui-sref="debugger-details({id: table.id})") Open Debugger
-      a.btn.btn-clear(ui-sref="history-list({tableId: table.id})") Decisions History for this Table →
+      a.btn.btn-clear(ui-sref="history-list({tableId: table.id})") Open History
+      a.btn.btn-clear(ui-sref="tables-analytics({id: table.id})") Open Analytics
   br
   div
     .row
