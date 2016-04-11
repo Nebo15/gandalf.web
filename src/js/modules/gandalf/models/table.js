@@ -155,16 +155,17 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return _.uniq(variants);
   };
 
-  DecisionTable.find = function (size, page) {
+  DecisionTable.find = function (size, page, filter) {
 
     var self = this;
-    return $gandalf.admin.getTables(size, page).then(function (resp) {
+    return $gandalf.admin.getTables(size, page, filter).then(function (resp) {
       resp.data = resp.data.map(function (item) {
         return new self (null, item);
       });
       return resp;
     })
   };
+
   DecisionTable.byId = function (id) {
     var table = new this(id);
     return table.fetch();

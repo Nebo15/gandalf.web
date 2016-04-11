@@ -155,11 +155,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Tables
 
-      self.admin.getTables = function (size, page) {
+      self.admin.getTables = function (size, page, filter) {
+        var options = filter || {};
         return $request.get('admin/tables', {
           params: {
             size: size,
-            page: page
+            page: page,
+            title: options.title,
+            description: options.description
           }
         });
       };
