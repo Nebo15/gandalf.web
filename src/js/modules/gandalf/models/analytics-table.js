@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, DecisionTable, AnalyticsRuleCondition) {
+angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, DecisionTable, AnalyticsRule) {
 
   function AnalyticsTable() {
 
@@ -7,7 +7,7 @@ angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, Decis
 
   AnalyticsTable.prototype = Object.create(DecisionTable.prototype, {
     _modelRule: {
-      value: AnalyticsRuleCondition
+      value: AnalyticsRule
     }
   });
   AnalyticsTable.prototype.constructor = AnalyticsTable;
