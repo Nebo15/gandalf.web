@@ -82,11 +82,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     controller: 'TablesDiffController',
     templateUrl: 'templates/tables-diff.html',
     resolve: {
-      compare: ['$gandalf', '$stateParams', 'DecisionTable', function ($gandalf, $stateParams, DecisionTable) {
+      compare: ['$gandalf', '$stateParams', 'DecisionDiffTable', function ($gandalf, $stateParams, DecisionDiffTable) {
         return $gandalf.admin.getTableChangelogsDiff($stateParams.id, $stateParams.revisionId).then(function (resp) {
           return {
-            original: new DecisionTable(null, resp.data.original.model.attributes),
-            revision: new DecisionTable(null, resp.data.compare_with.model.attributes)
+            original: new DecisionDiffTable(null, resp.data.original.model.attributes),
+            revision: new DecisionDiffTable(null, resp.data.compare_with.model.attributes)
           }
         })
       }]
