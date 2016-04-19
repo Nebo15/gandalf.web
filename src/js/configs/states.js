@@ -76,6 +76,25 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Analytics',
       parent: 'tables-details'
     }
+  }).state('tables-diff', {
+    parent: 'private',
+    url: '/tables/:id/diff/:revisionId',
+    controller: 'TablesDiffController',
+    templateUrl: 'templates/tables-diff.html',
+    resolve: {
+      compare: ['$gandalf', '$stateParams', 'DecisionTable', function ($gandalf, $stateParams, DecisionTable) {
+        return $gandalf.admin.getTableChangelogsDiff($stateParams.id, $stateParams.revisionId).then(function (resp) {
+          return {
+            original: new DecisionTable(null, resp.data.original.model.attributes),
+            revision: new DecisionTable(null, resp.data.compare_with.model.attributes)
+          }
+        })
+      }]
+    },
+    ncyBreadcrumb: {
+      label: 'Diff: {{revision.id}}',
+      parent: 'tables-details'
+    }
   });
 
   $stateProvider.state('history-list', {

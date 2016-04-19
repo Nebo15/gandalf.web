@@ -118,9 +118,13 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
   };
 
   $scope.rollbackChangelog = function (changelog) {
-    return changelog.rollback().then(function () {
-      return table.fetch()
+    return $state.go('tables-diff', {
+      id: table.id,
+      revisionId: changelog.id
     });
+    //return changelog.rollback().then(function () {
+    //  return table.fetch()
+    //});
   };
   $scope.submit = function (form) {
     if (form.$invalid) return;

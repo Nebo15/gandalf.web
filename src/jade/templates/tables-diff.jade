@@ -1,0 +1,20 @@
+h4 Compare Table with Revision
+.table-analytics
+  .table-analytics__table.decision-table.ng-cloak(ng-if="table")
+    .table-responsive: table.table.decision-table__table
+      thead: tr
+        th.decision-table__column--index #
+        th.decision-table__column--title Title
+          .small.text-light description
+        th(ng-repeat="condition in table.fields") {{condition.title}}
+        th Decision
+      tbody
+        tr(ng-repeat="rule in table.rules")
+          td {{$index}}
+          td
+            b {{rule.title}}
+            .small {{rule.description}}
+          td.decision-table__condition(ng-repeat="condition in rule.conditions")
+            | {{condition.condition | condition}} {{condition.value.toString()}}
+          td.border-left.decision-table__condition
+            | {{rule.than}}

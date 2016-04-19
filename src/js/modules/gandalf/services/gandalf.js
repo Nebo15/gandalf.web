@@ -207,10 +207,13 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'get'
         });
       };
-      self.admin.getTableChangelogsDiff = function (tableId) {
+      self.admin.getTableChangelogsDiff = function (tableId, compareID) {
         return $request({
           endpoint: 'admin/changelog/tables/' + tableId + '/diff',
-          method: 'get'
+          method: 'get',
+          params: {
+            compare_with: compareID
+          }
         });
       };
       self.admin.rollbackTableToChangelog = function (tableId, rollbackId) {
