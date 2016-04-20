@@ -25,7 +25,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
 
           .small.text-light {{condition.key}}
             span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
-        th.border-left.decision-table__column--decision.decision-table__add-column Decision
+        th.border-left.decision-table__column--decision.decision-table__add-column
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
           add-new-field.decision-table__add-column__icon(table="table") +
         th.decision-table__column--action Action
 
@@ -60,7 +62,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         a(ng-click="addNewRule()") + Add new row
     table.table.decision-table__table
       tbody: tr
-        th Default Decision
+        th
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
         td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
         td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
         td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
