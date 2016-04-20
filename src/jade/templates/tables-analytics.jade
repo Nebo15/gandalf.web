@@ -17,6 +17,6 @@ h4 Table Analytics
           td.decision-table__condition(
             ng-repeat="condition in rule.conditions",
             green-red-gradient="condition.probability") {{condition.condition | condition}} {{condition.value.toString()}}
-            p {{condition.probability * 100}} %
+            p {{condition.probability * 100 | toFixed: 1}} %
           td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
             | {{rule.than}}
