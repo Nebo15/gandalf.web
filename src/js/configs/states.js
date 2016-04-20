@@ -78,6 +78,19 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
+  $stateProvider.state('groups-list', {
+    parent: 'private',
+    url: '/groups?size?page',
+    params: {
+      size: '25'
+    },
+    controller: 'GroupsListController',
+    templateUrl: 'templates/groups-list.html',
+    ncyBreadcrumb: {
+      label: 'Groups'
+    }
+  });
+
   $stateProvider.state('history-list', {
     parent: 'private',
     url: '/history?tableId?size?page',

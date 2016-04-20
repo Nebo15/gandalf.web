@@ -4,7 +4,7 @@ angular.module('ng-gandalf').factory('DecisionField', function (utils) {
   function DecisionField (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.id = utils.guid();
+    this.id = options._id || utils.guid();
     this.key = options.key;
     this.type = options.type;
     this.title = options.title;
@@ -18,6 +18,7 @@ angular.module('ng-gandalf').factory('DecisionField', function (utils) {
 
   DecisionField.prototype.toJSON = function () {
     return {
+      _id: this.id,
       key: this.key,
       type: this.type,
       title: this.title,

@@ -193,6 +193,49 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
 
+      // Groups
+      self.admin.getGroups = function (size, page) {
+        return $request({
+          endpoint: 'admin/groups',
+          method: 'get',
+          params: {
+            size: size,
+            page: page
+          }
+        });
+      };
+      self.admin.createGroup = function (obj) {
+        return $request({
+          endpoint: 'admin/groups',
+          method: 'post'
+        }, obj);
+      };
+      self.admin.deleteGroupById = function (groupId) {
+        return $request({
+          endpoint: 'admin/groups/' + groupId,
+          method: 'delete'
+        });
+      };
+      self.admin.getGroupById = function (groupId) {
+        return $request({
+          endpoint: 'admin/groups/' + groupId,
+          method: 'get'
+        });
+      };
+      self.admin.updateGroupById = function (groupId, obj) {
+        return $request({
+          endpoint: 'admin/groups/' + groupId,
+          method: 'put'
+        }, obj);
+      };
+
+      self.admin.copyGroupById = function (groupId) {
+        return $request({
+          endpoint: 'admin/groups/' + groupId + '/copy',
+          method: 'post'
+        });
+      };
+
       // Changelog
 
       self.admin.getTablesChangelogs = function () {
