@@ -25,12 +25,14 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
 
           .small.text-light {{condition.key}}
             span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
-        th.border-left.decision-table__column--decision.decision-table__add-column Decision
+        th.border-left.decision-table__column--decision.decision-table__add-column
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
           add-new-field.decision-table__add-column__icon(table="table") +
         th.decision-table__column--action Action
 
       tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-        tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted}", skip-form="rule.isDeleted",
+        tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}", skip-form="rule.isDeleted",
             ng-form="ruleForm", ng-click="editRule(rule)")
           td.decision-table__handler: i.glyphicon.glyphicon-menu-hamburger
           td.border-right
@@ -60,7 +62,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
         a(ng-click="addNewRule()") + Add new row
     table.table.decision-table__table
       tbody: tr
-        th Default Decision
+        th
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
+          span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
         td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
         td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
         td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")

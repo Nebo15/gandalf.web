@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('TablesDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision) {
+angular.module('app').controller('TablesDetailsController', function ($scope, $state, $log, $uibModal, $timeout, decision, CONDITION_TYPES) {
 
   var table = decision;
   $scope.saved = true;
@@ -88,6 +88,18 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
   $scope.addNewRule = function () {
     $scope.editRule(table.createRule());
   };
+
+  $scope.isWarningRule = function (rule) {
+    var res = true;
+    for (var i in rule.conditions) {
+      if (rule.conditions[i].condition !== CONDITION_TYPES.IS_SET) {
+        res = false;
+        break;
+      }
+    }
+    return res;
+  };
+
 
   // Table
 
