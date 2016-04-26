@@ -1,5 +1,5 @@
 
-angular.module('app').controller('GroupsListController', function ($scope, $timeout, $state, $stateParams, DecisionGroup) {
+angular.module('app').controller('GroupsListController', function ($scope, $timeout, $uibModal, $state, $stateParams, DecisionGroup) {
 
   $scope.tables = null;
 
@@ -8,6 +8,25 @@ angular.module('app').controller('GroupsListController', function ($scope, $time
     page: $stateParams.page,
     size: $stateParams.size,
     total: undefined
+  };
+
+  $scope.createGroup = function () {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/create-group.html',
+      controller: 'GroupCreateController',
+      resolve: {
+        group: function () {
+          return new DecisionGroup(null, {
+            probability: 'random'
+          });
+        }
+      }
+    });
+    modalInstance.result.then(function (newGroup) {
+      newGroup.create().then(function(group) {
+        $scope.groups.unshift(group);
+      })
+    });
   };
 
   $scope.$watchGroup(['filters.size','filters.page'], function (val) {
