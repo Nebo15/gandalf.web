@@ -25,18 +25,30 @@ angular.module('app').run(function ($rootScope, $state) {
   });
 
   this.signIn = function (username, password) {
-    return $gandalf.testAuthorization(username, password).then(function () {
-      $gandalf.setAuthorization(username, password);
-      storage.auth.username = username;
-      storage.auth.password = password;
-      return true;
+    return $gandalf.setAuthorization(username, password).then(function (user) {
+      storage.auth = user;
+      console.log(storage.auth);
+      return user;
+    });
+  };
+  this.signUp = function (username, password, email) {
+    return $gandalf.admin.createUser({
+      username: username,
+      password: password,
+      email: email
     });
   };
   this.signInFromStorage = function () {
-    return this.signIn(storage.auth.username, storage.auth.password);
+    return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
+      $gandalf.setToken(storage.auth);
+      return storage.auth;
+    }).catch(function () {
+      this.logout();
+    }.bind(this))
   };
 
   this.logout = function () {
+    console.log('logout');
     storage.auth = {};
     $gandalf.resetAuthorization();
   }

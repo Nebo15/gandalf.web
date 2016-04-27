@@ -18,5 +18,9 @@ nav.navbar.navbar-default.navbar-static-top
         li(ui-sref-active="active"): a(ui-sref="history-list") History
         li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
 
-      ul.nav.navbar-nav.navbar-right
-        li(ng-if="$root.user"): a(ng-click="logout()") Logout
+      ul.nav.navbar-nav.navbar-right(ng-if="$root.user")
+        li: a(ng-click="logout()") Logout
+
+      ul.nav.navbar-nav.navbar-right(ng-if="!$root.user")
+        li: a(ui-sref="sign-in") Sign in
+        li: a(ui-sref="sign-up") Sign up

@@ -26,6 +26,13 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     ncyBreadcrumb: {
       label: 'Sign in to Gandalf'
     }
+  }).state('sign-up', {
+    url: '/sign-up?username?email',
+    controller: 'SignUpController',
+    templateUrl: 'templates/sign-up.html',
+    ncyBreadcrumb: {
+      label: 'Sign up to Gandalf'
+    }
   });
 
   $stateProvider.state('tables-list', {

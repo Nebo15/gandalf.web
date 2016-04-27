@@ -12,10 +12,9 @@ angular.module('app').controller('SignInController', function ($scope, $state, $
   $scope.submit = function (form) {
     if (form.$invalid) return;
 
-    AuthService.signIn($scope.model.username, $scope.model.password)
-      .then(function () {
-        $state.go('history-list');
-      }).catch(function (error) {
+    AuthService.signIn($scope.model.username, $scope.model.password).then(function () {
+      $state.go('history-list');
+    }).catch(function (error) {
       $scope.error = error;
     })
   }
