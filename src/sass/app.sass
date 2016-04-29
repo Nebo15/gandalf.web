@@ -44,11 +44,12 @@ $table-footer-bg: #f9f9f9
 
 .decision-table
 
-  border-radius: 4px
+  //border-radius: 4px
+  &.has-shadow
+    box-shadow: 0 2px 10px -5px rgba(black, .5)
 
   border: 1px solid $table-border-color
   box-sizing: border-box
-  box-shadow: 0 2px 10px -5px rgba(black, .5)
 
   .is-deleted
     opacity: .4
