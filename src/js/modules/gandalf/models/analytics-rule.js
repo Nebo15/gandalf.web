@@ -2,6 +2,9 @@ angular.module('ng-gandalf').factory('AnalyticsRule', function (DecisionRule, An
 
   function AnalyticsRule (data) {
     DecisionRule.apply(this, arguments);
+    if (data) {
+      this.probability = data.probability;
+    }
   }
 
   AnalyticsRule.prototype = Object.create(DecisionRule.prototype, {
