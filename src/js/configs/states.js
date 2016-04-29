@@ -51,8 +51,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details', {
     parent: 'private',
     url: '/tables/:id',
-    controller: 'TablesDetailsController',
-    templateUrl: 'templates/tables-details.html',
+    controller: 'TablesEditController',
+    templateUrl: 'templates/tables-edit.html',
     resolve: {
       decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return DecisionTable.byId($stateParams.id);
