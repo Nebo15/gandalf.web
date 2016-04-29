@@ -4,7 +4,7 @@
 
 
 $table-bg: white
-$brand-primary: #6b4d7c
+$brand-primary: #513c7c
 $body-bg: #f9f9f9
 
 //$btn-default-bg: #f1f1f1
@@ -313,7 +313,7 @@ tr.ui-sortable-helper
 $main-content-bg: #fff
 
 .main-content
-  background-color: $main-content-bg
+  //background-color: $main-content-bg
   padding-top: 30px
   padding-bottom: 30px
   &.has-nav
@@ -323,8 +323,17 @@ $main-content-bg: #fff
 
   li > a
     color: $brand-primary
-    &:hover
-      background-color: rgba($main-content-bg, .85)
+  //  &:hover
+  //    background-color: rgba($main-content-bg, .85)
   & > li.active
     & > a, & > a:hover
-      background-color: $main-content-bg
+      //text-decoration: underline
+      //background-color: $main-content-bg
+.main-navbar
+  background-color: white
+  border-bottom: 1px solid $navbar-default-border
+
+
+.main-breadcrumb
+  margin-bottom: 20px
+
