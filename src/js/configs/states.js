@@ -3,20 +3,29 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('main', {
 
     abstract: true,
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('private', {
     parent: 'auth',
     abstract: true,
     auth: true,
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
   $stateProvider.state('public', {
     parent: 'auth',
     abstract: true,
     auth: false,
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('sign-in', {
@@ -48,23 +57,33 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Create new table',
       parent: 'tables-list'
     }
-  }).state('tables-edit', {
+  });
+
+  $stateProvider.state('tables-details', {
     parent: 'private',
+    abstract: true,
     url: '/tables/:id',
-    controller: 'TablesEditController',
-    templateUrl: 'templates/tables-edit.html',
+    templateUrl: 'templates/tables-details.html',
+    controller: 'TablesDetailsController',
     resolve: {
       decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return DecisionTable.byId($stateParams.id);
       }]
     },
     ncyBreadcrumb: {
-      label: 'Edit: {{table.title}}',
-      parent: 'tables-list'
+      label: "{{table.title}}",
+      parent: 'tables-list',
+      skip: false
     }
-  }).state('tables-analytics', {
-    parent: 'private',
-    url: '/tables/:id/analytics',
+  }).state('tables-details.edit', {
+    url: '/edit',
+    controller: 'TablesEditController',
+    templateUrl: 'templates/tables-edit.html',
+    ncyBreadcrumb: {
+      label: 'Edit'
+    }
+  }).state('tables-details.analytics', {
+    url: '/analytics',
     controller: 'TablesAnalyticsController',
     templateUrl: 'templates/tables-analytics.html',
     resolve: {
@@ -74,8 +93,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Analytics',
-      parent: 'tables-edit'
     }
+  }).state('tables-details.revisions', {
+      url: '/revisions',
+      controller: 'TablesRevisionsController',
+      templateUrl: 'templates/tables-revisions.html',
+      ncyBreadcrumb: {
+        label: 'Revisions'
+      }
   }).state('tables-diff', {
     parent: 'private',
     url: '/tables/:id/diff/:revisionId',
@@ -93,7 +118,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Diff: {{revision.id}}',
-      parent: 'tables-edit'
+      parent: 'tables-details.edit'
     }
   });
 
@@ -122,7 +147,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'History'
     },
     resolve: {
-      selectedTable: ['DecisionTable','$stateParams', function (DecisionTable, $stateParams) {
+      selectedTable: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return $stateParams.tableId ? DecisionTable.byId($stateParams.tableId) : null;
       }]
     }
@@ -150,7 +175,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/debugger-details.html',
     ncyBreadcrumb: {
       label: 'Debugger: {{table.id}}',
-      parent: 'tables-edit'
+      parent: 'tables-details.edit'
     },
     params: {
       id: null,

@@ -9,16 +9,6 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
 
   $scope.table = table;
 
-  table.getChangelogs().then(function (resp) {
-    $scope.changelogs = resp;
-  });
-
-  $scope.rollbackChangelog = function (changelog) {
-    return changelog.rollback().then(function () {
-      return table.fetch()
-    });
-  };
-
   $scope.submit = function (form) {
 
     if (form.$invalid) return;

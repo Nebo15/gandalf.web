@@ -14,7 +14,7 @@ html(ng-app="app")
     include ./partitials/navbar
     .container
       div(ncy-breadcrumb)
-      .row: .col.col-md-12(ui-view)
+    div(ui-view='')
     include ./partitials/footer
 
     // build:js js/app.min.js
@@ -85,6 +85,8 @@ html(ng-app="app")
     script(src='js/app.js')
 
     script(src='js/configs/auth.js')
+    script(src='js/configs/breadcrumbs.js')
+
     script(src='js/configs/bugsnag.js')
 
     script(src='js/configs/api.js')
@@ -131,9 +133,11 @@ html(ng-app="app")
     script(src='js/controllers/delete-table-controller.js')
 
     script(src='js/controllers/tables-edit-controller.js')
+    script(src='js/controllers/tables-details-controller.js')
     script(src='js/controllers/tables-create-controller.js')
     script(src='js/controllers/tables-list-controller.js')
     script(src='js/controllers/tables-diff-controller.js')
+    script(src='js/controllers/tables-revisions-controller.js')
 
     script(src='js/controllers/tables-analytics-controller.js')
 

@@ -308,3 +308,22 @@ tr.ui-sortable-helper
   a
     margin-left: 10px
     margin-top: 10px
+
+$main-content-bg: #fff
+
+.main-content
+  background-color: $main-content-bg
+  padding-top: 30px
+  padding-bottom: 30px
+  &.has-nav
+    border-top: 1px solid $nav-tabs-border-color
+    margin-top: -1px
+.main-nav
+
+  li > a
+    color: $brand-primary
+    &:hover
+      background-color: rgba($main-content-bg, .85)
+  & > li.active
+    & > a, & > a:hover
+      background-color: $main-content-bg

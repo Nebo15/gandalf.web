@@ -1,7 +1,9 @@
-ul.nav.nav-tabs
-  li(role="presentation" class="active"): a Edit
-  li(role="presentation"): a Analytics
-  li(role="presentation"): a History
-  li(role="presentation"): a Debugger
-
-ui-view
+.container
+  ul.nav.nav-tabs.main-nav
+    li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
+    li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
+    li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
+    li(role="presentation"): a History
+    li(role="presentation"): a Debugger
+div.main-content.has-nav
+  div.container: .row: .col-md-12(ui-view="")

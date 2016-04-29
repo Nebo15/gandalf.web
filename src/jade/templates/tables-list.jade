@@ -1,10 +1,12 @@
-.panel.panel-default: .panel-body
-  include:marked ../content/guides/decision-tables-list.md
-div: a.btn.btn-default(ui-sref="tables-create") + Add table
-br
-p.list-group
-  a.list-group-item(ui-sref="tables-edit({id: table.id})", ng-repeat="table in tables")
-    b.list-group-item-heading {{table.title || 'Untitled project'}}
-    br
-    span: i.list-group-item-text {{table.description}}
-uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
+.container
+  .panel.panel-default: .panel-body
+    include:marked ../content/guides/decision-tables-list.md
+  div: a.btn.btn-default(ui-sref="tables-create") + Add table
+  br
+  p.list-group
+    a.list-group-item(ui-sref="tables-details.edit({id: table.id})", ng-repeat="table in tables")
+      b.list-group-item-heading {{table.title || 'Untitled project'}}
+      br
+      span: i.list-group-item-text {{table.description}}
+  uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
+
