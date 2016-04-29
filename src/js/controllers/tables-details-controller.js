@@ -1,5 +1,5 @@
-angular.module('app').controller('TablesDetailsController', function ($scope, decision) {
+angular.module('app').controller('TablesDetailsController', function ($scope, table) {
 
-  $scope.table = decision;
+  $scope.table = table;
 
 });

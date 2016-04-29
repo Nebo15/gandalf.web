@@ -66,7 +66,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',
     resolve: {
-      decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return DecisionTable.byId($stateParams.id);
       }]
     },
@@ -92,7 +92,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     },
     ncyBreadcrumb: {
-      label: 'Analytics',
+      label: 'Analytics'
     }
   }).state('tables-details.revisions', {
       url: '/revisions',
@@ -101,7 +101,20 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       ncyBreadcrumb: {
         label: 'Revisions'
       }
-  }).state('tables-diff', {
+  }).state('tables-details.debugger', {
+    url: '/debug',
+    controller: 'DebuggerDetailsController',
+    templateUrl: 'templates/tables-debugger.html',
+    ncyBreadcrumb: {
+      label: 'Debugger'
+    },
+    params: {
+      id: null,
+      decision: null
+    }
+  });
+
+  $stateProvider.state('tables-diff', {
     parent: 'private',
     url: '/tables/:id/diff/:revisionId',
     controller: 'TablesDiffController',
@@ -167,26 +180,5 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     }
   });
-
-  $stateProvider.state('debugger-details', {
-    parent: 'private',
-    url: '/tables/:id/debug',
-    controller: 'DebuggerDetailsController',
-    templateUrl: 'templates/debugger-details.html',
-    ncyBreadcrumb: {
-      label: 'Debugger: {{table.id}}',
-      parent: 'tables-details.edit'
-    },
-    params: {
-      id: null,
-      decision: null
-    },
-    resolve: {
-      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
-        return DecisionTable.byId($stateParams.id);
-      }]
-    }
-  });
-
   $urlRouterProvider.otherwise('/');
 });

@@ -1,14 +1,14 @@
-angular.module('app').controller('TablesRevisionsController', function ($scope, decision) {
+angular.module('app').controller('TablesRevisionsController', function ($scope, table) {
 
-  $scope.table = decision;
+  $scope.table = table;
 
-  decision.getChangelogs().then(function (resp) {
+  $scope.table.getChangelogs().then(function (resp) {
     $scope.changelogs = resp;
   });
 
   $scope.rollbackChangelog = function (changelog) {
     return changelog.rollback().then(function () {
-      return decision.fetch()
+      return $scope.table.fetch()
     });
   };
 

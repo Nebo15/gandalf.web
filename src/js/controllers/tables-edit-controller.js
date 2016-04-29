@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, decision, CONDITION_TYPES) {
+angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, table) {
 
-  var table = decision;
   $scope.saved = true;
   $scope.isSaving = false;
   $scope.error = null;
