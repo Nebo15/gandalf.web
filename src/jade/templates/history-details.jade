@@ -1,39 +1,40 @@
-.panel.panel-default: .panel-body
-  include:marked ../content/guides/decision-history.md
+.container
+  .panel.panel-default: .panel-body
+    include:marked ../content/guides/decision-history.md
 
-h4 History Details
-.history-detail
-  p
-    a(ui-sref="tables-details({id: table.table.id})") Edit decision table
-  h5 Request
-  div.preview
-    div.preview__external
-      a.btn.btn-clear(ui-sref="debugger-details({id: table.table.id, decision: table})") Debug
-        | &#32;
-        i.glyphicon.glyphicon-export
-    div.preview__response(hljs, hljs-source="(table.request | json: 2)")
+  h4 History Details
+  .history-detail
+    p
+      a(ui-sref="tables-details.edit({id: table.table.id})") Edit decision table
+    h5 Request
+    div.preview
+      div.preview__external
+        a.btn.btn-clear(ui-sref="tables-details.debugger({id: table.table.id, decision: table})") Debug
+          | &#32;
+          i.glyphicon.glyphicon-export
+      div.preview__response(hljs, hljs-source="(table.request | json: 2)")
 
-  h5 Final Decision
-  p {{table.finalDecision}}
-  h5 Default Decision
-  p {{table.defaultDecision}}
-  h5 Decision Flow
-  .history-detail__table.decision-table.ng-cloak(ng-if="table")
-    .table-responsive: table.table.decision-table__table
-      thead: tr
-        th.decision-table__column--index #
-        th.decision-table__column--title Title
-          .small.text-light description
-        th(ng-repeat="condition in table.fields") {{condition.title}}
-        th Decision
-      tbody
-        tr(ng-repeat="rule in table.rules")
-          td {{$index}}
-          td
-            b {{rule.title}}
-            .small {{rule.description}}
-          td.decision-table__condition(
-          ng-repeat="condition in rule.conditions",
-          ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
-          td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
-            | {{rule.than}}
+    h5 Final Decision
+    p {{table.finalDecision}}
+    h5 Default Decision
+    p {{table.defaultDecision}}
+    h5 Decision Flow
+    .history-detail__table.decision-table.ng-cloak(ng-if="table")
+      .table-responsive: table.table.decision-table__table
+        thead: tr
+          th.decision-table__column--index #
+          th.decision-table__column--title Title
+            .small.text-light description
+          th(ng-repeat="condition in table.fields") {{condition.title}}
+          th Decision
+        tbody
+          tr(ng-repeat="rule in table.rules")
+            td {{$index}}
+            td
+              b {{rule.title}}
+              .small {{rule.description}}
+            td.decision-table__condition(
+            ng-repeat="condition in rule.conditions",
+            ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
+            td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
+              | {{rule.than}}
