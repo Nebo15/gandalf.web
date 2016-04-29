@@ -42,9 +42,7 @@ angular.module('app').run(function ($rootScope, $state) {
     return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
       $gandalf.setToken(storage.auth);
       return storage.auth;
-    }).catch(function () {
-      this.logout();
-    }.bind(this))
+    });
   };
 
   this.logout = function () {
