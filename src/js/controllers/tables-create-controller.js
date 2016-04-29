@@ -13,7 +13,7 @@ angular.module('app').controller('TablesCreateController', function ($scope, $co
     $scope.isSaving = true;
     $scope.table.create().then(function (resp) {
       $scope.error = null;
-      $state.go('tables-details', {id: resp.id});
+      $state.go('tables-edit', {id: resp.id});
     }).catch(function (resp) {
       $scope.error = resp;
     }).finally(function () {

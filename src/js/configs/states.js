@@ -48,7 +48,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Create new table',
       parent: 'tables-list'
     }
-  }).state('tables-details', {
+  }).state('tables-edit', {
     parent: 'private',
     url: '/tables/:id',
     controller: 'TablesEditController',
@@ -74,7 +74,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Analytics',
-      parent: 'tables-details'
+      parent: 'tables-edit'
     }
   }).state('tables-diff', {
     parent: 'private',
@@ -93,7 +93,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Diff: {{revision.id}}',
-      parent: 'tables-details'
+      parent: 'tables-edit'
     }
   });
 
@@ -150,7 +150,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/debugger-details.html',
     ncyBreadcrumb: {
       label: 'Debugger: {{table.id}}',
-      parent: 'tables-details'
+      parent: 'tables-edit'
     },
     params: {
       id: null,
