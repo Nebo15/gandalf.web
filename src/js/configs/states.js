@@ -43,7 +43,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'private',
     url: '/tables/create',
     controller: 'TablesCreateController',
-    templateUrl: 'templates/tables-details.html',
+    templateUrl: 'templates/tables-create.html',
     ncyBreadcrumb: {
       label: 'Create new table',
       parent: 'tables-list'
