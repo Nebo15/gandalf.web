@@ -1,5 +1,5 @@
-.row
-  .col.col-md-6.col-md-offset-1
+.container
+  .row: .col.col-md-6.col-md-offset-1
     .alert.alert-danger(ng-if="error") Verify username and password and try again.
     form(ng-submit="submit(form)", name="form", novalidate)
       .form-horizontal

@@ -19,6 +19,9 @@ angular.module('app').config(function($stateProvider) {
           return null;
         });
       }]
+    },
+    ncyBreadcrumb: {
+      skip: true
     }
   });
 

@@ -27,9 +27,9 @@ angular.module('app').directive('addNewField', function () {
         });
         modalInstance.result.then(function (newField) {
           $scope.table.addField(newField);
-          $scope.table.findConditionsByField(field).forEach(function (item) {
-            item.reset();
-          });
+          //$scope.table.findConditionsByField(newField).forEach(function (item) {
+          //  item.reset();
+          //});
         });
       }
     }

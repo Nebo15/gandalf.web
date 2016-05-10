@@ -1,4 +1,4 @@
-nav.navbar.navbar-default.navbar-static-top
+nav.main-navbar.navbar.navbar-static-top
   .container
     .navbar-header
       button.navbar-toggle.collapsed(type='button',
@@ -16,7 +16,7 @@ nav.navbar.navbar-default.navbar-static-top
       ul.nav.navbar-nav(ng-if="$root.user")
         li(ui-sref-active="active"): a(ui-sref="tables-list") Tables
         li(ui-sref-active="active"): a(ui-sref="history-list") History
-        li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
+        // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
 
       ul.nav.navbar-nav.navbar-right(ng-if="$root.user")
         li: a(ng-click="logout()") Logout

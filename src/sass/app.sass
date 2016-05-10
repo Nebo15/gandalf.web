@@ -4,7 +4,7 @@
 
 
 $table-bg: white
-$brand-primary: #6b4d7c
+$brand-primary: #513c7c
 $body-bg: #f9f9f9
 
 //$btn-default-bg: #f1f1f1
@@ -44,11 +44,12 @@ $table-footer-bg: #f9f9f9
 
 .decision-table
 
-  border-radius: 4px
+  //border-radius: 4px
+  &.has-shadow
+    box-shadow: 0 2px 10px -5px rgba(black, .5)
 
   border: 1px solid $table-border-color
   box-sizing: border-box
-  box-shadow: 0 2px 10px -5px rgba(black, .5)
 
   .is-deleted
     opacity: .4
@@ -300,4 +301,39 @@ tr.ui-sortable-helper
 .changelogs-list
   max-height: 400px
   overflow: auto
+
+.link-group
+  margin-left: -10px
+  //margin-top: -10px
+  margin-top: 20px
+  a
+    margin-left: 10px
+    margin-top: 10px
+
+$main-content-bg: #fff
+
+.main-content
+  //background-color: $main-content-bg
+  padding-top: 30px
+  padding-bottom: 30px
+  &.has-nav
+    border-top: 1px solid $nav-tabs-border-color
+    margin-top: -1px
+.main-nav
+
+  li > a
+    color: $brand-primary
+  //  &:hover
+  //    background-color: rgba($main-content-bg, .85)
+  & > li.active
+    & > a, & > a:hover
+      //text-decoration: underline
+      //background-color: $main-content-bg
+.main-navbar
+  background-color: white
+  border-bottom: 1px solid $navbar-default-border
+
+
+.main-breadcrumb
+  margin-bottom: 20px
 
