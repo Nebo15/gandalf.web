@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('AppController', function ($scope, ProjectsService, Project, $gandalf, $localStorage, projects, user) {
+angular.module('app').controller('AppController', function ($scope, ProjectsService, Project, $gandalf, $localStorage, projects, user, utils) {
 
   $scope.projects = projects;
   $scope.user = user;
@@ -16,9 +16,10 @@ angular.module('app').controller('AppController', function ($scope, ProjectsServ
     storage.project = project;
   });
 
-  function selectProject (project) {
+  function selectProject(project) {
     $scope.project = project;
     $gandalf.setProjectId(project.id);
+    utils.reload();
   }
 
 });
