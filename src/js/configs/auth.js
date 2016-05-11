@@ -6,7 +6,6 @@ angular.module('app').config(function($stateProvider) {
     template: '<ui-view />',
     resolve: {
       user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
-        console.log('auth resolve', $state.transition);
         return AuthService.signInFromStorage().then(function (resp) {
           $rootScope.user = resp;
           return resp;
@@ -16,7 +15,7 @@ angular.module('app').config(function($stateProvider) {
           }
           return null;
         });
-      }],
+      }]
       //projects: ['Projects']
     },
     ncyBreadcrumb: {
