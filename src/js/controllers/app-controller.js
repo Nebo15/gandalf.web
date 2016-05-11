@@ -18,7 +18,7 @@ angular.module('app').controller('AppController', function ($scope, ProjectsServ
 
   function selectProject (project) {
     $scope.project = project;
-    $gandalf.useProject(project);
+    $gandalf.setProjectId(project.id);
   }
 
 });

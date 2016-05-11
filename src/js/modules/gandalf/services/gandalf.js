@@ -94,7 +94,8 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       refreshToken: null,
       tokenType: null,
       expiresIn: null
-    }
+    },
+    projectId: null
   };
 
   return {
@@ -124,8 +125,11 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           'Content-type': 'application/json'
         };
         if (config.user.accessToken && config.user.tokenType) {
-          console.log('set tokens');
           headers['Authorization'] = [config.user.tokenType, config.user.accessToken].join(' ');
+        }
+        if (config.projectId) {
+          headers['X-Application'] = config.projectId;
+
         }
 
         headers = angular.extend(headers, opts.headers || {});
@@ -168,8 +172,8 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         config.user.expiresIn = data.expires_in;
       };
 
-      self.useProject = function (project) {
-
+      self.setProjectId = function (projectId) {
+        config.projectId = projectId;
       };
 
       self.admin = {};
