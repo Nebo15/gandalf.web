@@ -19,7 +19,18 @@ nav.main-navbar.navbar.navbar-static-top
         // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
 
       ul.nav.navbar-nav.navbar-right(ng-if="$root.user")
-        li: a(ng-click="logout()") Logout
+        li.dropdown(uib-dropdown)
+          a.dropdown-toggle(role="button", uib-dropdown-toggle) {{$root.user.username}}
+            | &#32;
+            b.caret
+          ul.dropdown-menu
+            li.dropdown-header
+              b {{$root.user.username}}
+              br
+              span {{$root.user.email}}
+            li.divider(role="separator")
+            li
+              a(ng-click="logout()") Sign Out
 
       ul.nav.navbar-nav.navbar-right(ng-if="!$root.user")
         li: a(ui-sref="sign-in") Sign in

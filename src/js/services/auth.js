@@ -41,7 +41,7 @@ angular.module('app').run(function ($rootScope, $state) {
   this.signInFromStorage = function () {
     return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
       $gandalf.setToken(storage.auth);
-      return storage.auth;
+      return resp;
     });
   };
 
