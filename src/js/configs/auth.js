@@ -7,7 +7,6 @@ angular.module('app').config(function($stateProvider) {
     resolve: {
       user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
         return AuthService.signInFromStorage().then(function (resp) {
-          $rootScope.user = resp.data;
           return resp.data;
         }).catch(function () {
           if ($state.nextState.isAuthRequired) {
@@ -16,7 +15,6 @@ angular.module('app').config(function($stateProvider) {
           return null;
         });
       }]
-      //projects: ['Projects']
     },
     ncyBreadcrumb: {
       skip: true

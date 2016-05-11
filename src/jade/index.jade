@@ -11,8 +11,7 @@ html(ng-app="app")
     link(rel='stylesheet', href='bower_components/angular-loading-bar/build/loading-bar.css')
 
   body.app
-    include ./partitials/navbar
-    .container
+    // .container
       div.main-breadcrumb(ncy-breadcrumb)
     div(ui-view='')
     include ./partitials/footer
@@ -74,6 +73,8 @@ html(ng-app="app")
 
     script(src='js/modules/gandalf/models/group.js')
 
+    script(src='js/modules/gandalf/models/project.js')
+
     script(src='js/modules/gandalf/services/gandalf.js')
     script(src='js/modules/gandalf/services/utils.js')
 
@@ -114,6 +115,7 @@ html(ng-app="app")
     script(src='js/directives/components/decision-input.js')
     script(src='js/directives/components/decision-table.js')
     script(src='js/directives/components/add-new-field.js')
+    script(src='js/directives/components/project-add.js')
 
     script(src='js/filters/json.js')
     script(src='js/filters/to-fixed.js')
@@ -122,6 +124,9 @@ html(ng-app="app")
     script(src='js/filters/last.js')
 
     script(src='js/services/auth.js')
+    script(src='js/services/projects.js')
+
+    script(src='js/controllers/app-controller.js')
 
     script(src='js/controllers/sign-in-controller.js')
     script(src='js/controllers/sign-up-controller.js')
@@ -147,4 +152,6 @@ html(ng-app="app")
 
     script(src='js/controllers/history-details-controller.js')
     script(src='js/controllers/history-list-controller.js')
+
+    script(src='js/controllers/projects/project-add-controller.js')
     // endbuild

@@ -193,6 +193,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           grant_type: 'password'
         });
       };
+
       self.admin.createUser = function (user) {
         return $request({
           endpoint: 'api/v1/users',
@@ -224,7 +225,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
       self.admin.createProject = function (project) {
-        return $request.post({
+        return $request({
           endpoint: 'api/v1/projects',
           method: 'post'
         }, project);

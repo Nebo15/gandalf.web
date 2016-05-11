@@ -13,22 +13,29 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'auth',
     abstract: true,
     auth: true,
-    template: '<ui-view />',
+    templateUrl: 'templates/layouts/private.html',
     ncyBreadcrumb: {
       skip: true
-    }
+    },
+    resolve: {
+      projects: ['ProjectsService', function (ProjectsService) {
+        return ProjectsService.all();
+      }]
+    },
+    controller: 'AppController'
   });
   $stateProvider.state('public', {
     parent: 'auth',
     abstract: true,
     auth: false,
-    template: '<ui-view />',
+    templateUrl: 'templates/layouts/public.html',
     ncyBreadcrumb: {
       skip: true
     }
   });
 
   $stateProvider.state('sign-in', {
+    parent: 'public',
     url: '/sign-in?username',
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
@@ -36,6 +43,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Sign in to Gandalf'
     }
   }).state('sign-up', {
+    parent: 'public',
     url: '/sign-up?username?email',
     controller: 'SignUpController',
     templateUrl: 'templates/sign-up.html',

@@ -14,8 +14,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
   }
 
   Project.find = function () {
-    return $gandalf.getProjects().then(function (resp) {
-      return resp.data.data.map(function (item) {
+    return $gandalf.admin.getProjects().then(function (resp) {
+      return resp.data.map(function (item) {
         return new Project(item);
       });
     });
@@ -23,7 +23,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
 
   Project.prototype.create = function () {
     var self = this;
-    return $gandalf.createProject({
+    return $gandalf.admin.createProject({
       title: this.title
     }).then(function (resp) {
       self.constructor(resp.data.data);
