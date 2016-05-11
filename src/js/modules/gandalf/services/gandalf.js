@@ -168,6 +168,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         config.user.expiresIn = data.expires_in;
       };
 
+      self.useProject = function (project) {
+
+      };
 
       self.admin = {};
 
