@@ -174,7 +174,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.admin.checkToken = function (oauthObj) {
         console.log('checkToken', oauthObj);
         return $request({
-          endpoint: 'api/v1/admin/tables/',
+          endpoint: 'api/v1/projects/',
           method: 'get',
           headers: {
             Authorization: [oauthObj.token_type, oauthObj.access_token].join(' ')
@@ -215,7 +215,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       // User
 
       self.admin.getUser = function () {
-        return $request.get('api/v1/user');
+        return $request.get('api/v1/users/current');
       };
 
       // Projects

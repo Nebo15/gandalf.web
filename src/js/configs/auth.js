@@ -8,17 +8,16 @@ angular.module('app').config(function($stateProvider) {
       user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
         console.log('auth resolve', $state.transition);
         return AuthService.signInFromStorage().then(function (resp) {
-          console.log('auth', resp);
           $rootScope.user = resp;
           return resp;
         }).catch(function (resp) {
           if ($state.nextState.isAuthRequired) {
-            console.log('login required');
             return $q.reject(new Error('LoginRequired'));
           }
           return null;
         });
-      }]
+      }],
+      //projects: ['Projects']
     },
     ncyBreadcrumb: {
       skip: true
