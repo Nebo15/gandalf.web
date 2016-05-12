@@ -11,6 +11,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   $rootScope.$on('userDidLogout', function () {
     storage.project = null;
     initialized = false;
+    $gandalf.setProjectId(null);
     appCache.remove('projects');
   });
 
