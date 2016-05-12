@@ -13,33 +13,51 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'auth',
     abstract: true,
     auth: true,
-    template: '<ui-view />',
+    templateUrl: 'templates/layouts/private.html',
     ncyBreadcrumb: {
       skip: true
-    }
+    },
+    resolve: {
+      user: ['UserService', function (UserService) {
+        return UserService.current();
+      }],
+      projects: ['ProjectsService', '$log', function (ProjectsService, $log) {
+        return ProjectsService.all();
+      }]
+    },
+    controller: 'AppController'
   });
   $stateProvider.state('public', {
     parent: 'auth',
     abstract: true,
     auth: false,
-    template: '<ui-view />',
+    templateUrl: 'templates/layouts/public.html',
     ncyBreadcrumb: {
       skip: true
     }
   });
 
   $stateProvider.state('sign-in', {
+    parent: 'public',
     url: '/sign-in?username',
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
     ncyBreadcrumb: {
       label: 'Sign in to Gandalf'
     }
+  }).state('sign-up', {
+    parent: 'public',
+    url: '/sign-up?username?email',
+    controller: 'SignUpController',
+    templateUrl: 'templates/sign-up.html',
+    ncyBreadcrumb: {
+      label: 'Sign up to Gandalf'
+    }
   });
 
   $stateProvider.state('tables-list', {
     parent: 'private',
-    url: '/?size?page',
+    url: '/tables?size?page',
     params: {
       size: '25'
     },
@@ -180,5 +198,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     }
   });
-  $urlRouterProvider.otherwise('/');
+
+  $urlRouterProvider.otherwise('/tables');
 });
