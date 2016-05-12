@@ -4,7 +4,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
   function Rule (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.id = options._id || utils.objectId();
+    this.id = options._id || utils.guid();
     this.priority = options.priority;
     this.than = options.than;
     this.title = options.title;
