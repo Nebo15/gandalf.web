@@ -194,7 +194,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
       self.admin.checkAuth = function (username, password) {
         return $request({
-          endpoint: 'oauth',
+          endpoint: 'api/v1/oauth',
           method: 'post',
           headers: {
             Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
