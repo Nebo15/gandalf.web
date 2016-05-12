@@ -85,7 +85,7 @@ var base64 = (function () {
 angular.module('ng-gandalf').provider('$gandalf', function () {
 
   var config = {
-    apiEnpoint: '/api/v1/',
+    apiEnpoint: '',
     clientId: null,
     clientSecret: null,
 
