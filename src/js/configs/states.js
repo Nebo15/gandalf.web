@@ -18,7 +18,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       skip: true
     },
     resolve: {
-      projects: ['ProjectsService', function (ProjectsService) {
+      projects: ['ProjectsService', '$log', function (ProjectsService, $log) {
         return ProjectsService.all();
       }]
     },
@@ -195,5 +195,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     }
   });
-  $urlRouterProvider.otherwise('/');
+
+  $urlRouterProvider.otherwise('/sign-in');
 });

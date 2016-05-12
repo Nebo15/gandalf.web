@@ -8,7 +8,7 @@ angular.module('app').config(function($stateProvider) {
       user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
         return AuthService.signInFromStorage().then(function (resp) {
           return resp.data;
-        }).catch(function () {
+        }).catch(function (resp) {
           if ($state.nextState.isAuthRequired) {
             return $q.reject(new Error('LoginRequired'));
           }

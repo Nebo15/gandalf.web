@@ -158,6 +158,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.setAuthorization = function (username, password) {
         return self.admin.checkAuth(username, password).then(function (resp) {
+          if (resp.error) throw $q.reject(resp);
           self.setToken(resp);
           return resp;
         });

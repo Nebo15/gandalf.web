@@ -5,8 +5,6 @@ angular.module('app').directive('projectAdd', function () {
 
   return {
     restrict: 'EA',
-    transclude: true,
-    replace: true,
     controller: function ($scope, $uibModal, ProjectsService) {
       $scope.openModal = function () {
         var modalInstance = $uibModal.open({
@@ -14,10 +12,15 @@ angular.module('app').directive('projectAdd', function () {
           controller: 'ProjectAddController'
         });
         modalInstance.result.then(function (newProject) {
+          console.log('select new project', newProject);
           ProjectsService.selectProject(newProject);
         });
       }
     },
-    template: '<a ng-click="openModal()" ng-transclude></a>'
+    link: function (scope, el, attrs, ctrls) {
+      el.bind('click', function () {
+        scope.openModal()
+      });
+    }
   }
 });

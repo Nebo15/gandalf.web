@@ -1,25 +1,20 @@
 'use strict';
 
-angular.module('app').controller('AppController', function ($scope, ProjectsService, Project, $gandalf, $localStorage, projects, user, utils) {
+angular.module('app').controller('AppController', function ($scope, ProjectsService, projects, user) {
 
+  console.log('app controller', user, projects);
   $scope.projects = projects;
   $scope.user = user;
-  $scope.selectProject = selectProject;
+  $scope.selectProject = ProjectsService.selectProject;
+  $scope.project = null;
 
-  var storage = $localStorage.$default({
-    project: null
+  $scope.$on('projectDidSelect', function (e, data) {
+    $scope.project = data;
+  });
+  $scope.$on('projectsDidUpdate', function (e, data) {
+    $scope.projects = data;
   });
 
-  selectProject(storage.project ? new Project(storage.project) : projects[0]);
-
-  $scope.$watchCollection('project', function (project) {
-    storage.project = project;
-  });
-
-  function selectProject(project) {
-    $scope.project = project;
-    $gandalf.setProjectId(project.id);
-    utils.reload();
-  }
+  ProjectsService.init(projects);
 
 });

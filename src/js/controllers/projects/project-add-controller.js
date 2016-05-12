@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('ProjectAddController', function ($scope, Project, $uibModalInstance) {
+angular.module('app').controller('ProjectAddController', function ($scope, Project, ProjectsService, $uibModalInstance) {
 
   $scope.model = new Project();
   $scope.submit = function (form) {
@@ -8,7 +8,9 @@ angular.module('app').controller('ProjectAddController', function ($scope, Proje
       return;
     }
     $scope.model.create().then(function (resp) {
-      $uibModalInstance.close(resp);
+      return ProjectsService.update().then(function () {
+        $uibModalInstance.close(resp);
+      });
     });
   };
   $scope.cancel = function () {

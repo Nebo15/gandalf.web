@@ -26,7 +26,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
     return $gandalf.admin.createProject({
       title: this.title
     }).then(function (resp) {
-      self.constructor(resp.data.data);
+      self.constructor(resp.data);
       return self;
     });
   };

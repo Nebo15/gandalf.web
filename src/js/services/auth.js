@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').run(function ($rootScope, $state) {
+angular.module('app').run(function ($rootScope, $state, $log) {
 
   function isAuthRequired (state) {
     return state.self.auth || state.parent && isAuthRequired(state.parent) || false;
@@ -11,23 +11,22 @@ angular.module('app').run(function ($rootScope, $state) {
     $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
-    console.log('$stateChangeError', error);
     if (error.message == "LoginRequired") {
-      console.log('login required');
       $rootScope.$broadcast('login:required');
     }
   })
 
-}).service('AuthService', function ($gandalf, $localStorage) {
+}).service('AuthService', function ($gandalf, $localStorage, $rootScope) {
 
   var storage = $localStorage.$default({
     auth: {}
   });
 
+  $gandalf.setToken(storage.auth);
+
   this.signIn = function (username, password) {
     return $gandalf.setAuthorization(username, password).then(function (user) {
       storage.auth = user;
-      console.log(storage.auth);
       return user;
     });
   };
@@ -46,8 +45,10 @@ angular.module('app').run(function ($rootScope, $state) {
   };
 
   this.logout = function () {
-    console.log('logout');
     storage.auth = {};
+    $rootScope.$broadcast('userDidLogout');
     $gandalf.resetAuthorization();
-  }
+    //$sessionStorage.$reset();
+  };
+
 });
