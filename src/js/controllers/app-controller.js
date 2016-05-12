@@ -6,7 +6,7 @@ angular.module('app').controller('AppController', function ($scope, ProjectsServ
   $scope.projects = projects;
   $scope.user = user;
   $scope.selectProject = ProjectsService.selectProject;
-  $scope.project = null;
+  $scope.project = ProjectsService.selectedProject();
 
   $scope.$on('projectDidSelect', function (e, data) {
     $scope.project = data;
@@ -15,6 +15,6 @@ angular.module('app').controller('AppController', function ($scope, ProjectsServ
     $scope.projects = data;
   });
 
-  ProjectsService.init(projects);
+  //ProjectsService.init(projects);
 
 });

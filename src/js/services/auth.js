@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').run(function ($rootScope, $state, $log) {
+angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
 
   function isAuthRequired (state) {
     return state.self.auth || state.parent && isAuthRequired(state.parent) || false;
@@ -11,17 +11,19 @@ angular.module('app').run(function ($rootScope, $state, $log) {
     $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
+    console.log('$stateChangeError', error, e);
     if (error.message == "LoginRequired") {
       $rootScope.$broadcast('login:required');
     }
-  })
+  });
+
+  AuthService.signInFromStorage();
 
 }).service('AuthService', function ($gandalf, $localStorage, $rootScope, $cacheFactory) {
 
   var storage = $localStorage.$default({
     auth: {}
   });
-  var $httpCache = $cacheFactory.get('$http');
 
   $gandalf.setToken(storage.auth);
 
@@ -50,7 +52,6 @@ angular.module('app').run(function ($rootScope, $state, $log) {
     storage.auth = {};
     $rootScope.$broadcast('userDidLogout');
     $gandalf.resetAuthorization();
-    //$httpCache.removeAll();
   };
 
   // local testing of authentication

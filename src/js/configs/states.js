@@ -57,7 +57,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tables-list', {
     parent: 'private',
-    url: '/?size?page',
+    url: '/tables?size?page',
     params: {
       size: '25'
     },
@@ -199,5 +199,5 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $urlRouterProvider.otherwise('/sign-in');
+  $urlRouterProvider.otherwise('/tables');
 });
