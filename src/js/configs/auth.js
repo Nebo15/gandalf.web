@@ -5,15 +5,14 @@ angular.module('app').config(function($stateProvider) {
     abstract: true,
     template: '<ui-view />',
     resolve: {
-      user: ['AuthService','$state','$rootScope','$q', function (AuthService, $state, $rootScope, $q) {
-        return AuthService.signInFromStorage().then(function (resp) {
-          return resp.data;
-        }).catch(function (resp) {
-          if ($state.nextState.isAuthRequired) {
-            return $q.reject(new Error('LoginRequired'));
-          }
-          return null;
-        });
+      // check user auth login. eg., token exists
+      auth: ['AuthService','$state','$q', function (AuthService, $state, $q) {
+
+        if (AuthService.isAuthenticated()) return true;
+        if ($state.nextState.isAuthRequired) {
+          return $q.reject(new Error('LoginRequired'));
+        }
+        return false;
       }]
     },
     ncyBreadcrumb: {
@@ -24,7 +23,6 @@ angular.module('app').config(function($stateProvider) {
 }).run(function ($rootScope, $state, $timeout, AuthService) {
 
   $rootScope.$on('login:required', function () {
-    console.log('login');
     $timeout(function () {
       $state.go('sign-in');
     })

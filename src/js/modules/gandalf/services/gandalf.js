@@ -106,7 +106,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       config.clientId = clientId;
       config.clientSecret = clientSecret;
     },
-    $get: function ($httpParamSerializer, $http, $log, $q, $filter)  {
+    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope, $filter)  {
 
       function $request(opts, data) {
 
@@ -142,7 +142,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }).then(function (resp) {
           $log.debug('$request: response', resp);
           return resp.data;
-        });
+        }, function (resp) {
+          $rootScope.$broadcast('$gandalfError', resp);
+          return $q.reject(resp);
+        })
       }
 
       $request.get = function (url, options) {
@@ -158,7 +161,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.setAuthorization = function (username, password) {
         return self.admin.checkAuth(username, password).then(function (resp) {
-          if (resp.error) throw $q.reject(resp);
+          if (resp.error) throw $q.reject(resp); // fix for API error response with status 200
           self.setToken(resp);
           return resp;
         });

@@ -16,11 +16,12 @@ angular.module('app').run(function ($rootScope, $state, $log) {
     }
   })
 
-}).service('AuthService', function ($gandalf, $localStorage, $rootScope) {
+}).service('AuthService', function ($gandalf, $localStorage, $rootScope, $cacheFactory) {
 
   var storage = $localStorage.$default({
     auth: {}
   });
+  var $httpCache = $cacheFactory.get('$http');
 
   $gandalf.setToken(storage.auth);
 
@@ -48,7 +49,12 @@ angular.module('app').run(function ($rootScope, $state, $log) {
     storage.auth = {};
     $rootScope.$broadcast('userDidLogout');
     $gandalf.resetAuthorization();
-    //$sessionStorage.$reset();
+    //$httpCache.removeAll();
+  };
+
+  // local testing of authentication
+  this.isAuthenticated = function () {
+    return !!storage.auth.access_token;
   };
 
 });
