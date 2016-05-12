@@ -18,10 +18,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       skip: true
     },
     resolve: {
-      user: ['$gandalf', function ($gandalf) {
-        return $gandalf.admin.getUser().then(function (resp) {
-          return resp.data;
-        });
+      user: ['UserService', function (UserService) {
+        return UserService.current();
       }],
       projects: ['ProjectsService', '$log', function (ProjectsService, $log) {
         return ProjectsService.all();

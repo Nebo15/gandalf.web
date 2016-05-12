@@ -7,7 +7,6 @@ angular.module('app').config(function($stateProvider) {
     resolve: {
       // check user auth login. eg., token exists
       auth: ['AuthService','$state','$q', function (AuthService, $state, $q) {
-
         if (AuthService.isAuthenticated()) return true;
         if ($state.nextState.isAuthRequired) {
           return $q.reject(new Error('LoginRequired'));

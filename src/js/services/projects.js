@@ -1,14 +1,15 @@
 'use strict';
 
-angular.module('app').service('ProjectsService', function (Project, $gandalf, $timeout, $rootScope, $localStorage, lodash, utils) {
+angular.module('app').service('ProjectsService', function (Project, $gandalf, $timeout, $rootScope, $localStorage, lodash, $cacheFactory) {
 
-  var projects = null;
+  var appCache = $cacheFactory('app');
 
   var storage = $localStorage.$default({
     project: null
   });
   $rootScope.$on('userDidLogout', function () {
     storage.project = null;
+    appCache.remove('projects');
   });
 
   // collection
@@ -22,14 +23,14 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   // functions
 
   function all() {
-    return projects || update();
+    return appCache.get('projects') || update();
   }
 
   function update() {
     return Project.find().then(function (projectsResp) {
-      projects = projectsResp;
-      $rootScope.$broadcast('projectsDidUpdate', projects);
-      return projects;
+      appCache.put('projects', projectsResp);
+      $rootScope.$broadcast('projectsDidUpdate', projectsResp);
+      return projectsResp;
     });
   }
 
@@ -38,15 +39,14 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     $gandalf.setProjectId(project.id);
     storage.project = project.toJSON();
     $rootScope.$broadcast('projectDidSelect', project);
-    utils.reload();
   }
 
-  function init(projects) {
-    console.log('init', projects, storage.project);
-    var currentProject = (storage.project ? lodash.find(projects, {
-        id: storage.project._id
-      }) : null) || projects[0];
-
-    selectProject(currentProject);
-  }
+  //function init(projects) {
+  //  console.log('init', projects, storage.project);
+  //  var currentProject = (storage.project ? lodash.find(projects, {
+  //      id: storage.project._id
+  //    }) : null) || projects[0];
+  //
+  //  selectProject(currentProject);
+  //}
 });

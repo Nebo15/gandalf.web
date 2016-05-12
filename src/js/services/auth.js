@@ -39,10 +39,11 @@ angular.module('app').run(function ($rootScope, $state, $log) {
     });
   };
   this.signInFromStorage = function () {
-    return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
-      $gandalf.setToken(storage.auth);
-      return resp;
-    });
+    return $gandalf.setToken(storage.auth);
+    //return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
+    //  $gandalf.setToken(storage.auth);
+    //  return resp;
+    //});
   };
 
   this.logout = function () {
