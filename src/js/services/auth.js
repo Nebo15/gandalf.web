@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
+angular.module('app').run(function ($rootScope, $state) {
 
   function isAuthRequired (state) {
     return state.self.auth || state.parent && isAuthRequired(state.parent) || false;
@@ -11,60 +11,33 @@ angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
     $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
-    console.log('$stateChangeError', error, e);
-    e.preventDefault();
+    console.log('$stateChangeError', error);
     if (error.message == "LoginRequired") {
+      console.log('login required');
       $rootScope.$broadcast('login:required');
     }
-  });
+  })
 
-  $rootScope.$on('$gandalfError', function (e, data) {
-    if (data.status == 401) {
-      AuthService.logout();
-      $rootScope.$broadcast('login:required');
-    }
-  });
-
-  AuthService.signInFromStorage();
-
-}).service('AuthService', function ($gandalf, $localStorage, $rootScope, $cacheFactory) {
+}).service('AuthService', function ($gandalf, $localStorage) {
 
   var storage = $localStorage.$default({
     auth: {}
   });
 
-  $gandalf.setToken(storage.auth);
-
   this.signIn = function (username, password) {
-    return $gandalf.setAuthorization(username, password).then(function (user) {
-      storage.auth = user;
-      return user;
-    });
-  };
-  this.signUp = function (username, password, email) {
-    return $gandalf.admin.createUser({
-      username: username,
-      password: password,
-      email: email
+    return $gandalf.testAuthorization(username, password).then(function () {
+      $gandalf.setAuthorization(username, password);
+      storage.auth.username = username;
+      storage.auth.password = password;
+      return true;
     });
   };
   this.signInFromStorage = function () {
-    return $gandalf.setToken(storage.auth);
-    //return $gandalf.admin.checkToken(storage.auth).then(function (resp) {
-    //  $gandalf.setToken(storage.auth);
-    //  return resp;
-    //});
+    return this.signIn(storage.auth.username, storage.auth.password);
   };
 
   this.logout = function () {
     storage.auth = {};
-    $rootScope.$broadcast('userDidLogout');
     $gandalf.resetAuthorization();
-  };
-
-  // local testing of authentication
-  this.isAuthenticated = function () {
-    return !!storage.auth.access_token;
-  };
-
+  }
 });

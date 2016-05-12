@@ -4,7 +4,7 @@ angular.module('ng-gandalf').factory('DecisionField', function (utils) {
   function DecisionField (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.id = options._id || utils.objectId();
+    this.id = options._id || utils.guid();
     this.key = options.key;
     this.type = options.type;
     this.title = options.title;
