@@ -24,7 +24,7 @@
   "production": {
     "debug": false,
     "api": {
-      "endpoint": "/api/v1/"
+      "endpoint": "/"
     },
     "providers": {
       "bugsnag": {
