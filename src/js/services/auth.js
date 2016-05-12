@@ -12,7 +12,15 @@ angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
     console.log('$stateChangeError', error, e);
+    e.preventDefault();
     if (error.message == "LoginRequired") {
+      $rootScope.$broadcast('login:required');
+    }
+  });
+
+  $rootScope.$on('$gandalfError', function (e, data) {
+    if (data.status == 401) {
+      AuthService.logout();
       $rootScope.$broadcast('login:required');
     }
   });

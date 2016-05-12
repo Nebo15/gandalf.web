@@ -143,9 +143,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           $log.debug('$request: response', resp);
           return resp.data;
         }, function (resp) {
+          console.log(resp);
           $rootScope.$broadcast('$gandalfError', resp);
           return $q.reject(resp);
-        })
+        });
       }
 
       $request.get = function (url, options) {
