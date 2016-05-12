@@ -1,4 +1,4 @@
-nav.main-navbar.navbar.navbar-static-top
+nav.main-navbar.navbar.navbar-static-top.navbar-default
   .container
     .navbar-header
       button.navbar-toggle.collapsed(type='button',
@@ -13,10 +13,6 @@ nav.main-navbar.navbar.navbar-static-top
       a.navbar-brand(href='#') Gandalf
 
     #navbar-menu.collapse.navbar-collapse
-      ul.nav.navbar-nav(ng-if="$root.user")
-        li(ui-sref-active="active"): a(ui-sref="tables-list") Tables
-        li(ui-sref-active="active"): a(ui-sref="history-list") History
-        // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
-
       ul.nav.navbar-nav.navbar-right
-        li(ng-if="$root.user"): a(ng-click="logout()") Logout
+        li: a(ui-sref="sign-in") Sign in
+        li: a(ui-sref="sign-up") Sign up
