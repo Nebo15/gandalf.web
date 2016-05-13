@@ -228,6 +228,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Projects
 
+      self.admin.getCurrentProject = function () {
+        return $request.get('api/v1/projects/current');
+      };
+
       self.admin.getProjects = function (size, page) {
         return $request.get('api/v1/projects', {
           params: {

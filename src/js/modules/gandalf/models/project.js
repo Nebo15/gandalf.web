@@ -30,9 +30,6 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
       return self;
     });
   };
-  Project.prototype.addUser = function () {
-
-  };
 
   Project.prototype.toJSON = function () {
     return {
