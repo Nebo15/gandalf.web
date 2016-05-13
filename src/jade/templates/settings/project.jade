@@ -1,12 +1,15 @@
 .container
   .row
-    .col-md-6
+    .col-md-12
       h5 Edit project
       br
       h4 Project name: {{project.title}}
       hr
   .row
-    .col-md-6
+    .col-md-4.col-md-push-6
+      <p><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</b></p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+    .col-md-6.col-md-pull-4
       .panel.panel-default
         .panel-heading Users
         .panel-body
@@ -14,8 +17,11 @@
             a.list-group-item(ng-repeat="user in project.users") {{user.username}}
               i.pull-right.subtitle {{user.role}}
             a.list-group-item: b.text-primary + add user
+
   .row
-    .col-md-6
+    .col-md-4.col-md-push-6
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    .col-md-6.col-md-pull-4
       .panel.panel-default
         .panel-heading API Keys
         .panel-body
@@ -23,11 +29,10 @@
             a.list-group-item(ng-repeat="consumer in project.consumers") {{user.description}}
             a.list-group-item: b.text-primary + create consumer
 
-  .row.col-md-6
+
+  .row: .col-md-6
     button.btn.btn-danger Delete project
 
   p: br
-  p: br
-
 
 
