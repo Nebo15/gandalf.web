@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, CONDITION_OPTIONS) {
+angular.module('ng-gandalf').factory('DecisionRuleCondition', function (gandalfUtils, CONDITION_OPTIONS) {
 
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
@@ -12,8 +12,8 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (utils, C
   RuleCondition.prototype.toJSON = function () {
     var res = {
       field_key: this.fieldKey,
-      condition: utils.orNull(this.condition),
-      value: utils.orNull(this.value)
+      condition: gandalfUtils.orNull(this.condition),
+      value: gandalfUtils.orNull(this.value)
     };
     // not return is_set and is_null with undefined value field
     if (CONDITION_OPTIONS.hasNotValue.indexOf(res.condition) !== -1) {
