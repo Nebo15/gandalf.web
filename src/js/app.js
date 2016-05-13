@@ -20,7 +20,8 @@ angular.module('app', [
   'dragcolumns',
   'table-fixed-rows',
 
-  'angular-loading-bar'
+  'angular-loading-bar',
+  'checklist-model'
 ]);
 
 angular.module('app').constant('ENV', window.env);

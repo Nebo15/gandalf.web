@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng-gandalf').factory('Project', function ($gandalf) {
+angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser) {
 
   function Project (options) {
 
@@ -8,7 +8,9 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
 
     this.id = obj._id;
     this.title = obj.title;
-    this.users = obj.users;
+    this.users = (obj.users || []).map(function(item) {
+      return new ProjectUser(item);
+    });
     this.consumers = obj.consumers;
 
   }
@@ -35,7 +37,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
     return {
       _id: this.id,
       title: this.title,
-      users: this.users,
+      users: JSON.parse(JSON.stringify(this.users)),
       consumers: this.consumers
     };
   };

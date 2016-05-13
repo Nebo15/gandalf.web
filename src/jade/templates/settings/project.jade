@@ -14,7 +14,7 @@
         .panel-heading Users
         .panel-body
           div.list-group.list-group-panel
-            a.list-group-item(ng-repeat="user in project.users") {{user.username}}
+            a.list-group-item(ng-repeat="user in project.users", user-edit="user") {{user.username}}
               i.pull-right.subtitle {{user.role}}
             a.list-group-item: b.text-primary + add user
 

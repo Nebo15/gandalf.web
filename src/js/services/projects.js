@@ -48,7 +48,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   }
 
   function selectProject(project) {
-    if (!project || (storage.project._id == project.id && initialized)) return;
+    if (!project || (lodash.get(storage, 'project._id') == project.id && initialized)) return;
     $gandalf.setProjectId(project.id);
     storage.project = project.toJSON();
     $rootScope.$broadcast('projectDidSelect', project);
