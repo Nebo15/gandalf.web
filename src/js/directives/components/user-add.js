@@ -1,11 +1,8 @@
 "use strict";
 
-angular.module('app').controller('userAddController', function ($scope, $uibModal, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
+angular.module('app').controller('userAddController', function ($scope, $uibModalInstance, project, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
 
-  var modalInstance = null;
-  //$scope.project = null; // from directive scope
-  //$scope.userSearch = null;
-
+  $scope.project = project;
   $scope.userSearch = null;
   $scope.user = new ProjectUser({
     role: 'manager'
@@ -20,42 +17,45 @@ angular.module('app').controller('userAddController', function ($scope, $uibModa
     });
   };
   $scope.openModal = function () {
-    modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/user-add.html',
-      scope: $scope
-    });
+
   };
   $scope.cancel = function () {
-    if (!modalInstance) return;
-    modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
   $scope.save = function (form) {
     if (form.$invalid) return;
     $scope.user.id = $scope.userSearch.id;
 
     $scope.project.addUser($scope.user).then(function () {
-      modalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
     });
   };
   $scope.remove = function () {
     $scope.user.remove().then(function () {
       return $scope.project.update();
     }).then(function () {
-      modalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
     });
   }
 });
 
-angular.module('app').directive('userAdd', function () {
+angular.module('app').directive('userAdd', function ($uibModal) {
   return {
     restrict: 'EA',
-    controller: 'userAddController',
     scope: {
       project: '=userAdd'
     },
     link: function (scope, el, attrs) {
       el.bind('click', function () {
-        scope.openModal();
+        $uibModal.open({
+          templateUrl: 'templates/modal/user-add.html',
+          controller: 'userAddController',
+          resolve: {
+            project: function () {
+              return scope.project;
+            }
+          }
+        });
       })
     }
   };

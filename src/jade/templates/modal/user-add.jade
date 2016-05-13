@@ -5,7 +5,7 @@ form(ng-submit="save(form)", name="form", novalidate)
     .form-horizontal
       .form-group
         label.col-sm-2.control-label Username
-        .col-sm-10: input.form-control(type="text", ng-model="$parent.userSearch", typeahead-min-length="1",
+        .col-sm-10: input.form-control(type="text", ng-model="userSearch", typeahead-min-length="1",
             uib-typeahead="user as user.username for user in getUsers($viewValue)",
 
             required)
