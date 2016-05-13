@@ -124,7 +124,7 @@ angular.module('ng-gandalf').factory('ObjectId', function () {
 
   return ObjectId;
 
-}).service('utils', function (ObjectId) {
+}).service('gandalfUtils', function (ObjectId) {
 
   this.orNull = function (val) {
     return typeof val !== 'undefined' ? val : null;
