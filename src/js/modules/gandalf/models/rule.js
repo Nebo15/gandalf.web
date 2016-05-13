@@ -1,10 +1,10 @@
-angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondition, utils) {
+angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondition, gandalfUtils) {
 
 
   function Rule (obj) {
     var options = obj ? angular.copy(obj) : {};
 
-    this.id = options._id || utils.objectId();
+    this.id = options._id || gandalfUtils.objectId();
     this.priority = options.priority;
     this.than = options.than;
     this.title = options.title;
@@ -39,8 +39,8 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
       _id: this.id,
       priority: this.priority,
       than: this.than,
-      title: utils.orNull(this.title),
-      description: utils.orNull(this.description),
+      title: gandalfUtils.orNull(this.title),
+      description: gandalfUtils.orNull(this.description),
       conditions: JSON.parse(JSON.stringify(this.conditions))
     };
   };

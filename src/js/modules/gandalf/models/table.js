@@ -93,10 +93,11 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return $gandalf.admin.updateTableById(this.id, this);
   };
   DecisionTable.prototype.create = function () {
-    return $gandalf.admin.createTable(this).then(function (obj) {
-      this.id = obj.data._id;
-      return this;
-    }.bind(this));
+    var self = this;
+    return $gandalf.admin.createTable(this.toJSON()).then(function (obj) {
+      self.constructor(obj.data);
+      return self;
+    });
   };
 
   DecisionTable.prototype.delete = function () {
