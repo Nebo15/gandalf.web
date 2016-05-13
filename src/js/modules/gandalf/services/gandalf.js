@@ -106,7 +106,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       config.clientId = clientId;
       config.clientSecret = clientSecret;
     },
-    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope, $filter)  {
+    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope)  {
 
       function $request(opts, data) {
 
