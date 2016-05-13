@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng-gandalf').factory('ProjectUser', function () {
+angular.module('ng-gandalf').factory('ProjectUser', function ($gandalf) {
 
   function ProjectUser(data) {
     var obj = data || {};
@@ -13,6 +13,13 @@ angular.module('ng-gandalf').factory('ProjectUser', function () {
     this.username = obj.username;
 
   }
+
+  ProjectUser.prototype.update = function () {
+    return $gandalf.admin.updateProjectUser(this.toJSON());
+  };
+  ProjectUser.prototype.remove = function () {
+    return $gandalf.admin.removeProjectUser(this.id);
+  };
 
   ProjectUser.prototype.toJSON = function () {
 

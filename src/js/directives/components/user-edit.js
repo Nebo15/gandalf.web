@@ -3,13 +3,16 @@
 angular.module('app').controller('userEditController', function ($scope, $uibModal) {
 
   var modalInstance = null;
+  //$scope.user = null; // from directive scope
+
   $scope.scopes = [
     'create',
     'read',
     'update',
     'delete',
     'check'
-  ]
+  ];
+
   $scope.openModal = function () {
     console.log('open modal');
     modalInstance = $uibModal.open({
@@ -21,7 +24,17 @@ angular.module('app').controller('userEditController', function ($scope, $uibMod
     if (!modalInstance) return;
     modalInstance.dismiss('cancel');
   };
-
+  $scope.save = function (form) {
+    if (form.$invalid) return;
+    $scope.user.update().then(function () {
+      modalInstance.dismiss('cancel');
+    });
+  };
+  $scope.remove = function () {
+    $scope.user.remove().then(function () {
+      modalInstance.dismiss('cancel');
+    });
+  }
 });
 
 angular.module('app').directive('userEdit', function () {

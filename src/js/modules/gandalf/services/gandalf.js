@@ -247,6 +247,25 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }, project);
       };
 
+      self.admin.updateProjectUser = function (user) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
+      };
+      self.admin.removeProjectUser = function (userId) {
+        return $request({
+          method: 'delete',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: userId
+        });
+      };
+
       // Tables
 
       self.admin.getTables = function (size, page, filter) {
