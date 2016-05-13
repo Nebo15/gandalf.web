@@ -275,14 +275,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           user_id: userId
         });
       };
-      self.admin.addProjectUser = function (userId) {
+      self.admin.addProjectUser = function (user) {
         return $request({
           method: 'post',
           endpoint: 'api/v1/projects/users'
         }, {
-          user_id: userId,
-          role: role,
-          scope: scope
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
         });
       };
 

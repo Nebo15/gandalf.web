@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('app').controller('userEditController', function ($scope, PROJECT_USER_SCOPES) {
+angular.module('app').controller('userEditController', function ($scope, $uibModal, PROJECT_USER_SCOPES) {
 
   var modalInstance = null;
   //$scope.user = null; // from directive scope
@@ -26,7 +26,7 @@ angular.module('app').controller('userEditController', function ($scope, PROJECT
     });
   };
   $scope.remove = function () {
-    $scope.user.remove().then(function () {
+    $scope.project.removeUser($scope.user).then(function () {
       modalInstance.dismiss('cancel');
     });
   }

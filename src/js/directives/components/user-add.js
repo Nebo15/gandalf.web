@@ -1,17 +1,21 @@
 "use strict";
 
-angular.module('app').controller('userAddController', function ($scope, $uibModal, PROJECT_USER_SCOPES, ProjectUser, User) {
+angular.module('app').controller('userAddController', function ($scope, $uibModal, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
 
   var modalInstance = null;
   //$scope.project = null; // from directive scope
+  //$scope.userSearch = null;
 
+  $scope.userSearch = null;
   $scope.user = new ProjectUser({
     role: 'manager'
   });
   $scope.scopes = PROJECT_USER_SCOPES;
 
   $scope.getUsers = function (str) {
-    return User.find(null, null, str).then(function (resp) {
+    return User.find(null, null, {
+      name: str
+    }).then(function (resp) {
       return resp.data;
     });
   };
@@ -27,8 +31,9 @@ angular.module('app').controller('userAddController', function ($scope, $uibModa
   };
   $scope.save = function (form) {
     if (form.$invalid) return;
-    $scope.user.create().then(function () {
-      $scope.project.addUser($scope.user);
+    $scope.user.id = $scope.userSearch.id;
+
+    $scope.project.addUser($scope.user).then(function () {
       modalInstance.dismiss('cancel');
     });
   };

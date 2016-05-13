@@ -26,7 +26,11 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
 
   Project.prototype.addUser = function (user) {
     var self = this;
-    return $gandalf.admin.addProjectUser(user).then(function (resp) {
+    return $gandalf.admin.addProjectUser({
+      user_id: user.id,
+      role: user.role,
+      scope: user.scope
+    }).then(function (resp) {
       self.constructor(resp.data);
       return self;
     });
@@ -40,7 +44,11 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
   };
   Project.prototype.updateUser = function (user) {
     var self = this;
-    return $gandalf.admin.updateProjectUser(user.toJSON()).then(function (resp) {
+    return $gandalf.admin.updateProjectUser({
+      user_id: user.id,
+      role: user.role,
+      scope: user.scope
+    }).then(function (resp) {
       self.constructor(resp.data);
       return self;
     })
