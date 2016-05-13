@@ -1,4 +1,33 @@
-.container: .row: .col-md-12
-  h2 Edit project
+.container
+  .row
+    .col-md-6
+      h5 Edit project
+      br
+      h4 Project name: {{project.title}}
+      hr
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading Users
+        .panel-body
+          div.list-group.list-group-panel
+            a.list-group-item(ng-repeat="user in project.users") {{user.username}}
+              i.pull-right.subtitle {{user.role}}
+            a.list-group-item: b.text-primary + add user
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading API Keys
+        .panel-body
+          div.list-group.list-group-panel
+            a.list-group-item(ng-repeat="consumer in project.consumers") {{user.description}}
+            a.list-group-item: b.text-primary + create consumer
+
+  .row.col-md-6
+    button.btn.btn-danger Delete project
+
+  p: br
+  p: br
+
 
 

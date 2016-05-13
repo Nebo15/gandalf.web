@@ -48,7 +48,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   }
 
   function selectProject(project) {
-    if (!project || storage.project._id == project.id) return;
+    if (!project || (storage.project._id == project.id && initialized)) return;
     $gandalf.setProjectId(project.id);
     storage.project = project.toJSON();
     $rootScope.$broadcast('projectDidSelect', project);
@@ -65,4 +65,17 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     selectProject(currentProject);
     initialized = true;
   }
+
+  //function initFromStorage() {
+  //  var storageProject = new Project(storage.project);
+  //  if (storageProject.id) {
+  //    $gandalf.setProjectId(storageProject.id);
+  //    return storageProject.id;
+  //  }
+  //  return null;
+  //}
+  //
+  //initFromStorage();
+
+
 });
