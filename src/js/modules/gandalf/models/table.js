@@ -95,7 +95,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   DecisionTable.prototype.create = function () {
     var self = this;
     return $gandalf.admin.createTable(this.toJSON()).then(function (obj) {
-      self.constructor(obj.data);
+      self.parse(obj.data);
       return self;
     });
   };
