@@ -1,0 +1,28 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Edit user
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-2.control-label Username
+        .col-sm-10: .form-control-static {{user.username}}
+      .form-group
+        label.col-sm-2.control-label Email
+        .col-sm-10: .form-control-static {{user.email}}
+      hr
+      .form-group(show-errors)
+        label.col-sm-2.control-label Role
+        .col-sm-10
+          input.form-control(ng-model="user.role", disabled, required)
+      .form-group(show-errors)
+        label.col-sm-2.control-label Scopes
+        .col-sm-10
+          .checkbox(ng-repeat="scope in scopes"): label
+            input(type="checkbox", checklist-model="user.scope", checklist-value="scope")
+            | {{scope}}
+  .modal-footer.clearfix
+    .pull-left
+      button.btn.btn-danger(type='button', ng-click='remove()') Remove
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save

@@ -18,7 +18,7 @@ $table-footer-bg: #f9f9f9
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
 
-[ui-sref], [ng-click], [on-click]
+[ui-sref], [ng-click], [on-click], a
   cursor: pointer
 
 .text-light
@@ -337,3 +337,20 @@ $main-content-bg: #fff
 .main-breadcrumb
   margin-bottom: 20px
 
+.panel-title
+  margin-top: 10px
+
+.list-group.list-group-panel
+  margin: -1 * $panel-body-padding
+  border: 0
+  .list-group-item
+    border-left: 0
+    border-right: 0
+    &:first-child
+      border-top: 0
+    &:last-child
+      border-bottom: 0
+
+
+.text-primary
+  color: $brand-primary

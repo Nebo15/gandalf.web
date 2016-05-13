@@ -222,11 +222,25 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // User
 
+      self.admin.getUsers = function (size, page, filter) {
+        filter = filter || {};
+        return $request.get('api/v1/users', {
+          params: {
+            size: size,
+            page: page,
+            name: filter.name
+          }
+        });
+      };
       self.admin.getUser = function () {
         return $request.get('api/v1/users/current');
       };
 
       // Projects
+
+      self.admin.getCurrentProject = function () {
+        return $request.get('api/v1/projects/current');
+      };
 
       self.admin.getProjects = function (size, page) {
         return $request.get('api/v1/projects', {
@@ -241,6 +255,35 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           endpoint: 'api/v1/projects',
           method: 'post'
         }, project);
+      };
+
+      self.admin.updateProjectUser = function (user) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
+      };
+      self.admin.removeProjectUser = function (userId) {
+        return $request({
+          method: 'delete',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: userId
+        });
+      };
+      self.admin.addProjectUser = function (user) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
       };
 
       // Tables

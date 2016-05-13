@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng-gandalf').factory('Project', function ($gandalf) {
+angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser) {
 
   function Project (options) {
 
@@ -8,7 +8,9 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
 
     this.id = obj._id;
     this.title = obj.title;
-    this.users = obj.users;
+    this.users = (obj.users || []).map(function(item) {
+      return new ProjectUser(item);
+    });
     this.consumers = obj.consumers;
 
   }
@@ -21,6 +23,37 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
     });
   };
 
+
+  Project.prototype.addUser = function (user) {
+    var self = this;
+    return $gandalf.admin.addProjectUser({
+      user_id: user.id,
+      role: user.role,
+      scope: user.scope
+    }).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    });
+  };
+  Project.prototype.removeUser = function (user) {
+    var self = this;
+    return $gandalf.admin.removeProjectUser(user.id).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    });
+  };
+  Project.prototype.updateUser = function (user) {
+    var self = this;
+    return $gandalf.admin.updateProjectUser({
+      user_id: user.id,
+      role: user.role,
+      scope: user.scope
+    }).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    })
+  };
+
   Project.prototype.create = function () {
     var self = this;
     return $gandalf.admin.createProject({
@@ -30,15 +63,12 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf) {
       return self;
     });
   };
-  Project.prototype.addUser = function () {
-
-  };
 
   Project.prototype.toJSON = function () {
     return {
       _id: this.id,
       title: this.title,
-      users: this.users,
+      users: JSON.parse(JSON.stringify(this.users)),
       consumers: this.consumers
     };
   };

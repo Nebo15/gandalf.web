@@ -23,6 +23,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   this.selectedProject = function () {
     return new Project(storage.project);
   };
+  this.current = current;
 
   // functions
 
@@ -30,6 +31,13 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     return appCache.get('projects') || update();
   }
 
+  function current () {
+    return $gandalf.admin.getCurrentProject().then(function (resp) {
+      var project = new Project(resp.data);
+      selectProject(project);
+      return project;
+    });
+  }
   function update() {
     return Project.find().then(function (projectsResp) {
       init(projectsResp);
@@ -40,7 +48,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   }
 
   function selectProject(project) {
-    if (!project) return;
+    if (!project || (lodash.get(storage, 'project._id') == project.id && initialized)) return;
     $gandalf.setProjectId(project.id);
     storage.project = project.toJSON();
     $rootScope.$broadcast('projectDidSelect', project);
@@ -57,4 +65,17 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     selectProject(currentProject);
     initialized = true;
   }
+
+  //function initFromStorage() {
+  //  var storageProject = new Project(storage.project);
+  //  if (storageProject.id) {
+  //    $gandalf.setProjectId(storageProject.id);
+  //    return storageProject.id;
+  //  }
+  //  return null;
+  //}
+  //
+  //initFromStorage();
+
+
 });
