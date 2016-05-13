@@ -1,17 +1,23 @@
 "use strict";
 
-angular.module('app').controller('userEditController', function ($scope, PROJECT_USER_SCOPES) {
+angular.module('app').controller('userAddController', function ($scope, $uibModal, PROJECT_USER_SCOPES, ProjectUser, User) {
 
   var modalInstance = null;
-  //$scope.user = null; // from directive scope
   //$scope.project = null; // from directive scope
 
+  $scope.user = new ProjectUser({
+    role: 'manager'
+  });
   $scope.scopes = PROJECT_USER_SCOPES;
 
+  $scope.getUsers = function (str) {
+    return User.find(null, null, str).then(function (resp) {
+      return resp.data;
+    });
+  };
   $scope.openModal = function () {
-    console.log('open modal');
     modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/user-edit.html',
+      templateUrl: 'templates/modal/user-add.html',
       scope: $scope
     });
   };
@@ -21,24 +27,26 @@ angular.module('app').controller('userEditController', function ($scope, PROJECT
   };
   $scope.save = function (form) {
     if (form.$invalid) return;
-    $scope.project.updateUser($scope.user).then(function () {
+    $scope.user.create().then(function () {
+      $scope.project.addUser($scope.user);
       modalInstance.dismiss('cancel');
     });
   };
   $scope.remove = function () {
     $scope.user.remove().then(function () {
+      return $scope.project.update();
+    }).then(function () {
       modalInstance.dismiss('cancel');
     });
   }
 });
 
-angular.module('app').directive('userEdit', function () {
+angular.module('app').directive('userAdd', function () {
   return {
     restrict: 'EA',
-    controller: 'userEditController',
+    controller: 'userAddController',
     scope: {
-      project: '=userEdit',
-      user: '=userEditModel'
+      project: '=userAdd'
     },
     link: function (scope, el, attrs) {
       el.bind('click', function () {

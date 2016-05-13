@@ -222,6 +222,16 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // User
 
+      self.admin.getUsers = function (size, page, filter) {
+        filter = filter || {};
+        return $request.get('api/v1/users', {
+          params: {
+            size: size,
+            page: page,
+            name: filter.name
+          }
+        });
+      };
       self.admin.getUser = function () {
         return $request.get('api/v1/users/current');
       };
@@ -263,6 +273,16 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           endpoint: 'api/v1/projects/users'
         }, {
           user_id: userId
+        });
+      };
+      self.admin.addProjectUser = function (userId) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: userId,
+          role: role,
+          scope: scope
         });
       };
 

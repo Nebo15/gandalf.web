@@ -14,13 +14,6 @@ angular.module('ng-gandalf').factory('ProjectUser', function ($gandalf) {
 
   }
 
-  ProjectUser.prototype.update = function () {
-    return $gandalf.admin.updateProjectUser(this.toJSON());
-  };
-  ProjectUser.prototype.remove = function () {
-    return $gandalf.admin.removeProjectUser(this.id);
-  };
-
   ProjectUser.prototype.toJSON = function () {
 
     return {
