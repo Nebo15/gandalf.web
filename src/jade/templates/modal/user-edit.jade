@@ -18,7 +18,8 @@ form(ng-submit="save(form)", name="form", novalidate)
         label.col-sm-2.control-label Scopes
         .col-sm-10
           .checkbox(ng-repeat="scope in scopes"): label
-            input(type="checkbox", checklist-model="user.scope", checklist-value="scope")
+            input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
+              ng-required="!(user.scope && user.scope.length > 0)")
             | {{scope}}
   .modal-footer.clearfix
     .pull-left

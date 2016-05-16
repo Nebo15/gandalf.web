@@ -261,7 +261,11 @@ tr.ui-sortable-helper
   float: right
   margin-top: -8px
 
-.form-control.ng-invalid.ng-dirty, .ng-submitted .form-control.ng-invalid
+.form-control.ng-invalid.ng-dirty,
+.checkbox input.ng-invalid.ng-dirty,
+
+.ng-submitted .form-control.ng-invalid,
+.ng-submitted .checkbox input.ng-invalid
 
   &:not(:focus)
     border-color: $state-danger-text
