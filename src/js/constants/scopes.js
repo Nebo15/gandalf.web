@@ -7,3 +7,8 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'delete',
   'check'
 ]);
+
+angular.module('app').constant('PROJECT_CONSUMER_SCOPES', [
+  'read',
+  'check'
+]);

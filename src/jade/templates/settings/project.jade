@@ -26,8 +26,8 @@
         .panel-heading API Keys
         .panel-body
           div.list-group.list-group-panel
-            a.list-group-item(ng-repeat="consumer in project.consumers") {{user.description}}
-            a.list-group-item: b.text-primary + create consumer
+            a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer") {{consumer.description}}
+            a.list-group-item(consumer-add="project"): b.text-primary + create consumer
 
 
   // .row: .col-md-6

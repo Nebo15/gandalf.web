@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser) {
+angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser, ProjectConsumer) {
 
   function Project (options) {
 
@@ -11,7 +11,9 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
-    this.consumers = obj.consumers;
+    this.consumers = (obj.consumers || []).map(function (item) {
+      return new ProjectConsumer(item);
+    });
 
   }
 
@@ -23,7 +25,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
     });
   };
 
-
+  // Users
   Project.prototype.addUser = function (user) {
     var self = this;
     return $gandalf.admin.addProjectUser({
@@ -54,6 +56,38 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
     })
   };
 
+  // Consumers
+  Project.prototype.addConsumer = function (consumer) {
+    var self = this;
+    return $gandalf.admin.addProjectConsumer({
+      description: consumer.description,
+      scope: consumer.scope
+    }).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    });
+  };
+  Project.prototype.removeConsumer = function (consumer) {
+    var self = this;
+    return $gandalf.admin.removeProjectConsumer(consumer.clientId).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    });
+  };
+  Project.prototype.updateConsumer = function (consumer) {
+    var self = this;
+    return $gandalf.admin.updateProjectConsumer({
+      client_id: consumer.clientId,
+      description: consumer.description,
+      scope: consumer.scope
+    }).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    })
+  };
+
+  // Project
+
   Project.prototype.create = function () {
     var self = this;
     return $gandalf.admin.createProject({
@@ -69,7 +103,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser)
       _id: this.id,
       title: this.title,
       users: JSON.parse(JSON.stringify(this.users)),
-      consumers: this.consumers
+      consumers: JSON.parse(JSON.stringify(this.consumers))
     };
   };
 

@@ -1,0 +1,21 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Edit API Key
+  .modal-body
+    .form-horizontal
+      .form-group(show-errors)
+        label.col-sm-2.control-label Description
+        .col-sm-10
+          input.form-control(ng-model="model.description", required)
+      .form-group(show-errors)
+        label.col-sm-2.control-label Scopes
+        .col-sm-10
+          .checkbox(ng-repeat="scope in scopes"): label
+            input(type="checkbox", checklist-model="model.scope", checklist-value="scope")
+            | {{scope}}
+  .modal-footer.clearfix
+    .pull-left
+      button.btn.btn-danger(type='button', ng-click='remove()') Remove
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save

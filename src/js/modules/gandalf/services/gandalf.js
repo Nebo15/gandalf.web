@@ -257,6 +257,17 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }, project);
       };
 
+      // Project.users
+      self.admin.addProjectUser = function (user) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
+      };
       self.admin.updateProjectUser = function (user) {
         return $request({
           method: 'put',
@@ -275,14 +286,33 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           user_id: userId
         });
       };
-      self.admin.addProjectUser = function (user) {
+
+      // Project.consumers
+      self.admin.addProjectConsumer = function (consumer) {
         return $request({
           method: 'post',
-          endpoint: 'api/v1/projects/users'
+          endpoint: 'api/v1/projects/consumers'
         }, {
-          user_id: user.user_id,
-          role: user.role,
-          scope: user.scope
+          description: consumer.description,
+          scope: consumer.scope
+        });
+      };
+      self.admin.updateProjectConsumer = function (consumer) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/projects/consumers'
+        }, {
+          client_id: consumer.client_id,
+          description: consumer.description,
+          scope: consumer.scope
+        });
+      };
+      self.admin.removeProjectConsumer = function (clientId) {
+        return $request({
+          method: 'delete',
+          endpoint: 'api/v1/projects/consumers'
+        }, {
+          client_id: clientId
         });
       };
 
