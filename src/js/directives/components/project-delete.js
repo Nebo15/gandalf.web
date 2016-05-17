@@ -9,10 +9,8 @@ angular.module('app').controller('projectDeleteController', function ($scope, $s
   $scope.submit = function (form) {
     if (form.$invalid) return;
     project.delete().then(function () {
-      return ProjectsService.update();
-    }).then(function () {
-      $uibModalInstance.dismiss('cancel');
-    })
+      location.reload();
+    });
   };
 });
 
