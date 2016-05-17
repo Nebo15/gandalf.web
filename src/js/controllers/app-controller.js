@@ -15,6 +15,4 @@ angular.module('app').controller('AppController', function ($scope, ProjectsServ
     $scope.projects = data;
   });
 
-  //ProjectsService.init(projects);
-
 });

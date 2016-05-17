@@ -262,6 +262,12 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'put'
         }, project);
       };
+      self.admin.deleteProject = function () {
+        return $request({
+          endpoint: 'api/v1/projects',
+          method: 'delete'
+        });
+      };
 
       // Project.users
       self.admin.addProjectUser = function (user) {

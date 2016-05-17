@@ -100,7 +100,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       return self;
     });
   };
-  Project.prototype.update  = function (source) {
+  Project.prototype.update = function (source) {
     var self = this;
     var updateObj = source || this;
 
@@ -112,6 +112,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       return self;
     });
   };
+  Project.prototype.delete = function () {
+    return $gandalf.admin.deleteProject();
+  };
+
 
   Project.prototype.toJSON = function () {
     return {

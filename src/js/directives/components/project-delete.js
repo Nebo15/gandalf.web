@@ -1,30 +1,32 @@
 "use strict";
 
-angular.module('app').controller('projectEditController', function ($scope, project, $uibModalInstance) {
+angular.module('app').controller('projectDeleteController', function ($scope, $state, project, $uibModalInstance, ProjectsService) {
 
   $scope.project = angular.copy(project); // from directive scope
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
-  $scope.save = function (form) {
+  $scope.submit = function (form) {
     if (form.$invalid) return;
-    project.update($scope.project).then(function () {
+    project.delete().then(function () {
+      return ProjectsService.update();
+    }).then(function () {
       $uibModalInstance.dismiss('cancel');
-    });
+    })
   };
 });
 
-angular.module('app').directive('projectEdit', function ($uibModal) {
+angular.module('app').directive('projectDelete', function ($uibModal) {
   return {
     restrict: 'EA',
     scope: {
-      project: '=projectEdit'
+      project: '=projectDelete'
     },
     link: function (scope, el, attrs) {
       el.bind('click', function () {
         $uibModal.open({
-          templateUrl: 'templates/modal/project-edit.html',
-          controller: 'projectEditController',
+          templateUrl: 'templates/modal/project-delete.html',
+          controller: 'projectDeleteController',
           resolve: {
             project: function () {
               return scope.project;
