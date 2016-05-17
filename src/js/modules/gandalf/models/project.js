@@ -8,6 +8,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
 
     this.id = obj._id;
     this.title = obj.title;
+    this.description = obj.description;
+
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
@@ -91,7 +93,20 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   Project.prototype.create = function () {
     var self = this;
     return $gandalf.admin.createProject({
-      title: this.title
+      title: this.title,
+      description: this.description
+    }).then(function (resp) {
+      self.constructor(resp.data);
+      return self;
+    });
+  };
+  Project.prototype.update  = function (source) {
+    var self = this;
+    var updateObj = source || this;
+
+    return $gandalf.admin.updateProject({
+      title: updateObj.title,
+      description: updateObj.description
     }).then(function (resp) {
       self.constructor(resp.data);
       return self;
@@ -102,6 +117,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     return {
       _id: this.id,
       title: this.title,
+      description: this.description,
       users: JSON.parse(JSON.stringify(this.users)),
       consumers: JSON.parse(JSON.stringify(this.consumers))
     };
