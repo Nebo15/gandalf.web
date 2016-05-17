@@ -1,9 +1,14 @@
 .container
   .row
     .col-md-12
-      h5 Edit project
-      br
-      h4 Project name: {{project.title}}
+      .text-heading
+        .text-heading-label Name
+        | {{project.title}}
+      .text-heading(ng-if="project.description")
+        .text-heading-label Description
+        | {{project.description}}
+      .btn-actions: .btn-group.btn-group-sm
+        a.btn.btn-primary-clear(project-edit="project") Edit
       hr
   .row
     .col-md-4.col-md-push-6

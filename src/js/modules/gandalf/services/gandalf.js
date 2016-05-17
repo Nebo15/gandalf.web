@@ -256,6 +256,12 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'post'
         }, project);
       };
+      self.admin.updateProject = function (project) {
+        return $request({
+          endpoint: 'api/v1/projects',
+          method: 'put'
+        }, project);
+      };
 
       // Project.users
       self.admin.addProjectUser = function (user) {
