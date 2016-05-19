@@ -18,8 +18,15 @@ angular.module('ng-gandalf').factory('DecisionGroup', function ($gandalf, Decisi
     }.bind(this))
   };
 
-  DecisionGroup.prototype.save = function () {
-    return $gandalf.admin.updateGroupById(this.id, this);
+  DecisionGroup.prototype.update = function (obj) {
+
+    var updateObj = obj || this.toJSON();
+
+    var self = this;
+    return $gandalf.admin.updateGroupById(this.id, updateObj).then(function (resp) {
+      self.parse(resp.data);
+      return self;
+    })
   };
 
   DecisionGroup.prototype.create = function () {
@@ -39,7 +46,7 @@ angular.module('ng-gandalf').factory('DecisionGroup', function ($gandalf, Decisi
     this.id = data._id;
 
     this.tables = (data.tables || []).map(function (item) {
-      return new this._modelTable(item);
+      return new this._modelTable(null, item);
     }.bind(this));
 
     this.title = data.title;
