@@ -51,7 +51,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       condition.condition = CONDITION_TYPES.IS_SET;
     });
     rule.priority = this.rules.length;
-    rule.decision = this.defaultDecision;
+    rule.than = this.defaultDecision;
 
     this.addRule(rule);
     return rule;
@@ -90,7 +90,11 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       this.deleteField(field);
     }.bind(this));
 
-    return $gandalf.admin.updateTableById(this.id, this);
+    var self = this;
+    return $gandalf.admin.updateTableById(this.id, this).then(function (resp) {
+      self.parse(resp.data);
+      return self;
+    });
   };
   DecisionTable.prototype.create = function () {
     var self = this;
@@ -154,6 +158,17 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       variants.push(this.defaultDecision);
     }
     return _.uniq(variants);
+  };
+
+  DecisionTable.prototype.copy = function () {
+    return $gandalf.admin.copyTableById(this.id).then(function (resp) {
+      return new DecisionTable(null, resp.data);
+    });
+  };
+
+  DecisionTable.prototype.cleanRules = function () {
+    this.rules = [];
+    this.createRule();
   };
 
   DecisionTable.find = function (size, page, filter) {

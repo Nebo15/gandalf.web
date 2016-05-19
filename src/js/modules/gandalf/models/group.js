@@ -41,6 +41,13 @@ angular.module('ng-gandalf').factory('DecisionGroup', function ($gandalf, Decisi
   };
 
 
+  // tables
+  DecisionGroup.prototype.addTable = function (table) {
+
+
+    return $gan
+  };
+
   DecisionGroup.prototype.parse = function (data) {
 
     this.id = data._id;

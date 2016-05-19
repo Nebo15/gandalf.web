@@ -21,7 +21,7 @@ angular.module('app').config(function ($stateProvider) {
     templateUrl: 'templates/groups-details.html',
     controller: 'GroupsDetailsController',
     resolve: {
-      group: ['DecisionGroup', '$stateParams', function (DecisionGroup, $stateParams) {
+      group: ['DecisionGroup', '$stateParams', 'projects', function (DecisionGroup, $stateParams, projects) {
         return (new DecisionGroup($stateParams.id)).fetch();
       }]
     },
