@@ -16,7 +16,7 @@
   .row
     .col-md-6
       p.list-group
-        a.list-group-item(ng-repeat="table in group.tables")
+        a.list-group-item(ng-repeat="table in group.tables", ui-sref="tables-details.edit({id: table.id})")
           b.list-group-item-heading {{table.title}}
 
   .row: .col-md-6
