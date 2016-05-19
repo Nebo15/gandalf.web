@@ -21,7 +21,9 @@ angular.module('app', [
   'table-fixed-rows',
 
   'angular-loading-bar',
-  'checklist-model'
+  'checklist-model',
+
+  'nebo-angular-validate'
 ]);
 
 angular.module('app').constant('ENV', window.env);
