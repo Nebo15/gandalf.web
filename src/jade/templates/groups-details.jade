@@ -23,7 +23,7 @@
         .panel-body
           p.list-group.list-group-panel
             a.list-group-item.list-group-item--chevron(ng-repeat="table in group.tables", ui-sref="tables-details.edit({id: table.id})") {{table.title}}
-            a.list-group-item(group-table-create="group"): b.text-primary + create variant
+            a.list-group-item(group-table-add="group"): b.text-primary + create variant
 
   .row: .col-md-6
     button.btn.btn-danger(group-delete="group") Delete Group

@@ -367,6 +367,12 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'delete'
         });
       };
+      self.admin.copyTableById= function (id) {
+        return $request({
+          endpoint: 'api/v1/admin/tables/'+id+'/copy',
+          method: 'post'
+        });
+      };
 
       // Groups
       self.admin.getGroups = function (size, page) {
