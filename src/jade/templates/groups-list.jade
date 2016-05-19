@@ -4,7 +4,7 @@
   div: a.btn.btn-default(ng-click="createGroup()") + Create Group
   br
   p.list-group
-    a.list-group-item(ng-repeat="group in groups")
+    a.list-group-item(ng-repeat="group in groups", ui-sref="groups-details({id: group.id})")
       b.list-group-item-heading {{group.title}}
       span(ng-if="group.description")
         br
