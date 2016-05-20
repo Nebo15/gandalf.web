@@ -6,14 +6,16 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'update',
   'delete',
   'check',
+
   'create_consumers',
   'delete_consumers',
+
   'update_users',
   'add_user',
+  'delete_users',
+
   'edit_project',
-  'delete_project',
-  'delete_consumers',
-  'delete_users'
+  'delete_project'
 ]);
 
 angular.module('app').constant('PROJECT_CONSUMER_SCOPES', [
