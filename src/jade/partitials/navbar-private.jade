@@ -1,4 +1,4 @@
-nav.main-navbar.navbar.navbar-static-top.navbar-default
+nav.navbar.navbar-static-top.navbar-main
   .container
     .navbar-header
       button.navbar-toggle.collapsed(type='button',
@@ -25,22 +25,10 @@ nav.main-navbar.navbar.navbar-static-top.navbar-default
       .navbar-form.navbar-left(ng-if="!projects.length")
         button.btn.btn-primary(project-add) Create new project
 
-      ul.nav.navbar-nav
+      ul.nav.navbar-nav.nav-main
         li(ui-sref-active="active"): a(ui-sref="tables-list") Tables
         li(ui-sref-active="active"): a(ui-sref="history-list") History
         li(ui-sref-active="active"): a(ui-sref="groups-list") Split Testing
         li(ui-sref-active="active"): a(ui-sref="settings.project") Settings
         // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
-      ul.nav.navbar-nav.navbar-right
-        li.dropdown(uib-dropdown)
-          a.dropdown-toggle(role="button", uib-dropdown-toggle) {{user.username}}
-            | &#32;
-            b.caret
-          ul.dropdown-menu
-            li.dropdown-header
-              b {{user.username}}
-              br
-              span {{user.email}}
-            li.divider(role="separator")
-            li
-              a(ng-click="logout()") Sign Out
+      include ./navbar-right-user

@@ -2,18 +2,25 @@
 //$light-orange: #ff8c00
 //$navbar-default-color: $light-orange
 
+$red: #e81a50
+
 
 $table-bg: white
-$brand-primary: #513c7c
-$body-bg: #f9f9f9
+$brand-primary: $red
+$body-bg: white
+
+$font-family-base: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif !default
+
+$brand-primary-light: lighten($brand-primary, 10%)
+
+$table-footer-bg: #f9f9f9
 
 //$btn-default-bg: #f1f1f1
 
+@import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
 @import "../bower_components/angular-drag-columns/src/angular-drag-columns"
 @import "../bower_components/angular-table-fixed-rows/src/angular-table-fixed-rows"
-
-$table-footer-bg: #f9f9f9
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
@@ -23,6 +30,50 @@ $table-footer-bg: #f9f9f9
 
 .text-light
   font-weight: 400
+
+// Navigation
+
+.navbar-main
+  background-color: white
+  margin-bottom: 0
+  border-bottom: 0
+  color: #3d3d3d
+
+.nav-main
+  li
+    a
+      font-weight: bold
+      font-size: 12px
+      text-transform: uppercase
+      color: rgba(#3d3d3d,.5)
+
+  li.active a
+    border-bottom: 2px solid $brand-primary
+    background-color: transparent
+    color: rgba(#3d3d3d,1)
+
+// Info blocks
+
+.info-panel
+  background-color: #fafafa
+  color: #3d3d3d
+  padding: 40px 0
+
+
+.form-control-underline
+  background-color: transparent
+  border: 0
+  border-bottom: 1px solid $input-group-addon-border-color
+  box-shadow: none !important
+  border-radius: 0
+  height: auto
+  padding-bottom: 7px
+  padding-left: 7px
+
+  font-size: 24px
+
+.form-control-underline-small
+  font-size: 18px
 
 .editor
   //padding-top: 60px
@@ -327,15 +378,16 @@ $main-content-bg: #fff
 
   li > a
     color: $brand-primary
+    text-transform: uppercase
   //  &:hover
   //    background-color: rgba($main-content-bg, .85)
-  & > li.active
+   li.active
     & > a, & > a:hover
+      border-bottom: 2px solid $brand-primary
+
       //text-decoration: underline
       //background-color: $main-content-bg
-.main-navbar
-  background-color: white
-  border-bottom: 1px solid $navbar-default-border
+
 
 
 .main-breadcrumb
@@ -382,4 +434,51 @@ $main-content-bg: #fff
     color: #999
     position: absolute
     right: 10px
+
+.welcome
+  height: 100vh
+  background-color: white
+
+.welcome-index
+  border: 10px solid #e1d4db
+  padding-top: 15%
+
+.form-block
+  margin-top: 40px
+  &:first-child
+    margin-top: 0
+
+
+.form-block-heading
+  font-size: 16px
+  font-weight: bold
+  margin: 0 0 20px
+  padding: 0 10px
+
+.steps
+  display: table
+  width: 100%
+  vertical-align: middle
+  padding: 0 0 10px
+
+.steps-item
+  display: table-cell
+  font-weight: normal
+  color: #999
+
+  list-style: decimal
+  position: relative
+
+  &:after
+    height: 1px
+    content: ''
+    background-color: #999
+    position: absolute
+    top: .5em
+    left: 2em
+    right: 2em
+
+  &.active
+    color: $brand-primary-light
+    font-weight: bold
 

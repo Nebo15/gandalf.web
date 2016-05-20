@@ -120,13 +120,13 @@
   +background-image(linear-gradient(left, $color1, $color2))
 
 //asdfast font-family
-=font($alias, $name)
+=font($alias, $name, $weight: normal, $style: normal)
   @font-face
     font-family: $alias
-    src: url("fonts/" + $name + ".eot")
-    src: url("fonts/" + $name + ".eot?#iefix") format("embedded-opentype"), url("fonts/" + $name + ".woff") format("woff"), url("fonts/" + $name + ".ttf") format("truetype")
-    font-weight: normal
-    font-style: normal
+    src: url("../fonts/" + $name + ".eot")
+    src: url("../fonts/" + $name + ".eot?#iefix") format("embedded-opentype"), url("../fonts/" + $name + ".woff") format("woff"), url("../fonts/" + $name + ".ttf") format("truetype")
+    font-weight: $weight
+    font-style: $style
 
 //+font(black, cytiapro-black-webfont)
 

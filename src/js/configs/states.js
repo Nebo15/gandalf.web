@@ -9,11 +9,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $stateProvider.state('private', {
+  $stateProvider.state('private-load', {
     parent: 'auth',
     abstract: true,
     auth: true,
-    templateUrl: 'templates/layouts/private.html',
+    template: '<ui-view />',
     ncyBreadcrumb: {
       skip: true
     },
@@ -21,11 +21,24 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       user: ['UserService', function (UserService) {
         return UserService.current();
       }],
-      projects: ['ProjectsService', '$log', function (ProjectsService, $log) {
-        return ProjectsService.all();
+      projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
+        return $q.when(ProjectsService.all()).then(function (resp) {
+          if (resp.length) return resp;
+          $state.go('welcome-project-add');
+        });
       }]
     },
     controller: 'AppController'
+  });
+
+  $stateProvider.state('private', {
+    parent: 'private-load',
+    abstract: true,
+    auth: true,
+    templateUrl: 'templates/layouts/private.html',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
   $stateProvider.state('public', {
     parent: 'auth',
@@ -113,12 +126,12 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'Analytics'
     }
   }).state('tables-details.revisions', {
-      url: '/revisions',
-      controller: 'TablesRevisionsController',
-      templateUrl: 'templates/tables-revisions.html',
-      ncyBreadcrumb: {
-        label: 'Revisions'
-      }
+    url: '/revisions',
+    controller: 'TablesRevisionsController',
+    templateUrl: 'templates/tables-revisions.html',
+    ncyBreadcrumb: {
+      label: 'Revisions'
+    }
   }).state('tables-details.debugger', {
     url: '/debug',
     controller: 'DebuggerDetailsController',

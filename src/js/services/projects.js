@@ -43,6 +43,7 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
       init(projectsResp);
       appCache.put('projects', projectsResp);
       $rootScope.$broadcast('projectsDidUpdate', projectsResp);
+
       return projectsResp;
     });
   }

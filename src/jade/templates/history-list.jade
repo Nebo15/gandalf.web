@@ -1,7 +1,7 @@
-.container: .history-page
-  .panel.panel-default: .panel-body
-    include:marked ../content/guides/decision-history-list.md
+.info-panel: .container
+  include:marked ../content/guides/decision-history-list.md
 
+.container: .history-page
   form.form-horizontal
     .form-group
       input.form-control(type="search", ng-model="filters.table.title", placeholder="Enter table name..",

@@ -1,0 +1,13 @@
+ul.nav.navbar-nav.navbar-right
+  li.dropdown(uib-dropdown)
+    a.dropdown-toggle(role="button", uib-dropdown-toggle) {{user.username}}
+      | &#32;
+      b.caret
+    ul.dropdown-menu
+      li.dropdown-header
+        b {{user.username}}
+        br
+        span {{user.email}}
+      li.divider(role="separator")
+      li
+        a(ng-click="logout()") Sign Out
