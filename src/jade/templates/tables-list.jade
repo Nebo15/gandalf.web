@@ -4,7 +4,9 @@
     include:marked ../content/guides/decision-tables-list.md
 
 .container-fluid
-  div: a.btn.btn-default(ui-sref="tables-create") + Add table
+  div: a.btn.btn-primary(ui-sref="tables-create")
+    i.glyphicon.glyphicon-plus
+    | Add table
   br
   p.list-group
     a.list-group-item(ui-sref="tables-details.edit({id: table.id})", ng-repeat="table in tables")

@@ -4,6 +4,7 @@
 
 $red: #e81a50
 
+$text-color: #3d3d3d
 
 $table-bg: white
 $brand-primary: $red
@@ -16,12 +17,26 @@ $brand-primary-light: lighten($brand-primary, 10%)
 $table-footer-bg: #f9f9f9
 
 $navbar-default-bg: #fff
-$navbar-default-color: #3d3d3d
+$navbar-default-color: $text-color
 $navbar-default-border: transparent
 $navbar-default-link-active-bg: transparent
 
+$border-radius-base:        0
+$border-radius-large:       0
+$border-radius-small:       0
+
+
+$btn-primary-bg: transparent
+$btn-primary-color: $text-color
+$btn-primary-border: $brand-primary
+
+$btn-default-color: $text-color
+
+$btn-border-width: 2px
+
 $navbar-margin-bottom: 0
 $navbar-height: 60px
+
 
 @import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
@@ -54,8 +69,10 @@ $navbar-height: 60px
     font-size: 12px
     font-weight: 600
 
+
   .navbar-nav li.active a
     box-shadow: inset 0 -2px 0 $brand-primary
+
 
 // Info blocks
 
@@ -285,6 +302,7 @@ tr.ui-sortable-helper
 
 .history
   border-radius: 4px
+
   overflow: hidden
   box-sizing: border-box
   border: 1px solid $table-border-color
@@ -435,11 +453,21 @@ $main-content-bg: #fff
   font-weight: bold
   color: #666
 
+//  Buttons
+
 .btn-actions
   margin-top: 20px
 
 .btn-primary-clear
-  +button-variant($btn-primary-bg, transparent, $btn-primary-bg)
+  +button-variant($brand-primary, transparent, $brand-primary)
+
+
+
+
+.btn-primary-icon
+
+  +button-variant(#3d3d3d, transparent, $btn-primary-bg)
+  border-radius: 0
 
 
 .list-group-item--chevron
@@ -481,6 +509,7 @@ $main-content-bg: #fff
   display: table-cell
   font-weight: normal
   color: #999
+
 
   list-style: decimal
   position: relative
