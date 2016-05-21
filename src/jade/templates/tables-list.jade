@@ -1,7 +1,9 @@
-.info-panel: .container
-  include:marked ../content/guides/decision-tables-list.md
+.info-panel: .container-fluid
+  .info-panel-heading Decision Tables List
+  .info-panel-body
+    include:marked ../content/guides/decision-tables-list.md
 
-.container
+.container-fluid
   div: a.btn.btn-default(ui-sref="tables-create") + Add table
   br
   p.list-group

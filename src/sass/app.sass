@@ -15,12 +15,20 @@ $brand-primary-light: lighten($brand-primary, 10%)
 
 $table-footer-bg: #f9f9f9
 
-//$btn-default-bg: #f1f1f1
+$navbar-default-bg: #fff
+$navbar-default-color: #3d3d3d
+$navbar-default-border: transparent
+$navbar-default-link-active-bg: transparent
+
+$navbar-margin-bottom: 0
+$navbar-height: 60px
 
 @import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
 @import "../bower_components/angular-drag-columns/src/angular-drag-columns"
 @import "../bower_components/angular-table-fixed-rows/src/angular-table-fixed-rows"
+
+@import lib/base
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
@@ -31,26 +39,23 @@ $table-footer-bg: #f9f9f9
 .text-light
   font-weight: 400
 
+
 // Navigation
 
-.navbar-main
-  background-color: white
-  margin-bottom: 0
+.navbar-brand .logo
+  margin-top: -20px
+
+.navbar-default
+  padding-top: 12px
   border-bottom: 0
-  color: #3d3d3d
 
-.nav-main
-  li
-    a
-      font-weight: bold
-      font-size: 12px
-      text-transform: uppercase
-      color: rgba(#3d3d3d,.5)
+  .navbar-nav > li > a
+    text-transform: uppercase
+    font-size: 12px
+    font-weight: 600
 
-  li.active a
-    border-bottom: 2px solid $brand-primary
-    background-color: transparent
-    color: rgba(#3d3d3d,1)
+  .navbar-nav li.active a
+    box-shadow: inset 0 -2px 0 $brand-primary
 
 // Info blocks
 
@@ -59,7 +64,18 @@ $table-footer-bg: #f9f9f9
   color: #3d3d3d
   padding: 40px 0
 
+  margin-bottom: 20px
+  p + p
+    margin-top: 10px
 
+.info-panel-heading
+  font-size: 18px
+  font-weight: 600
+  margin-bottom: 17px
+
+.info-panel-body
+  //max-width: 60em
+// Other
 .form-control-underline
   background-color: transparent
   border: 0
