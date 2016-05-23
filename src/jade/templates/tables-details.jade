@@ -1,10 +1,12 @@
-.container-fluid
-  div.main-breadcrumb(ncy-breadcrumb)
-  ul.nav.nav-tabs.main-nav
+.navbar-second.navbar.navbar-primary: .container-fluid
+  ul.nav.navbar-nav
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
     li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
     li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
     li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
     li(role="presentation" ui-sref="history-list({tableId: table.id})"): a History →
+
+div.main-breadcrumb(ncy-breadcrumb)
+
 div.main-content.has-nav
   .container-fluid: .row: .col-md-12(ui-view="")
