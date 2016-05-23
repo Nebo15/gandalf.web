@@ -1,0 +1,38 @@
+// Button Loading
+
+@import ../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/buttons
+
+@keyframes rotate360
+  from
+    transform: rotate(0deg)
+  from
+    transform: rotate(359deg)
+
+.btn-loading
+  .btn-loader
+    display: none
+    //margin-left: 10px
+    .glyphicon
+      margin-right: 0
+
+      animation: rotate360 1s linear infinite
+      background-color: transparent
+      outline: none
+
+  &.is-active
+    .btn-loader
+      display: inline-block
+
+
+
+.btn-actions
+  margin-top: 20px
+
+
+.btn-primary-clear
+  +button-variant($brand-primary, transparent, $brand-primary)
+
+.btn-primary-icon
+
+  +button-variant(#3d3d3d, transparent, $btn-primary-bg)
+  border-radius: 0

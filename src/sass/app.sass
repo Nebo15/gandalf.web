@@ -52,335 +52,33 @@ $navbar-height: 60px
 
 @import lib/base
 
+@import components/navigation
+@import components/info-panel
+@import components/form
+@import components/btn
+
+// Other
+@import components/editor
+@import components/decision-table
+
+@import components/history
+
+@import components/text
+@import components/panel
+@import components/list-group
+@import components/welcome
+@import components/steps
+
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
 
 [ui-sref], [ng-click], [on-click], a
   cursor: pointer
 
-.text-light
-  font-weight: 400
-
-
 .wrap
   min-height: calc(100vh - #{$navbar-height} - 90px)
   // 90px - footer height
-
-// Navigation
-
-.navbar-brand .logo
-  margin-top: -20px
-
-.navbar-default
-  padding-top: 12px
-  //border-bottom: 0
-
-  .navbar-nav > li > a
-    text-transform: uppercase
-    font-size: 12px
-    font-weight: 600
-
-
-  .navbar-nav li.active a
-    box-shadow: inset 0 -2px 0 $brand-primary
-
-.navbar-second
-  border-bottom: 1px solid $navbar-default-border
-  background-color: $navbar-default-border
-
-  margin-top: -1 * $navbar-margin-bottom
-  min-height: 40px
-  .navbar-nav > li > a
-    padding-top: 10px
-    padding-bottom: 10px
-
-
-// Info blocks
-
-.info-panel
-  background-color: $info-panel-bg
-  color: #3d3d3d
-  padding: 40px 0
-
-  margin-bottom: 20px
-  p + p
-    margin-top: 10px
-
-.info-panel-navbar
-  margin-top: -1 *  $navbar-margin-bottom
-
-.info-panel-heading
-  font-size: 18px
-  font-weight: 600
-  margin-bottom: 17px
-
-.info-panel-body
-  //max-width: 60em
-
-
-// Form
-
-.form-block
-  margin-top: 40px
-  &:first-child
-    margin-top: 0
-
-
-.form-block-heading
-  font-size: 16px
-  font-weight: bold
-  margin: 0 0 20px
-  padding: 0 10px
-
-.form-heading
-  font-size: 18px
-
-  font-weight: 400
-  margin-bottom: 25px
-
-.form-caption
-  font-size: 12px
-
-  .form-heading &
-    margin-top: 5px
-
-// Button Loading
-
-@keyframes rotate360
-  from
-    transform: rotate(0deg)
-  from
-    transform: rotate(359deg)
-
-.btn-loading
-  .btn-loader
-    display: none
-    //margin-left: 10px
-    .glyphicon
-      margin-right: 0
-
-      animation: rotate360 1s linear infinite
-      background-color: transparent
-      outline: none
-
-  &.is-active
-    .btn-loader
-      display: inline-block
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Other
-.form-control-underline
-  background-color: transparent
-  border: 0
-  border-bottom: 1px solid $input-group-addon-border-color
-  box-shadow: none !important
-  border-radius: 0
-  height: auto
-  padding-bottom: 7px
-  padding-left: 7px
-
-  font-size: 24px
-
-.form-control-underline-small
-  font-size: 18px
-
-.editor
-  //padding-top: 60px
-  &__title
-    font-size: 24px !important
-  &__description
-    font-size: 18px !important
-  &__title, &__description
-    background-color: transparent
-    border: 0
-    border-bottom: 1px solid $input-group-addon-border-color
-    box-shadow: none !important
-    border-radius: 0
-    height: auto
-    padding-bottom: 7px
-    padding-left: 7px
-  &__example
-    margin-top: 20px
-
-.decision-table
-
-  //border-radius: 4px
-  &.has-shadow
-    box-shadow: 0 2px 10px -5px rgba(black, .5)
-
-  border: 1px solid $table-border-color
-  box-sizing: border-box
-
-  .is-deleted
-    opacity: .4
-  .is-warning
-    background-color: rgba(yellow, .3)
-  th.is-deleted
-    text-decoration: line-through
-
-  &__matching-type
-    max-width: 320px
-
-  &__add-row
-    border-top: 0 !important
-    td, th
-      border-left: 0 !important
-      padding: 0 !important
-
-    th[ng-click]
-      text-decoration: underline
-    a
-      display: block
-      width: 100%
-      height: 100%
-      padding: $table-cell-padding
-      cursor: pointer
-      user-select: none
-
-      text-decoration: none
-      color: $brand-primary
-
-      &:hover
-        background-color: #f1f1f1
-
-  &__add-column
-    position: relative
-    user-select: none
-    &__icon
-      width: 30px
-      height: 30px
-      line-height: 25px
-
-      vertical-align: middle
-
-      color: $gray
-
-      border: 1px solid $table-border-color
-      border-radius: 50%
-      display: block
-
-      position: absolute
-      margin-top: -15px
-      top: 50%
-      left: -16px
-
-      text-decoration: none
-      background-color: $table-bg
-
-      cursor: pointer
-      text-align: center
-
-      //&:after
-      //  content: ''
-      //  width: 1px
-      //  height: 5px
-      //  background-color: $table-border-color
-      //  position: absolute
-      //  top: 100%
-      //  left: 14px
-
-      &:hover
-        background-color: #f9f9f9
-        text-decoration: none
-        color: #666
-      &:active
-        background-color: #f6f6f6
-
-  &__description
-    color: $gray
-    position: absolute
-    left: 100%
-    width: 200px
-    text-align: left
-    opacity: .6
-    margin-left: 10px
-    font-size: 12px
-
-    top: 50%
-    transform: translateY(-50%)
-    //bottom: $table-cell-padding
-
-    overflow: hidden
-    text-overflow: ellipsis
-
-    &-wrap
-      position: relative
-
-  &__condition
-    &.is-matched
-      background-color: rgba(green, .3)
-    &.is-unmatched
-      background-color: rgba(red, .3)
-  &__default-result
-    label + .form-control
-      margin-left: 5px
-  &__actions
-    margin: -1 * $table-cell-padding
-    display: inline-block
-    .btn
-      border: 0
-
-  &__table
-    margin: 0
-    td, th
-      text-align: center
-      vertical-align: middle
-
-    tr.ui-sortable-helper
-      border: 1px solid $table-border-color
-      box-shadow: 0 2px 10px -5px rgba(black, .5)
-      background-color: #fff
-
-    tbody, thead
-      th, td
-        &:first-child
-          border-right: 1px solid $table-border-color
-        &:last-child
-          border-left: 1px solid $table-border-color
-    tfoot, thead
-      background-color: $table-footer-bg
-
-    .checkbox
-      margin: 0
-      input
-        margin: 0
-        position: static
-
-.decision-table__column
-  &--condition
-    min-width: 120px
-  &--index
-    min-width: 50px
-    max-width: 50px
-  &--decision
-    min-width: 120px
-    background-color: rgba($brand-primary, .03)
-  &--action
-    min-width: 130px
-  &--title
-    min-width: 120px
-
-.btns-bar
-  margin-top: 20px
-//box-shadow: 0 2px 10px -5px rgba(black, .5)
 
 .border-left
   border-left: 1px solid $table-border-color
@@ -390,43 +88,6 @@ $navbar-height: 60px
 
 tr.ui-sortable-helper
   display: inline-table
-
-.history-page
-//padding-top: 50px
-
-.history
-  border-radius: 4px
-
-  overflow: hidden
-  box-sizing: border-box
-  border: 1px solid $table-border-color
-  box-shadow: 0 2px 10px -5px rgba(black, .5)
-
-  th, td
-    vertical-align: middle !important
-  &__table
-    margin: 0
-  &__head
-    background: #f9f9f9
-    th
-      text-align: left
-
-  &_details
-    padding: 0 !important
-    background: #f1f1f1
-  &_details-table.table
-
-    background: none
-    border: none
-    margin: 0
-//color: white
-.history-detail
-  &__table
-    margin-top: 20px
-
-.page-title
-  font-size: 24px
-  margin: 10px 0 20px 10px
 
 .footer
   padding: 20px 0
@@ -439,18 +100,6 @@ tr.ui-sortable-helper
 .alert-btn-right
   float: right
   margin-top: -8px
-
-.form-control.ng-invalid.ng-dirty,
-.checkbox input.ng-invalid.ng-dirty,
-
-.ng-submitted .form-control.ng-invalid,
-.ng-submitted .checkbox input.ng-invalid
-
-  &:not(:focus)
-    border-color: $state-danger-text
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px lighten($state-danger-text, 20%)
-
-
 
 .preview
   position: relative
@@ -466,10 +115,6 @@ tr.ui-sortable-helper
     width: 50%
     float: left
 
-.changelogs-list
-  max-height: 400px
-  overflow: auto
-
 .link-group
   margin-left: -10px
   //margin-top: -10px
@@ -477,121 +122,3 @@ tr.ui-sortable-helper
   a
     margin-left: 10px
     margin-top: 10px
-
-$main-content-bg: #fff
-
-.main-content
-  //background-color: $main-content-bg
-  padding-top: 30px
-  padding-bottom: 30px
-  &.has-nav
-    border-top: 1px solid $nav-tabs-border-color
-    margin-top: -1px
-.main-nav
-
-  li > a
-    color: $brand-primary
-    text-transform: uppercase
-  //  &:hover
-  //    background-color: rgba($main-content-bg, .85)
-   li.active
-    & > a, & > a:hover
-      border-bottom: 2px solid $brand-primary
-
-      //text-decoration: underline
-      //background-color: $main-content-bg
-
-
-
-.main-breadcrumb
-  margin-bottom: 20px
-
-.panel-title
-  margin-top: 10px
-
-.list-group.list-group-panel
-  margin: -1 * $panel-body-padding
-  border: 0
-  .list-group-item
-    border-left: 0
-    border-right: 0
-    &:first-child
-      border-top: 0
-    &:last-child
-      border-bottom: 0
-
-
-.text-primary
-  color: $brand-primary
-
-.text-heading
-  font-size: 20px
-  margin: 10px 0
-.text-heading-label
-  font-size: 12px
-  font-weight: bold
-  color: #666
-
-//  Buttons
-
-.btn-actions
-  margin-top: 20px
-
-.btn-primary-clear
-  +button-variant($brand-primary, transparent, $brand-primary)
-
-
-
-
-.btn-primary-icon
-
-  +button-variant(#3d3d3d, transparent, $btn-primary-bg)
-  border-radius: 0
-
-
-.list-group-item--chevron
-  padding-right: 40px
-  &:after
-    content: "\e080"
-    font-family: 'Glyphicons Halflings'
-    color: #999
-    position: absolute
-    right: 10px
-
-.welcome
-  height: 100vh
-  background-color: white
-
-.welcome-index
-  border: 10px solid #e1d4db
-  padding-top: 15%
-
-
-.steps
-  display: table
-  width: 100%
-  vertical-align: middle
-  padding: 0 0 10px
-
-.steps-item
-  display: table-cell
-  font-weight: normal
-  color: #999
-
-
-  list-style: decimal
-  position: relative
-
-  &:after
-    height: 1px
-    content: ''
-    background-color: #999
-    position: absolute
-    top: .5em
-    left: 2em
-    right: 2em
-
-  &.active
-    color: $brand-primary-light
-    font-weight: bold
-
