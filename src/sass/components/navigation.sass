@@ -22,6 +22,22 @@
 
   margin-top: -1 * $navbar-margin-bottom
   min-height: 40px
-  .navbar-nav > li > a
-    padding-top: 10px
-    padding-bottom: 10px
+
+
+  .navbar-nav > li
+    & > a
+      padding-top: 10px
+      padding-bottom: 10px
+      background-color: transparent
+      text-transform: uppercase
+      font-weight: bold
+      font-size: 12px
+
+      &:hover
+        background-color: transparent
+    &.active > a
+      background: transparent
+      color: #3d3d3d
+
+
+
