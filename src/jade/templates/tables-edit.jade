@@ -2,9 +2,9 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
 
   .alert.alert-warning(ng-if="!saved").ng-cloak
     .alert-btn-right
-      button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}") Save
-        .btn-loader
-          .glyphicon.glyphicon-refresh
+      button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
+        .btn-loader: .glyphicon.glyphicon-refresh
+        | Save
     p This table have unsaved data. You need to save changes manually.
 
   .alert.alert-danger(ng-if="error").ng-cloak
@@ -21,11 +21,11 @@ form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="
     .col.col-xs-6
       button.btn.btn-danger(ng-click="deleteTable(table)") Delete
     .col.col-xs-6.text-right
-      button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}") Save
+      button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
         .btn-loader: .glyphicon.glyphicon-refresh
+        | Save
       button.btn.btn-default(disabled, ng-if="saved")
         i.glyphicon.glyphicon-check
-        | &nbsp;
         | Saved
 
 
