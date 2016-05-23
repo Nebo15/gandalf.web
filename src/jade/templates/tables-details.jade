@@ -1,4 +1,4 @@
-.container
+.container-fluid
   div.main-breadcrumb(ncy-breadcrumb)
   ul.nav.nav-tabs.main-nav
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
@@ -7,4 +7,4 @@
     li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
     li(role="presentation" ui-sref="history-list({tableId: table.id})"): a History →
 div.main-content.has-nav
-  div.container: .row: .col-md-12(ui-view="")
+  .container-fluid: .row: .col-md-12(ui-view="")
