@@ -5,10 +5,14 @@
 $red: #e81a50
 
 $text-color: #3d3d3d
+$blue: #4498ee
+
 
 $table-bg: white
 $brand-primary: $red
 $body-bg: white
+
+$info-panel-bg: #fafafa !default
 
 $font-family-base: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif !default
 
@@ -16,9 +20,11 @@ $brand-primary-light: lighten($brand-primary, 10%)
 
 $table-footer-bg: #f9f9f9
 
+$link-color: $blue
+
 $navbar-default-bg: #fff
 $navbar-default-color: $text-color
-$navbar-default-border: transparent
+$navbar-default-border: $info-panel-bg
 $navbar-default-link-active-bg: transparent
 
 $border-radius-base:        0
@@ -34,8 +40,9 @@ $btn-default-color: $text-color
 
 $btn-border-width: 2px
 
-$navbar-margin-bottom: 0
+//$navbar-margin-bottom: 0
 $navbar-height: 60px
+
 
 
 @import components/montserrat
@@ -55,6 +62,10 @@ $navbar-height: 60px
   font-weight: 400
 
 
+.wrap
+  min-height: calc(100vh - #{$navbar-height} - 90px)
+  // 90px - footer height
+
 // Navigation
 
 .navbar-brand .logo
@@ -62,7 +73,7 @@ $navbar-height: 60px
 
 .navbar-default
   padding-top: 12px
-  border-bottom: 0
+  //border-bottom: 0
 
   .navbar-nav > li > a
     text-transform: uppercase
@@ -77,13 +88,16 @@ $navbar-height: 60px
 // Info blocks
 
 .info-panel
-  background-color: #fafafa
+  background-color: $info-panel-bg
   color: #3d3d3d
   padding: 40px 0
 
   margin-bottom: 20px
   p + p
     margin-top: 10px
+
+.info-panel-navbar
+  margin-top: -1 *  $navbar-margin-bottom
 
 .info-panel-heading
   font-size: 18px
@@ -92,7 +106,35 @@ $navbar-height: 60px
 
 .info-panel-body
   //max-width: 60em
-// Other
+
+
+// Form
+
+.form-block
+  margin-top: 40px
+  &:first-child
+    margin-top: 0
+
+
+.form-block-heading
+  font-size: 16px
+  font-weight: bold
+  margin: 0 0 20px
+  padding: 0 10px
+
+.form-heading
+  font-size: 18px
+
+  font-weight: 400
+  margin-bottom: 25px
+
+.form-caption
+  font-size: 12px
+
+  .form-heading &
+    margin-top: 5px
+
+  // Other
 .form-control-underline
   background-color: transparent
   border: 0
@@ -487,17 +529,6 @@ $main-content-bg: #fff
   border: 10px solid #e1d4db
   padding-top: 15%
 
-.form-block
-  margin-top: 40px
-  &:first-child
-    margin-top: 0
-
-
-.form-block-heading
-  font-size: 16px
-  font-weight: bold
-  margin: 0 0 20px
-  padding: 0 10px
 
 .steps
   display: table
