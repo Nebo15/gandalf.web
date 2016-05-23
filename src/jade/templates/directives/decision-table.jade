@@ -53,6 +53,6 @@ table.table.decision-table__table
     td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
 table.table.decision-table__table
   tfoot.table-footer: tr
-    td: div.decision-table__matching-type.row: div.form-horizontal(show-errors)
-      label.col-sm-6.control-label Matching type
-      .col-sm-6: select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+    td: .row: div.form-horizontal(show-errors)
+      label.col-xs-6.control-label Matching type
+      .col-xs-6: select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
