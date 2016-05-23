@@ -102,7 +102,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     },
     ncyBreadcrumb: {
-      label: "{{table.title}}",
+      label: "{{$parent.table.title}}",
       parent: 'tables-list',
       skip: false
     }

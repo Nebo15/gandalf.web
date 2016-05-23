@@ -35,10 +35,10 @@
         div(ng-if="rule.isDeleted")
           a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
         div(ng-if="!rule.isDeleted")
-          a.btn(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+          a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
           a.btn(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
           a.btn(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
-          a.btn(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
+          a.btn.btn-danger-text(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
 table.table.decision-table__table
   tbody.decision-table__add-row: tr: td

@@ -1,14 +1,11 @@
 form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
-
-  .info-panel.has-navbar
+  .info-panel.has-navbar: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
-
     .info-panel-body
-      .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
-      .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
+      .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Untitled project")
+      .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
 
-  .container-fluid: .row: .col-md-12
-
+  .container-fluid
     .alert.alert-warning(ng-if="!saved").ng-cloak
       .alert-btn-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
