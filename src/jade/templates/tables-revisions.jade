@@ -1,8 +1,8 @@
-
-div.list-group
-  div.list-group-item.clearfix(ng-repeat="changelog in changelogs")
-    span.pull-right
-      a.btn.btn-warning(ng-click="rollbackChangelog(changelog)") Rollback
-    b.list-group-item-heading {{changelog.updatedAt | date: 'medium'}}
-    br
-    span by {{changelog.author}}
+.container-fluid
+  div.list-group
+    div.list-group-item.clearfix(ng-repeat="changelog in changelogs")
+      span.pull-right
+        a.btn.btn-warning(ng-click="rollbackChangelog(changelog)") Rollback
+      b.list-group-item-heading {{changelog.updatedAt | date: 'medium'}}
+      br
+      span by {{changelog.author}}

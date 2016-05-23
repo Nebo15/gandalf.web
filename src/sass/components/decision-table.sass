@@ -1,0 +1,157 @@
+.decision-table
+
+  //border-radius: 4px
+  &.has-shadow
+    box-shadow: 0 2px 10px -5px rgba(black, .5)
+
+  border: 1px solid $table-border-color
+  box-sizing: border-box
+
+  .is-deleted
+    opacity: .4
+  .is-warning
+    background-color: rgba(yellow, .3)
+  th.is-deleted
+    text-decoration: line-through
+
+  &__matching-type
+    max-width: 320px
+
+  &__add-row
+    border-top: 0 !important
+    td, th
+      border-left: 0 !important
+      padding: 0 !important
+
+    th[ng-click]
+      text-decoration: underline
+    a
+      display: block
+      width: 100%
+      height: 100%
+      padding: $table-cell-padding
+      cursor: pointer
+      user-select: none
+
+      text-decoration: none
+      color: $brand-primary
+
+      &:hover
+        background-color: #f1f1f1
+
+  &__add-column
+    position: relative
+    user-select: none
+    &__icon
+      width: 30px
+      height: 30px
+      line-height: 25px
+
+      vertical-align: middle
+
+      color: $gray
+
+      border: 1px solid $table-border-color
+      border-radius: 50%
+      display: block
+
+      position: absolute
+      margin-top: -15px
+      top: 50%
+      left: -16px
+
+      text-decoration: none
+      background-color: $table-bg
+
+      cursor: pointer
+      text-align: center
+
+      //&:after
+      //  content: ''
+      //  width: 1px
+      //  height: 5px
+      //  background-color: $table-border-color
+      //  position: absolute
+      //  top: 100%
+      //  left: 14px
+
+      &:hover
+        background-color: #f9f9f9
+        text-decoration: none
+        color: #666
+      &:active
+        background-color: #f6f6f6
+
+  &__description
+    color: $gray
+    position: absolute
+    left: 100%
+    width: 200px
+    text-align: left
+    opacity: .6
+    margin-left: 10px
+    font-size: 12px
+
+    top: 50%
+    transform: translateY(-50%)
+    //bottom: $table-cell-padding
+
+    overflow: hidden
+    text-overflow: ellipsis
+
+    &-wrap
+      position: relative
+
+  &__condition
+    &.is-matched
+      background-color: rgba(green, .3)
+    &.is-unmatched
+      background-color: rgba(red, .3)
+  &__default-result
+    label + .form-control
+      margin-left: 5px
+  &__actions
+    margin: -1 * $table-cell-padding
+    display: inline-block
+    .btn
+      border: 0
+
+  &__table
+    margin: 0
+    td, th
+      text-align: center
+      vertical-align: middle
+
+    tr.ui-sortable-helper
+      border: 1px solid $table-border-color
+      box-shadow: 0 2px 10px -5px rgba(black, .5)
+      background-color: #fff
+
+    tbody, thead
+      th, td
+        &:first-child
+          border-right: 1px solid $table-border-color
+        &:last-child
+          border-left: 1px solid $table-border-color
+    tfoot, thead
+      background-color: $table-footer-bg
+
+    .checkbox
+      margin: 0
+      input
+        margin: 0
+        position: static
+
+.decision-table__column
+  &--condition
+    min-width: 120px
+  &--index
+    min-width: 50px
+    max-width: 50px
+  &--decision
+    min-width: 120px
+    background-color: rgba($brand-primary, .03)
+  &--action
+    min-width: 130px
+  &--title
+    min-width: 120px

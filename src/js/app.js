@@ -37,7 +37,7 @@ angular.module('app').constant('APP', {
     first : 'first', // decision table
     all   : 'all'    // scoring
   }
-}).run(function ($rootScope, APP) {
+}).run(function ($rootScope, $state, APP) {
   $rootScope.APP = APP;
 });
 

@@ -1,39 +1,34 @@
-.row
-  .col.col-md-6.col-md-offset-1
+.container-fluid: .row
+  .col-md-4.col-md-offset-4
     .alert.alert-danger(ng-if="error") User already exists
+    h2.form-heading Sign up
+      span.pull-right.form-caption or &#32;
+        a(ui-sref="sign-in") use existing account
     form(ng-submit="submit(form)", name="form", novalidate)
-      .form-horizontal
-        .form-group(show-errors)
-          .col.col-sm-2.control-label  Username
-          .col-sm-10
-            input.form-control(
-              name="username",
-              type="text",
-              ng-model="model.username",
-              required,
-              placeholder="Username"
-            )
-        .form-group
-          .col.col-sm-2.control-label  Password
-          .col-sm-10
-            input.form-control(
-              name="password",
-              type="password",
-              ng-model="model.password",
-              required,
-              placeholder="Password"
-            )
-        .form-group
-          .col.col-sm-2.control-label  Email
-          .col-sm-10
-            input.form-control(
-              name="email",
-              type="email",
-              ng-model="model.email",
-              required,
-              placeholder="example@example.com"
-            )
+      .form-group(show-errors)
+        input.form-control(
+          name="username",
+          type="text",
+          ng-model="model.username",
+          required,
+          placeholder="Username"
+        )
+      .form-group
+        input.form-control(
+          name="password",
+          type="password",
+          ng-model="model.password",
+          required,
+          placeholder="Password"
+        )
+      .form-group
+        input.form-control(
+          name="email",
+          type="email",
+          ng-model="model.email",
+          required,
+          placeholder="example@example.com"
+        )
 
-        .form-group
-          .col-sm-10.col-sm-offset-2
-            button.btn.btn-primary(type="submit") Submit
+      .btn-actions
+        button.btn.btn-primary(type="submit") Submit

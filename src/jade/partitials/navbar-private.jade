@@ -1,46 +1,34 @@
-nav.main-navbar.navbar.navbar-static-top.navbar-default
-  .container
-    .navbar-header
-      button.navbar-toggle.collapsed(type='button',
-        data-toggle='collapse',
-        data-target='#navbar-menu',
-        aria-expanded='false'
-        )
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(href='#') Gandalf
+nav.navbar.navbar-static-top.navbar-default: .container-fluid
+  .navbar-header
+    button.navbar-toggle.collapsed(type='button',
+      data-toggle='collapse',
+      data-target='#navbar-menu',
+      aria-expanded='false'
+      )
+      span.sr-only Toggle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='#')
+      img.logo(src="images/logo.png")
 
-    #navbar-menu.collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li.dropdown(uib-dropdown, ng-if="projects.length")
-          a.dropdown-toggle(role="button", uib-dropdown-toggle) {{project.title}}
-            | &#32;
-            b.caret
-          ul.dropdown-menu
-            li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}"): a(ng-click="selectProject(item)") {{item.title}}
-            li.divider(role="separator")
-            li: a(project-add) + add new project
-      .navbar-form.navbar-left(ng-if="!projects.length")
-        button.btn.btn-primary(project-add) Create new project
+  #navbar-menu.collapse.navbar-collapse
+    ul.nav.navbar-nav
+      li.dropdown(uib-dropdown, ng-if="projects.length")
+        a.dropdown-toggle(role="button", uib-dropdown-toggle) {{project.title}}
+          | &#32;
+          b.caret
+        ul.dropdown-menu
+          li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}"): a(ng-click="selectProject(item)") {{item.title}}
+          li.divider(role="separator")
+          li: a(project-add) + add new project
+    .navbar-form.navbar-left(ng-if="!projects.length")
+      button.btn.btn-primary(project-add) Create new project
 
-      ul.nav.navbar-nav
-        li(ui-sref-active="active"): a(ui-sref="tables-list") Tables
-        li(ui-sref-active="active"): a(ui-sref="history-list") History
-        li(ui-sref-active="active"): a(ui-sref="groups-list") Split Testing
-        li(ui-sref-active="active"): a(ui-sref="settings.project") Settings
-        // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
-      ul.nav.navbar-nav.navbar-right
-        li.dropdown(uib-dropdown)
-          a.dropdown-toggle(role="button", uib-dropdown-toggle) {{user.username}}
-            | &#32;
-            b.caret
-          ul.dropdown-menu
-            li.dropdown-header
-              b {{user.username}}
-              br
-              span {{user.email}}
-            li.divider(role="separator")
-            li
-              a(ng-click="logout()") Sign Out
+    ul.nav.navbar-nav.nav-main
+      li(ui-sref-active="active"): a(ui-sref="tables-list") Tables
+      li(ui-sref-active="active"): a(ui-sref="history-list") History
+      li(ui-sref-active="active"): a(ui-sref="groups-list") Split Testing
+      li(ui-sref-active="active"): a(ui-sref="settings.project") Settings
+      // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
+    include ./navbar-right-user

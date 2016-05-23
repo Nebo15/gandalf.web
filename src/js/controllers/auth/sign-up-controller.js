@@ -17,7 +17,7 @@ angular.module('app').controller('SignUpController', function ($scope, $state, $
       .then(function () {
         return AuthService.signIn($scope.model.username, $scope.model.password)
       }).then(function () {
-        $state.go('history-list');
+        $state.go('welcome-index');
       }).catch(function (error) {
         $scope.error = error;
       })

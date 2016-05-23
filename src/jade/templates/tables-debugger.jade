@@ -1,53 +1,53 @@
+.container-fluid
+  .row
+    .col.col-md-12
+      h2 {{table.title}}
+      p.lead {{table.description}}
+      br
+      .panel.panel-default
+        .panel-body
+          include:marked ../content/guides/debugger-details.md
+  .row
+    .col.col-md-6
+      form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
+        .form-group(ng-repeat="field in fields")
+          label.col-sm-4.control-label {{field.title}}
+          .col-sm-8
 
-.row
-  .col.col-md-12
-    h2 {{table.title}}
-    p.lead {{table.description}}
-    br
-    .panel.panel-default
-      .panel-body
-        include:marked ../content/guides/debugger-details.md
-.row
-  .col.col-md-6
-    form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
-      .form-group(ng-repeat="field in fields")
-        label.col-sm-4.control-label {{field.title}}
-        .col-sm-8
-
-          div(ng-switch="field.type")
-            input.form-control(
-              ng-if="field.type == $root.APP.types.number"
-              type="number",
-              ng-model="$parent.field.value",
-              name="{{field.key}}",
-              placeholder="{{field.type}}"
-            )
-            select.form-control(
-              ng-if="field.type == $root.APP.types.bool",
-              ng-model="$parent.field.value",
-              ng-options="val.value as val.title for val in booleanVariants"
+            div(ng-switch="field.type")
+              input.form-control(
+                ng-if="field.type == $root.APP.types.number"
+                type="number",
+                ng-model="$parent.field.value",
+                name="{{field.key}}",
+                placeholder="{{field.type}}"
               )
-            input.form-control(
-              ng-if="field.type == $root.APP.types.string"
-              type="text",
-              ng-model="$parent.field.value",
-              name="{{field.key}}",
-              placeholder="{{field.type}}"
-            )
-            //.checkbox(ng-switch-when="$root.APP.types.bool")
-            //  label
-            //    input(type="checkbox", ng-model="field.value",
-            //      name="{{field.alias}}",)
-      .form-group
-        .col-sm-8.col-sm-offset-4
-          button.btn.btn-primary.btn-loading(type="submit", ng-class="{'is-active': loading}") Send
-            .btn-loader
-              .glyphicon.glyphicon-refresh
-  .col.col-sm-6
-    div.preview
-      div.preview__external
-        a.btn.btn-clear(ng-if="response._id", ui-sref="history-details({id: response._id})") Go to history
-          | &#32;
-          i.glyphicon.glyphicon-export
-      div.preview__response(hljs, hljs-source="(response | json: 2)")
+              select.form-control(
+                ng-if="field.type == $root.APP.types.bool",
+                ng-model="$parent.field.value",
+                ng-options="val.value as val.title for val in booleanVariants"
+                )
+              input.form-control(
+                ng-if="field.type == $root.APP.types.string"
+                type="text",
+                ng-model="$parent.field.value",
+                name="{{field.key}}",
+                placeholder="{{field.type}}"
+              )
+              //.checkbox(ng-switch-when="$root.APP.types.bool")
+              //  label
+              //    input(type="checkbox", ng-model="field.value",
+              //      name="{{field.alias}}",)
+        .form-group
+          .col-sm-8.col-sm-offset-4
+            button.btn.btn-primary.btn-loading(type="submit", ng-class="{'is-active': loading}") Send
+              .btn-loader
+                .glyphicon.glyphicon-refresh
+    .col.col-sm-6
+      div.preview
+        div.preview__external
+          a.btn.btn-clear(ng-if="response._id", ui-sref="history-details({id: response._id})") Go to history
+            | &#32;
+            i.glyphicon.glyphicon-export
+        div.preview__response(hljs, hljs-source="(response | json: 2)")
 

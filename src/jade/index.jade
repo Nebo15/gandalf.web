@@ -14,7 +14,6 @@ html(ng-app="app")
     // .container
       div.main-breadcrumb(ncy-breadcrumb)
     div(ui-view='')
-    include ./partitials/footer
 
     // build:js js/app.min.js
     script(src='bower_components/jquery/dist/jquery.js')
@@ -103,6 +102,7 @@ html(ng-app="app")
     script(src='js/configs/states.js')
     script(src='js/configs/states/settings.js')
     script(src='js/configs/states/groups.js')
+    script(src='js/configs/states/welcome.js')
 
     script(src='js/constants/scopes.js')
 
@@ -156,6 +156,9 @@ html(ng-app="app")
     script(src='js/services/user.js')
 
     script(src='js/controllers/app-controller.js')
+
+    script(src='js/controllers/welcome/welcome-controller.js')
+    script(src='js/controllers/welcome/welcome-project-add-controller.js')
 
     script(src='js/controllers/auth/sign-in-controller.js')
     script(src='js/controllers/auth/sign-up-controller.js')
