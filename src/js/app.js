@@ -20,7 +20,10 @@ angular.module('app', [
   'dragcolumns',
   'table-fixed-rows',
 
-  'angular-loading-bar'
+  'angular-loading-bar',
+  'checklist-model',
+
+  'nebo-angular-validate'
 ]);
 
 angular.module('app').constant('ENV', window.env);
@@ -34,7 +37,7 @@ angular.module('app').constant('APP', {
     first : 'first', // decision table
     all   : 'all'    // scoring
   }
-}).run(function ($rootScope, APP) {
+}).run(function ($rootScope, $state, APP) {
   $rootScope.APP = APP;
 });
 

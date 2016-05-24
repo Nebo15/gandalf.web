@@ -13,10 +13,12 @@ angular.module('app').directive('showErrors', function() {
       var inputName = inputNgEl.attr('name');
 
       // only apply the has-error class after the user leaves the text box
+      var input = formCtrl[inputName];
+      if (!input) return;
       scope.$watch(function () {
-        return formCtrl[inputName].$invalid;
+        return input.$invalid;
       }, function () {
-        el.toggleClass('has-error', formCtrl[inputName].$invalid && formCtrl[inputName].$dirty);
+        el.toggleClass('has-error', input.$invalid && input.$dirty);
       });
     }
   }

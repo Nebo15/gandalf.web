@@ -73,7 +73,7 @@ gulp.task('clean', function () {
 
 // SASS to CSS
 gulp.task('build-styles', function () {
-  return gulp.src('./src/sass/**/*.{sass,scss}', {base: './'})
+  return gulp.src('./src/sass/*.{sass,scss}', {base: './'})
     .pipe(plumber(plumberErrorHandler))
     .pipe(compass({
       config_file: './config.rb',

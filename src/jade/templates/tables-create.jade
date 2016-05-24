@@ -1,13 +1,18 @@
-.container: form.editor.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
+form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
 
-  .form-group: input.form-control.editor__title(ng-model="table.title", placeholder="Untitled project")
-  .form-group: input.form-control.editor__description(ng-model="table.description", placeholder="Description")
+  .info-panel: .container-fluid
+    .info-panel-breadcrumb(ncy-breadcrumb)
+    .info-panel-body
+      .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Project name")
+      .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
 
-  .decision-table.has-shadow
-    decision-table(model="table")
+  .container-fluid
+    .decision-table.has-shadow
+      decision-table(model="table")
 
-  br
-  div.row
-    .col.col-xs-12.text-right
-      button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}") Create
-        .btn-loader: .glyphicon.glyphicon-refresh
+    br
+    div.row
+      .col.col-xs-12.text-right
+        button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
+          .btn-loader: .glyphicon.glyphicon-refresh
+          | Create

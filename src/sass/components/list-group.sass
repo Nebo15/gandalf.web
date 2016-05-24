@@ -1,0 +1,20 @@
+.list-group.list-group-panel
+  margin: -1 * $panel-body-padding
+  border: 0
+  .list-group-item
+    border-left: 0
+    border-right: 0
+    &:first-child
+      border-top: 0
+    &:last-child
+      border-bottom: 0
+
+
+.list-group-item--chevron
+  padding-right: 40px
+  &:after
+    content: "\e080"
+    font-family: 'Glyphicons Halflings'
+    color: #999
+    position: absolute
+    right: 10px

@@ -1,6 +1,6 @@
 
 
-angular.module('app').directive('decisionTable', function ($uibModal) {
+angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
   return {
     restrict: 'E',
@@ -109,12 +109,12 @@ angular.module('app').directive('decisionTable', function ($uibModal) {
           return val
         };
         switch (type) {
-          case $scope.APP.matchingTypes.first:
+          case APP.matchingTypes.first:
             transformFn = function (val) {
               return '' + val;
             };
             break;
-          case $scope.APP.matchingTypes.all:
+          case APP.matchingTypes.all:
             transformFn = function (val) {
               return parseInt(val, 10);
             };

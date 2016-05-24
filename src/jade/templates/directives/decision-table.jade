@@ -35,10 +35,10 @@
         div(ng-if="rule.isDeleted")
           a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
         div(ng-if="!rule.isDeleted")
-          a.btn.btn-default(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-          a.btn.btn-default(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
-          a.btn.btn-default(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
-          a.btn.btn-default(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
+          a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+          a.btn(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+          a.btn(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
+          a.btn.btn-danger-text(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
 table.table.decision-table__table
   tbody.decision-table__add-row: tr: td
@@ -53,6 +53,6 @@ table.table.decision-table__table
     td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
 table.table.decision-table__table
   tfoot.table-footer: tr
-    td: div.decision-table__matching-type.row: div.form-horizontal(show-errors)
-      label.col-sm-6.control-label Matching type
-      .col-sm-6: select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+    td: .row: div.form-horizontal(show-errors)
+      label.col-xs-6.control-label Matching type
+      .col-xs-6: select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")

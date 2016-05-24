@@ -11,11 +11,9 @@ html(ng-app="app")
     link(rel='stylesheet', href='bower_components/angular-loading-bar/build/loading-bar.css')
 
   body.app
-    include ./partitials/navbar
-    .container
+    // .container
       div.main-breadcrumb(ncy-breadcrumb)
     div(ui-view='')
-    include ./partitials/footer
 
     // build:js js/app.min.js
     script(src='bower_components/jquery/dist/jquery.js')
@@ -50,6 +48,10 @@ html(ng-app="app")
 
     script(src='bower_components/angular-highlightjs/angular-highlightjs.js')
 
+    script(src='bower_components/checklist-model/checklist-model.js')
+
+    script(src='bower_components/nebo-angular-validate/nebo-angular-validate.js')
+
     script(src='js/config.js')
 
     script(src='js/modules/gandalf/gandalf.js')
@@ -74,6 +76,12 @@ html(ng-app="app")
 
     script(src='js/modules/gandalf/models/group.js')
 
+    script(src='js/modules/gandalf/models/project.js')
+    script(src='js/modules/gandalf/models/project-user.js')
+    script(src='js/modules/gandalf/models/project-consumer.js')
+
+    script(src='js/modules/gandalf/models/user.js')
+
     script(src='js/modules/gandalf/services/gandalf.js')
     script(src='js/modules/gandalf/services/utils.js')
 
@@ -86,11 +94,20 @@ html(ng-app="app")
 
     script(src='js/configs/auth.js')
     script(src='js/configs/breadcrumbs.js')
+    script(src='js/configs/validate.js')
 
     script(src='js/configs/bugsnag.js')
 
     script(src='js/configs/api.js')
     script(src='js/configs/states.js')
+    script(src='js/configs/states/settings.js')
+    script(src='js/configs/states/groups.js')
+    script(src='js/configs/states/tables.js')
+
+    script(src='js/configs/states/welcome.js')
+
+
+    script(src='js/constants/scopes.js')
 
     script(src='js/directives/bigger-then.js')
 
@@ -115,6 +132,21 @@ html(ng-app="app")
     script(src='js/directives/components/decision-table.js')
     script(src='js/directives/components/add-new-field.js')
 
+    script(src='js/directives/components/project-add.js')
+    script(src='js/directives/components/project-edit.js')
+    script(src='js/directives/components/project-delete.js')
+
+    script(src='js/directives/components/user-edit.js')
+    script(src='js/directives/components/user-add.js')
+
+    script(src='js/directives/components/consumer-add.js')
+    script(src='js/directives/components/consumer-edit.js')
+
+    script(src='js/directives/components/group-edit.js')
+    script(src='js/directives/components/group-delete.js')
+
+    script(src='js/directives/components/group-table-add.js')
+
     script(src='js/filters/json.js')
     script(src='js/filters/to-fixed.js')
     script(src='js/filters/no-empty.js')
@@ -122,8 +154,17 @@ html(ng-app="app")
     script(src='js/filters/last.js')
 
     script(src='js/services/auth.js')
+    script(src='js/services/projects.js')
+    script(src='js/services/utils.js')
+    script(src='js/services/user.js')
 
-    script(src='js/controllers/sign-in-controller.js')
+    script(src='js/controllers/app-controller.js')
+
+    script(src='js/controllers/welcome/welcome-controller.js')
+    script(src='js/controllers/welcome/welcome-project-add-controller.js')
+
+    script(src='js/controllers/auth/sign-in-controller.js')
+    script(src='js/controllers/auth/sign-up-controller.js')
 
     script(src='js/controllers/add-field-controller.js')
     script(src='js/controllers/revert-field-controller.js')
@@ -143,7 +184,12 @@ html(ng-app="app")
 
     script(src='js/controllers/groups-list-controller.js')
     script(src='js/controllers/group-create-controller.js')
+    script(src='js/controllers/groups-details-controller.js')
 
     script(src='js/controllers/history-details-controller.js')
     script(src='js/controllers/history-list-controller.js')
+
+    script(src='js/controllers/projects/project-add-controller.js')
+
+    script(src='js/controllers/settings/settings-project-controller.js')
     // endbuild

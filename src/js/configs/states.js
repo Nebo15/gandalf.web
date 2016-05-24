@@ -9,11 +9,33 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $stateProvider.state('private', {
+  $stateProvider.state('private-load', {
     parent: 'auth',
     abstract: true,
     auth: true,
     template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    },
+    resolve: {
+      user: ['UserService', function (UserService) {
+        return UserService.current();
+      }],
+      projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
+        return $q.when(ProjectsService.all()).then(function (resp) {
+          if (resp.length) return resp;
+          $state.go('welcome-project-add');
+        });
+      }]
+    },
+    controller: 'AppController'
+  });
+
+  $stateProvider.state('private', {
+    parent: 'private-load',
+    abstract: true,
+    auth: true,
+    templateUrl: 'templates/layouts/private.html',
     ncyBreadcrumb: {
       skip: true
     }
@@ -22,131 +44,32 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'auth',
     abstract: true,
     auth: false,
-    template: '<ui-view />',
+    templateUrl: 'templates/layouts/public.html',
     ncyBreadcrumb: {
       skip: true
     }
   });
 
   $stateProvider.state('sign-in', {
+    parent: 'public',
     url: '/sign-in?username',
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
     ncyBreadcrumb: {
       label: 'Sign in to Gandalf'
     }
-  });
-
-  $stateProvider.state('tables-list', {
-    parent: 'private',
-    url: '/?size?page',
-    params: {
-      size: '25'
-    },
-    controller: 'TablesListController',
-    templateUrl: 'templates/tables-list.html',
+  }).state('sign-up', {
+    parent: 'public',
+    url: '/sign-up?username?email',
+    controller: 'SignUpController',
+    templateUrl: 'templates/sign-up.html',
     ncyBreadcrumb: {
-      label: 'Tables'
-    }
-  }).state('tables-create', {
-    parent: 'private',
-    url: '/tables/create',
-    controller: 'TablesCreateController',
-    templateUrl: 'templates/tables-create.html',
-    ncyBreadcrumb: {
-      label: 'Create new table',
-      parent: 'tables-list'
+      label: 'Sign up to Gandalf'
     }
   });
 
-  $stateProvider.state('tables-details', {
-    parent: 'private',
-    abstract: true,
-    url: '/tables/:id',
-    templateUrl: 'templates/tables-details.html',
-    controller: 'TablesDetailsController',
-    resolve: {
-      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
-        return DecisionTable.byId($stateParams.id);
-      }]
-    },
-    ncyBreadcrumb: {
-      label: "{{table.title}}",
-      parent: 'tables-list',
-      skip: false
-    }
-  }).state('tables-details.edit', {
-    url: '/edit',
-    controller: 'TablesEditController',
-    templateUrl: 'templates/tables-edit.html',
-    ncyBreadcrumb: {
-      label: 'Edit'
-    }
-  }).state('tables-details.analytics', {
-    url: '/analytics',
-    controller: 'TablesAnalyticsController',
-    templateUrl: 'templates/tables-analytics.html',
-    resolve: {
-      analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
-        return AnalyticsTable.byId($stateParams.id);
-      }]
-    },
-    ncyBreadcrumb: {
-      label: 'Analytics'
-    }
-  }).state('tables-details.revisions', {
-      url: '/revisions',
-      controller: 'TablesRevisionsController',
-      templateUrl: 'templates/tables-revisions.html',
-      ncyBreadcrumb: {
-        label: 'Revisions'
-      }
-  }).state('tables-details.debugger', {
-    url: '/debug',
-    controller: 'DebuggerDetailsController',
-    templateUrl: 'templates/tables-debugger.html',
-    ncyBreadcrumb: {
-      label: 'Debugger'
-    },
-    params: {
-      id: null,
-      decision: null
-    }
-  });
 
-  $stateProvider.state('tables-diff', {
-    parent: 'private',
-    url: '/tables/:id/diff/:revisionId',
-    controller: 'TablesDiffController',
-    templateUrl: 'templates/tables-diff.html',
-    resolve: {
-      compare: ['$gandalf', '$stateParams', 'DecisionDiffTable', function ($gandalf, $stateParams, DecisionDiffTable) {
-        return $gandalf.admin.getTableChangelogsDiff($stateParams.id, $stateParams.revisionId).then(function (resp) {
-          return {
-            original: new DecisionDiffTable(null, resp.data.original.model.attributes),
-            revision: new DecisionDiffTable(null, resp.data.compare_with.model.attributes)
-          }
-        })
-      }]
-    },
-    ncyBreadcrumb: {
-      label: 'Diff: {{revision.id}}',
-      parent: 'tables-details.edit'
-    }
-  });
 
-  $stateProvider.state('groups-list', {
-    parent: 'private',
-    url: '/groups?size?page',
-    params: {
-      size: '25'
-    },
-    controller: 'GroupsListController',
-    templateUrl: 'templates/groups-list.html',
-    ncyBreadcrumb: {
-      label: 'Groups'
-    }
-  });
 
   $stateProvider.state('history-list', {
     parent: 'private',
@@ -180,5 +103,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       }]
     }
   });
-  $urlRouterProvider.otherwise('/');
+
+  $urlRouterProvider.otherwise('/tables');
 });
