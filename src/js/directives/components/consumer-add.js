@@ -12,7 +12,7 @@ angular.module('app').controller('consumerAddController', function ($scope, $uib
   $scope.save = function (form) {
     if (form.$invalid) return;
     $scope.project.addConsumer($scope.model).then(function () {
-      $uibModalInstance.dismiss('cancel');
+      $uibModalInstance.close($scope.project.consumers[$scope.project.consumers.length - 1]);
     });
   };
 });
@@ -25,7 +25,7 @@ angular.module('app').directive('consumerAdd', function ($uibModal) {
     },
     link: function (scope, el, attrs) {
       el.bind('click', function () {
-        $uibModal.open({
+        var modal = $uibModal.open({
           templateUrl: 'templates/modal/consumer-add.html',
           controller: 'consumerAddController',
           resolve: {
@@ -34,6 +34,22 @@ angular.module('app').directive('consumerAdd', function ($uibModal) {
             }
           }
         });
+
+        modal.result.then(function (model) {
+          console.log('new', model);
+          $uibModal.open({
+            templateUrl: 'templates/modal/consumer-info.html',
+            controller: 'consumerEditController',
+            resolve: {
+              consumer: function () {
+                return model;
+              },
+              project: function () {
+                return scope.project;
+              }
+            }
+          })
+        })
       })
     }
   };

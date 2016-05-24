@@ -1,0 +1,16 @@
+div
+  .modal-header
+    h3.modal-title API Key Info
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-3.control-label Client ID
+        .col-sm-9
+          .form-control-static {{model.clientId}}
+      .form-group
+        label.col-sm-3.control-label Client Secret
+        .col-sm-9
+          .form-control-static {{model.clientSecret}}
+  .modal-footer.clearfix
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Close
