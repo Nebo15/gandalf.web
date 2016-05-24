@@ -17,5 +17,5 @@ angular.module('app').directive('field', function ($timeout, APP, CONDITIONS, CO
 
     }
   };
-
+  
 });

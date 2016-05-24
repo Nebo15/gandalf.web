@@ -1,12 +1,11 @@
-h4 Table Analytics
-.table-analytics
+.container-fluid: .table-analytics
   .table-analytics__table.decision-table.ng-cloak(ng-if="table")
     .table-responsive: table.table.decision-table__table
       thead: tr
         th.decision-table__column--index #
         th.decision-table__column--title Title
           .small.text-light description
-        th(ng-repeat="condition in table.fields") {{condition.title}}
+        th(ng-repeat="field in table.fields") {{field.title}}
         th Decision
       tbody
         tr(ng-repeat="rule in table.rules")
@@ -17,6 +16,7 @@ h4 Table Analytics
           td.decision-table__condition(
             ng-repeat="condition in rule.conditions",
             green-red-gradient="condition.probability") {{condition.condition | condition}} {{condition.value.toString()}}
-            p {{condition.probability * 100}} %
-          td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
+            p {{condition.probability * 100 | toFixed: 1}} %
+          td.border-left.decision-table__condition(green-red-gradient="rule.probability")
             | {{rule.than}}
+            p {{rule.probability * 100 | toFixed: 1}} %

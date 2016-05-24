@@ -3,80 +3,73 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('main', {
 
     abstract: true,
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
-  $stateProvider.state('private', {
+  $stateProvider.state('private-load', {
     parent: 'auth',
     abstract: true,
     auth: true,
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    },
+    resolve: {
+      user: ['UserService', function (UserService) {
+        return UserService.current();
+      }],
+      projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
+        return $q.when(ProjectsService.all()).then(function (resp) {
+          if (resp.length) return resp;
+          $state.go('welcome-project-add');
+        });
+      }]
+    },
+    controller: 'AppController'
+  });
+
+  $stateProvider.state('private', {
+    parent: 'private-load',
+    abstract: true,
+    auth: true,
+    templateUrl: 'templates/layouts/private.html',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
   $stateProvider.state('public', {
     parent: 'auth',
     abstract: true,
     auth: false,
-    template: '<ui-view />'
+    templateUrl: 'templates/layouts/public.html',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('sign-in', {
+    parent: 'public',
     url: '/sign-in?username',
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
     ncyBreadcrumb: {
       label: 'Sign in to Gandalf'
     }
+  }).state('sign-up', {
+    parent: 'public',
+    url: '/sign-up?username?email',
+    controller: 'SignUpController',
+    templateUrl: 'templates/sign-up.html',
+    ncyBreadcrumb: {
+      label: 'Sign up to Gandalf'
+    }
   });
 
-  $stateProvider.state('tables-list', {
-    parent: 'private',
-    url: '/?size?page',
-    params: {
-      size: '25'
-    },
-    controller: 'TablesListController',
-    templateUrl: 'templates/tables-list.html',
-    ncyBreadcrumb: {
-      label: 'Tables'
-    }
-  }).state('tables-create', {
-    parent: 'private',
-    url: '/tables/create',
-    controller: 'TablesCreateController',
-    templateUrl: 'templates/tables-details.html',
-    ncyBreadcrumb: {
-      label: 'Create new table',
-      parent: 'tables-list'
-    }
-  }).state('tables-details', {
-    parent: 'private',
-    url: '/tables/:id',
-    controller: 'TablesDetailsController',
-    templateUrl: 'templates/tables-details.html',
-    resolve: {
-      decision: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
-        return DecisionTable.byId($stateParams.id);
-      }]
-    },
-    ncyBreadcrumb: {
-      label: 'Edit: {{table.title}}',
-      parent: 'tables-list'
-    }
-  }).state('tables-analytics', {
-    parent: 'private',
-    url: '/tables/:id/analytics',
-    controller: 'TablesAnalyticsController',
-    templateUrl: 'templates/tables-analytics.html',
-    resolve: {
-      analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
-        return AnalyticsTable.byId($stateParams.id);
-      }]
-    },
-    ncyBreadcrumb: {
-      label: 'Analytics',
-      parent: 'tables-details'
-    }
-  });
+
+
 
   $stateProvider.state('history-list', {
     parent: 'private',
@@ -90,7 +83,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       label: 'History'
     },
     resolve: {
-      selectedTable: ['DecisionTable','$stateParams', function (DecisionTable, $stateParams) {
+      selectedTable: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
         return $stateParams.tableId ? DecisionTable.byId($stateParams.tableId) : null;
       }]
     }
@@ -111,25 +104,5 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
-  $stateProvider.state('debugger-details', {
-    parent: 'private',
-    url: '/tables/:id/debug',
-    controller: 'DebuggerDetailsController',
-    templateUrl: 'templates/debugger-details.html',
-    ncyBreadcrumb: {
-      label: 'Debugger: {{table.id}}',
-      parent: 'tables-details'
-    },
-    params: {
-      id: null,
-      decision: null
-    },
-    resolve: {
-      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
-        return DecisionTable.byId($stateParams.id);
-      }]
-    }
-  });
-
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/tables');
 });

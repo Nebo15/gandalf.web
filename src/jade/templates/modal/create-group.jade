@@ -1,0 +1,41 @@
+form(ng-submit="create(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Create Split Test
+  .modal-body.form-horizontal
+    .form-group(show-errors)
+      label.col-sm-3.control-label Title
+      .col-sm-9: input.form-control(
+      name="title",
+      type="text",
+      ng-model="model.title",
+      required,
+      placeholder="eg. A/B testing..."
+      )
+    .form-group(show-errors)
+      label.col-sm-3.control-label Description
+      .col-sm-9: input.form-control(
+      name="description",
+      type="text",
+      ng-model="model.description",
+      required,
+      placeholder="eg. Some interesting about group..."
+      )
+    .form-group(show-errors)
+      label.col-sm-3.control-label Table
+      .col-sm-9: input.form-control(type="text", ng-model="model.tables[0]", typeahead-min-length="0",
+        typeahead-editable="false",
+        uib-typeahead="table as table.title for table in getTables($viewValue) | filter:$viewValue ",
+        required
+      )
+    .form-group(show-errors)
+      label.col-sm-3.control-label Probability
+      .col-sm-9: input.form-control(
+      name="probability",
+      type="text",
+      ng-model="model.probability",
+      disabled,
+      required
+      )
+  .modal-footer
+    button.btn.btn-danger(type="submit", ng-disabled="form.$invalid") Create
+    button.btn.btn-default(type='button', ng-click='cancel()') Cancel

@@ -1,0 +1,19 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Create new API key
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-2.control-label Description
+        .col-sm-10: input.form-control(type="text", ng-model="model.description", required)
+      hr
+      .form-group(show-errors)
+        label.col-sm-2.control-label Scopes
+        .col-sm-10
+          .checkbox(ng-repeat="scope in scopes"): label
+            input(type="checkbox", checklist-model="model.scope", checklist-value="scope",
+              ng-required="!(model.scope && model.scope.length > 0)")
+            | {{scope}}
+  .modal-footer
+    button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+    button.btn.btn-primary(type='submit') Save

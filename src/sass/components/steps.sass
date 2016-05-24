@@ -1,0 +1,28 @@
+.steps
+  display: table
+  width: 100%
+  vertical-align: middle
+  padding: 0 0 10px
+
+.steps-item
+  display: table-cell
+  font-weight: normal
+  color: #999
+
+
+  list-style: decimal
+  position: relative
+
+  &:after
+    height: 1px
+    content: ''
+    background-color: #999
+    position: absolute
+    top: .5em
+    left: 2em
+    right: 2em
+
+  &.active
+    color: $brand-primary-light
+    font-weight: bold
+

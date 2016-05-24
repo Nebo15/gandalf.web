@@ -1,0 +1,50 @@
+.form-block
+  margin-top: 40px
+  &:first-child
+    margin-top: 0
+
+
+.form-block-heading
+  font-size: 16px
+  font-weight: bold
+  margin: 0 0 20px
+  padding: 0 10px
+
+.form-heading
+  font-size: 18px
+
+  font-weight: 400
+  margin-bottom: 25px
+
+.form-caption
+  font-size: 12px
+
+  .form-heading &
+    margin-top: 5px
+
+.form-control-underline
+
+  background-color: transparent
+  border: 0
+  border-bottom: 1px solid $input-group-addon-border-color
+  box-shadow: none !important
+  border-radius: 0
+  height: auto
+  padding-bottom: 15px
+  padding-left: 0
+
+  font-size: 14px
+
+.form-control-underline-small
+  font-size: 12px
+
+
+.form-control.ng-invalid.ng-dirty,
+.checkbox input.ng-invalid.ng-dirty,
+
+.ng-submitted .form-control.ng-invalid,
+.ng-submitted .checkbox input.ng-invalid
+
+  &:not(:focus)
+    border-color: $state-danger-text
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px lighten($state-danger-text, 20%)

@@ -1,0 +1,43 @@
+.container-fluid
+  .row
+    .col-md-12
+      .text-heading
+        .text-heading-label Name
+        | {{project.title}}
+      .text-heading(ng-if="project.description")
+        .text-heading-label Description
+        | {{project.description}}
+      .btn-actions: .btn-group.btn-group-sm
+        a.btn.btn-primary-clear(project-edit="project") Edit
+      hr
+  .row
+    .col-md-4.col-md-push-6
+      <p><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</b></p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+    .col-md-6.col-md-pull-4
+      .panel.panel-default
+        .panel-heading Users
+        .panel-body
+          div.list-group.list-group-panel
+            a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
+              i.pull-right.subtitle {{user.role}}
+            a.list-group-item(user-add="project"): b.text-primary + add user
+
+   .row
+    .col-md-4.col-md-push-6
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    .col-md-6.col-md-pull-4
+      .panel.panel-default
+        .panel-heading API Keys
+        .panel-body
+          div.list-group.list-group-panel
+            a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer") {{consumer.description}}
+            a.list-group-item(consumer-add="project"): b.text-primary + create consumer
+
+
+   .row: .col-md-6
+    button.btn.btn-danger(project-delete="project") Delete project
+
+  p: br
+
+
