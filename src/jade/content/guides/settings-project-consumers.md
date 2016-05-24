@@ -1,2 +1,2 @@
-<p><b>Users that have access to this project.</b></p>
-<p>Tou can share access to the project with your collaborators, giving them specific access scope.</p>
+<p><b>API Consumers Credetials.</b></p>
+<p>To request Gandalf from an API client you need to create them separate keys. They should be send as HTTP Basic Auth login and password on each request to Gandalf.</p>
