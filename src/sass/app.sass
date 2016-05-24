@@ -7,7 +7,6 @@ $red: #e81a50
 $text-color: #3d3d3d
 $blue: #4498ee
 
-
 $table-bg: white
 $brand-primary: $red
 $body-bg: white
@@ -71,6 +70,11 @@ $breadcrumb-color: $text-color
 @import components/list-group
 @import components/welcome
 @import components/steps
+
++min-screen($container-lg)
+  .container-fluid
+    padding-left: 50px
+    padding-right: 50px
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
