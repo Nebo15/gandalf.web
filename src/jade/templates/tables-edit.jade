@@ -9,7 +9,7 @@ form.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
     .alert.alert-warning(ng-if="!saved").ng-cloak
       .alert-btn-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
-          .btn-loader: .glyphicon.glyphicon-refresh.btn-glyphicon
+          .btn-loader: .glyphicon.glyphicon-refresh
           | Save
       p This table have unsaved data. You need to save changes manually.
 
