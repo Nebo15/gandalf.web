@@ -1,56 +1,58 @@
-.table-responsive: table.table.table-decision(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
-  thead(table-fixed-row): tr
-    th.table-decision-column-index #
-    th.table-decision-column-title Title
-      .small.text-light Description
-    th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
-      ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
-      .small.text-light {{condition.key}}
-        span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
-    th.table-decision-column-add(add-new-field, table="table") +
-    th.table-decision-column-decision
-      span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
-      span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
-    th.table-decision-column-action Action
+.table-group
+  .table-responsive: table.table.table-decision(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
+    thead(table-fixed-row): tr
+      th.table-decision-column-index #
+      th.table-decision-column-title Title
+        .small.text-light Description
+      th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
+        ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
+        .small.text-light {{condition.key}}
+          span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
+      th.table-decision-column-add(add-new-field, table="table") +
+      th.table-decision-column-decision
+        span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
+        span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
+      th.table-decision-column-action Action
 
-  tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-    tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}", skip-form="rule.isDeleted",
-    ng-form="ruleForm", ng-click="editRule(rule)")
-      td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
-      td.table-decision-column-title
-        div(ng-if="rule.isEditing")
-          input.form-control(ng-model="rule.title", placeholder="Title")
-          input.form-control(ng-model="rule.description", placeholder="Description")
-        div(ng-if="!rule.isEditing")
-          b {{rule.title}}
-          .small {{rule.description}}
-      td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-        field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
-        field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
-      td.table-decision-column-add
-      td.table-decision-column-decision
-        div.form-control-static(ng-if="!rule.isEditing") {{rule.than}}
-        decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than")
-      td.table-decision-column-action: .form-control-static
-        div(ng-if="rule.isDeleted")
-          a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
-        div(ng-if="!rule.isDeleted")
-          a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-          a.btn(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
-          a.btn(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
-          a.btn.btn-danger-text(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
+    tbody(ui-sortable="sortableOptions", ng-model="table.rules")
+      tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}", skip-form="rule.isDeleted",
+      ng-form="ruleForm", ng-click="editRule(rule)")
+        td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
+        td.table-decision-column-title
+          div(ng-if="rule.isEditing")
+            input.form-control(ng-model="rule.title", placeholder="Title")
+            input.form-control(ng-model="rule.description", placeholder="Description")
+          div(ng-if="!rule.isEditing")
+            b {{rule.title}}
+            .small {{rule.description}}
+        td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
+          field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
+          field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
+        td.table-decision-column-add
+        td.table-decision-column-decision
+          div.form-control-static(ng-if="!rule.isEditing") {{rule.than}}
+          decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than")
+        td.table-decision-column-action: .form-control-static
+          div(ng-if="rule.isDeleted")
+            a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
+          div(ng-if="!rule.isDeleted")
+            a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+            a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+            a.btn(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
+            a.btn.btn-danger-text(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
 
-table.table: tr: td: a(ng-click="addNewRule()") + Add new row
+  table.table.table-add-row: tr: td(ng-click="addNewRule()")
+    span.plus +
+    | Add row
 
-table.table: tr
-  th
-    span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
-    span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
-  td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
-  td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title", required)
-  td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
+  table.table.table-default-decision: tr
+    th
+      span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
+      span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
+    td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
+    td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title", required)
+    td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
 
-br
 .row: .col-sm-6
   h6.form-control-heading Matching type
 .row
