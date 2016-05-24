@@ -31,7 +31,7 @@ angular.module('app').config(function ($stateProvider) {
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',
     resolve: {
-      table: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+      table: ['DecisionTable', '$stateParams', 'projects', function (DecisionTable, $stateParams, projects) {
         return DecisionTable.byId($stateParams.id);
       }]
     },

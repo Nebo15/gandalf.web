@@ -8,6 +8,7 @@
   from
     transform: rotate(359deg)
 
+
 .btn-loading
   .btn-loader
     display: none
@@ -83,3 +84,19 @@
 
   +button-variant(#3d3d3d, transparent, $btn-primary-bg)
   border-radius: 0
+
+
+.btn-group-matching
+  .btn
+    text-transform: uppercase
+    border-color: #e4e4e4
+    color: $text-color
+    min-width: 100px
+
+
+
+    &.active
+      border-color: $btn-primary-border
+      color: $btn-primary-color
+      box-shadow: none
+

@@ -3,17 +3,21 @@
 angular.module('app').directive('selectMatchingType', function () {
   return {
     restrict: 'E',
-    template: '<select name="matching_type" required="required" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" class="form-control"> ' +
-      '<option value="{{$root.APP.matchingTypes.all}}">Scoring Table - Return Total of all Passed Rules</option> ' +
-      '<option value="{{$root.APP.matchingTypes.first}}">Decision Table - Return First Passed Rule</option> ' +
-    '</select>',
+    //template: '<select name="matching_type" required="required" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" class="form-control"> ' +
+    //  '<option value="{{$root.APP.matchingTypes.all}}">Scoring Table - Return Total of all Passed Rules</option> ' +
+    //  '<option value="{{$root.APP.matchingTypes.first}}">Decision Table - Return First Passed Rule</option> ' +
+    //'</select>',
+    template: '<div class="btn-group btn-group-matching">' +
+      '<label class="btn btn-primary-clear" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.all">All</label> ' +
+      '<label class="btn btn-primary-clear" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.first">First</label>' +
+    '</div>',
     scope: {
       model: '=ngModel',
       callback: '&'
     },
     link: function (scope) {
+
       scope.matchingType = scope.model;
-      console.log(scope.callback);
     },
     controller: 'SelectMatchingTypeController'
   }
@@ -21,7 +25,6 @@ angular.module('app').directive('selectMatchingType', function () {
 
   var modalInstance = null;
   $scope.onChangeMatchingType = function (newType) {
-    $log.debug('new type', newType);
     modalInstance = $uibModal.open({
       templateUrl: 'templates/modal/change-matching-type.html',
       scope: $scope
