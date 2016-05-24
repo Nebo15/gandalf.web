@@ -3,8 +3,9 @@ form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", na
   .info-panel: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
     .info-panel-body
-      .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Project name")
-      .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
+      .row: .col-sm-6
+        .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Project name")
+        .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
 
   .container-fluid
     .decision-table.has-shadow
