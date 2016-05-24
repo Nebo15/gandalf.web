@@ -1,2 +1,1 @@
-   
-Enter test data in the form on the left side.
+You can use this form to create a API request to your table. Simply fill form with a test data.
