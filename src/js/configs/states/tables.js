@@ -36,7 +36,7 @@ angular.module('app').config(function ($stateProvider) {
       }]
     },
     ncyBreadcrumb: {
-      label: "{{$parent.table.title}}",
+      label: "{{table.title}}",
       parent: 'tables-list',
       skip: false
     }
