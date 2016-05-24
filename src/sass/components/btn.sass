@@ -24,6 +24,43 @@
       display: inline-block
 
 
+=btn-glyphicon-variant($name, $bg-color)
+  .btn-#{$name} &
+    background-color: $bg-color
+  .btn-#{$name}:disabled &,
+  .btn-#{$name}[disabled] &
+    background-color: $bg-color !important
+
+  .btn-#{$name}:hover &
+    background-color: darken($bg-color, 17%)
+
+  .btn-#{$name}.active &,
+  .btn-#{$name}:focus &,
+  .btn-#{$name}:active &
+    background-color: darken($bg-color, 25%)
+
+.btn-glyphicon
+
+  margin-left: -1* $padding-base-horizontal
+
+  margin-top: (-1*$padding-base-vertical)-1px
+  margin-bottom: -1* $padding-base-vertical
+  margin-right: $padding-base-horizontal
+
+  padding: $padding-base-vertical $padding-base-horizontal
+
+  &.btn-glyphicon-right
+    margin-left: $padding-base-horizontal
+    margin-right: -1* $padding-base-horizontal
+
+  color: white
+  line-height: inherit
+
+  +btn-glyphicon-variant(default, $btn-default-border)
+  +btn-glyphicon-variant(primary, $btn-primary-border)
+  +btn-glyphicon-variant(warning, $btn-warning-border)
+  +btn-glyphicon-variant(success, $btn-success-border)
+  +btn-glyphicon-variant(danger,  $btn-danger-border)
 
 .btn-actions
   margin-top: 20px
