@@ -6,6 +6,11 @@ body table.table
     vertical-align: middle
     padding: 18px 20px
     border: 1px solid $table-border-color
+  th
+    text-transform: uppercase
+    font-size: 12px
+    font-weight: 400
+
 
 .table.table-decision
   box-sizing: border-box
@@ -30,9 +35,6 @@ body table.table
 
   thead th
     border-bottom: 1px solid $table-border-color
-    font-size: 12px
-    text-transform: uppercase
-    font-weight: 400
 
     .small
       font-size: 10px
@@ -102,9 +104,13 @@ body table.table
     background-color: #f9f9f9
 //margin-top: -1 * $table-ma
 
+.table-default-decision
+  background-color: #eefff9
+
 .table-group
   margin-bottom: 20px
 
   .table
     margin-bottom: 0
     margin-top: -1px
+
