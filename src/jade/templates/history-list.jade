@@ -3,15 +3,15 @@
   .info-panel-body
     include:marked ../content/guides/decision-history-list.md
 
-.container-fluid: .history-page
-  form.form-horizontal
+.container-fluid
+  form
     .form-group
       input.form-control(type="search", ng-model="filters.table.title", placeholder="Enter table name..",
-      typeahead-on-select="onSelectTable($item, $model, $label, $event)",
-      uib-typeahead="table.title for table in searchHistories($viewValue)")
+        typeahead-on-select="onSelectTable($item, $model, $label, $event)",
+        uib-typeahead="table.title for table in searchHistories($viewValue)")
 
-  .history: table.table.history__table
-    thead.history__head
+  table.table
+    thead
       tr
         th ID
         th Timestamp

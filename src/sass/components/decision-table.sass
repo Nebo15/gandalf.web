@@ -10,6 +10,16 @@ body table.table
     text-transform: uppercase
     font-size: 12px
     font-weight: 400
+  thead
+    background: $table-footer-bg
+
+  thead th
+    border-bottom: 1px solid $table-border-color
+
+    .small
+      font-size: 10px
+      text-transform: none
+
 
 
 .table.table-decision
@@ -29,16 +39,6 @@ body table.table
 
   th.is-deleted
     text-decoration: line-through
-
-  thead
-    background: $table-footer-bg
-
-  thead th
-    border-bottom: 1px solid $table-border-color
-
-    .small
-      font-size: 10px
-      text-transform: none
 
 
   th, td
