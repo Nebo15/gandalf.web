@@ -67,16 +67,18 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     initialized = true;
   }
 
-  //function initFromStorage() {
-  //  var storageProject = new Project(storage.project);
-  //  if (storageProject.id) {
-  //    $gandalf.setProjectId(storageProject.id);
-  //    return storageProject.id;
-  //  }
-  //  return null;
-  //}
-  //
-  //initFromStorage();
+
+
+  function initFromStorage() {
+    var storageProject = new Project(storage.project);
+    if (storageProject.id) {
+      $gandalf.setProjectId(storageProject.id);
+      return storageProject.id;
+    }
+    return null;
+  }
+
+  initFromStorage();
 
 
 });
