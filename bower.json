@@ -10,7 +10,6 @@
     "angular-ui-sortable": "^0.13.4",
     "angular-breadcrumb": "^0.4.1",
     "lodash": "^4.6.1",
-    "prism": "Prism#^1.4.1",
     "angular-highlightjs": "^0.5.1",
     "highlightjs": "^9.2.0",
     "ui-router-extras": "^0.1.0",
