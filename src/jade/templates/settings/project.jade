@@ -12,8 +12,8 @@
       hr
   .row
     .col-md-4.col-md-push-6
-      <p><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</b></p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+      <p><b>Users that have access to this project.</b></p>
+      <p>Tou can share access to the project with your collaborators, giving them specific access scope.</p>
     .col-md-6.col-md-pull-4
       .panel.panel-default
         .panel-heading Users
@@ -25,10 +25,11 @@
 
    .row
     .col-md-4.col-md-push-6
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p><b>API Consumers Credetials.</b></p>
+      <p>To request Gandalf from an API client you need to create them separate keys. They should be send as HTTP Basic Auth login and password on each request to Gandalf.</p>
     .col-md-6.col-md-pull-4
       .panel.panel-default
-        .panel-heading API Keys
+        .panel-heading API Consumers Credentials
         .panel-body
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer") {{consumer.description}}

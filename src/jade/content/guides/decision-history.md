@@ -1,3 +1,3 @@
-Here you can see detailed decision flow for a specified API request. We store all request parameters, decision response and all checks that was done during the decision-making. 
+Decision shows all request parameters, decision engine response and decision table that was applied when request was made. It means that whenever you change your decision table, it won't affect history and you still will be able to understand decision flow for each moment of time.
 
-History also contains decision table at a request moment, this means that you can see how decision table looked and what checks was specified when API consumer requested it.
+You can retry request on a latest table version by clicking "Debug" in request well.
