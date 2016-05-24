@@ -1,0 +1,15 @@
+.container-fluid
+  //.panel.panel-default: .panel-body
+    include:marked ../content/guides/decision-tables-list.md
+  div
+    a.btn.btn-primary(ng-click="createGroup()")
+      i.glyphicon.glyphicon-plus.btn-glyphicon
+      | Create Split Test
+  br
+  p.list-group
+    a.list-group-item(ng-repeat="group in groups", ui-sref="groups-details({id: group.id})")
+      b.list-group-item-heading {{group.title}}
+      span(ng-if="group.description")
+        br
+        span: i.list-group-item-text {{group.description}}
+  uib-pagination(ng-if="filters.total", total-items="filters.total", ng-model="filters.page", items-per-page="filters.size", max-size="5")

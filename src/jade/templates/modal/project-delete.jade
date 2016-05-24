@@ -1,0 +1,20 @@
+form(ng-submit="submit(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Are you ABSOLUTELY sure?
+  .modal-body
+    .alert.alert-warning Unexpected bad things will happen if you don’t read this!
+    p This action CANNOT be undone. This will permanently delete the project and all associated data (table, groups, etc.).
+    p Please type in DELETE to confirm.
+
+    .form-group
+      input.form-control(
+      name="code",
+      type="text",
+      ng-model="model.code",
+      ng-equal="DELETE",
+      required,
+      placeholder=""
+      )
+  .modal-footer
+    button.btn.btn-danger(type="submit", ng-disabled="form.$invalid") Delete
+    button.btn.btn-default(type='button', ng-click='cancel()') Cancel

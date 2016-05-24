@@ -1,0 +1,26 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Add user
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-2.control-label Username
+        .col-sm-10: input.form-control(type="text", ng-model="userSearch", typeahead-min-length="1",
+            uib-typeahead="user as user.username for user in getUsers($viewValue)",
+
+            required)
+      hr
+      .form-group(show-errors)
+        label.col-sm-2.control-label Role
+        .col-sm-10
+          input.form-control(ng-model="user.role", disabled, required)
+      .form-group(show-errors)
+        label.col-sm-2.control-label Scopes
+        .col-sm-10
+          .checkbox(ng-repeat="scope in scopes"): label
+            input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
+              ng-required="!(user.scope && user.scope.length > 0)")
+            | {{scope}}
+  .modal-footer
+    button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+    button.btn.btn-primary(type='submit') Save

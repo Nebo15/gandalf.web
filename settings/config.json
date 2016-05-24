@@ -2,7 +2,9 @@
   "default": {
     "debug": false,
     "api": {
-      "endpoint": "//gandalf-api.nebo15.com/api/v1/"
+      "endpoint": "//gandalf-sandbox.nebo15.com:81/",
+      "clientId": "admin",
+      "clientSecret": "vqj66myg6xfp"
     },
     "providers": {
       "bugsnag": {
@@ -22,7 +24,7 @@
   "production": {
     "debug": false,
     "api": {
-      "endpoint": "/api/v1/"
+      "endpoint": "/"
     },
     "providers": {
       "bugsnag": {

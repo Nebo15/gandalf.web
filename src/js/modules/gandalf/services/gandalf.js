@@ -85,14 +85,28 @@ var base64 = (function () {
 angular.module('ng-gandalf').provider('$gandalf', function () {
 
   var config = {
-    apiEnpoint: '/api/v1/'
+    apiEnpoint: '',
+    clientId: null,
+    clientSecret: null,
+
+    user: {
+      accessToken: null,
+      refreshToken: null,
+      tokenType: null,
+      expiresIn: null
+    },
+    projectId: null
   };
 
   return {
     setEndpoint: function (endpoint) {
       config.apiEnpoint = endpoint;
     },
-    $get: function ($httpParamSerializer, $http, $log, $q, $filter)  {
+    init: function (clientId, clientSecret) {
+      config.clientId = clientId;
+      config.clientSecret = clientSecret;
+    },
+    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope)  {
 
       function $request(opts, data) {
 
@@ -110,9 +124,15 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         var headers = {
           'Content-type': 'application/json'
         };
-        if (config.authorization) {
-          headers['Authorization'] = config.authorization;
+        if (config.user.accessToken && config.user.tokenType) {
+          headers['Authorization'] = [config.user.tokenType, config.user.accessToken].join(' ');
         }
+        if (config.projectId) {
+          headers['X-Application'] = config.projectId;
+
+        }
+
+        headers = angular.extend(headers, opts.headers || {});
 
         return $http({
           method: method,
@@ -122,6 +142,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }).then(function (resp) {
           $log.debug('$request: response', resp);
           return resp.data;
+        }, function (resp) {
+          console.log(resp);
+          $rootScope.$broadcast('$gandalfError', resp);
+          return $q.reject(resp);
         });
       }
 
@@ -136,28 +160,179 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       var self = {};
 
-      self.setAuthorization = function (apiKey, apiSecret) {
-        config.authorization = 'Basic ' + base64.encode([apiKey, apiSecret].join(':'));
+      self.setAuthorization = function (username, password) {
+        return self.admin.checkAuth(username, password).then(function (resp) {
+          if (resp.error) throw $q.reject(resp); // fix for API error response with status 200
+          self.setToken(resp);
+          return resp;
+        });
       };
       self.resetAuthorization = function () {
-        config.authorization = null;
+        config.user = {};
       };
-      self.testAuthorization = function (apiKey, apiSecret) {
-        var oldAuthorization = config.authorization;
-        this.setAuthorization(apiKey, apiSecret);
+      self.setToken = function (data) {
+        config.user.accessToken = data.access_token;
+        config.user.refreshToken = data.refresh_token;
+        config.user.tokenType = data.token_type;
+        config.user.expiresIn = data.expires_in;
+      };
 
-        return this.admin.getTables(0,0).finally(function () {
-          config.authorization = oldAuthorization;
-        });
+      self.setProjectId = function (projectId) {
+        config.projectId = projectId;
       };
 
       self.admin = {};
+
+      self.admin.checkToken = function (oauthObj) {
+        return $request({
+          endpoint: 'api/v1/users/current',
+          method: 'get',
+          headers: {
+            Authorization: [oauthObj.token_type, oauthObj.access_token].join(' ')
+          }
+        });
+      };
+      self.admin.checkAuth = function (username, password) {
+        return $request({
+          endpoint: 'api/v1/oauth',
+          method: 'post',
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+        }, {
+          username: username,
+          password: password,
+          grant_type: 'password'
+        });
+      };
+
+      self.admin.createUser = function (user) {
+        return $request({
+          endpoint: 'api/v1/users',
+          method: 'post',
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+        }, {
+          username: user.username,
+          password: user.password,
+          email: user.email
+        });
+      };
+
+      // User
+
+      self.admin.getUsers = function (size, page, filter) {
+        filter = filter || {};
+        return $request.get('api/v1/users', {
+          params: {
+            size: size,
+            page: page,
+            name: filter.name
+          }
+        });
+      };
+      self.admin.getUser = function () {
+        return $request.get('api/v1/users/current');
+      };
+
+      // Projects
+
+      self.admin.getCurrentProject = function () {
+        return $request.get('api/v1/projects/current');
+      };
+
+      self.admin.getProjects = function (size, page) {
+        return $request.get('api/v1/projects', {
+          params: {
+            size: size,
+            page: page
+          }
+        });
+      };
+      self.admin.createProject = function (project) {
+        return $request({
+          endpoint: 'api/v1/projects',
+          method: 'post'
+        }, project);
+      };
+      self.admin.updateProject = function (project) {
+        return $request({
+          endpoint: 'api/v1/projects',
+          method: 'put'
+        }, project);
+      };
+      self.admin.deleteProject = function () {
+        return $request({
+          endpoint: 'api/v1/projects',
+          method: 'delete'
+        });
+      };
+
+      // Project.users
+      self.admin.addProjectUser = function (user) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
+      };
+      self.admin.updateProjectUser = function (user) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: user.user_id,
+          role: user.role,
+          scope: user.scope
+        });
+      };
+      self.admin.removeProjectUser = function (userId) {
+        return $request({
+          method: 'delete',
+          endpoint: 'api/v1/projects/users'
+        }, {
+          user_id: userId
+        });
+      };
+
+      // Project.consumers
+      self.admin.addProjectConsumer = function (consumer) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/consumers'
+        }, {
+          description: consumer.description,
+          scope: consumer.scope
+        });
+      };
+      self.admin.updateProjectConsumer = function (consumer) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/projects/consumers'
+        }, {
+          client_id: consumer.client_id,
+          description: consumer.description,
+          scope: consumer.scope
+        });
+      };
+      self.admin.removeProjectConsumer = function (clientId) {
+        return $request({
+          method: 'delete',
+          endpoint: 'api/v1/projects/consumers'
+        }, {
+          client_id: clientId
+        });
+      };
 
       // Tables
 
       self.admin.getTables = function (size, page, filter) {
         var options = filter || {};
-        return $request.get('admin/tables', {
+        return $request.get('api/v1/admin/tables', {
           params: {
             size: size,
             page: page,
@@ -167,12 +342,12 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
       self.admin.getTableById = function (id) {
-        return $request.get('admin/tables/'+id);
+        return $request.get('api/v1/admin/tables/'+id);
       };
 
       self.admin.createTable= function (obj) {
         return $request({
-          endpoint: 'admin/tables/',
+          endpoint: 'api/v1/admin/tables/',
           method: 'post'
         }, {
           table: obj
@@ -180,7 +355,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
       self.admin.updateTableById = function (id, obj) {
         return $request({
-          endpoint: 'admin/tables/'+id,
+          endpoint: 'api/v1/admin/tables/'+id,
           method: 'put'
         }, {
           table: obj
@@ -188,8 +363,57 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
       self.admin.deleteTableById= function (id) {
         return $request({
-          endpoint: 'admin/tables/'+id,
+          endpoint: 'api/v1/admin/tables/'+id,
           method: 'delete'
+        });
+      };
+      self.admin.copyTableById= function (id) {
+        return $request({
+          endpoint: 'api/v1/admin/tables/'+id+'/copy',
+          method: 'post'
+        });
+      };
+
+      // Groups
+      self.admin.getGroups = function (size, page) {
+        return $request({
+          endpoint: 'api/v1/admin/groups',
+          method: 'get',
+          params: {
+            size: size,
+            page: page
+          }
+        });
+      };
+      self.admin.createGroup = function (obj) {
+        return $request({
+          endpoint: 'api/v1/admin/groups',
+          method: 'post'
+        }, obj);
+      };
+      self.admin.deleteGroupById = function (groupId) {
+        return $request({
+          endpoint: 'api/v1/admin/groups/' + groupId,
+          method: 'delete'
+        });
+      };
+      self.admin.getGroupById = function (groupId) {
+        return $request({
+          endpoint: 'api/v1/admin/groups/' + groupId,
+          method: 'get'
+        });
+      };
+      self.admin.updateGroupById = function (groupId, obj) {
+        return $request({
+          endpoint: 'api/v1/admin/groups/' + groupId,
+          method: 'put'
+        }, obj);
+      };
+
+      self.admin.copyGroupById = function (groupId) {
+        return $request({
+          endpoint: 'api/v1/admin/groups/' + groupId + '/copy',
+          method: 'post'
         });
       };
 
@@ -197,25 +421,28 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.admin.getTablesChangelogs = function () {
         return $request({
-          endpoint: 'admin/changelog/tables',
+          endpoint: 'api/v1/admin/changelog/tables',
           method: 'get'
         });
       };
       self.admin.getTableChangelogs = function (tableId) {
         return $request({
-          endpoint: 'admin/changelog/tables/' + tableId,
+          endpoint: 'api/v1/admin/changelog/tables/' + tableId,
           method: 'get'
         });
       };
-      self.admin.getTableChangelogsDiff = function (tableId) {
+      self.admin.getTableChangelogsDiff = function (tableId, compareID) {
         return $request({
-          endpoint: 'admin/changelog/tables/' + tableId + '/diff',
-          method: 'get'
+          endpoint: 'api/v1/admin/changelog/tables/' + tableId + '/diff',
+          method: 'get',
+          params: {
+            compare_with: compareID
+          }
         });
       };
       self.admin.rollbackTableToChangelog = function (tableId, rollbackId) {
         return $request({
-          endpoint: 'admin/changelog/tables/' + tableId + '/rollback/' + rollbackId,
+          endpoint: 'api/v1/admin/changelog/tables/' + tableId + '/rollback/' + rollbackId,
           method: 'post'
         });
       };
@@ -224,14 +451,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.admin.getTableAnalytics = function (tableId) {
         return $request({
-          endpoint: 'admin/tables/' + tableId + '/analytics',
+          endpoint: 'api/v1/admin/tables/' + tableId + '/analytics',
           method: 'get'
         });
       };
       // Decisions
 
       self.admin.getDecisions = function (tableId, size, page) {
-        return $request.get('admin/decisions', {
+        return $request.get('api/v1/admin/decisions', {
           params: {
             table_id: tableId,
             size: size,
@@ -240,19 +467,19 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
       self.admin.getDecisionById = function (historyId) {
-        return $request.get('admin/decisions/'+historyId);
+        return $request.get('api/v1/admin/decisions/'+historyId);
       };
 
 
       self.consumer = {};
       self.consumer.send = function (tableId, obj) {
         return $request({
-          endpoint: 'tables/' + tableId + '/decisions',
+          endpoint: 'api/v1/tables/' + tableId + '/decisions',
           method: 'post'
         }, obj);
       };
       self.consumer.check = function (decisionId) {
-        return $request.get('decisions/' + decisionId);
+        return $request.get('api/v1/decisions/' + decisionId);
       };
 
       return self;

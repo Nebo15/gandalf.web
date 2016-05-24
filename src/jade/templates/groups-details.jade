@@ -1,0 +1,31 @@
+.container-fluid
+
+  div.main-breadcrumb(ncy-breadcrumb)
+
+  .row
+    .col-md-12
+      .text-heading
+        .text-heading-label Name
+        | {{group.title}}
+      .text-heading(ng-if="group.description")
+        .text-heading-label Description
+        | {{group.description}}
+      .btn-actions: .btn-group.btn-group-sm
+        a.btn.btn-primary-clear(group-edit="group") Edit
+      hr
+  .row
+    .col-md-4.col-md-push-6
+      <p><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</b></p>
+      <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+    .col-md-6.col-md-pull-4
+      .panel.panel-default
+        .panel-heading Tables
+        .panel-body
+          p.list-group.list-group-panel
+            a.list-group-item.list-group-item--chevron(ng-repeat="table in group.tables", ui-sref="tables-details.edit({id: table.id})") {{table.title}}
+            a.list-group-item(group-table-add="group"): b.text-primary + create variant
+
+  .row: .col-md-6
+    button.btn.btn-danger(group-delete="group") Delete Group
+
+  p: br

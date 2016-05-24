@@ -1,0 +1,15 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Edit split test info
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-3.control-label Name
+        .col-sm-9: input.form-control(ng-model="group.title", required)
+      .form-group
+        label.col-sm-3.control-label Description
+        .col-sm-9: input.form-control(ng-model="group.description", placeholder="eg. Tell a few words about the group")
+  .modal-footer.clearfix
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save

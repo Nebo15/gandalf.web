@@ -1,0 +1,25 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Create variant
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-3.control-label From table
+        .col-sm-9: input.form-control(type="text", ng-model="model.table", typeahead-min-length="0",
+          typeahead-editable="false",
+          uib-typeahead="table as table.title for table in group.tables | filter:$viewValue ",
+          required
+        )
+      .form-group
+        label.col-sm-3.control-label Description
+        .col-sm-9: input.form-control(ng-model="model.title", placeholder="eg. Specify variant title")
+      .form-group
+        label.col-sm-3.control-label Clean rules?
+        .col-sm-9: .checkbox
+          label
+            input(type="checkbox", ng-model="model.clean")
+
+  .modal-footer.clearfix
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save
