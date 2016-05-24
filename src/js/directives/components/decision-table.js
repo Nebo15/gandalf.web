@@ -7,6 +7,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     scope: {
       table: '=model'
     },
+    transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
     link: function ($scope) {
 

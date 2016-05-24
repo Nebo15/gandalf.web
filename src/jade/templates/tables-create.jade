@@ -8,12 +8,7 @@ form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", na
         .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
 
   .container-fluid
-    .decision-table.has-shadow
-      decision-table(model="table")
-
-    br
-    div.row
-      .col.col-xs-12.text-right
-        button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
-          .btn-loader: .glyphicon.glyphicon-refresh
-          | Create
+    decision-table(model="table")
+      button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
+        .btn-loader: .glyphicon.glyphicon-refresh
+        | Create

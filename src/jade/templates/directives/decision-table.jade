@@ -45,7 +45,7 @@
     tbody.decision-table__add-row: tr: td
       a(ng-click="addNewRule()") + Add new row
 
-  //table.table.decision-table__table
+  table.table.decision-table__table
     tbody: tr
       th
         span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
@@ -55,7 +55,9 @@
       td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
 
 br
+.row: .col-sm-6
+  h6.form-control-heading Matching type
 .row
   .col-sm-6
-    h6.form-control-heading Matching type
     select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+  .col-sm-6(ng-transclude)
