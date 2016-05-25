@@ -15,13 +15,13 @@
       include:marked ../../content/guides/settings-project-users.md
     .col-md-6.col-md-pull-4
       .panel.panel-default
-        .panel-heading Users
+        .panel-heading Collaborators
         .panel-body
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
               br
               span.small.subtitle {{user.scope | translateArray: 'scopes.users_details.' | join: ', '}}
-            a.list-group-item(user-add="project"): b.text-primary + add user
+            a.list-group-item(user-add="project"): b.text-primary + add collaborator
 
    .row
     .col-md-4.col-md-push-6
