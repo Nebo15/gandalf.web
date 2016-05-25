@@ -6,8 +6,10 @@
 
   h4 History Details
   .history-detail
-    p
-      a(ui-sref="tables-details.edit({id: table.table.id})") Edit decision table
+
+    h5 Table:  {{table.table.title}}
+    .btn-group.btn-group-sm
+      a.btn.btn-primary(ui-sref="tables-details.edit({id: table.table.id})") Edit
     h5 Request
     div.preview
       div.preview__external
