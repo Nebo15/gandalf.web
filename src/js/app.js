@@ -23,7 +23,9 @@ angular.module('app', [
   'angular-loading-bar',
   'checklist-model',
 
-  'nebo-angular-validate'
+  'nebo-angular-validate',
+
+  'pascalprecht.translate'
 ]);
 
 angular.module('app').constant('ENV', window.env);

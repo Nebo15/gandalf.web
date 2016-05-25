@@ -18,6 +18,7 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'delete_project'
 ]);
 
+
 angular.module('app').constant('PROJECT_CONSUMER_SCOPES', [
   'read',
   'check'
