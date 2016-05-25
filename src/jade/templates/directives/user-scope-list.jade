@@ -13,7 +13,7 @@ div
 div
   .form-control-heading-small API Consumer Credentials
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['create_consumers','delete_consumers']"): label
+    .checkbox-inline(ng-repeat="scope in ['create_consumers','update_consumers','delete_consumers']"): label
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope) | translate}}
 div

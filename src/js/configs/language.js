@@ -11,6 +11,7 @@ angular.module('app').config(function($translateProvider) {
         'check': 'Create Decision via API',
 
         'create_consumers': 'Create',
+        'update_consumers': 'Update',
         'delete_consumers': 'Delete',
 
         'update_users': 'Update Access',
@@ -28,6 +29,7 @@ angular.module('app').config(function($translateProvider) {
         'check': 'Create Decision via API',
 
         'create_consumers': 'Create API keys',
+        'update_consumers': 'Update API keys',
         'delete_consumers': 'Delete API keys',
 
         'update_users': 'Update User Access',
