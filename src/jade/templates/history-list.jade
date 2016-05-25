@@ -20,7 +20,7 @@
         th Table Name
         th Decision
         th Action
-    tr(ng-repeat="table in tables", ng-click="toggleExpandTable(table)")
+    tr(ng-repeat="table in tables")
       td: a(ui-sref="history-details({id: table.id})") {{table.id | last: 6}}
       td {{table.createdAt | date: 'M/d/yy HH:mm:ss'}}
       td {{table.title}}
