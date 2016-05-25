@@ -19,7 +19,11 @@ angular.module('app').controller('userEditController', function ($scope, project
     $scope.project.removeUser($scope.user).then(function () {
       $uibModalInstance.dismiss('cancel');
     });
-  }
+  };
+
+  $scope.isRequired = function () {
+    return !(user.scope && user.scope.length > 0);
+  };
 });
 
 angular.module('app').directive('userEdit', function ($uibModal) {

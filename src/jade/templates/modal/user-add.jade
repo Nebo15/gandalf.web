@@ -7,7 +7,6 @@ form(ng-submit="save(form)", name="form", novalidate)
         label.col-sm-2.control-label Username
         .col-sm-10: input.form-control(type="text", ng-model="userSearch", typeahead-min-length="1",
             uib-typeahead="user as user.username for user in getUsers($viewValue)",
-
             required)
       hr
       .form-group(show-errors)
@@ -17,10 +16,12 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
         .col-sm-10
-          .checkbox(ng-repeat="scope in scopes"): label
-            input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
-              ng-required="!(user.scope && user.scope.length > 0)")
-            | {{scope}}
+          user-scope-list(model="user.scope", required="isRequired()")
+          //
+          //.checkbox(ng-repeat="scope in scopes"): label
+          //  input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
+          //    ng-required="!(user.scope && user.scope.length > 0)")
+          //  | {{scope | map: $root.APP.scopes}}
   .modal-footer
     button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
     button.btn.btn-primary(type='submit') Save

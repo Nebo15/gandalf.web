@@ -36,7 +36,11 @@ angular.module('app').controller('userAddController', function ($scope, $uibModa
     }).then(function () {
       $uibModalInstance.dismiss('cancel');
     });
-  }
+  };
+
+  $scope.isRequired = function () {
+    return !(user.scope && user.scope.length > 0);
+  };
 });
 
 angular.module('app').directive('userAdd', function ($uibModal) {
