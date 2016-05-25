@@ -49,7 +49,7 @@ $icons_sprite_url: sprite-url($icons) // This will force sprite generation, we n
 =svg($name, $width, $height)
   background: url("../images/svg/#{$name}.svg") no-repeat 0 0
   //background-image: inline-image('icons/svg/'+$sprite+'.svg','image/svg'); // to switches sprites to base64, elegant
-  +background-size(#{$width}px #{$height}px)
+  +background-size(#{$width}px, #{$height}px)
   width: #{$width}px
   height: #{$height}px
   display: inline-block
@@ -57,7 +57,7 @@ $icons_sprite_url: sprite-url($icons) // This will force sprite generation, we n
 =svgi($name, $width, $height)
   background: url("../images/svg/#{$name}.svg") no-repeat 0 0
   //background-image: inline-image('icons/svg/'+$sprite+'.svg','image/svg'); // to switches sprites to base64, elegant
-  +background-size(#{$width}px #{$height}px)
+  +background-size(#{$width}px, #{$height}px)
 
 =sz($sprite, $percent: 1, $map: $icons)
 
