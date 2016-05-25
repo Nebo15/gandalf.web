@@ -19,7 +19,7 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
       p Check you data and <b>try again</b>.
 
     decision-table(model="table")
-      .text-right
+      .decision-buttons
         button.btn.btn-danger(ng-click="deleteTable(table)") Delete
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh

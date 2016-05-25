@@ -4,13 +4,13 @@
     include:marked ../content/guides/decision-history-list.md
 
 .container-fluid
-  form
+  .row: .col-sm-4: form
     .form-group
       input.form-control(type="search", ng-model="filters.table.title", placeholder="Enter table name..",
         typeahead-on-select="onSelectTable($item, $model, $label, $event)",
         uib-typeahead="table.title for table in searchHistories($viewValue)")
 
-  table.table
+  .table-responsive: table.table
     thead
       tr
         th ID

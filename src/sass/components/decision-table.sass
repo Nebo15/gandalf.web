@@ -107,6 +107,15 @@ body table.table
 .table-default-decision
   background-color: #eefff9
 
+  .form-control
+    min-width: 100px
+  +max-screen($screen-sm-max)
+    border: 0
+
+    td, th
+      display: block
+      margin: -1px
+
 .table-group
   margin-bottom: 20px
 
