@@ -10,6 +10,19 @@
 
 .btn:active
   box-shadow: none
+.btn
+  text-transform: uppercase
+  padding-top: 10px
+  padding-bottom: 10px
+
+  padding-left: 20px
+  padding-right: 20px
+  font-size: 12px
+  border-width: 2px
+
+
+
+
 
 .btn-loading
   .btn-loader
@@ -44,17 +57,17 @@
 
 .btn-glyphicon
 
-  margin-left: -1* $padding-base-horizontal
+  margin-left: -20px
 
-  margin-top: (-1*$padding-base-vertical)-1px
-  margin-bottom: -1* $padding-base-vertical
-  margin-right: $padding-base-horizontal
+  margin-top: -11px
+  margin-bottom: -10px
+  margin-right: 10px
 
-  padding: $padding-base-vertical $padding-base-horizontal
+  padding: 10px
 
   &.btn-glyphicon-right
-    margin-left: $padding-base-horizontal
-    margin-right: -1* $padding-base-horizontal
+    margin-left: 10px
+    margin-right: -20px
 
   color: white
   line-height: inherit
@@ -68,9 +81,32 @@
 .btn-actions
   margin-top: 20px
 
+=btn-clear-variant($name, $color)
+  //.btn-#{$name}-clear
+  .btn-#{$name}
+    //+button-variant($color, transparent, $color)
+    &:hover
+      background-color: $color
+      color: white
+    &:active
+      background-color: darken($color, 17%)
+      color: white
+    &:disabled, &[disabled]
+      &, &:hover
+        background-color: lighten($color, 17%)
+        color: $color
 
-.btn-primary-clear
+
++btn-clear-variant(default, $btn-default-border)
++btn-clear-variant(primary, $brand-primary)
++btn-clear-variant(success, $brand-success)
++btn-clear-variant(warning, $brand-warning)
++btn-clear-variant(danger,  $brand-danger)
++btn-clear-variant(info,  $brand-info)
+
+.btn-primary-matching
   +button-variant($brand-primary, transparent, $brand-primary)
+  border-width: 1px
 
 
 .btn-default-text
@@ -96,8 +132,6 @@
     border-color: #e4e4e4
     color: $text-color
     min-width: 100px
-
-
 
     &.active
       border-color: $btn-primary-border

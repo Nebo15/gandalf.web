@@ -8,8 +8,8 @@ angular.module('app').directive('selectMatchingType', function () {
     //  '<option value="{{$root.APP.matchingTypes.first}}">Decision Table - Return First Passed Rule</option> ' +
     //'</select>',
     template: '<div class="btn-group btn-group-matching">' +
-      '<label class="btn btn-primary-clear" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.all">All</label> ' +
-      '<label class="btn btn-primary-clear" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.first">First</label>' +
+      '<label class="btn btn-primary-matching" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.all">All</label> ' +
+      '<label class="btn btn-primary-matching" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.first">First</label>' +
     '</div>',
     scope: {
       model: '=ngModel',
