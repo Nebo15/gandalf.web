@@ -42,6 +42,7 @@ body table.table
 
 
   th, td
+    box-sizing: border-box
 
     &.table-decision-column-add
       cursor: pointer
@@ -70,17 +71,23 @@ body table.table
       position: static
 
 .table-decision-column-index
-  min-width: 60px
-  max-width: 60px
+  width: 40px
 
 .table-decision-column-title
-  min-width: 120px
+  min-width: 200px
 .table-decision-column-condition
   min-width: 120px
 .table-decision-column-decision
-  min-width: 120px
-.table-decision-column-actions
-  min-width: 130px
+  min-width: 150px
+
+
+.table-decision-column-action
+  min-width: 200px
+  width: 200px
+
+
+.table-decision-column-add
+  width: 40px
 
 .table.table-add-row
   margin-top: -1px
