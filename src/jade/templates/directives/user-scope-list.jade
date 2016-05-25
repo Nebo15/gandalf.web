@@ -1,44 +1,48 @@
-p
+div
   .form-control-heading-small Project
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'edit_project'", ng-required="isRequired")
-    | Change Settings
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'delete_project'", ng-required="isRequired")
-    | Delete
-p
+  .checkbox-group
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'edit_project'", ng-required="isRequired")
+      | Change Settings
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'delete_project'", ng-required="isRequired")
+      | Delete
+div
   .form-control-heading-small Decision Tables
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'read'", ng-required="isRequired")
-    | View
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'create'", ng-required="isRequired")
-    | Create
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'update'", ng-required="isRequired")
-    | Update
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'delete'", ng-required="isRequired")
-    | Delete
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'check'", ng-required="isRequired")
-    | Create Decision via API
-p
+  .checkbox-group
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'read'", ng-required="isRequired")
+      | View
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'create'", ng-required="isRequired")
+      | Create
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'update'", ng-required="isRequired")
+      | Update
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'delete'", ng-required="isRequired")
+      | Delete
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'check'", ng-required="isRequired")
+      | Create Decision via API
+div
   .form-control-heading-small API Consumer Credentials
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'create_consumers'", ng-required="isRequired")
-    | Create
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'delete_consumers'", ng-required="isRequired")
-    | Delete
-p
+  .checkbox-group
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'create_consumers'", ng-required="isRequired")
+      | Create
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'delete_consumers'", ng-required="isRequired")
+      | Delete
+div
   .form-control-heading-small Project Collaborators
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'add_users'", ng-required="isRequired")
-    | Share Access
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'update_users'", ng-required="isRequired")
-    | Update Access
-  .checkbox-inline: label
-    input(type="checkbox", checklist-model="model", checklist-value="'delete_users'", ng-required="isRequired")
-    | Remove Access
+  .checkbox-group
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'add_users'", ng-required="isRequired")
+      | Share Access
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'update_users'", ng-required="isRequired")
+      | Update Access
+    .checkbox-inline: label
+      input(type="checkbox", checklist-model="model", checklist-value="'delete_users'", ng-required="isRequired")
+      | Remove Access

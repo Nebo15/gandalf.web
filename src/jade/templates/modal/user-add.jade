@@ -15,7 +15,7 @@ form(ng-submit="save(form)", name="form", novalidate)
           input.form-control(ng-model="user.role", disabled, required)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
-        .col-sm-10
+        .col-sm-10.form-control-block
           user-scope-list(model="user.scope", required="isRequired()")
           //
           //.checkbox(ng-repeat="scope in scopes"): label
