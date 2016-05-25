@@ -1,15 +1,16 @@
-form.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
+form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
   .info-panel.has-navbar: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
     .info-panel-body
-      .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Untitled project")
-      .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
+      .row: .col-sm-6
+        .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Table name")
+        .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
 
   .container-fluid
     .alert.alert-warning(ng-if="!saved").ng-cloak
       .alert-btn-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
-          .btn-loader: .glyphicon.glyphicon-refresh.btn-glyphicon
+          .btn-loader: .glyphicon.glyphicon-refresh
           | Save
       p This table have unsaved data. You need to save changes manually.
 
@@ -17,13 +18,9 @@ form.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
       h4 Error
       p Check you data and <b>try again</b>.
 
-    .decision-table
-      decision-table(model="table")
-    br
-    div.row
-      .col.col-xs-6
+    decision-table(model="table")
+      .decision-buttons
         button.btn.btn-danger(ng-click="deleteTable(table)") Delete
-      .col.col-xs-6.text-right
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
           | Save
@@ -31,28 +28,7 @@ form.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
           i.glyphicon.glyphicon-check.btn-glyphicon
           | Saved
 
-
-    //.row
-      .col-md-4
-        h3 Tools
-        .list-group
-          a.list-group-item(ui-sref="tables-details.debugger({id: table.id})") Debugger
-          a.list-group-item(ui-sref="history-list({tableId: table.id})") History
-          a.list-group-item(ui-sref="tables-details.analytics({id: table.id})") Analytics
-      .col-md-6
-        h3 Revisions
-        div.list-group.changelogs-list
-          div.list-group-item.clearfix(ng-repeat="changelog in changelogs")
-            span.pull-right
-              a.btn.btn-warning(ng-click="rollbackChangelog(changelog)") Rollback
-            b.list-group-item-heading {{changelog.updatedAt | date: 'medium'}}
-            br
-            span by {{changelog.author}}
-
-
-    br
-    .panel.panel-default: .panel-body
-      include:marked ../content/guides/decision-tables.md
-      pre
-        | $ curl -u API_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
-        |   -d '{{table | sampleCurl}}'
+.info-panel: .container-fluid
+  .info-panel-heading Decision Table
+  .info-panel-body
+    include:marked ../content/guides/decision-tables.md

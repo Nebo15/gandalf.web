@@ -8,10 +8,26 @@
   from
     transform: rotate(359deg)
 
+.btn:active
+  box-shadow: none
+.btn
+  text-transform: uppercase
+  padding-top: 10px
+  padding-bottom: 10px
+
+  padding-left: 20px
+  padding-right: 20px
+  font-size: 12px
+  border-width: 2px
+
+
+
+
+
 .btn-loading
   .btn-loader
     display: none
-    //margin-left: 10px
+    margin-right: 10px
     .glyphicon
       margin-right: 0
 
@@ -24,15 +40,77 @@
       display: inline-block
 
 
+=btn-glyphicon-variant($name, $bg-color)
+  .btn-#{$name} &
+    background-color: $bg-color
+  .btn-#{$name}:disabled &,
+  .btn-#{$name}[disabled] &
+    background-color: $bg-color !important
+
+  .btn-#{$name}:hover &
+    background-color: darken($bg-color, 17%)
+
+  .btn-#{$name}.active &,
+  .btn-#{$name}:focus &,
+  .btn-#{$name}:active &
+    background-color: darken($bg-color, 25%)
+
+.btn-glyphicon
+
+  margin-left: -20px
+
+  margin-top: -11px
+  margin-bottom: -10px
+  margin-right: 20px
+
+  padding: 10px
+
+  &.btn-glyphicon-right
+    margin-left: 20px
+    margin-right: -20px
+
+  color: white
+  line-height: inherit
+
+  +btn-glyphicon-variant(default, $btn-default-border)
+  +btn-glyphicon-variant(primary, $btn-primary-border)
+  +btn-glyphicon-variant(warning, $btn-warning-border)
+  +btn-glyphicon-variant(success, $btn-success-border)
+  +btn-glyphicon-variant(danger,  $btn-danger-border)
 
 .btn-actions
   margin-top: 20px
 
+=btn-clear-variant($name, $color)
+  //.btn-#{$name}-clear
+  .btn-#{$name}
+    //+button-variant($color, transparent, $color)
+    &:hover
+      background-color: $color
+      color: white
+    &:active
+      background-color: darken($color, 17%)
+      color: white
+    &:disabled, &[disabled]
+      &, &:hover
+        background-color: lighten($color, 17%)
+        color: $color
 
-.btn-primary-clear
+
++btn-clear-variant(default, $btn-default-border)
++btn-clear-variant(primary, $brand-primary)
++btn-clear-variant(success, $brand-success)
++btn-clear-variant(warning, $brand-warning)
++btn-clear-variant(danger,  $brand-danger)
++btn-clear-variant(info,  $brand-info)
+
+.btn-primary-matching
   +button-variant($brand-primary, transparent, $brand-primary)
+  border-width: 1px
 
 
+.btn-default-text
+  +button-variant($btn-default-color, transparent, transparent)
 .btn-primary-text
   +button-variant($brand-primary, transparent, transparent)
 .btn-danger-text
@@ -46,3 +124,17 @@
 
   +button-variant(#3d3d3d, transparent, $btn-primary-bg)
   border-radius: 0
+
+
+.btn-group-matching
+  .btn
+    text-transform: uppercase
+    border-color: #e4e4e4
+    color: $text-color
+    min-width: 100px
+
+    &.active
+      border-color: $btn-primary-border
+      color: $btn-primary-color
+      box-shadow: none
+

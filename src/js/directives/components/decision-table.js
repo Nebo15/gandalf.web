@@ -7,6 +7,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     scope: {
       table: '=model'
     },
+    transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
     link: function ($scope) {
 
@@ -14,7 +15,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.sortableOptions = {
         axis: 'y',
-        handle: '> .decision-table__handler'
+        handle: '> .table-decision-handler'
       };
 
       $scope.decisions = table.getDecisionVariants();

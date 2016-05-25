@@ -13,6 +13,16 @@ form(ng-submit="submit(form)", name="form", novalidate)
           required,
           placeholder="eg. Credit scoring..."
           )
+      .form-group(show-errors)
+        label.col-sm-2.control-label Description
+        .col-sm-10
+          input.form-control(
+          name="description",
+          type="text",
+          ng-model="model.description",
+          required,
+          placeholder="eg. Tell a few words about the project"
+          )
   .modal-footer
     button.btn.btn-primary(type='submit') Save
     button.btn.btn-warning(type='button', ng-click='cancel()') Cancel

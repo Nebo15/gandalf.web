@@ -2,7 +2,7 @@
 
 angular.module('app').directive('addNewField', function () {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     scope: {
       table: '='
     },

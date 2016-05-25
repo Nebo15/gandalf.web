@@ -7,9 +7,14 @@ $red: #e81a50
 $text-color: #3d3d3d
 $blue: #4498ee
 
-
 $table-bg: white
 $brand-primary: $red
+$brand-danger: #ff002a
+$brand-warning: #f0ad4e
+
+$brand-success: #5cb85c
+$brand-info: #5bc0de
+
 $body-bg: white
 
 $info-panel-bg: #fafafa !default
@@ -18,7 +23,8 @@ $font-family-base: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif 
 
 $brand-primary-light: lighten($brand-primary, 10%)
 
-$table-footer-bg: #f9f9f9
+$table-footer-bg: #f2f3f6
+$table-border-color: #e4e4e4
 
 $link-color: $blue
 
@@ -36,6 +42,22 @@ $btn-primary-bg: transparent
 $btn-primary-color: $text-color
 $btn-primary-border: $brand-primary
 
+$btn-danger-bg: transparent
+$btn-danger-color: $brand-danger
+$btn-danger-border: $brand-danger
+
+$btn-warning-bg: transparent
+$btn-warning-color: $brand-warning
+$btn-warning-border: $brand-warning
+
+$btn-success-bg: transparent
+$btn-success-color: $brand-success
+$btn-success-border: $brand-success
+
+$btn-info-bg: transparent
+$btn-info-color: $brand-info
+$btn-info-border: $brand-info
+
 $btn-default-color: $text-color
 
 $btn-border-width: 2px
@@ -50,6 +72,7 @@ $breadcrumb-color: $text-color
 
 @import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
+
 @import "../bower_components/angular-drag-columns/src/angular-drag-columns"
 @import "../bower_components/angular-table-fixed-rows/src/angular-table-fixed-rows"
 
@@ -72,6 +95,11 @@ $breadcrumb-color: $text-color
 @import components/welcome
 @import components/steps
 
++min-screen($container-lg)
+  .container-fluid
+    padding-left: 50px
+    padding-right: 50px
+
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
   display: none !important
@@ -80,7 +108,7 @@ $breadcrumb-color: $text-color
   cursor: pointer
 
 .wrap
-  min-height: calc(100vh - #{$navbar-height} - 90px)
+  min-height: calc(100vh - #{$navbar-height} - 120px)
   // 90px - footer height
 
 .border-left
@@ -103,6 +131,10 @@ tr.ui-sortable-helper
 .alert-btn-right
   float: right
   margin-top: -8px
+  margin-bottom: -8px
+
+.alert
+  +clearfix
 
 .preview
   position: relative
@@ -125,3 +157,13 @@ tr.ui-sortable-helper
   a
     margin-left: 10px
     margin-top: 10px
+
+.block
+  margin-bottom: 20px
+
+.decision-buttons
+  margin-top: 20px
+  +min-screen($screen-tablet)
+    text-align: right
+    margin-top: 0
+

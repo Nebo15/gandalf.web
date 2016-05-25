@@ -1,4 +1,7 @@
-.container-fluid
+.container-fluid.block
+
+  div(ncy-breadcrumb)
+
   .row
     .col.col-md-12
       h2 {{table.title}}
@@ -50,4 +53,11 @@
             | &#32;
             i.glyphicon.glyphicon-export
         div.preview__response(hljs, hljs-source="(response | json: 2)")
+
+.info-panel: .container-fluid
+  .info-panel-heading Sample CURL
+  .info-panel-body
+    pre
+      | $ curl -u API_KEY:API_SECRET http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
+      |   -d '{{table | sampleCurl}}'
 

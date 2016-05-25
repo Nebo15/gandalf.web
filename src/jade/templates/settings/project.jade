@@ -12,23 +12,23 @@
       hr
   .row
     .col-md-4.col-md-push-6
-      <p><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</b></p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+      include:marked ../../content/guides/settings-project-users.md
     .col-md-6.col-md-pull-4
       .panel.panel-default
         .panel-heading Users
         .panel-body
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
-              i.pull-right.subtitle {{user.role}}
+              br
+              span.small.subtitle {{user.scope | join: ', '}}
             a.list-group-item(user-add="project"): b.text-primary + add user
 
    .row
     .col-md-4.col-md-push-6
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      include:marked ../../content/guides/settings-project-consumers.md
     .col-md-6.col-md-pull-4
       .panel.panel-default
-        .panel-heading API Keys
+        .panel-heading API Consumers Credentials
         .panel-body
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer") {{consumer.description}}
