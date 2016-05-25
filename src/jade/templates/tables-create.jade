@@ -1,4 +1,4 @@
-form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
+form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
 
   .info-panel: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
@@ -13,3 +13,8 @@ form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", na
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
           | Create
+
+.info-panel: .container-fluid
+  .info-panel-heading Decision Table
+  .info-panel-body
+    include:marked ../content/guides/decision-tables.md
