@@ -46,7 +46,7 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
   };
   Rule.prototype.clone = function () {
     var obj = this.toJSON();
-    delete obj.id;
+    delete obj._id;
     return new Rule(obj);
   };
 

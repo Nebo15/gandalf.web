@@ -17,10 +17,12 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
 
     table.save().then(function () {
       $scope.error = null;
-      $scope.saved = true;
-
       table.rules.forEach(function (item) {
         item.isEditing = false;
+      });
+
+      $timeout(function () {
+        $scope.saved = true;
       });
 
     }, function (err) {
@@ -45,7 +47,8 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.$watch('table', function () {
+  $scope.$watch('table', function (val, old) {
+    console.log(val, old);
     $scope.saved = false;
   }, true);
 
