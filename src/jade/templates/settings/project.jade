@@ -1,4 +1,4 @@
-.container-fluid
+.block.container-fluid
   .row
     .col-md-12
       .text-heading
@@ -9,7 +9,14 @@
         | {{project.description}}
       .btn-actions: .btn-group.btn-group-sm
         a.btn.btn-primary(project-edit="project") Edit
-      hr
+      //hr
+.block
+  .info-panel: .container-fluid
+    .info-panel-body
+      div
+        b X-Application:&#32;
+        span {{project.id}}
+.container-fluid
   .row
     .col-md-4.col-md-push-6
       include:marked ../../content/guides/settings-project-users.md
