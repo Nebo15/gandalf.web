@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('app').filter('sampleCurl', function (APP) {
-  return function (table) {
+  return function (fields) {
     var example = {};
-    table.fields.forEach(function (item) {
+    fields.forEach(function (item) {
+      if (typeof item.value !== 'undefined' ) {
+        example[item.key] = item.value;
+        return;
+      }
+
       switch (item.type) {
         case APP.types.number:
           example[item.key] = 100;
