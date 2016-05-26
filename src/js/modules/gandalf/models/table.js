@@ -21,6 +21,21 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     }
   });
 
+  DecisionTable.prototype.clear = function () {
+    this.rules.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (item) {
+      this.deleteRule(item);
+    }.bind(this));
+
+    this.fields.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (field) {
+      console.log('delete', field);
+      this.deleteField(field);
+    }.bind(this));
+  };
+
   DecisionTable.prototype.fetch = function () {
     return $gandalf.admin.getTableById(this.id).then(function (resp) {
       return this.parse(resp.data);
@@ -40,6 +55,12 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
     this.rules.forEach(function (item) {
       item.removeConditionByIndex(fieldIdx);
+    })
+  };
+
+  DecisionTable.prototype.numberOfFields = function () {
+    return this.fields.filter(function (item) {
+      return !item.isDeleted;
     })
   };
 
@@ -74,6 +95,12 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     })
   };
 
+  DecisionTable.prototype.numberOfRules = function () {
+    return this.rules.filter(function (item) {
+      return !item.isDeleted;
+    })
+  };
+
   DecisionTable.prototype.findConditionsByField = function (field) {
     return [].concat.apply([], this.rules.map(function (item) {
       return item.conditions;
@@ -83,12 +110,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   };
 
   DecisionTable.prototype.save = function () {
-    this.fields.filter(function (item) {
-      return item.isDeleted;
-    }).forEach(function (field) {
-      console.log('delete', field);
-      this.deleteField(field);
-    }.bind(this));
+    this.clear();
 
     var self = this;
     return $gandalf.admin.updateTableById(this.id, this).then(function (resp) {
@@ -97,6 +119,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
   };
   DecisionTable.prototype.create = function () {
+    this.clear();
+
     var self = this;
     return $gandalf.admin.createTable(this.toJSON()).then(function (obj) {
       self.parse(obj.data);

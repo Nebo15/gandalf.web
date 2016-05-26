@@ -11,6 +11,8 @@ angular.module('app', [
   'ct.ui.router.extras',
 
   'ngStorage',
+  'ngMessages',
+
   'ui.bootstrap',
   'ui.sortable',
   'ncy-angular-breadcrumb',

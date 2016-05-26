@@ -5,7 +5,8 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
   return {
     restrict: 'E',
     scope: {
-      table: '=model'
+      table: '=model',
+      mainForm: '=form',
     },
     transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
@@ -37,6 +38,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
           }
         });
       };
+
       $scope.editField = function (field) {
         if (field.isDeleted) return $scope.revertField(field);
 

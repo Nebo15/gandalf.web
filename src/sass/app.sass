@@ -70,6 +70,14 @@ $breadcrumb-bg: transparent
 $breadcrumb-padding-horizontal: 0
 $breadcrumb-color: $text-color
 
+//$zindex-navbar:            1000 !default;
+//$zindex-dropdown:          1000 !default;
+//$zindex-popover:           1060 !default;
+//$zindex-tooltip:           1070 !default;
+//$zindex-navbar-fixed:      1030 !default;
+//$zindex-modal-background:  1040 !default;
+$zindex-popover:             1040
+
 @import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
 
@@ -181,3 +189,8 @@ tr.ui-sortable-helper
     margin-left: 5px
     margin-right: 8px
 
+.table-responsive
+  margin-bottom: 0 !important
+
+[ng-messages].ng-inactive
+  display: none !important

@@ -14,11 +14,6 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     if ($scope.isSaving) return;
 
     $scope.isSaving = true;
-    table.rules.filter(function (item) {
-      return item.isDeleted;
-    }).forEach(function (item) {
-      table.deleteRule(item);
-    });
 
     table.save().then(function () {
       $scope.error = null;
