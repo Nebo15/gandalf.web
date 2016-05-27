@@ -1,21 +1,19 @@
 .block.container-fluid
   .row
     .col-md-12
-      .text-heading
-        .text-heading-label Name
-        | {{project.title}}
-      .text-heading(ng-if="project.description")
-        .text-heading-label Description
-        | {{project.description}}
-      .btn-actions: .btn-group.btn-group-sm
-        a.btn.btn-primary(project-edit="project") Edit
-      //hr
-.block
-  .info-panel: .container-fluid
-    .info-panel-body
-      div
+      .block
+        .text-heading
+          .text-heading-label Name
+          | {{project.title}}
+        .text-heading(ng-if="project.description")
+          .text-heading-label Description
+          | {{project.description}}
+        .btn-actions: .btn-group.btn-group-sm
+          a.btn.btn-primary(project-edit="project") Edit
+      p
         b X-Application:&#32;
         span {{project.id}}
+      //hr
 .container-fluid
   .row
     .col-md-4.col-md-push-6
