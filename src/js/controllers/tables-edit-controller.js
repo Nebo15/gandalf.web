@@ -48,7 +48,6 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
   };
 
   $scope.$watch('table', function (val, old) {
-    console.log(val, old);
     $scope.saved = false;
   }, true);
 

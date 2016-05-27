@@ -2,7 +2,6 @@
 
 angular.module('app').controller('AppController', function ($scope, $state, ProjectsService, projects, user) {
 
-  console.log('app controller', user, projects);
   $scope.projects = projects;
   $scope.user = user;
   $scope.selectProject = ProjectsService.selectProject;

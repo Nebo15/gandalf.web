@@ -18,7 +18,6 @@ angular.module('app').controller('groupTableAddController', function ($scope, gr
       if ($scope.model.clean) {
         clonedTable.cleanRules(); // remove rules
       }
-      console.log(clonedTable);
       return clonedTable.save();
     }).then(function (clonedTable) {
       // here we can specify amount of request fot a new table

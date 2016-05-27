@@ -22,7 +22,6 @@ angular.module('app').controller('TablesListController', function ($scope, $time
     });
 
     DecisionTable.find(val[0], val[1]).then(function (resp) {
-      console.log('resp', resp, resp.data);
       $scope.filters.total = resp.paging.total;
       $scope.tables = resp.data;
     });

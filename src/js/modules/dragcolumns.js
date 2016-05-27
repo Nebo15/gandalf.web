@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dragcolumns', []).run(function () {
-  console.log('dragcolumns run');
+
 }).directive('dragcolumns', function () {
 
   function indexOfElement (elem, setElms) {
@@ -50,7 +50,7 @@ angular.module('dragcolumns', []).run(function () {
   return {
     restrict: 'A',
     link: function (scope, el, attrs) {
-      console.log('dragcolumns');
+
       var table = angular.element('<table></table>');
       table[0].className = el[0].className;
       table.addClass('dragcolumns-table');
