@@ -28,8 +28,8 @@
             input.form-control(ng-model="rule.title", placeholder="Title")
             input.form-control(ng-model="rule.description", placeholder="Description")
           div(ng-if="!rule.isEditing")
-            b {{rule.title}}
-            .small {{rule.description}}
+            b(uib-tooltip="{{rule.title}}") {{rule.title | maxLength: 64}}
+            .small(uib-tooltip="{{rule.description}}", tooltip-append-to-body="true") {{rule.description | maxLength: 180}}
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
           field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
           field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
