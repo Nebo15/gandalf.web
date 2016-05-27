@@ -32,7 +32,8 @@
             td
               b {{rule.title}}
               .small {{rule.description}}
-            td(ng-repeat="condition in rule.conditions", ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
+            td(ng-repeat="condition in rule.conditions", ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}")
+              field-static(condition="condition.condition", value="condition.value")
             td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
               | {{rule.than}}
         tfoot
