@@ -23,6 +23,10 @@ angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
       AuthService.logout();
       $rootScope.$broadcast('login:required');
     }
+    //if (data.status == 404) {
+    //  AuthService.logout();
+    //  $rootScope.$broadcast('login:required');
+    //}
   });
 
   AuthService.signInFromStorage();
