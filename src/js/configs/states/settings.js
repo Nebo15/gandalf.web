@@ -5,7 +5,7 @@ angular.module('app').config(function ($stateProvider) {
   $stateProvider.state('settings', {
     url: '/settings',
     parent: 'private',
-    abstract: 'true',
+    abstract: '.project',
     template: '<ui-view />'
   });
 

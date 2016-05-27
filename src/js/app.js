@@ -9,6 +9,7 @@ angular.module('app', [
   'ng-gandalf',
   'ui.router',
   'ct.ui.router.extras',
+  'ui.router.default',
 
   'ngStorage',
   'ngMessages',
