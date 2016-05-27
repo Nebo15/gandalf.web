@@ -58,6 +58,6 @@
   .info-panel-heading Sample CURL
   .info-panel-body
     pre
-      | $ curl -u API_KEY:API_SECRET -h 'X-Application: {{project.id}}' http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
+      | $ curl -u API_KEY:API_SECRET -H 'X-Application: {{project.id}}' http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
       |   -d '{{fields | sampleCurl}}'
 
