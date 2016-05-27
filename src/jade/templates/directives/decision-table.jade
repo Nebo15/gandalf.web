@@ -60,14 +60,14 @@
     th
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
+    td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title", required)
+    td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
     td
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Decision")
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
         decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Score")
 
-    td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title", required)
-    td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
 
   .hidden
     // table model validations
