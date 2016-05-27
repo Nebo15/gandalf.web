@@ -17,13 +17,8 @@
           | &#32;
           i.glyphicon.glyphicon-export
       div.preview__response(hljs, hljs-source="(table.request | json: 2)")
-
-    h5 Final Decision
-    p {{table.finalDecision}}
-    h5 Default Decision
-    p {{table.defaultDecision}}
     h5 Decision Flow
-    .history-detail__table.ng-cloak(ng-if="table")
+    .history-detail__table.ng-cloak(ng-if="table"): .table-group
       .table-responsive: table.table.table-decision
         thead: tr
           th.table-decision-column-index #
@@ -40,3 +35,11 @@
             td(ng-repeat="condition in rule.conditions", ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
             td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
               | {{rule.than}}
+        tfoot
+          tr
+            th(colspan="{{table.fields.length + 2}}") Default Decision
+            td.table-decision-column-decision {{table.defaultDecision}}
+          tr.table-decision-final-decision-row
+            th(colspan="{{table.fields.length + 2}}") Final Decision
+            td.table-decision-column-decision {{table.finalDecision}}
+
