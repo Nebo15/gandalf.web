@@ -25,11 +25,11 @@
         td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
         td.table-decision-column-title
           div(ng-if="rule.isEditing")
-            input.form-control(ng-model="rule.title", placeholder="Title")
-            input.form-control(ng-model="rule.description", placeholder="Description")
+            input.form-control(type="text", ng-model="rule.title", placeholder="Title")
+            input.form-control(type="text", ng-model="rule.description", placeholder="Description")
           div(ng-if="!rule.isEditing")
-            b(uib-tooltip="{{rule.title}}") {{rule.title | maxLength: 64}}
-            .small(uib-tooltip="{{rule.description}}", tooltip-append-to-body="true") {{rule.description | maxLength: 180}}
+            b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
+            .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
           field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
           field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")

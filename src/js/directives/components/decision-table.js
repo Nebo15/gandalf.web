@@ -6,7 +6,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     restrict: 'E',
     scope: {
       table: '=model',
-      mainForm: '=form',
+      mainForm: '=form'
     },
     transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
@@ -108,6 +108,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.onChangeMatchingType = function (type) {
 
+        console.log('onChangeMatchingType', type);
         var transformFn = function (val) {
           return val
         };
@@ -119,7 +120,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             break;
           case APP.matchingTypes.all:
             transformFn = function (val) {
-              return parseInt(val, 10);
+              return +val;
             };
             break;
         }
