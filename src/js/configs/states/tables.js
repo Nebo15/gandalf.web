@@ -6,7 +6,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'private',
     url: '/tables',
     abstract: 'tables-list',
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('tables-list', {

@@ -62,6 +62,18 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         })
       };
 
+      var editingCondition = [];
+      // Conditions
+      $scope.saveCondition = function (condition) {
+        condition.isEditing = false;
+      };
+      $scope.editCondition = function (condition) {
+        editingCondition.forEach($scope.saveCondition);
+        editingCondition = [];
+
+        condition.isEditing = true;
+        editingCondition.push(condition);
+      };
       // Rules
 
       $scope.validateRule = function (rule, form) {

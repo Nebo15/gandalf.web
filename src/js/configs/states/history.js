@@ -6,7 +6,10 @@ angular.module('app').config(function ($stateProvider) {
     parent: 'private',
     url: '/history',
     template: '<ui-view />',
-    abstract: 'history-list'
+    abstract: 'history-list',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('history-list', {

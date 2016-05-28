@@ -20,10 +20,12 @@
       th.table-decision-column-action Action
 
     tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-      tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}", skip-form="rule.isDeleted",
-      ng-form="ruleForm", ng-click="editRule(rule)")
+      tr(ng-repeat="rule in table.rules",
+        ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}",
+        skip-form="rule.isDeleted",
+        ng-form="ruleForm")
         td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
-        td.table-decision-column-title
+        td.table-decision-column-title(ng-click="editRule(rule)")
           div(ng-if="rule.isEditing")
             input.form-control(type="text", ng-model="rule.title", placeholder="Title")
             input.form-control(type="text", ng-model="rule.description", placeholder="Description")
@@ -31,20 +33,26 @@
             b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
             .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-          field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
-          field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
-        td.table-decision-column-add
-        td.table-decision-column-decision
-          div.form-control-static(ng-if="!rule.isEditing") {{rule.than}}
-          span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-            decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Decision")
-          span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-            decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Score")
+          field-static.table-decision-condition-field(ng-if="!condition.isEditing", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
+          div.decision-condition(ng-if="condition.isEditing")
+            field.decision-condition-field(type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
+            .decision-condition-btn.btn-group.btn-group-sm
+              button.btn.btn-primary(ng-click="saveCondition(condition)") Save
+            .decision-condition-align
 
-        td.table-decision-column-action: .form-control-static
-          div(ng-if="rule.isDeleted")
+        td.table-decision-column-add
+        td.table-decision-column-decision(ng-click="editRule(rule)")
+          div(ng-if="!rule.isEditing").form-control-static {{rule.than}}
+          div(ng-if="rule.isEditing")
+            span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Decision")
+            span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
+              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Score")
+
+        td.table-decision-column-action
+          div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
-          div(ng-if="!rule.isDeleted")
+          div(ng-if="!rule.isDeleted").btn-group
             a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
             //a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate

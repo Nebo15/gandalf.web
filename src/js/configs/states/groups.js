@@ -6,7 +6,10 @@ angular.module('app').config(function ($stateProvider) {
     parent: 'private',
     url: '/groups',
     abstract: 'groups-list',
-    template: '<ui-view />'
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('groups-list', {
