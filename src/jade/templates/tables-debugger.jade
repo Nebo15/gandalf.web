@@ -59,7 +59,7 @@
   .info-panel-body
     | Copy this 
     a(href='https://en.wikipedia.org/wiki/CURL') CURL
-    | &nbsp;request to your CLI to make a test request to this table. Don't forget to set correct Client ID and Client Secret. You can find them on settings page.
+    | &nbsp;string to your CLI to make a test request to this table. Don't forget to set correct Client ID and Client Secret. You can find them on settings page.
     pre
       | $ curl -u CLIENT_ID:CLIENT_SECRET -H 'X-Application: {{project.id}}' http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
       |   -d '{{fields | sampleCurl}}'
