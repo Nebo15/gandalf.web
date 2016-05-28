@@ -8,12 +8,11 @@
         .text-heading(ng-if="project.description")
           .text-heading-label Description
           | {{project.description}}
+        .text-heading(ng-if="project.description")
+          .text-heading-label Application ID
+          | {{project.id}}
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
-      p
-        b X-Application:&#32;
-        span {{project.id}}
-      //hr
 .container-fluid
   .row
     .col-md-4.col-md-push-6
