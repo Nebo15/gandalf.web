@@ -204,6 +204,9 @@ tr.ui-sortable-helper
   position: absolute
   width: 310px
 
+  min-width: 100%
+  min-width: calc(100% + 2px)
+
   top: -1px
   left: -1px
   bottom: -1px
@@ -213,9 +216,17 @@ tr.ui-sortable-helper
   border: 1px solid #e5e5e5
   box-shadow: 0 1px 10px -4px rgba(0,0,0,.3)
   background: white
-.decision-condition-field, .decision-condition-btn
+
+  z-index: 1
+
+.decision-condition-field, .decision-condition-btn, .decision-condition-align
   display: inline-block
   vertical-align: middle
+
+.decision-condition-align
+  height: 100%
+  width: 0
+
 .decision-condition-btn
   .btn
     //max-height: 100%
