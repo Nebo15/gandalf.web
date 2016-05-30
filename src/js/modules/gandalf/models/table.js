@@ -5,6 +5,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.id = id;
     this.fields = [];
     this.rules = [];
+    this.variants = [];
     this.defaultDecision = null;
     this.defaultTitle = null;
     this.defaultDescription = null;
@@ -151,6 +152,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       return new this._modelRule(item);
     }.bind(this));
 
+    this.variants = data.variants;
+
     this.matchingType = data.matching_type || 'first';
     this.defaultDecision = data.default_decision;
     this.defaultTitle = data.default_title;
@@ -158,6 +161,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
     this.title = data.title;
     this.description = data.description;
+
+
 
     return this;
   };
@@ -171,7 +176,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       default_description: this.defaultDescription,
       title: this.title,
       description: this.description,
-      matching_type: this.matchingType
+      matching_type: this.matchingType,
+      variants: this.variants
     };
   };
 
