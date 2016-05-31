@@ -1,47 +1,66 @@
-.table-group
-  .table-responsive: table.table.table-decision(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
+.table-group(ng-form="tableForm")
+  .table-responsive: table.table.table-hover.table-decision(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
     thead(table-fixed-row): tr
       th.table-decision-column-index #
       th.table-decision-column-title Title
         .small.text-light Description
       th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
-        ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
+      ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
         .small.text-light {{condition.key}}
           span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
-      th.table-decision-column-add(add-new-field, table="table") +
+      th.table-decision-column-add(add-new-field, table="table")
+        div(uib-tooltip="Add Field"): div(uib-popover="Should have at least 1 column",
+        popover-placement="right",
+        popover-is-open="tableForm.tableFields.$error.required && mainForm.$submitted",
+        popover-trigger="custom",
+        popover-append-to-body="false") +
       th.table-decision-column-decision
         span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
         span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
       th.table-decision-column-action Action
 
     tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-      tr(ng-repeat="rule in table.rules", ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}", skip-form="rule.isDeleted",
-      ng-form="ruleForm", ng-click="editRule(rule)")
+      tr(ng-repeat="rule in table.rules",
+        ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}",
+        skip-form="rule.isDeleted",
+        ng-form="ruleForm")
         td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
-        td.table-decision-column-title
+        td.table-decision-column-title(ng-click="editRule(rule)")
           div(ng-if="rule.isEditing")
-            input.form-control(ng-model="rule.title", placeholder="Title")
-            input.form-control(ng-model="rule.description", placeholder="Description")
+            input.form-control(type="text", ng-model="rule.title", placeholder="Title")
+            input.form-control(type="text", ng-model="rule.description", placeholder="Description")
           div(ng-if="!rule.isEditing")
-            b {{rule.title}}
-            .small {{rule.description}}
+            b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
+            .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-          field-static(ng-if="!rule.isEditing", condition="condition.condition", value="condition.value")
-          field(ng-if="rule.isEditing", type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
+          field-static.table-decision-condition-field(ng-if="!condition.isEditing", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
+          div.decision-condition(ng-if="condition.isEditing")
+            field.decision-condition-field(type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
+            .decision-condition-btn.btn-group.btn-group-sm
+              button.btn.btn-primary(ng-click="saveCondition(condition)") Save
+            .decision-condition-align
+
         td.table-decision-column-add
-        td.table-decision-column-decision
-          div.form-control-static(ng-if="!rule.isEditing") {{rule.than}}
-          decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than")
-        td.table-decision-column-action: .form-control-static
-          div(ng-if="rule.isDeleted")
-            a.btn.btn-default(ng-click="revertRule(rule)"): i.glyphicon.glyphicon-repeat
-          div(ng-if="!rule.isDeleted")
-            a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
-            a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
-            a.btn(ng-click="copyRule(rule)", stop-propagation="click"): i.glyphicon.glyphicon-duplicate
-            a.btn.btn-danger-text(ng-click="deleteRule(rule)"): i.glyphicon.glyphicon-remove
+        td.table-decision-column-decision(ng-click="editRule(rule)")
+          div(ng-if="!rule.isEditing").form-control-static {{rule.than}}
+          div(ng-if="rule.isEditing")
+            span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Decision")
+            span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
+              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Score")
+
+        td.table-decision-column-action
+          div(ng-if="rule.isDeleted").btn-group
+            a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
+          div(ng-if="!rule.isDeleted").btn-group
+            a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+            //a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
+            a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
+            a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
 
   table.table.table-add-row: tr: td(ng-click="addNewRule()")
+    div.form-error(ng-messages="tableForm.tableRules.$error", role="alert", ng-if="mainForm.$submitted")
+      div(ng-message="required") You should have at least 1 row
     span.plus +
     | Add row
 
@@ -49,12 +68,24 @@
     th
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
-    td: decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision")
     td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title", required)
     td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description", required)
+    td
+      span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+        decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Decision")
+      span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
+        decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Score")
+
+
+  .hidden
+    // table model validations
+    input(hidden, name="tableRules", ng-required="table.numberOfRules() == 0", ng-model="hiddenRules.rules")
+    input(hidden, name="tableFields", ng-required="table.numberOfFields() == 0", ng-model="hiddenRules.fields")
 
 .row: .col-sm-6
-  h6.form-control-heading Matching type
+  h6.form-control-heading Table Type
+    | &#32;
+    a.glyphicon.glyphicon-question-sign(href="http://nebo15.github.io/qbill.docs/gandalf.html#types", target="__blank")
 .row
   .col-sm-6
     select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")

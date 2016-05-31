@@ -1,15 +1,24 @@
-form.has-navbar.ng-cloak(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
+form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
 
   .info-panel: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
     .info-panel-body
       .row: .col-sm-6
-        .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Table name")
-        .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description")
+        .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Table name", required)
+        .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description", required)
 
   .container-fluid
-    decision-table(model="table")
+    .alert.alert-danger(ng-if="error").ng-cloak
+      h4 Error
+      p Check you data and <b>try again</b>.
+
+    decision-table(model="table", form="form")
       .text-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
           | Create
+
+.info-panel: .container-fluid
+  .info-panel-heading Decision Table
+  .info-panel-body
+    include:marked ../content/guides/decision-tables.md

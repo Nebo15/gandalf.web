@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('app').controller('userAddController', function ($scope, $uibModalInstance, project, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
+angular.module('app').controller('userAddController', function ($scope, _, $uibModalInstance, project, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
 
   $scope.project = project;
   $scope.userSearch = null;
@@ -9,13 +9,14 @@ angular.module('app').controller('userAddController', function ($scope, $uibModa
   });
   $scope.scopes = PROJECT_USER_SCOPES;
 
-  $scope.getUsers = function (str) {
+  $scope.getUsers = _.throttle(function (str) {
     return User.find(null, null, {
       name: str
     }).then(function (resp) {
       return resp.data;
     });
-  };
+  }, 300);
+
   $scope.openModal = function () {
 
   };
@@ -36,7 +37,11 @@ angular.module('app').controller('userAddController', function ($scope, $uibModa
     }).then(function () {
       $uibModalInstance.dismiss('cancel');
     });
-  }
+  };
+
+  $scope.isRequired = function () {
+    return !(user.scope && user.scope.length > 0);
+  };
 });
 
 angular.module('app').directive('userAdd', function ($uibModal) {

@@ -8,6 +8,7 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'check',
 
   'create_consumers',
+  'update_consumers',
   'delete_consumers',
 
   'update_users',
@@ -17,6 +18,7 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'edit_project',
   'delete_project'
 ]);
+
 
 angular.module('app').constant('PROJECT_CONSUMER_SCOPES', [
   'read',

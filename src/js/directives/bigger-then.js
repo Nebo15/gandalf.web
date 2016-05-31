@@ -14,7 +14,6 @@ angular.module('app').directive('biggerThen', function ($timeout) {
         ctrl.$validate();
       });
       ctrl.$validators.biggerThen = function (modelValue, viewValue) {
-        console.log('compare', viewValue, minValue);
         return ctrl.$isEmpty(viewValue) || (viewValue > minValue);
       };
     }

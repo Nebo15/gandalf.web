@@ -22,7 +22,6 @@ angular.module('app').directive('doubledInput', function ($timeout) {
         if (__valueChanged) { return; }
 
         __valuesChanged = true;
-        console.log('change value from values');
         scope.value = res.join(scope.separator);
         $timeout(function () { __valuesChanged = false; });
       });
@@ -30,7 +29,6 @@ angular.module('app').directive('doubledInput', function ($timeout) {
         if (__valuesChanged) { return; }
 
         __valueChanged = true;
-        console.log('change values from value');
         scope.values = res.split(scope.separator).map(function (item) {return +item;});
         $timeout(function () { __valueChanged = false; });
       }, true);

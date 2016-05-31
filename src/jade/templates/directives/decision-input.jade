@@ -1,8 +1,15 @@
-div(ng-if="type == $root.APP.matchingTypes.first")
-  input.form-control(type="text", ng-model="$parent.model", typeahead-min-length="0",
-    uib-typeahead="decision for decision in getDecisions($viewValue) | filter:$viewValue ",
-    validate="alphadashed",
-    typeahead-on-select="onSelect($item)",
-    required)
-div(ng-if="type == $root.APP.matchingTypes.all")
-  input.form-control(type="number", ng-model="$parent.model", required)
+div(ng-form="decisionInput")
+  div(ng-if="type == $root.APP.matchingTypes.first")
+    input.form-control(type="text", ng-model="$parent.model", typeahead-min-length="0",
+      uib-typeahead="decision for decision in getDecisions($viewValue) | filter:$viewValue ",
+      validate="alphadashed",
+      typeahead-on-select="onSelect($item)",
+      name="input",
+      placeholder="{{placeholder}}"
+      required)
+    div.form-control-error(ng-messages="decisionInput.input.$error")
+      div(ng-message="alphadashed") Decision can contain only alphanumerical characters, "_" and "-".
+  div(ng-if="type == $root.APP.matchingTypes.all")
+    input.form-control(type="number", ng-model="$parent.model", required, placeholder="{{placeholder}}")
+    div.form-control-error(ng-messages="decisionInput.input.$error")
+      div(ng-message="number") Scoring can contain positive, negative numbers or zero.

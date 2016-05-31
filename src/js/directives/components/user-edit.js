@@ -1,7 +1,8 @@
 "use strict";
 
-angular.module('app').controller('userEditController', function ($scope, project, user, $uibModalInstance, PROJECT_USER_SCOPES) {
+angular.module('app').controller('userEditController', function ($scope, project, user, $uibModalInstance, currentUser, PROJECT_USER_SCOPES) {
 
+  $scope.currentUser = currentUser;
   $scope.user = user; // from directive scope
   $scope.project = project; // from directive scope
 
@@ -15,11 +16,16 @@ angular.module('app').controller('userEditController', function ($scope, project
       $uibModalInstance.dismiss('cancel');
     });
   };
+
   $scope.remove = function () {
     $scope.project.removeUser($scope.user).then(function () {
       $uibModalInstance.dismiss('cancel');
     });
-  }
+  };
+
+  $scope.isRequired = function () {
+    return !(user.scope && user.scope.length > 0);
+  };
 });
 
 angular.module('app').directive('userEdit', function ($uibModal) {
@@ -40,7 +46,10 @@ angular.module('app').directive('userEdit', function ($uibModal) {
             },
             user: function () {
               return scope.user;
-            }
+            },
+            currentUser: ['UserService', function (UserService) {
+              return UserService.current();
+            }]
           }
         });
       })

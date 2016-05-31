@@ -2,9 +2,19 @@
 
 angular.module('app').config(function ($stateProvider) {
 
-  $stateProvider.state('groups-list', {
+  $stateProvider.state('groups', {
     parent: 'private',
-    url: '/groups?size?page',
+    url: '/groups',
+    abstract: 'groups-list',
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
+  });
+
+  $stateProvider.state('groups-list', {
+    parent: 'groups',
+    url: '?size?page',
     params: {
       size: '25'
     },
@@ -16,8 +26,8 @@ angular.module('app').config(function ($stateProvider) {
   });
 
   $stateProvider.state('groups-details', {
-    parent: 'private',
-    url: '/groups/:id',
+    parent: 'groups',
+    url: '/:id',
     templateUrl: 'templates/groups-details.html',
     controller: 'GroupsDetailsController',
     resolve: {

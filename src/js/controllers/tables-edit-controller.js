@@ -14,18 +14,15 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     if ($scope.isSaving) return;
 
     $scope.isSaving = true;
-    table.rules.filter(function (item) {
-      return item.isDeleted;
-    }).forEach(function (item) {
-      table.deleteRule(item);
-    });
 
     table.save().then(function () {
       $scope.error = null;
-      $scope.saved = true;
-
       table.rules.forEach(function (item) {
         item.isEditing = false;
+      });
+
+      $timeout(function () {
+        $scope.saved = true;
       });
 
     }, function (err) {
@@ -50,7 +47,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.$watch('table', function () {
+  $scope.$watch('table', function (val, old) {
     $scope.saved = false;
   }, true);
 

@@ -11,7 +11,7 @@ angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
     $state.nextState.isAuthRequired = isAuthRequired($state.nextState);
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toStateParams, fromState, fromStateParams, error) {
-    console.log('$stateChangeError', error, e);
+    $log.log('$stateChangeError', error, e);
     e.preventDefault();
     if (error.message == "LoginRequired") {
       $rootScope.$broadcast('login:required');
@@ -23,6 +23,10 @@ angular.module('app').run(function ($rootScope, $state, $log, AuthService) {
       AuthService.logout();
       $rootScope.$broadcast('login:required');
     }
+    //if (data.status == 404) {
+    //  AuthService.logout();
+    //  $rootScope.$broadcast('login:required');
+    //}
   });
 
   AuthService.signInFromStorage();

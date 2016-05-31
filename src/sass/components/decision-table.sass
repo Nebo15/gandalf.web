@@ -6,10 +6,18 @@ body table.table
     vertical-align: middle
     padding: 18px 20px
     border: 1px solid $table-border-color
+
   th
     text-transform: uppercase
     font-size: 12px
     font-weight: 400
+
+  .table-decision-condition-field
+    margin: -20px -20px
+    padding: 20px 20px
+
+    display: block
+
   thead
     background: $table-footer-bg
 
@@ -42,6 +50,7 @@ body table.table
 
 
   th, td
+    box-sizing: border-box
 
     &.table-decision-column-add
       cursor: pointer
@@ -70,17 +79,23 @@ body table.table
       position: static
 
 .table-decision-column-index
-  min-width: 60px
-  max-width: 60px
+  width: 40px
 
 .table-decision-column-title
-  min-width: 120px
+  min-width: 200px
 .table-decision-column-condition
+  position: relative
   min-width: 120px
 .table-decision-column-decision
-  min-width: 120px
-.table-decision-column-actions
-  min-width: 130px
+  min-width: 150px
+
+
+.table-decision-column-action
+  min-width: 210px
+  width: 210px
+
+.table-decision-column-add
+  width: 40px
 
 .table.table-add-row
   margin-top: -1px
@@ -122,4 +137,12 @@ body table.table
   .table
     margin-bottom: 0
     margin-top: -1px
+
+.table-hover .table-decision-column-add
+  background-color: #fff !important
+
+.table-decision-final-decision-row
+  background-color: #fefbf2
+
+
 

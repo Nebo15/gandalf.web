@@ -1,27 +1,31 @@
-.container-fluid
+.block.container-fluid
   .row
     .col-md-12
-      .text-heading
-        .text-heading-label Name
-        | {{project.title}}
-      .text-heading(ng-if="project.description")
-        .text-heading-label Description
-        | {{project.description}}
-      .btn-actions: .btn-group.btn-group-sm
-        a.btn.btn-primary-clear(project-edit="project") Edit
-      hr
+      .block
+        .text-heading
+          .text-heading-label Name
+          | {{project.title}}
+        .text-heading(ng-if="project.description")
+          .text-heading-label Description
+          | {{project.description}}
+        .text-heading
+          .text-heading-label Application ID
+          | {{project.id}}
+        .btn-actions: .btn-group.btn-group-sm
+          a.btn.btn-primary(project-edit="project") Edit
+.container-fluid
   .row
     .col-md-4.col-md-push-6
       include:marked ../../content/guides/settings-project-users.md
     .col-md-6.col-md-pull-4
       .panel.panel-default
-        .panel-heading Users
+        .panel-heading Collaborators
         .panel-body
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
               br
-              span.small.subtitle {{user.scope | join: ', '}}
-            a.list-group-item(user-add="project"): b.text-primary + add user
+              span.small.subtitle {{user.scope | translateArray: 'scopes.users_details.' | join: ', '}}
+            a.list-group-item(user-add="project"): b.text-primary + add collaborator
 
    .row
     .col-md-4.col-md-push-6

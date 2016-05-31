@@ -5,8 +5,11 @@ angular.module('app').config(function ($stateProvider) {
   $stateProvider.state('settings', {
     url: '/settings',
     parent: 'private',
-    abstract: 'true',
-    template: '<ui-view />'
+    abstract: '.project',
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
   });
 
   $stateProvider.state('settings.project', {

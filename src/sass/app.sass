@@ -70,6 +70,14 @@ $breadcrumb-bg: transparent
 $breadcrumb-padding-horizontal: 0
 $breadcrumb-color: $text-color
 
+//$zindex-navbar:            1000 !default;
+//$zindex-dropdown:          1000 !default;
+//$zindex-popover:           1060 !default;
+//$zindex-tooltip:           1070 !default;
+//$zindex-navbar-fixed:      1030 !default;
+//$zindex-modal-background:  1040 !default;
+$zindex-popover:             1040
+
 @import components/montserrat
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"
 
@@ -166,4 +174,73 @@ tr.ui-sortable-helper
   +min-screen($screen-tablet)
     text-align: right
     margin-top: 0
+
+.logo-img
+  +svg(logo, 87, 46)
+
+.checkbox-inline label
+  font-weight: normal
+.checkbox-group
+  margin-left: -5px
+  margin-bottom: 10px
+
+  .checkbox, .checkbox-inline
+    display: inline-block
+    margin-left: 5px
+    margin-right: 8px
+
+.table-responsive
+  margin-bottom: 0 !important
+
+[ng-messages].ng-inactive
+  display: none !important
+
+.table-responsive
+  overflow-x: auto !important
+
+
+
+.decision-condition
+  position: absolute
+  width: 310px
+
+  min-width: 100%
+  min-width: calc(100% + 2px)
+
+  top: -1px
+  left: -1px
+  bottom: -1px
+  padding: 22px 20px 20px
+
+
+  border: 1px solid #e5e5e5
+  box-shadow: 0 1px 10px -4px rgba(0,0,0,.3)
+  background: white
+
+  z-index: 1
+
+.decision-condition-field, .decision-condition-btn, .decision-condition-align
+  display: inline-block
+  vertical-align: middle
+
+.decision-condition-align
+  height: 100%
+  width: 0
+
+.decision-condition-btn
+  .btn
+    //max-height: 100%
+    padding-top: 6px
+    padding-bottom: 6px
+
+
+
+.field
+
+  .field-condition, .field-value
+    display: inline-block
+  .field-condition
+    width: 80px
+  .field-value
+    width: 120px
 

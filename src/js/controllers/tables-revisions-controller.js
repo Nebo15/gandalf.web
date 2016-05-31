@@ -1,4 +1,4 @@
-angular.module('app').controller('TablesRevisionsController', function ($scope, table) {
+angular.module('app').controller('TablesRevisionsController', function ($scope, table, $state) {
 
   $scope.table = table;
 
@@ -8,8 +8,10 @@ angular.module('app').controller('TablesRevisionsController', function ($scope, 
 
   $scope.rollbackChangelog = function (changelog) {
     return changelog.rollback().then(function () {
-      return $scope.table.fetch()
-    });
+      return $scope.table.fetch();
+    }).then(function () {
+      $state.go('^.edit');
+    })
   };
 
 });

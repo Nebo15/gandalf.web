@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('app').controller('GroupCreateController', function ($scope, $uibModalInstance, group, DecisionTable) {
+angular.module('app').controller('GroupCreateController', function ($scope, _, $uibModalInstance, group, DecisionTable) {
 
   $scope.tables = [];
-  $scope.getTables = function (tableName) {
+  $scope.getTables = _.throttle(function (tableName) {
     DecisionTable.find(10, 0, {
       title: tableName,
       matching_type: 'first'
@@ -12,7 +12,7 @@ angular.module('app').controller('GroupCreateController', function ($scope, $uib
     });
 
     return $scope.tables;
-  };
+  }, 300);
   $scope.model = group;
   $scope.create = function (form) {
     if (form.$invalid) return;

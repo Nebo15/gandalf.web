@@ -1,6 +1,6 @@
 form(ng-submit="save(form)", name="form", novalidate)
   .modal-header
-    h3.modal-title Edit user
+    h3.modal-title Edit collaborator
   .modal-body
     .form-horizontal
       .form-group
@@ -16,14 +16,11 @@ form(ng-submit="save(form)", name="form", novalidate)
           input.form-control(ng-model="user.role", disabled, required)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
-        .col-sm-10
-          .checkbox(ng-repeat="scope in scopes"): label
-            input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
-              ng-required="!(user.scope && user.scope.length > 0)")
-            | {{scope}}
+        .col-sm-10.form-control-block
+          user-scope-list(model="user.scope", required="isRequired()")
   .modal-footer.clearfix
     .pull-left
-      button.btn.btn-danger(type='button', ng-click='remove()') Remove
+      button.btn.btn-danger(type='button', ng-click='remove()', confirm="Are you sure? You will lost access to the project") Remove
     .pull-right
       button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
       button.btn.btn-primary(type='submit') Save

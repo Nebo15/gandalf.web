@@ -5,7 +5,8 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
   return {
     restrict: 'E',
     scope: {
-      table: '=model'
+      table: '=model',
+      mainForm: '=form'
     },
     transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
@@ -37,6 +38,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
           }
         });
       };
+
       $scope.editField = function (field) {
         if (field.isDeleted) return $scope.revertField(field);
 
@@ -60,6 +62,18 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         })
       };
 
+      var editingCondition = [];
+      // Conditions
+      $scope.saveCondition = function (condition) {
+        condition.isEditing = false;
+      };
+      $scope.editCondition = function (condition) {
+        editingCondition.forEach($scope.saveCondition);
+        editingCondition = [];
+
+        condition.isEditing = true;
+        editingCondition.push(condition);
+      };
       // Rules
 
       $scope.validateRule = function (rule, form) {
@@ -106,6 +120,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.onChangeMatchingType = function (type) {
 
+        console.log('onChangeMatchingType', type);
         var transformFn = function (val) {
           return val
         };
@@ -117,7 +132,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             break;
           case APP.matchingTypes.all:
             transformFn = function (val) {
-              return parseInt(val, 10);
+              return +val;
             };
             break;
         }

@@ -9,7 +9,6 @@ angular.module('app').controller('TablesDiffController', function ($scope, compa
 
   function indexes (arrays) {
     var result = [];
-    console.log('indexes', arrays);
     arrays.forEach(function (item) {
       result = angular.extend(result, item);
     });

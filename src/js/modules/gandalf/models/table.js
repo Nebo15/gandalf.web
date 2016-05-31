@@ -5,6 +5,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.id = id;
     this.fields = [];
     this.rules = [];
+    this.variants = [];
     this.defaultDecision = null;
     this.defaultTitle = null;
     this.defaultDescription = null;
@@ -20,6 +21,21 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       value: DecisionField
     }
   });
+
+  DecisionTable.prototype.clear = function () {
+    this.rules.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (item) {
+      this.deleteRule(item);
+    }.bind(this));
+
+    this.fields.filter(function (item) {
+      return item.isDeleted;
+    }).forEach(function (field) {
+      console.log('delete', field);
+      this.deleteField(field);
+    }.bind(this));
+  };
 
   DecisionTable.prototype.fetch = function () {
     return $gandalf.admin.getTableById(this.id).then(function (resp) {
@@ -40,6 +56,12 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
     this.rules.forEach(function (item) {
       item.removeConditionByIndex(fieldIdx);
+    })
+  };
+
+  DecisionTable.prototype.numberOfFields = function () {
+    return this.fields.filter(function (item) {
+      return !item.isDeleted;
     })
   };
 
@@ -74,6 +96,12 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     })
   };
 
+  DecisionTable.prototype.numberOfRules = function () {
+    return this.rules.filter(function (item) {
+      return !item.isDeleted;
+    })
+  };
+
   DecisionTable.prototype.findConditionsByField = function (field) {
     return [].concat.apply([], this.rules.map(function (item) {
       return item.conditions;
@@ -83,12 +111,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   };
 
   DecisionTable.prototype.save = function () {
-    this.fields.filter(function (item) {
-      return item.isDeleted;
-    }).forEach(function (field) {
-      console.log('delete', field);
-      this.deleteField(field);
-    }.bind(this));
+    this.clear();
 
     var self = this;
     return $gandalf.admin.updateTableById(this.id, this).then(function (resp) {
@@ -97,6 +120,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
   };
   DecisionTable.prototype.create = function () {
+    this.clear();
+
     var self = this;
     return $gandalf.admin.createTable(this.toJSON()).then(function (obj) {
       self.parse(obj.data);
@@ -127,6 +152,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       return new this._modelRule(item);
     }.bind(this));
 
+    this.variants = data.variants;
+
     this.matchingType = data.matching_type || 'first';
     this.defaultDecision = data.default_decision;
     this.defaultTitle = data.default_title;
@@ -134,6 +161,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
     this.title = data.title;
     this.description = data.description;
+
+
 
     return this;
   };
@@ -147,7 +176,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       default_description: this.defaultDescription,
       title: this.title,
       description: this.description,
-      matching_type: this.matchingType
+      matching_type: this.matchingType,
+      variants: this.variants
     };
   };
 

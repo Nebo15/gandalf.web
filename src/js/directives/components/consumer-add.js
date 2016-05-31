@@ -36,7 +36,6 @@ angular.module('app').directive('consumerAdd', function ($uibModal) {
         });
 
         modal.result.then(function (model) {
-          console.log('new', model);
           $uibModal.open({
             templateUrl: 'templates/modal/consumer-info.html',
             controller: 'consumerEditController',

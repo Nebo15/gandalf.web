@@ -1,10 +1,20 @@
 "use strict";
 
-angular.module('app').config(function ($stateProvider) {
+angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
+
+  $stateProvider.state('tables', {
+    parent: 'private',
+    url: '/tables',
+    abstract: 'tables-list',
+    template: '<ui-view />',
+    ncyBreadcrumb: {
+      skip: true
+    }
+  });
 
   $stateProvider.state('tables-list', {
-    parent: 'private',
-    url: '/tables?size?page',
+    parent: 'tables',
+    url: '?size?page',
     params: {
       size: '25'
     },
@@ -14,8 +24,8 @@ angular.module('app').config(function ($stateProvider) {
       label: 'Tables'
     }
   }).state('tables-create', {
-    parent: 'private',
-    url: '/tables/create',
+    parent: 'tables',
+    url: '/create',
     controller: 'TablesCreateController',
     templateUrl: 'templates/tables-create.html',
     ncyBreadcrumb: {
@@ -25,9 +35,9 @@ angular.module('app').config(function ($stateProvider) {
   });
 
   $stateProvider.state('tables-details', {
-    parent: 'private',
+    parent: 'tables',
     abstract: true,
-    url: '/tables/:id',
+    url: '/:id',
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',
     resolve: {
@@ -36,7 +46,7 @@ angular.module('app').config(function ($stateProvider) {
       }]
     },
     ncyBreadcrumb: {
-      label: "{{table.title}}",
+      label: "{{table.title || 'Untitled table'}}",
       parent: 'tables-list',
       skip: false
     }
@@ -80,8 +90,8 @@ angular.module('app').config(function ($stateProvider) {
   });
 
   $stateProvider.state('tables-diff', {
-    parent: 'private',
-    url: '/tables/:id/diff/:revisionId',
+    parent: 'tables',
+    url: '/:id/diff/:revisionId',
     controller: 'TablesDiffController',
     templateUrl: 'templates/tables-diff.html',
     resolve: {

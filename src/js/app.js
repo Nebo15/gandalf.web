@@ -9,11 +9,15 @@ angular.module('app', [
   'ng-gandalf',
   'ui.router',
   'ct.ui.router.extras',
+  'ui.router.default',
 
   'ngStorage',
+  'ngMessages',
+
   'ui.bootstrap',
   'ui.sortable',
   'ncy-angular-breadcrumb',
+  'uibModalConfirm',
 
   'hljs',
   'angular-bugsnag',
@@ -23,7 +27,9 @@ angular.module('app', [
   'angular-loading-bar',
   'checklist-model',
 
-  'nebo-angular-validate'
+  'nebo-angular-validate',
+
+  'pascalprecht.translate'
 ]);
 
 angular.module('app').constant('ENV', window.env);

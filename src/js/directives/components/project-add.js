@@ -12,7 +12,6 @@ angular.module('app').directive('projectAdd', function () {
           controller: 'ProjectAddController'
         });
         modalInstance.result.then(function (newProject) {
-          console.log('select new project', newProject);
           ProjectsService.selectProject(newProject);
         });
       }

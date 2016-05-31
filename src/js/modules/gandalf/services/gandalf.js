@@ -143,7 +143,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           $log.debug('$request: response', resp);
           return resp.data;
         }, function (resp) {
-          console.log(resp);
+          $log.log(resp);
           $rootScope.$broadcast('$gandalfError', resp);
           return $q.reject(resp);
         });
@@ -349,17 +349,13 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         return $request({
           endpoint: 'api/v1/admin/tables/',
           method: 'post'
-        }, {
-          table: obj
-        });
+        }, obj);
       };
       self.admin.updateTableById = function (id, obj) {
         return $request({
           endpoint: 'api/v1/admin/tables/'+id,
           method: 'put'
-        }, {
-          table: obj
-        });
+        }, obj);
       };
       self.admin.deleteTableById= function (id) {
         return $request({

@@ -6,7 +6,8 @@ angular.module('app').directive('decisionInput', function () {
     scope: {
       type: '=',
       decisions: '=',
-      model: '=model'
+      model: '=model',
+      placeholder: '@'
     },
     templateUrl: 'templates/directives/decision-input.html',
     link: function (scope, el, attrs, ctrl) {

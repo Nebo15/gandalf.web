@@ -1,0 +1,24 @@
+div
+  .form-control-heading-small Project
+  .checkbox-group
+    .checkbox-inline(ng-repeat="scope in ['edit_project','delete_project']"): label
+      input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
+      | {{('scopes.users.' + scope) | translate}}
+div
+  .form-control-heading-small Decision Tables
+  .checkbox-group
+    .checkbox-inline(ng-repeat="scope in ['read','create','update','delete','check']"): label
+      input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
+      | {{('scopes.users.' + scope) | translate}}
+div
+  .form-control-heading-small API Consumer Credentials
+  .checkbox-group
+    .checkbox-inline(ng-repeat="scope in ['create_consumers','update_consumers','delete_consumers']"): label
+      input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
+      | {{('scopes.users.' + scope) | translate}}
+div
+  .form-control-heading-small Project Collaborators
+  .checkbox-group
+    .checkbox-inline(ng-repeat="scope in ['add_user','update_users','delete_users']"): label
+      input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
+      | {{('scopes.users.' + scope) | translate}}

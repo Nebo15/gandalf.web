@@ -17,28 +17,30 @@
           | &#32;
           i.glyphicon.glyphicon-export
       div.preview__response(hljs, hljs-source="(table.request | json: 2)")
-
-    h5 Final Decision
-    p {{table.finalDecision}}
-    h5 Default Decision
-    p {{table.defaultDecision}}
     h5 Decision Flow
-    .history-detail__table.decision-table.ng-cloak(ng-if="table")
-      .table-responsive: table.table.decision-table__table
+    .history-detail__table.ng-cloak(ng-if="table"): .table-group
+      .table-responsive: table.table.table-decision
         thead: tr
-          th.decision-table__column--index #
-          th.decision-table__column--title Title
+          th.table-decision-column-index #
+          th.table-decision-column-title Title
             .small.text-light description
-          th(ng-repeat="condition in table.fields") {{condition.title}}
-          th Decision
+          th.table-decision-column-condition(ng-repeat="condition in table.fields") {{condition.title}}
+          th.table-decision-column-decision Decision
         tbody
           tr(ng-repeat="rule in table.rules")
             td {{$index}}
             td
               b {{rule.title}}
               .small {{rule.description}}
-            td.decision-table__condition(
-            ng-repeat="condition in rule.conditions",
-            ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}") {{condition.condition | condition}} {{condition.value.toString()}}
+            td(ng-repeat="condition in rule.conditions", ng-class="{'is-matched': condition.matched, 'is-unmatched': !condition.matched}")
+              field-static(condition="condition.condition", value="condition.value")
             td.border-left.decision-table__condition(ng-class="{'is-matched': rule.decision, 'is-unmatched': !rule.decision}")
               | {{rule.than}}
+        tfoot
+          tr
+            th(colspan="{{table.fields.length + 2}}") Default Decision
+            td.table-decision-column-decision {{table.defaultDecision}}
+          tr.table-decision-final-decision-row
+            th(colspan="{{table.fields.length + 2}}") Final Decision
+            td.table-decision-column-decision {{table.finalDecision}}
+
