@@ -349,13 +349,17 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         return $request({
           endpoint: 'api/v1/admin/tables/',
           method: 'post'
-        }, obj);
+        }, {
+          table: obj
+        });
       };
       self.admin.updateTableById = function (id, obj) {
         return $request({
           endpoint: 'api/v1/admin/tables/'+id,
           method: 'put'
-        }, obj);
+        }, {
+          table: obj
+        });
       };
       self.admin.deleteTableById= function (id) {
         return $request({
