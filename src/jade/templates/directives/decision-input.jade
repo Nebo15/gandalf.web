@@ -7,9 +7,11 @@ div(ng-form="decisionInput")
       name="input",
       placeholder="{{placeholder}}"
       required)
-    div.form-control-error(ng-messages="decisionInput.input.$error")
-      div(ng-message="alphadashed") Decision can contain only alphanumerical characters, "_" and "-".
+    div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
+      div(ng-message="alphadashed") {{'validation.errors.alphadashed_only'|translate}}
+      div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
   div(ng-if="type == $root.APP.matchingTypes.all")
-    input.form-control(type="number", ng-model="$parent.model", required, placeholder="{{placeholder}}")
-    div.form-control-error(ng-messages="decisionInput.input.$error")
-      div(ng-message="number") Scoring can contain positive, negative numbers or zero.
+    input.form-control(type="number", name="input", ng-model="$parent.model", required, placeholder="{{placeholder}}")
+    div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
+      div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
+      div(ng-message="number") {{'validation.errors.number_only'|translate}}
