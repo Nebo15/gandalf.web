@@ -6,6 +6,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     restrict: 'E',
     scope: {
       table: '=model',
+      variant: '=variant',
       mainForm: '=form'
     },
     transclude: true,
@@ -13,6 +14,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     link: function ($scope) {
 
       var table = $scope.table;
+      var variant = $scope.variant;
 
       $scope.sortableOptions = {
         axis: 'y',
@@ -23,9 +25,11 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.onReorderFields = function (curIdx, nextIdx) {
 
-        $scope.table.rules.forEach(function (rule) {
-          rule.conditions[curIdx] = rule.conditions.splice(nextIdx, 1, rule.conditions[curIdx])[0];
-        });
+        $scope.table.variants.forEach(function (item) {
+          item.rules.forEach(function (rule) {
+            rule.conditions[curIdx] = rule.conditions.splice(nextIdx, 1, rule.conditions[curIdx])[0];
+          });
+        })
       };
       // Fields
 
@@ -90,7 +94,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         rule.isEditing = false;
       };
       $scope.copyRule = function (rule, form) {
-        table.copyRule(rule);
+        variant.copyRule(rule);
       };
 
       $scope.deleteRule = function (rule) {
@@ -101,7 +105,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
       };
 
       $scope.addNewRule = function () {
-        $scope.editRule(table.createRule());
+        $scope.editRule(variant.createRule(table.fields));
       };
 
       $scope.isWarningRule = function (rule) {
@@ -120,7 +124,6 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.onChangeMatchingType = function (type) {
 
-        console.log('onChangeMatchingType', type);
         var transformFn = function (val) {
           return val
         };
@@ -137,12 +140,15 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             break;
         }
 
-        table.defaultDecision = transformFn(table.defaultDecision);
-        table.rules.forEach(function (item) {
-          item.than = transformFn(item.than);
+        table.variants.forEach(function (item) {
+          item.defaultDecision = transformFn(item.defaultDecision);
+          item.rules.forEach(function (item) {
+            item.than = transformFn(item.than);
 
-          $scope.editRule(item);
-        });
+            $scope.editRule(item);
+          });
+        })
+
       };
 
     }

@@ -7,6 +7,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
   $scope.error = null;
 
   $scope.table = table;
+  //$scope.variant = va;
 
   $scope.submit = function (form) {
 
@@ -17,7 +18,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
 
     table.save().then(function () {
       $scope.error = null;
-      table.rules.forEach(function (item) {
+      $scope.variant.rules.forEach(function (item) {
         item.isEditing = false;
       });
 
@@ -48,6 +49,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
   };
 
   $scope.$watch('table', function (val, old) {
+    console.log('change table');
     $scope.saved = false;
   }, true);
 
