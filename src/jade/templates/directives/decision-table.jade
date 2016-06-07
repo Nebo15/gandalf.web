@@ -58,7 +58,7 @@
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
       tr.table-decision-row-caption(ng-repeat-end, ng-if="isWarningRule(rule)")
-        td.table-decision-cell-warning(colspan="{{rule.conditions.length + 5}}") This rule have all «is set» conditions, so it will be executed regardless request parameters.
+        td.table-decision-cell-warning(colspan="{{rule.conditions.length + 5}}", translate="warnings.rules.all_is_set")
 
   table.table.table-add-row: tr: td(ng-click="addNewRule()")
     div.form-error(ng-messages="tableForm.tableRules.$error", role="alert", ng-if="mainForm.$submitted")

@@ -39,6 +39,11 @@ angular.module('app').config(function($translateProvider) {
         'edit_project': 'Change Project Settings',
         'delete_project': 'Delete Project'
       }
+    },
+    "warnings": {
+      "rules": {
+        "all_is_set": "This rule have all «is set» conditions, so it will be executed regardless request parameters."
+      }
     }
   });
   $translateProvider.preferredLanguage('en');
