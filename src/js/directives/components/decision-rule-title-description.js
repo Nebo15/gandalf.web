@@ -1,19 +1,30 @@
 "use strict";
 
-angular.module('app').directive('decisionRuleTitleDescription', function () {
+angular.module('app').directive('decisionRuleTitleDescription', function ($timeout) {
   return {
     restrict: 'EA',
     templateUrl: 'templates/directives/decision-rule-title-description.html',
+    scope: {
+      rule: '=model'
+    },
     link: function (scope, el, attrs) {
 
       scope.isEditing = false;
       scope.edit = function () {
-        console.log('edit');
         scope.isEditing = true;
       };
       scope.save = function () {
-        scope.isEditing = false;
+        $timeout(function () {
+          scope.isEditing = false;
+        });
       };
+
+      el.bind('click', function () {
+        if (scope.isEditing) return;
+        $timeout(function () {
+          scope.edit();
+        });
+      });
     }
   };
 });

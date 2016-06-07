@@ -1,7 +1,10 @@
 div(ng-if="isEditing")
-  input.form-control(type="text", ng-model="rule.title", placeholder="Title")
-  input.form-control(type="text", ng-model="rule.description", placeholder="Description")
-  button(ng-click="save()") Save
-div(ng-if="!isEditing", ng-click="edit()")
+  .decision-title-form
+    .decision-title-form-fields
+      input.form-control(type="text", ng-model="rule.title", placeholder="Title")
+      input.form-control(type="text", ng-model="rule.description", placeholder="Description")
+    .btn-actions
+      button.btn.btn-primary(ng-click="save()") Save
+div(ng-if="!isEditing")
   b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
   .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}
