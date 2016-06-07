@@ -54,6 +54,11 @@ angular.module('app').config(function($translateProvider) {
         'new_project_title_empty': 'Project title can not be empty',
         'new_project_description_empty': 'Project description can not be empty'
       }
+    },
+    "warnings": {
+      "rules": {
+        "all_is_set": "⬆︎ This rule have all «is set» conditions, so it will be executed regardless request parameters."
+      }
     }
   });
   $translateProvider.preferredLanguage('en');
