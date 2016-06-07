@@ -42,7 +42,7 @@ angular.module('app').config(function($translateProvider) {
     },
     "warnings": {
       "rules": {
-        "all_is_set": "This rule have all «is set» conditions, so it will be executed regardless request parameters."
+        "all_is_set": "⬆︎ This rule have all «is set» conditions, so it will be executed regardless request parameters."
       }
     }
   });
