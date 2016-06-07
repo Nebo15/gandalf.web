@@ -42,6 +42,7 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
   };
 
   DecisionVariant.prototype.createRule = function (fields) {
+    if (!fields) return;
 
     var rule = this._modelRule.fromFields(fields); // can be different
 
@@ -60,7 +61,7 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
 
   DecisionVariant.prototype.copyRule = function (rule) {
     var idx = this.rules.indexOf(rule);
-    if (idx == -1) throw new Error('copy rule not found in table rules');
+    if (idx == -1) throw new Error('copy rule not found in table rules', rule);
     var newRule = rule.clone();
     this.rules.splice(++idx, 0, newRule);
     return this;
@@ -86,6 +87,12 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
       self.deleteRule(item);
     });
   };
+
+  DecisionVariant.prototype.cleanRules = function (fields) {
+    this.rules = [];
+    this.createRule(fields);
+  };
+
 
   return DecisionVariant;
 

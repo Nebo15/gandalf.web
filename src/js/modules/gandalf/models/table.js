@@ -42,7 +42,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.addField = function (field) {
     this.fields.push(field);
-    this.rules.forEach(function (item) {
+    this.getVariantsRules().forEach(function (item) {
       item.addCondition(field);
     });
   };
@@ -51,7 +51,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.fields = this.fields.filter(function (item) {
       return item !== field;
     });
-    this.rules.forEach(function (item) {
+    this.getVariantsRules().forEach(function (item) {
       item.removeConditionByIndex(fieldIdx);
     })
   };
@@ -64,15 +64,19 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.findConditionsByField = function (field) {
 
-    var conditions = this.variants.map(function (variant) {
-      return variant.rules.map(function (item) {
-        return item.conditions;
-      })
+    var conditions = this.getVariantsRules().map(function (item) {
+      return item.conditions;
     });
 
     return _.flattenDeep(conditions).filter(function (condition) {
       return condition.fieldKey === field.key;
     });
+  };
+
+  DecisionTable.prototype.getVariantsRules = function () {
+    return _.flattenDeep(this.variants.map(function (variant) {
+      return variant.rules;
+    }));
   };
 
   DecisionTable.prototype.save = function () {
@@ -103,6 +107,14 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       return item.data.map(function (item) {
         return new DecisionTableChangelog(item);
       });
+    });
+  };
+
+  // Variants
+
+  DecisionTable.prototype.getVariant = function (id) {
+    return _.find(this.variants, {
+      id: id
     });
   };
 
@@ -140,15 +152,16 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.getDecisionVariants = function () {
 
-    var variants = [];
-    (this.variants || []).forEach(function (item) {
-      item.rules.map(function (item) {
-        variants.push(item.than);
-      });
+    var variants = this.getVariantsRules().map(function (rule) {
+      return rule.than;
+    }) || [];
+
+    this.variants.forEach(function (item) {
+      if (item.defaultDecision) {
+        variants.push(item.defaultDecision);
+      }
     });
-    if (this.defaultDecision) {
-      variants.push(this.defaultDecision);
-    }
+
     return _.uniq(variants);
   };
 
@@ -156,11 +169,6 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return $gandalf.admin.copyTableById(this.id).then(function (resp) {
       return new DecisionTable(null, resp.data);
     });
-  };
-
-  DecisionTable.prototype.cleanRules = function () {
-    this.rules = [];
-    this.createRule();
   };
 
   DecisionTable.find = function (size, page, filter) {

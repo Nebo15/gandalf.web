@@ -13,15 +13,12 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     templateUrl: 'templates/directives/decision-table.html',
     link: function ($scope) {
 
-      var table = $scope.table;
-      var variant = $scope.variant;
-
       $scope.sortableOptions = {
         axis: 'y',
         handle: '> .table-decision-handler'
       };
 
-      $scope.decisions = table.getDecisionVariants();
+      $scope.decisions = $scope.table.getDecisionVariants();
 
       $scope.onReorderFields = function (curIdx, nextIdx) {
 
@@ -54,13 +51,13 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
               return field;
             },
             table: function () {
-              return table;
+              return $scope.table;
             }
           }
         });
         modalInstance.result.then(function (field) {
           if (!field.typeChanged) return;
-          table.findConditionsByField(field).forEach(function (item) {
+          $scope.table.findConditionsByField(field).forEach(function (item) {
             item.reset();
           });
         })
@@ -94,7 +91,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         rule.isEditing = false;
       };
       $scope.copyRule = function (rule, form) {
-        variant.copyRule(rule);
+        $scope.variant.copyRule(rule);
       };
 
       $scope.deleteRule = function (rule) {
@@ -105,7 +102,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
       };
 
       $scope.addNewRule = function () {
-        $scope.editRule(variant.createRule(table.fields));
+        $scope.editRule($scope.variant.createRule($scope.table.fields));
       };
 
       $scope.isWarningRule = function (rule) {
@@ -140,7 +137,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             break;
         }
 
-        table.variants.forEach(function (item) {
+        $scope.table.variants.forEach(function (item) {
           item.defaultDecision = transformFn(item.defaultDecision);
           item.rules.forEach(function (item) {
             item.than = transformFn(item.than);
