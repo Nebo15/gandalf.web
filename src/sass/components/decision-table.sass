@@ -1,5 +1,7 @@
 //
 
+$table-decision-warning: #faf2cc
+
 body table.table
   border: 1px solid $table-border-color
   th, td
@@ -39,7 +41,7 @@ body table.table
   .is-deleted
     opacity: .4
   .is-warning
-    background-color: rgba(yellow, .3)
+    background-color: $table-decision-warning
   .is-matched
     background-color: rgba(green, .3)
   .is-unmatched
@@ -77,6 +79,15 @@ body table.table
     input
       margin: 0
       position: static
+
+  .table-decision-row-caption
+    margin-top: -1px
+  .table-decision-cell-warning
+    padding-top: 5px
+    padding-bottom: 5px
+    padding-left: 10px
+    font-size: 11px
+    background-color: #fcf8e3
 
 .table-decision-column-index
   width: 40px
@@ -143,6 +154,3 @@ body table.table
 
 .table-decision-final-decision-row
   background-color: #fefbf2
-
-
-
