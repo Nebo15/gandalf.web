@@ -40,6 +40,21 @@ angular.module('app').config(function($translateProvider) {
         'delete_project': 'Delete Project'
       }
     },
+
+    validation: {
+      errors: {
+        'alphadashed_only': 'Decision can contain only alphanumerical characters, "_" and "-".',
+        'number_only': 'Scoring can contain positive, negative numbers or zero.',
+        'title_field_empty': 'Title field can not be empty',
+        'key_field_empty': 'API key field can not be empty',
+        'key_field_pattern': 'API key use only alphabet characters, dash and underscore',
+        'decision_empty': 'Decision can not be empty',
+        'table_name_empty': 'Table name can not be empty',
+        'table_description_empty': 'Table description can not be empty',
+        'new_project_title_empty': 'Project title can not be empty',
+        'new_project_description_empty': 'Project description can not be empty'
+      }
+    },
     "warnings": {
       "rules": {
         "all_is_set": "⬆︎ This rule have all «is set» conditions, so it will be executed regardless request parameters."

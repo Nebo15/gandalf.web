@@ -13,6 +13,8 @@ form(ng-submit="save(form)", name="form", novalidate)
             required,
             placeholder="e.g. Person age..."
           )
+          div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.title_field_empty'|translate}}
       .form-group(show-errors)
         label.col-sm-2.control-label API Field Key
         .col-sm-10
@@ -24,6 +26,9 @@ form(ng-submit="save(form)", name="form", novalidate)
             pattern="[a-zA-Z\\_\\-]*"
             placeholder="person-age"
           )
+          div.form-control-error(ng-messages="form.key.$error", ng-if="form.key.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.key_field_empty'|translate}}
+            div(ng-message="pattern") {{'validation.errors.key_field_pattern'|translate}}
           span.help-block Latin key (for API). Use only alphabet characters, dash and underscore. <code>a-z,A-Z,_,-</code>
       .form-group(ng-if="sameKeyColumns.length")
         .col.col-sm-10.col-sm-offset-2
