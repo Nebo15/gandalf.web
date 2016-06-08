@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, table) {
+  var tableHash = 0;
 
   $scope.saved = true;
   $scope.isSaving = false;
@@ -8,6 +9,8 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
 
   $scope.table = table;
   $scope.variant = $scope.variant || null;
+
+  tableHash = table.getHash();
 
   $scope.submit = function (form) {
 
@@ -29,6 +32,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
       $scope.variant = table.getVariant($scope.variant.id);
       $scope.$broadcast('decisionTable:saved');
 
+      tableHash = table.getHash();
     }, function (err) {
       $scope.error = err;
     }).finally(function () {
@@ -51,8 +55,8 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.$watch('table', function (val, old) {
-    $scope.saved = false;
+  $scope.$watch('table', function (val) {
+    $scope.saved = (val.getHash() === tableHash);
   }, true);
 
   var fnOnBeforeUnload = window.onbeforeunload;
