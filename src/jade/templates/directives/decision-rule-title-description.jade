@@ -3,8 +3,6 @@ div(ng-if="isEditing")
     .decision-title-form-fields
       input.form-control(type="text", ng-model="rule.title", placeholder="Title")
       input.form-control(type="text", ng-model="rule.description", placeholder="Description")
-    .btn-actions
-      button.btn.btn-primary(ng-click="save()") Save
 div(ng-if="!isEditing")
   b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
   .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}

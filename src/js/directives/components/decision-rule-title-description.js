@@ -9,6 +9,10 @@ angular.module('app').directive('decisionRuleTitleDescription', function ($timeo
     },
     link: function (scope, el, attrs) {
 
+      scope.$on('decisionTable:saved', function () {
+        scope.save();
+      });
+
       scope.isEditing = false;
       scope.edit = function () {
         scope.isEditing = true;
