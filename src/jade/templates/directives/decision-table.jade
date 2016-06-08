@@ -25,13 +25,9 @@
         skip-form="rule.isDeleted",
         ng-form="ruleForm")
         td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
-        td.table-decision-column-title(ng-click="editRule(rule)")
-          div(ng-if="rule.isEditing")
-            input.form-control(type="text", ng-model="rule.title", placeholder="Title")
-            input.form-control(type="text", ng-model="rule.description", placeholder="Description")
-          div(ng-if="!rule.isEditing")
-            b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
-            .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}
+
+        td.table-decision-column-title(decision-rule-title-description, model="rule", is-editing="rule.isEditingTitle")
+
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
           field-static.table-decision-condition-field(ng-if="!condition.isEditing", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
           div.decision-condition(ng-if="condition.isEditing")
@@ -41,19 +37,12 @@
             .decision-condition-align
 
         td.table-decision-column-add
-        td.table-decision-column-decision(ng-click="editRule(rule)")
-          div(ng-if="!rule.isEditing").form-control-static {{rule.than}}
-          div(ng-if="rule.isEditing")
-            span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Decision")
-            span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Score")
-
+        td.table-decision-column-decision(decision-rule-decision, rule="rule", decisions="decisions", type="table.matchingType", is-editing="rule.isEditingDecision")
         td.table-decision-column-action
           div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
           div(ng-if="!rule.isDeleted").btn-group
-            button.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+            //button.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
             //a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
