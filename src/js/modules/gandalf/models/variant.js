@@ -1,6 +1,9 @@
 angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, _, DecisionRule, CONDITION_TYPES) {
 
   function DecisionVariant (data) {
+
+    this.rules = [];
+
     if (data) this.parse(data);
   }
 
