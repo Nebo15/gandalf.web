@@ -40,8 +40,8 @@ angular.module('app').constant('APP', {
     bool  : 'boolean'
   },
   matchingTypes: {
-    first : 'first', // decision table
-    all   : 'all'    // scoring
+    first : 'decision', // decision table
+    all   : 'scoring'    // scoring
   }
 }).run(function ($rootScope, $state, APP) {
   $rootScope.APP = APP;
