@@ -1,5 +1,5 @@
 angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionVariant,
-                                                                DecisionTableChangelog, CONDITION_TYPES) {
+                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils) {
 
   function DecisionTable(id, data) {
     this.id = id;
@@ -136,9 +136,9 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
     this.matchingType = data.matching_type || 'first';
 
-
     return this;
   };
+
   DecisionTable.prototype.toJSON = function () {
     return {
       _id: this.id,
@@ -169,6 +169,10 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     return $gandalf.admin.copyTableById(this.id).then(function (resp) {
       return new DecisionTable(null, resp.data);
     });
+  };
+
+  DecisionTable.prototype.getHash = function () {
+    return gandalfUtils.stringHash(JSON.stringify(this.toJSON()));
   };
 
   DecisionTable.find = function (size, page, filter) {
