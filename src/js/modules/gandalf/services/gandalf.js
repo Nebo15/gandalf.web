@@ -119,7 +119,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }
 
         endpoint = config.apiEnpoint + endpoint;
-        endpoint += '?' + $httpParamSerializer(params);
+        var paramsStr = $httpParamSerializer(params);
+        if (paramsStr) {
+          endpoint += '?' + paramsStr;
+        }
 
         var headers = {
           'Content-type': 'application/json'
