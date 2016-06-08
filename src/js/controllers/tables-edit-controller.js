@@ -27,6 +27,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
       });
 
       $scope.variant = table.getVariant($scope.variant.id);
+      $scope.$broadcast('decisionTable:saved');
 
     }, function (err) {
       $scope.error = err;

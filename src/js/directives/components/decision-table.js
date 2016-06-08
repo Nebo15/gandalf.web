@@ -83,13 +83,16 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
       };
 
       $scope.editRule = function (rule) {
-        rule.isEditing = true;
+        rule.isEditingTitle = true;
+        rule.isEditingDecision = true;
       };
       $scope.saveRule = function (rule, form) {
         form.$setSubmitted(true);
         if (form.$invalid) return;
-        rule.isEditing = false;
+        rule.isEditingTitle = false;
+        rule.isEditingDecision = false;
       };
+
       $scope.copyRule = function (rule, form) {
         $scope.variant.copyRule(rule);
       };
