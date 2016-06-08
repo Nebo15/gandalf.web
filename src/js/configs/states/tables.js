@@ -37,12 +37,15 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('tables-details', {
     parent: 'tables',
     abstract: true,
-    url: '/:id',
+    url: '/:id/:variantId',
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',
     resolve: {
       table: ['DecisionTable', '$stateParams', 'projects', function (DecisionTable, $stateParams, projects) {
         return DecisionTable.byId($stateParams.id);
+      }],
+      variant: ['table', '$stateParams', function (table, $stateParams) {
+        return table.getVariant($stateParams.variantId);
       }]
     },
     ncyBreadcrumb: {
@@ -63,7 +66,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/tables-analytics.html',
     resolve: {
       analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
-        return AnalyticsTable.byId($stateParams.id);
+        return AnalyticsTable.byIdAndVariantId($stateParams.id, $stateParams.variantId);
       }]
     },
     ncyBreadcrumb: {

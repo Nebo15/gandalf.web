@@ -445,9 +445,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Analytics
 
-      self.admin.getTableAnalytics = function (tableId) {
+      self.admin.getTableAnalytics = function (tableId, variantId) {
         return $request({
-          endpoint: 'api/v1/admin/tables/' + tableId + '/analytics',
+          endpoint: 'api/v1/admin/tables/' + tableId + '/' + variantId + '/analytics',
           method: 'get'
         });
       };

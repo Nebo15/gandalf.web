@@ -11,9 +11,6 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   }
 
   DecisionTable.prototype = Object.create({}, {
-    _modelRule: {
-      value: DecisionRule
-    },
     _modelField: {
       value: DecisionField
     },
@@ -139,6 +136,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
     return this;
   };
+
   DecisionTable.prototype.toJSON = function () {
     return {
       _id: this.id,
