@@ -19,8 +19,8 @@
         span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
       th.table-decision-column-action Action
 
-    tbody(ui-sortable="sortableOptions", ng-model="table.rules")
-      tr(ng-repeat-start="rule in table.rules",
+    tbody(ui-sortable="sortableOptions", ng-model="variant.rules")
+      tr(ng-repeat-start="rule in variant.rules",
         ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}",
         skip-form="rule.isDeleted",
         ng-form="ruleForm")
@@ -47,7 +47,7 @@
           div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
           div(ng-if="!rule.isDeleted").btn-group
-            a.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
+            button.btn.btn-success-text(ng-click="saveRule(rule, ruleForm)", uib-tooltip="Save rule", stop-propagation="click", ng-if="rule.isEditing"): i.glyphicon.glyphicon-ok
             //a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
@@ -64,19 +64,19 @@
     th
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
-    td: input.form-control(type="text", ng-model="table.defaultTitle", placeholder="Title")
-    td: input.form-control(type="text", ng-model="table.defaultDescription", placeholder="Description")
+    td: input.form-control(type="text", ng-model="variant.defaultTitle", placeholder="Title")
+    td: input.form-control(type="text", ng-model="variant.defaultDescription", placeholder="Description")
     td
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-        decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Decision")
+        decision-input(type="table.matchingType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-        decision-input(type="table.matchingType", decisions="decisions", model="table.defaultDecision", placeholder="Default Score")
+        decision-input(type="table.matchingType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Score")
 
 
   .hidden
     // table model validations
-    input(hidden, name="tableRules", ng-required="table.numberOfRules() == 0", ng-model="hiddenRules.rules")
-    input(hidden, name="tableFields", ng-required="table.numberOfFields() == 0", ng-model="hiddenRules.fields")
+    input(hidden, name="tableRules", ng-required="variant.numberOfRules() == 0", ng-model="hiddenRules.rules")
+    input(hidden, name="tableFields", ng-required="variant.numberOfFields() == 0", ng-model="hiddenRules.fields")
 
 .row: .col-sm-6
   h6.form-control-heading Table Type

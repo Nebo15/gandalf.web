@@ -18,7 +18,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       skip: true
     },
     resolve: {
-      user: ['UserService', function (UserService) {
+      user: ['UserService','projects', function (UserService,projects) {
         return UserService.current();
       }],
       projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
