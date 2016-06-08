@@ -6,17 +6,14 @@ angular.module('app').directive('decisionRuleDecision', function ($timeout, APP)
     scope: {
       rule: '=',
       decisions: '=',
-      type: '='
+      type: '=',
+      isEditing: '='
     },
     templateUrl: 'templates/directives/decision-rule-decision.html',
     link: function (scope, el, attrs) {
 
       scope.matchingTypes = APP.matchingTypes;
-      scope.$on('decisionTable:saved', function () {
-        scope.save();
-      });
 
-      scope.isEditing = false;
       scope.edit = function () {
         scope.isEditing = true;
       };
@@ -27,7 +24,6 @@ angular.module('app').directive('decisionRuleDecision', function ($timeout, APP)
       };
 
       el.bind('click', function () {
-        console.log('click', scope);
         if (scope.isEditing) return;
         $timeout(function () {
           scope.edit();

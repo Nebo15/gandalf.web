@@ -5,15 +5,11 @@ angular.module('app').directive('decisionRuleTitleDescription', function ($timeo
     restrict: 'EA',
     templateUrl: 'templates/directives/decision-rule-title-description.html',
     scope: {
-      rule: '=model'
+      rule: '=model',
+      isEditing: '='
     },
     link: function (scope, el, attrs) {
 
-      scope.$on('decisionTable:saved', function () {
-        scope.save();
-      });
-
-      scope.isEditing = false;
       scope.edit = function () {
         scope.isEditing = true;
       };
