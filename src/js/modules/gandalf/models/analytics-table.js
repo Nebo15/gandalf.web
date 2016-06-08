@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, DecisionTable, AnalyticsRule) {
+angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, DecisionTable, AnalyticsVariant) {
 
   function AnalyticsTable() {
 
