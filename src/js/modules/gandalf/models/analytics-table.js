@@ -1,7 +1,6 @@
 angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, DecisionTable, AnalyticsVariant) {
 
   function AnalyticsTable() {
-
     DecisionTable.apply(this, arguments);
   }
 
@@ -16,7 +15,8 @@ angular.module('ng-gandalf').factory('AnalyticsTable', function ($gandalf, Decis
   AnalyticsTable.byIdAndVariantId = function (id, variantId) {
     return $gandalf.admin.getTableAnalytics(id, variantId).then(function (data) {
       var table = new AnalyticsTable();
-      table.parse(data);
+      table.parse(data.data);
+
       return table;
     })
   };
