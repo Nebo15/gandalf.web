@@ -130,7 +130,7 @@ body table.table
     background-color: #f9f9f9
 //margin-top: -1 * $table-ma
 
-.table-default-decision
+.table.table-default-decision
   background-color: #eefff9
 
   td
@@ -138,6 +138,14 @@ body table.table
 
   .form-control
     min-width: 100px
+
+  +min-screen($screen-md-min)
+    th
+      vertical-align: top
+      padding-top: 30px
+    td
+      vertical-align: top
+
   +max-screen($screen-sm-max)
     border: 0
 
