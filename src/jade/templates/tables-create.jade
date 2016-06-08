@@ -18,7 +18,7 @@ form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form
       h4 Error
       p Check you data and <b>try again</b>.
 
-    decision-table(model="table", form="form")
+    decision-table(model="table", variant="variant", form="form")
       .text-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh

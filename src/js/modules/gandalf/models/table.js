@@ -1,38 +1,35 @@
-angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionTableChangelog,
-                                                                CONDITION_TYPES) {
+angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionVariant,
+                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils) {
 
-  function DecisionTable (id, data) {
+  function DecisionTable(id, data) {
     this.id = id;
     this.fields = [];
-    this.rules = [];
     this.variants = [];
-    this.defaultDecision = null;
-    this.defaultTitle = null;
-    this.defaultDescription = null;
     this.matchingType = 'first';
 
     if (data) this.parse(data);
   }
+
   DecisionTable.prototype = Object.create({}, {
     _modelRule: {
       value: DecisionRule
     },
     _modelField: {
       value: DecisionField
+    },
+    _modelVariant: {
+      value: DecisionVariant
     }
   });
 
   DecisionTable.prototype.clear = function () {
-    this.rules.filter(function (item) {
-      return item.isDeleted;
-    }).forEach(function (item) {
-      this.deleteRule(item);
-    }.bind(this));
+    this.variants.forEach(function (item) {
+      item.clear();
+    });
 
     this.fields.filter(function (item) {
       return item.isDeleted;
     }).forEach(function (field) {
-      console.log('delete', field);
       this.deleteField(field);
     }.bind(this));
   };
@@ -45,7 +42,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.addField = function (field) {
     this.fields.push(field);
-    this.rules.forEach(function (item) {
+    this.getVariantsRules().forEach(function (item) {
       item.addCondition(field);
     });
   };
@@ -54,7 +51,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.fields = this.fields.filter(function (item) {
       return item !== field;
     });
-    this.rules.forEach(function (item) {
+    this.getVariantsRules().forEach(function (item) {
       item.removeConditionByIndex(fieldIdx);
     })
   };
@@ -65,49 +62,21 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     })
   };
 
-  DecisionTable.prototype.createRule = function () {
-
-    var rule = this._modelRule.fromFields(this.fields); // can be different
-
-    rule.conditions.forEach(function (condition) {
-      condition.condition = CONDITION_TYPES.IS_SET;
-    });
-    rule.priority = this.rules.length;
-    rule.than = this.defaultDecision;
-
-    this.addRule(rule);
-    return rule;
-  };
-  DecisionTable.prototype.addRule = function (rule) {
-    this.rules.push(rule);
-  };
-
-  DecisionTable.prototype.copyRule = function (rule) {
-    var idx = this.rules.indexOf(rule);
-    if (idx == -1) throw new Error('copy rule not found in table rules');
-    var newRule = rule.clone();
-    this.rules.splice(++idx, 0, newRule);
-    return this;
-  };
-
-  DecisionTable.prototype.deleteRule = function (rule) {
-    this.rules = this.rules.filter(function (item) {
-      return item !== rule;
-    })
-  };
-
-  DecisionTable.prototype.numberOfRules = function () {
-    return this.rules.filter(function (item) {
-      return !item.isDeleted;
-    })
-  };
-
   DecisionTable.prototype.findConditionsByField = function (field) {
-    return [].concat.apply([], this.rules.map(function (item) {
+
+    var conditions = this.getVariantsRules().map(function (item) {
       return item.conditions;
-    })).filter(function (condition) {
+    });
+
+    return _.flattenDeep(conditions).filter(function (condition) {
       return condition.fieldKey === field.key;
     });
+  };
+
+  DecisionTable.prototype.getVariantsRules = function () {
+    return _.flattenDeep(this.variants.map(function (variant) {
+      return variant.rules;
+    }));
   };
 
   DecisionTable.prototype.save = function () {
@@ -141,52 +110,58 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
   };
 
+  // Variants
+
+  DecisionTable.prototype.getVariant = function (id) {
+    return _.find(this.variants, {
+      id: id
+    });
+  };
+
   DecisionTable.prototype.parse = function (data) {
 
     this.id = data._id;
 
-    this.fields = (data.fields || []).map(function (item) {
-      return new this._modelField(item);
-    }.bind(this));
-    this.rules = (data.rules || []).map(function (item) {
-      return new this._modelRule(item);
-    }.bind(this));
-
-    this.variants = data.variants;
-
-    this.matchingType = data.matching_type || 'first';
-    this.defaultDecision = data.default_decision;
-    this.defaultTitle = data.default_title;
-    this.defaultDescription = data.default_description;
-
     this.title = data.title;
     this.description = data.description;
 
+    var self = this;
+    this.fields = (data.fields || []).map(function (item) {
+      return new self._modelField(item);
+    });
 
+    this.variants = (data.variants || []).map(function (item) {
+      return new self._modelVariant(item);
+    });
+
+    this.matchingType = data.matching_type || 'first';
 
     return this;
   };
+
   DecisionTable.prototype.toJSON = function () {
     return {
       _id: this.id,
       fields: JSON.parse(JSON.stringify(this.fields)),
-      rules: JSON.parse(JSON.stringify(this.rules)),
-      default_decision: this.defaultDecision,
-      default_title: this.defaultTitle,
-      default_description: this.defaultDescription,
+      variants: JSON.parse(JSON.stringify(this.variants)),
       title: this.title,
       description: this.description,
-      matching_type: this.matchingType,
-      variants: this.variants
+      matching_type: this.matchingType
     };
   };
 
   DecisionTable.prototype.getDecisionVariants = function () {
 
-    var variants = this.rules.map(function (item) { return item.than; });
-    if (this.defaultDecision) {
-      variants.push(this.defaultDecision);
-    }
+    var variants = this.getVariantsRules().map(function (rule) {
+      return rule.than;
+    }) || [];
+
+    this.variants.forEach(function (item) {
+      if (item.defaultDecision) {
+        variants.push(item.defaultDecision);
+      }
+    });
+
     return _.uniq(variants);
   };
 
@@ -196,9 +171,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
   };
 
-  DecisionTable.prototype.cleanRules = function () {
-    this.rules = [];
-    this.createRule();
+  DecisionTable.prototype.getHash = function () {
+    return gandalfUtils.stringHash(JSON.stringify(this.toJSON()));
   };
 
   DecisionTable.find = function (size, page, filter) {
@@ -206,7 +180,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     var self = this;
     return $gandalf.admin.getTables(size, page, filter).then(function (resp) {
       resp.data = resp.data.map(function (item) {
-        return new self (null, item);
+        return new self(null, item);
       });
       return resp;
     })

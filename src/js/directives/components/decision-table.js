@@ -6,26 +6,27 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     restrict: 'E',
     scope: {
       table: '=model',
+      variant: '=variant',
       mainForm: '=form'
     },
     transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
     link: function ($scope) {
 
-      var table = $scope.table;
-
       $scope.sortableOptions = {
         axis: 'y',
         handle: '> .table-decision-handler'
       };
 
-      $scope.decisions = table.getDecisionVariants();
+      $scope.decisions = $scope.table.getDecisionVariants();
 
       $scope.onReorderFields = function (curIdx, nextIdx) {
 
-        $scope.table.rules.forEach(function (rule) {
-          rule.conditions[curIdx] = rule.conditions.splice(nextIdx, 1, rule.conditions[curIdx])[0];
-        });
+        $scope.table.variants.forEach(function (item) {
+          item.rules.forEach(function (rule) {
+            rule.conditions[curIdx] = rule.conditions.splice(nextIdx, 1, rule.conditions[curIdx])[0];
+          });
+        })
       };
       // Fields
 
@@ -50,13 +51,13 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
               return field;
             },
             table: function () {
-              return table;
+              return $scope.table;
             }
           }
         });
         modalInstance.result.then(function (field) {
           if (!field.typeChanged) return;
-          table.findConditionsByField(field).forEach(function (item) {
+          $scope.table.findConditionsByField(field).forEach(function (item) {
             item.reset();
           });
         })
@@ -82,15 +83,18 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
       };
 
       $scope.editRule = function (rule) {
-        rule.isEditing = true;
+        rule.isEditingTitle = true;
+        rule.isEditingDecision = true;
       };
       $scope.saveRule = function (rule, form) {
         form.$setSubmitted(true);
         if (form.$invalid) return;
-        rule.isEditing = false;
+        rule.isEditingTitle = false;
+        rule.isEditingDecision = false;
       };
+
       $scope.copyRule = function (rule, form) {
-        table.copyRule(rule);
+        $scope.variant.copyRule(rule);
       };
 
       $scope.deleteRule = function (rule) {
@@ -101,7 +105,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
       };
 
       $scope.addNewRule = function () {
-        $scope.editRule(table.createRule());
+        $scope.editRule($scope.variant.createRule($scope.table.fields));
       };
 
       $scope.isWarningRule = function (rule) {
@@ -120,7 +124,6 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       $scope.onChangeMatchingType = function (type) {
 
-        console.log('onChangeMatchingType', type);
         var transformFn = function (val) {
           return val
         };
@@ -137,12 +140,15 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             break;
         }
 
-        table.defaultDecision = transformFn(table.defaultDecision);
-        table.rules.forEach(function (item) {
-          item.than = transformFn(item.than);
+        $scope.table.variants.forEach(function (item) {
+          item.defaultDecision = transformFn(item.defaultDecision);
+          item.rules.forEach(function (item) {
+            item.than = transformFn(item.than);
 
-          $scope.editRule(item);
-        });
+            $scope.editRule(item);
+          });
+        })
+
       };
 
     }
