@@ -37,14 +37,7 @@
             .decision-condition-align
 
         td.table-decision-column-add
-        td.table-decision-column-decision(ng-click="editRule(rule)")
-          div(ng-if="!rule.isEditing").form-control-static {{rule.than}}
-          div(ng-if="rule.isEditing")
-            span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Decision")
-            span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-              decision-input(ng-if="rule.isEditing" type="table.matchingType", decisions="decisions", model="rule.than", placeholder="Score")
-
+        td.table-decision-column-decision(decision-rule-decision, rule="rule", decisions="decisions", type="table.matchingType")
         td.table-decision-column-action
           div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
