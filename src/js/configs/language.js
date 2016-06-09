@@ -52,7 +52,9 @@ angular.module('app').config(function($translateProvider) {
         'table_name_empty': 'Table name can not be empty',
         'table_description_empty': 'Table description can not be empty',
         'new_project_title_empty': 'Project title can not be empty',
-        'new_project_description_empty': 'Project description can not be empty'
+        'new_project_description_empty': 'Project description can not be empty',
+        'row_title_charsets': 'Title must be between 2 and 128 characters',
+        'row_description_charsets': 'Description must be between 2 and 128 characters'
       }
     },
     "warnings": {

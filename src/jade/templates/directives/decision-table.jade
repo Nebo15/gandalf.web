@@ -59,8 +59,14 @@
     th
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
-    td: input.form-control(type="text", ng-model="variant.defaultTitle", placeholder="Title")
-    td: input.form-control(type="text", ng-model="variant.defaultDescription", placeholder="Description")
+    td
+      input.form-control(type="text", ng-model="variant.defaultTitle", name="title", placeholder="Title", ng-minlength="2", ng-maxlength="128")
+      div.form-control-error(ng-messages="tableForm.title.$error")
+        div(ng-message="minlength, maxlength") {{'validation.errors.row_title_charsets'|translate}}
+    td
+      input.form-control(type="text", ng-model="variant.defaultDescription", name="description", placeholder="Description", ng-minlength="2", ng-maxlength="128")
+      div.form-control-error(ng-messages="tableForm.description.$error")
+        div(ng-message="minlength, maxlength") {{'validation.errors.row_description_charsets'|translate}}
     td
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         decision-input(type="table.matchingType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
