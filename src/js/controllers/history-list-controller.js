@@ -23,6 +23,12 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
     });
   };
 
+  $scope.$watch('filters.table.title', function (val) {
+    if (val !== undefined && val.length === 0 && $scope.filters.tableId) {
+      $scope.filters.tableId = undefined;
+    }
+  });
+
   $scope.$watchGroup(['filters.tableId','filters.size','filters.page'], function (val) {
 
     $state.go($state.current.name, {
