@@ -1,3 +1,8 @@
+.info-panel.has-navbar: .container-fluid
+  .info-panel-heading Tables debugger
+  .info-panel-body
+    include:marked ../content/guides/tables-debugger.md
+
 .container-fluid.block
 
   div(ncy-breadcrumb)
@@ -6,10 +11,6 @@
     .col.col-md-12
       h2 {{table.title}}
       p.lead {{table.description}}
-      br
-      .panel.panel-default
-        .panel-body
-          include:marked ../content/guides/debugger-details.md
   .row
     .col.col-md-6
       form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
@@ -57,7 +58,7 @@
 .info-panel: .container-fluid
   .info-panel-heading Sample CURL
   .info-panel-body
-    | Copy this 
+    | Copy this
     a(href='https://en.wikipedia.org/wiki/CURL') CURL
     | &nbsp;string to your CLI to make a test request to this table. Don't forget to set correct Client ID and Client Secret. You can find them on settings page.
     pre
