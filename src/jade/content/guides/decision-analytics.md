@@ -1,0 +1,1 @@
+Each time Decision Table is called we will calculate how many times single condition was true, and how many times each rule returned it's decision. It allows you to see what rules work in real life, and to find ways to optimize your table.
