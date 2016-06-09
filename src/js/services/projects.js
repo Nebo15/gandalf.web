@@ -35,6 +35,8 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     return $gandalf.admin.getCurrentProject().then(function (resp) {
       var project = new Project(resp.data);
       selectProject(project);
+
+      console.log(project);
       return project;
     });
   }

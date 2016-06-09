@@ -13,10 +13,6 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
-    this.consumers = (obj.consumers || []).map(function (item) {
-      return new ProjectConsumer(item);
-    });
-
   }
 
   Project.find = function () {
@@ -59,6 +55,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
 
   // Consumers
+  Project.prototype.getConsumers = function () {
+    return $gandalf.admin.getConsumers();
+  };
+
   Project.prototype.addConsumer = function (consumer) {
     var self = this;
     return $gandalf.admin.addProjectConsumer({
@@ -122,8 +122,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       _id: this.id,
       title: this.title,
       description: this.description,
-      users: JSON.parse(JSON.stringify(this.users)),
-      consumers: JSON.parse(JSON.stringify(this.consumers))
+      users: JSON.parse(JSON.stringify(this.users))
     };
   };
 
