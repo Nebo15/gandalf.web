@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, _, DecisionRule, CONDITION_TYPES) {
+angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, _, DecisionRule, CONDITION_TYPES, gandalfUtils) {
 
   function DecisionVariant (data) {
 
@@ -29,6 +29,8 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
     this.title = data.title;
     this.description = data.description;
 
+    this.probability = Number(data.probability);
+
     return this;
   };
 
@@ -40,7 +42,8 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
       default_title: this.defaultTitle,
       default_description: this.defaultDescription,
       title: this.title,
-      description: this.description
+      description: this.description,
+      probability: this.probability
     };
   };
 
@@ -94,6 +97,10 @@ angular.module('ng-gandalf').factory('DecisionVariant', function ($gandalf, $q, 
   DecisionVariant.prototype.cleanRules = function (fields) {
     this.rules = [];
     this.createRule(fields);
+  };
+
+  DecisionVariant.prototype.getHash = function () {
+    return gandalfUtils.stringHash(JSON.stringify(this.toJSON()));
   };
 
 
