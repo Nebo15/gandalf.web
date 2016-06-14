@@ -8,6 +8,12 @@ node default {
 
   package { 'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed, }
   package { "openssh-server": ensure => "installed" }
+  file_line { 'change_ssh_port':
+    path   => '/etc/ssh/sshd_config',
+    line   => "Port 2020",
+    match  => '^Port *',
+    notify => Service["ssh"]
+  }
   class { 'nebo15_users': } ->
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
