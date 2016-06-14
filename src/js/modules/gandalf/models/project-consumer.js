@@ -9,7 +9,6 @@ angular.module('ng-gandalf').factory('ProjectConsumer', function ($gandalf) {
     this.clientSecret = obj.client_secret;
     this.description = obj.description;
     this.scope = obj.scope;
-
   }
 
   ProjectConsumer.prototype.toJSON = function () {

@@ -9,6 +9,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.id = obj._id;
     this.title = obj.title;
     this.description = obj.description;
+    this.consumers = null;
 
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
@@ -55,8 +56,17 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
 
   // Consumers
-  Project.prototype.getConsumers = function () {
-    return $gandalf.admin.getConsumers();
+
+  Project.prototype.fetchConsumers = function () {
+    var self = this;
+
+    return $gandalf.admin.getProjectConsumers().then(function (response) {
+      self.consumers = response.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
+      return self;
+    });
   };
 
   Project.prototype.addConsumer = function (consumer) {
@@ -65,14 +75,20 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       description: consumer.description,
       scope: consumer.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     });
   };
   Project.prototype.removeConsumer = function (consumer) {
     var self = this;
     return $gandalf.admin.removeProjectConsumer(consumer.clientId).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     });
   };
@@ -83,7 +99,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       description: consumer.description,
       scope: consumer.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     })
   };
@@ -122,7 +141,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       _id: this.id,
       title: this.title,
       description: this.description,
-      users: JSON.parse(JSON.stringify(this.users))
+      users: JSON.parse(JSON.stringify(this.users)),
+      consumers: JSON.parse(JSON.stringify(this.consumers))
     };
   };
 
