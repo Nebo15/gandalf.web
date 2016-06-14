@@ -8,6 +8,11 @@ node default {
 
   package { 'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed, }
   package { "openssh-server": ensure => "installed" }
+  service { "ssh":
+    ensure  => "running",
+    enable  => "true",
+    require => Package["openssh-server"]
+  } ->
   file_line { 'change_ssh_port':
     path   => '/etc/ssh/sshd_config',
     line   => "Port 2020",
