@@ -119,7 +119,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }
 
         endpoint = config.apiEnpoint + endpoint;
-        endpoint += '?' + $httpParamSerializer(params);
+        var paramsStr = $httpParamSerializer(params);
+        if (paramsStr) {
+          endpoint += '?' + paramsStr;
+        }
 
         var headers = {
           'Content-type': 'application/json'
@@ -349,17 +352,13 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         return $request({
           endpoint: 'api/v1/admin/tables/',
           method: 'post'
-        }, {
-          table: obj
-        });
+        }, obj);
       };
       self.admin.updateTableById = function (id, obj) {
         return $request({
           endpoint: 'api/v1/admin/tables/'+id,
           method: 'put'
-        }, {
-          table: obj
-        });
+        }, obj);
       };
       self.admin.deleteTableById= function (id) {
         return $request({
@@ -449,9 +448,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       // Analytics
 
-      self.admin.getTableAnalytics = function (tableId) {
+      self.admin.getTableAnalytics = function (tableId, variantId) {
         return $request({
-          endpoint: 'api/v1/admin/tables/' + tableId + '/analytics',
+          endpoint: 'api/v1/admin/tables/' + tableId + '/' + variantId + '/analytics',
           method: 'get'
         });
       };

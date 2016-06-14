@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
-    "postinstall": "bower install",
     "start": "gulp",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run"

@@ -3,8 +3,14 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
     .info-panel-breadcrumb(ncy-breadcrumb)
     .info-panel-body
       .row: .col-sm-6
-        .form-group: input.form-control.form-control-underline(ng-model="table.title", placeholder="Table name", required)
-        .form-group: input.form-control.form-control-underline(ng-model="table.description", placeholder="Description", required)
+        .form-group
+          input.form-control.form-control-underline(ng-model="table.title", name="title" placeholder="Table name", required)
+          div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
+        .form-group
+          input.form-control.form-control-underline(ng-model="table.description", name="description" placeholder="Description", required)
+          div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
 
   .container-fluid
     .alert.alert-warning(ng-if="!saved").ng-cloak
@@ -18,13 +24,13 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
       h4 Error
       p Check you data and <b>try again</b>.
 
-    decision-table(model="table", form="form")
+    decision-table(model="table", variant="variant", form="form")
       .decision-buttons
-        button.btn.btn-danger(ng-click="deleteTable(table)") Delete
+        button.btn.btn-danger(type="button", ng-click="deleteTable(table)") Delete
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
           | Save
-        button.btn.btn-default(disabled, ng-if="saved")
+        button.btn.btn-default(disabled, ng-if="saved", type="submit")
           i.glyphicon.glyphicon-check.btn-glyphicon
           | Saved
 

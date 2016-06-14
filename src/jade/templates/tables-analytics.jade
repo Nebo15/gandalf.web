@@ -1,4 +1,7 @@
-
+.info-panel.has-navbar: .container-fluid
+  .info-panel-heading Decisions Analytics
+  .info-panel-body
+    include:marked ../content/guides/decision-history-list.md
 
 .container-fluid.ng-cloak(ng-if="table")
 
@@ -12,7 +15,7 @@
       th.table-decision-column-condition(ng-repeat="field in table.fields") {{field.title}}
       th.table-decision-column-decision Decision
     tbody
-      tr(ng-repeat="rule in table.rules")
+      tr(ng-repeat="rule in variant.rules")
         td.table-decision-column-index {{$index}}
         td
           b {{rule.title}}

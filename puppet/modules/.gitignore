@@ -1,0 +1,4 @@
+*
+!.gitignore
+!/nebo15_users/
+!/nebo15_users/manifests/init.pp
