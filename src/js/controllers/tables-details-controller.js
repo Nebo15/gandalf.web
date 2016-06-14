@@ -2,10 +2,23 @@
 angular.module('app').controller('TablesDetailsController', function ($scope, $state, table, variant) {
 
   $scope.table = table;
+
   $scope.variant = variant || table.variants[0];
 
-  if (!variant) {
+  $scope.selectVariant = function (variant) {
+    $scope.variant = variant;
     $state.go($state.current.name, {
+      id: table.id,
+      variantId: $scope.variant.id
+    }, {
+      notify: true,
+      reload: true,
+      location: 'replace'
+    });
+  };
+
+  if (!variant) {
+    return $state.go($state.current.name, {
       id: table.id,
       variantId: $scope.variant.id
     }, {
@@ -14,5 +27,4 @@ angular.module('app').controller('TablesDetailsController', function ($scope, $s
       location: 'replace'
     });
   }
-
 });

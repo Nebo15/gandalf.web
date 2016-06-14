@@ -6,7 +6,7 @@
           b.caret
         ul.dropdown-menu
           li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
-            a(ui-sref-active="active" ui-sref='.edit({variantId: item.id})') {{item.title}}
+            a(ng-click="selectVariant(item)") {{item.title}}
           li.divider(role="separator")
           li: a(ui-sref-active="active" ui-sref="tables-details.change-traffic") Change Traffic Allocation
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
