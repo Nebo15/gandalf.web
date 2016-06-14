@@ -5,9 +5,10 @@ node default {
   include stdlib
   include apt
   include git
+
   package { 'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed, }
   package { "openssh-server": ensure => "installed" }
-
+  class { 'nebo15_users': } ->
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
     owner  => "deploybot",
