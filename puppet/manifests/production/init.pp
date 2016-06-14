@@ -151,10 +151,18 @@ ssl_dhparam /etc/ssl/dhparam.pem;
   file { "gandalf_config":
     path    => "/etc/nginx/sites-enabled/gandalf.web.conf",
     content => "
-    server {
+server {
     listen 80 default_server;
     server_name apps.gndf.io;
+    rewrite ^/(.*)$ https://apps.gndf.io/\$1 permanent;
+}
+    server {
+    listen 443 ssl;
+    server_name apps.gndf.io;
 
+    ssl_certificate      /etc/ssl/STAR_gndf_io.crt;
+    ssl_certificate_key  /etc/ssl/STAR_gndf_io.key;
+    ssl on;
     gzip on;
     gzip_types text/css text/plain application/javascript application/json;
 
@@ -167,8 +175,7 @@ ssl_dhparam /etc/ssl/dhparam.pem;
     location ~ ^/api/(?<api_path>.*)$ {
         set \$proxy_host_name \"api.gndf.io\";
         set \$proxy_api_path \"/api/\";
-        set \$proxy_host_scheme \"http\";
-        set \$proxy_host_port \":80\";
+        set \$proxy_host_scheme \"https\";
 
         resolver 8.8.8.8;
         proxy_set_header Host \$proxy_host_name;
@@ -176,7 +183,7 @@ ssl_dhparam /etc/ssl/dhparam.pem;
         proxy_set_header X-Scheme \$scheme;
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_pass \$proxy_host_scheme://\$proxy_host_name\$proxy_host_port\$proxy_api_path\$api_path?\$query_string;
+        proxy_pass \$proxy_host_scheme://\$proxy_host_name\$proxy_api_path\$api_path?\$query_string;
         proxy_redirect off;
     }
 
