@@ -44,12 +44,12 @@ form.container-fluid(name="form", ng-submit="submit(form)")
           .col-sm-6
             h3.form-control-heading Traffic allocation
         .row
-          .col-sm-6
+          .col-sm-8
             .btn-group.btn-group-matching
               label.btn.btn-primary-matching(uib-btn-radio="'first'", ng-model="table.variantsProbability") First
               label.btn.btn-primary-matching(uib-btn-radio="'percent'", ng-model="table.variantsProbability") Percent
               label.btn.btn-primary-matching(uib-btn-radio="'random'", ng-model="table.variantsProbability") Random
-          .col-sm-6
+          .col-sm-4
             button.btn.btn-success.btn-loading.pull-right(type="submit", ng-disabled="saved")
               .btn-loader: .glyphicon.glyphicon-refresh
               | Save

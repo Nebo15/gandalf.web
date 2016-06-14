@@ -5,7 +5,7 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
       .row
         .col-sm-6
           .form-group
-            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="Table name", required)
+            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="{{isBaseVariant ? 'Table name' : 'Variant name'}}", required)
             div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
               div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
           .form-group
