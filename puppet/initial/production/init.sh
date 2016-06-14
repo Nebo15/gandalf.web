@@ -58,5 +58,11 @@ if [ ! -e ${modules_dir}/git ]; then
     sudo puppet module install --force puppetlabs-git --target-dir ${modules_dir}
 fi;
 
+if [ ! -e /etc/ssl/dhparam.pem ]
+then
+    sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
+fi;
+
+
 sudo puppet apply --modulepath ${modules_dir} ${modules_dir}/../manifests/production/init.pp
 

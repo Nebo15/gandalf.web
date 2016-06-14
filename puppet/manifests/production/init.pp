@@ -42,7 +42,8 @@ node default {
     keepalive_timeout   => '65',
     types_hash_max_size => '2048',
     server_tokens       => 'off',
-    gzip                => 'off'
+    gzip                => 'off',
+    ssl_dhparam         => '/etc/ssl/dhparam.pem'
   }
 
   exec { "apt-get update":
@@ -62,7 +63,7 @@ node default {
   package { 'compass':
     ensure   => 'installed',
     provider => 'gem',
-    require => Package['ruby-dev']
+    require  => Package['ruby-dev']
   }
   package { 'npm':
     name    => 'npm',
