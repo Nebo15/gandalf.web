@@ -38,6 +38,34 @@ node default {
     notify  => Exec["set-hostname"],
   }
 
+  file { ["/etc/sudoers.d/deploybot"]:
+    ensure => "directory",
+    owner  => root,
+    group  => root,
+    mode   => 0440
+  }->
+  file { "/etc/sudoers.d/deploybot/first":
+    content => "\
+Cmnd_Alias        API_PUPPET = /usr/bin/puppet
+Cmnd_Alias        API_SERVICE = /usr/bin/service
+deploybot  ALL=NOPASSWD: API_PUPPET
+deploybot  ALL=NOPASSWD: API_SERVICE
+Defaults env_keep += \"FACTER_newrelic_key\"
+",
+    mode    => 0440,
+    owner   => root,
+    group   => root,
+  } ->
+  file { "/etc/sudoers.d/deploybot-user":
+    content => "\
+#includedir /etc/sudoers.d/deploybot
+",
+    mode    => 0440,
+    owner   => root,
+    group   => root,
+  }
+
+
   exec { "set-hostname":
     command => "/bin/hostname -F /etc/hostname",
     unless  => "/usr/bin/test `hostname` = `/bin/cat /etc/hostname`",
