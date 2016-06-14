@@ -152,7 +152,7 @@ ssl_dhparam /etc/ssl/dhparam.pem;
     path    => "/etc/nginx/sites-enabled/gandalf.web.conf",
     content => "
 server {
-    listen 80 default_server;
+    listen 80;
     server_name apps.gndf.io;
     rewrite ^/(.*)$ https://apps.gndf.io/\$1 permanent;
 }
