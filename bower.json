@@ -22,6 +22,6 @@
     "angular-translate": "^2.11.0",
     "angular-messages": "^1.5.5",
     "angular-ui-router-default": "^0.0.3",
-    "jquery": ">=1.9.1"
+    "jquery": "~2"
   }
 }
