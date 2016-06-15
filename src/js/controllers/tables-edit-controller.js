@@ -8,10 +8,15 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
   $scope.error = null;
 
   $scope.table = table;
-  $scope.variant = $state.params.newVariant ? table.createVariant($state.params.variantId) : ($scope.variant || null);
   $scope.isBaseVariant = ($scope.variant.id === table.variants[0].id);
 
-  variantHash = $scope.variant.getHash();
+  if ($state.params.newVariant) {
+    $scope.variant = table.createVariant($state.params.variantId);
+  } else {
+    $scope.variant = $scope.variant || null;
+  }
+
+  variantHash = $state.params.newVariant ? 0 : $scope.variant.getHash();
 
   $scope.submit = function (form) {
     if (form.$invalid) return;
@@ -95,9 +100,5 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
   $scope.$on('$destroy', function () {
     window.onbeforeunload = fnOnBeforeUnload;
   });
-
-  $timeout(function () {
-    $scope.saved = true;
-  })
 
 });
