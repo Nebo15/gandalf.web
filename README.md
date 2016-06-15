@@ -25,3 +25,9 @@ Production build
 ```
 gulp production # or gulp build --production
 ```
+
+## Vagrant
+
+```
+vagrant up
+```
