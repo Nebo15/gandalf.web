@@ -1,10 +1,19 @@
 .navbar-second.navbar.navbar-primary.has-navbar: .container-fluid
   ul.nav.navbar-nav
+    li(role="presentation", ng-if="table.variants.length > 1")
+      .dropdown.variants-dropdown(uib-dropdown)
+        a.dropdown-toggle(role="button", uib-dropdown-toggle) {{variant.title || 'Untitled variant'}}
+          b.caret
+        ul.dropdown-menu
+          li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
+            a(ng-click="selectVariant(item)") {{item.title || 'Untitled variant'}}
+          li.divider(role="separator")
+          li: a(ui-sref-active="active" ui-sref="tables-details.change-traffic") Change Traffic Allocation
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
     li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
     li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
     li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
     li(role="presentation" ui-sref="history-list({tableId: table.id})"): a Decisions History →
-
+    li(role="presentation" ui-sref-active="active" ui-sref=".new-variant"): a Start a Split Test
 div.hide(ncy-breadcrumb)
 ui-view

@@ -115,6 +115,24 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
   };
 
+  DecisionTable.prototype.createVariant = function (parentVariantId) {
+    var variantJSON = ((parentVariantId && this.getVariant(parentVariantId)) || this.variants[0]).toJSON();
+    variantJSON.id = variantJSON._id = undefined;
+    variantJSON.probability = 0;
+
+    return new this._modelVariant(variantJSON);
+  };
+
+  DecisionTable.prototype.deleteVariant = function (variantId) {
+    this.variants.some(function (variant) {
+      if (variant.id === variantId) {
+        this.variants[0].probability += variant.probability;
+        this.variants.splice(this.variants.indexOf(variant), 1);
+        return true;
+      }
+    }, this);
+  };
+
   DecisionTable.prototype.parse = function (data) {
 
     this.id = data._id;
@@ -132,6 +150,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
 
     this.matchingType = data.matching_type || 'first';
+    this.variantsProbability = data.variants_probability || 'first';
 
     return this;
   };
@@ -143,7 +162,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       variants: JSON.parse(JSON.stringify(this.variants)),
       title: this.title,
       description: this.description,
-      matching_type: this.matchingType
+      matching_type: this.matchingType,
+      variants_probability: this.variantsProbability
     };
   };
 

@@ -90,6 +90,23 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       id: null,
       decision: null
     }
+  }).state('tables-details.new-variant', {
+    url: '/variant',
+    controller: 'TablesEditController',
+    templateUrl: 'templates/tables-edit.html',
+    ncyBreadcrumb: {
+      label: 'New variant'
+    },
+    params: {
+      newVariant: true
+    }
+  }).state('tables-details.change-traffic', {
+    url: '/traffic',
+    controller: 'TablesTrafficListController',
+    templateUrl: 'templates/tables-traffic-list.html',
+    ncyBreadcrumb: {
+      label: 'Change Traffic Allocation'
+    }
   });
 
   $stateProvider.state('tables-diff', {

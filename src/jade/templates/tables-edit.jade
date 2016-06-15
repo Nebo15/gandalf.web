@@ -2,22 +2,23 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
   .info-panel.has-navbar: .container-fluid
     .info-panel-breadcrumb(ncy-breadcrumb)
     .info-panel-body
-      .row: .col-sm-6
-        .form-group
-          input.form-control.form-control-underline(ng-model="table.title", name="title" placeholder="Table name", required)
-          div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
-            div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
-        .form-group
-          input.form-control.form-control-underline(ng-model="table.description", name="description" placeholder="Description", required)
-          div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
-            div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
+      .row
+        .col-sm-6
+          .form-group
+            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="{{isBaseVariant ? 'Table name' : 'Variant name'}}", required)
+            div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
+              div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
+          .form-group
+            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", required)
+            div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
+              div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
 
   .container-fluid
     .alert.alert-warning(ng-if="!saved").ng-cloak
       .alert-btn-right
         button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
-          | Save
+          | {{isBaseVariant ? 'Save table' : 'Save variant'}}
       p This table have unsaved data. You need to save changes manually.
 
     .alert.alert-danger(ng-if="error").ng-cloak
@@ -26,13 +27,14 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
 
     decision-table(model="table", variant="variant", form="form")
       .decision-buttons
-        button.btn.btn-danger(type="button", ng-click="deleteTable(table)") Delete
+        button.btn.btn-danger(type="button", ng-click="deleteTable(table)")
+          | {{isBaseVariant ? 'Delete table' : 'Delete variant'}}
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh
-          | Save
+          | {{isBaseVariant ? 'Save table' : 'Save variant'}}
         button.btn.btn-default(disabled, ng-if="saved", type="submit")
           i.glyphicon.glyphicon-check.btn-glyphicon
-          | Saved
+          | {{isBaseVariant ? 'Table saved' : 'Variant saved'}}
 
 .info-panel: .container-fluid
   .info-panel-heading Decision Table
