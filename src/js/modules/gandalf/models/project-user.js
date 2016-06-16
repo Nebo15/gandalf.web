@@ -7,7 +7,7 @@ angular.module('ng-gandalf').factory('ProjectUser', function ($gandalf) {
     this._id = obj._id;
     this.id = obj.user_id;
     this.role = obj.role;
-    this.scope = obj.scope;
+    this.scope = obj.scope || [];
 
     this.email = obj.email;
     this.username = obj.username;
