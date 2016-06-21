@@ -58,13 +58,13 @@ angular.module('app').controller('TablesEditVariantController', function ($scope
 
   $scope.deleteVariant = function () {
     var modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/delete-table.html',
+      templateUrl: 'templates/modal/delete-variant.html',
       controller: 'DeleteTableController',
       resolve: {
         table: table
       }
     });
-    
+
     modalInstance.result.then(function () {
       table.deleteVariant($scope.variant.id);
 
