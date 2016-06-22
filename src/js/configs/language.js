@@ -55,7 +55,10 @@ angular.module('app').config(function($translateProvider) {
         'new_project_description_empty': 'Project description can not be empty',
         'row_title_charsets': 'Title must be between 2 and 128 characters',
         'row_description_charsets': 'Description must be between 2 and 128 characters',
-        'invalid_username': 'Invalid username. Use only alphabet characters, dash, underscore and number.'
+        'invalid_username': 'Invalid username. Use only alphabet characters, dash, underscore and number.',
+        'username_minlength': 'Login should consist of more than 2 characters',
+        'invalid_password': 'Invalid password. Use minimum one upper and one lower charset.',
+        'password_minlength': 'Password should consist of more than 6 characters'
       }
     },
     "warnings": {

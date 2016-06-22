@@ -11,19 +11,28 @@
           type="text",
           ng-model="model.username",
           pattern="^[a-zA-Z0-9-_\.]+$",
+          minlength="2",
+          maxlength="32",
           required,
           placeholder="Username"
         )
         div.form-control-error(ng-messages="form.username.$error", ng-if="form.username.$dirty || form.$submitted")
           div(ng-message="pattern") {{'validation.errors.invalid_username'|translate}}
+          div(ng-message="minlength") {{'validation.errors.username_minlength'|translate}}
       .form-group
         input.form-control(
           name="password",
           type="password",
           ng-model="model.password",
+          pattern=".*[a-z]+.*[A-Z]+|.*[A-Z]+.*[a-z]+",
+          minlength="6",
+          maxlength="32",
           required,
           placeholder="Password"
         )
+        div.form-control-error(ng-messages="form.password.$error", ng-if="form.password.$dirty || form.$submitted")
+          div(ng-message="pattern") {{'validation.errors.invalid_password'|translate}}
+          div(ng-message="minlength") {{'validation.errors.password_minlength'|translate}}
       .form-group
         input.form-control(
           name="email",
