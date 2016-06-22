@@ -10,7 +10,7 @@
   br
   p.list-group
     a.list-group-item(ui-sref="tables-details({id: table.id})", ng-repeat="table in tables")
-      b.list-group-item-heading {{table.title || 'Untitled project'}}
+      b.list-group-item-heading.tables-list__table-title {{table.title || 'Untitled project'}}
       br
       span: i.list-group-item-text {{table.description}}
   uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")

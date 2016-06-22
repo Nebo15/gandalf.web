@@ -15,11 +15,14 @@ nav.navbar.navbar-static-top.navbar-default: .container-fluid
   #navbar-menu.collapse.navbar-collapse
     ul.nav.navbar-nav
       li.dropdown(uib-dropdown, ng-if="projects.length")
-        a.dropdown-toggle(role="button", uib-dropdown-toggle) {{project.title}}
+        a.dropdown-toggle(role="button", uib-dropdown-toggle)
+          .text-overflow {{project.title}}
           | &#32;
           b.caret
         ul.dropdown-menu
-          li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}"): a(ng-click="selectProject(item)") {{item.title}}
+          li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}")
+            a(ng-click="selectProject(item)")
+              .text-overflow {{item.title}}
           li.divider(role="separator")
           li: a(project-add) + add new project
     .navbar-form.navbar-left(ng-if="!projects.length")

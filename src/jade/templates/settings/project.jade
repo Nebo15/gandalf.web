@@ -4,7 +4,7 @@
       .block
         .text-heading
           .text-heading-label Name
-          | {{project.title}}
+          .text-overflow {{project.title}}
         .text-heading(ng-if="project.description")
           .text-heading-label Description
           | {{project.description}}
