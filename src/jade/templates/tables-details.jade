@@ -2,11 +2,12 @@
   ul.nav.navbar-nav
     li(role="presentation", ng-if="table.variants.length > 1")
       .dropdown.variants-dropdown(uib-dropdown)
-        a.dropdown-toggle(role="button", uib-dropdown-toggle) {{variant.title || 'Untitled variant'}}
+        a.dropdown-toggle.table-title-overflow(role="button", uib-dropdown-toggle) {{variant.title || 'Untitled variant'}}
           b.caret
         ul.dropdown-menu
           li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
-            a(ng-click="selectVariant(item)") {{item.title || 'Untitled variant'}}
+            a(ng-click="selectVariant(item)")
+              span.table-title-overflow {{item.title || 'Untitled variant'}}
           li.divider(role="separator")
           li: a(ui-sref-active="active" ui-sref="tables-details.change-traffic") Change Traffic Allocation
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
