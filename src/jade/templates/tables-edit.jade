@@ -1,42 +1,90 @@
-form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
-  .info-panel.has-navbar: .container-fluid
-    .info-panel-breadcrumb(ncy-breadcrumb)
-    .info-panel-body
+.container-fluid
+
+  div.main-breadcrumb(ncy-breadcrumb)
+
+  .row
+    .col-md-12
+      .text-heading
+        .text-heading-label Table name
+        | {{table.title || 'Untitled table'}}
+      .text-heading(ng-if="table.description")
+        .text-heading-label Description
+        | {{table.description}}
+      .btn-actions: .btn-group.btn-group-sm
+        a.btn.btn-primary(ng-click="changeTableName()") Edit
+      hr
+  .row
+    .col-md-4.col-md-push-6
+      include:marked ../content/guides/tables-variants.md
+    form.col-md-6.col-md-pull-4(name="form", ng-submit="saveTrafficAllocation(form)")
+      .alert.alert-danger(ng-if="error").ng-cloak
+        h4 Error
+        p Check you data and <b>try again</b>.
+      .panel.panel-default
+        .panel-heading
+            b Table variants
+        .panel-body
+          .list-group.list-group-panel
+            .list-group-item(ng-repeat="variant in table.variants")
+              .row
+                .col-sm-6
+                  a.list-group-item-heading(ui-sref="tables-details.variant({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
+                  br
+                  span: i.list-group-item-text {{variant.description}}
+                .col-sm-1
+                  div(class="variant-marker variant-color-{{$index % 4}}")
+                .col-sm-3.pull-right
+                  input.form-control(
+                    type="number",
+                    ng-if="!$index"
+                    ng-value="allTraffic",
+                    readonly="readonly"
+                    placeholder="Allocation percent"
+                  )
+                  input.form-control(
+                    type="number",
+                    ng-if="$index"
+                    ng-model="variant.probability",
+                    max="{{maxTrafficPercent($index)}}"
+                    min="0"
+                    ng-disabled="table.variantsProbability !== 'percent'",
+                    placeholder="Allocation percent"
+                  )
+
+            .list-group-item.traffic-allocation-visual
+              div(
+                ng-if="table.variants.length > 1"
+                ng-repeat="variant in table.variants",
+                style="width: {{$index === 0 ? allTraffic : variant.probability}}%",
+                class="variant-visual-item variant-color-{{$index % 4}}"
+              )
+
+            a.list-group-item(ui-sref="tables-details.variant.new"): b.text-primary + create variant
+      h3.form-control-heading Traffic allocation
       .row
-        .col-sm-6
-          .form-group
-            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="{{isBaseVariant ? 'Table name' : 'Variant name'}}", required)
-            div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
-              div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
-          .form-group
-            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", required)
-            div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
-              div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
+        .col-sm-8
+          .btn-group.btn-group-matching
+            label.btn.btn-primary-matching(uib-btn-radio="'first'", ng-model="table.variantsProbability") First
+            label.btn.btn-primary-matching(uib-btn-radio="'percent'", ng-model="table.variantsProbability") Percent
+            label.btn.btn-primary-matching(uib-btn-radio="'random'", ng-model="table.variantsProbability") Random
+        .col-sm-4.text-right
+          button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
+            .btn-loader: .glyphicon.glyphicon-refresh
+            | Save allocation
+          button.btn.btn-default(disabled, ng-if="saved", type="submit")
+            i.glyphicon.glyphicon-check.btn-glyphicon
+            | Allocation saved
 
-  .container-fluid
-    .alert.alert-warning(ng-if="!saved").ng-cloak
-      .alert-btn-right
-        button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
-          .btn-loader: .glyphicon.glyphicon-refresh
-          | {{isBaseVariant ? 'Save table' : 'Save variant'}}
-      p This table have unsaved data. You need to save changes manually.
+      hr
 
-    .alert.alert-danger(ng-if="error").ng-cloak
-      h4 Error
-      p Check you data and <b>try again</b>.
+      h3.form-control-heading Table Type
+        | &#32;
+        a.glyphicon.glyphicon-question-sign(href="http://nebo15.github.io/qbill.docs/gandalf.html#types", target="__blank")
+      .row
+        .col-sm-8
+          select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+        .col-sm-4.text-right
+          button.btn.btn-danger(ng-click="deleteTable(table)") Delete Table
 
-    decision-table(model="table", variant="variant", form="form")
-      .decision-buttons
-        button.btn.btn-danger(type="button", ng-click="deleteTable(table)")
-          | {{isBaseVariant ? 'Delete table' : 'Delete variant'}}
-        button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
-          .btn-loader: .glyphicon.glyphicon-refresh
-          | {{isBaseVariant ? 'Save table' : 'Save variant'}}
-        button.btn.btn-default(disabled, ng-if="saved", type="submit")
-          i.glyphicon.glyphicon-check.btn-glyphicon
-          | {{isBaseVariant ? 'Table saved' : 'Variant saved'}}
 
-.info-panel: .container-fluid
-  .info-panel-heading Decision Table
-  .info-panel-body
-    include:marked ../content/guides/decision-tables.md
+  p: br

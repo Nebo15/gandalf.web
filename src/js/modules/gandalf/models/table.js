@@ -5,7 +5,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.id = id;
     this.fields = [];
     this.variants = [];
-    this.matchingType = 'first';
+    this.matchingType = 'decision';
 
     if (data) this.parse(data);
   }
@@ -149,7 +149,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       return new self._modelVariant(item);
     });
 
-    this.matchingType = data.matching_type || 'first';
+    this.matchingType = data.matching_type || 'decision';
     this.variantsProbability = data.variants_probability || 'first';
 
     return this;

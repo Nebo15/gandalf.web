@@ -1,64 +1,81 @@
 'use strict';
 
-angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, table) {
-  var variantHash = 0;
+angular.module('app').controller('TablesEditController', function ($scope, $state, $uibModal, table, APP) {
+  var tableHash = table.getHash();
 
   $scope.saved = true;
   $scope.isSaving = false;
   $scope.error = null;
+  $scope.allTraffic = 100;
 
   $scope.table = table;
-  $scope.isBaseVariant = ($scope.variant.id === table.variants[0].id);
 
-  if ($state.params.newVariant) {
-    $scope.variant = table.createVariant($state.params.variantId);
-  } else {
-    $scope.variant = $scope.variant || null;
-  }
+  function sumVariants() {
+    var filterIndexes = Array.prototype.slice.call(arguments);
 
-  variantHash = $state.params.newVariant ? 0 : $scope.variant.getHash();
-
-  $scope.submit = function (form) {
-    if (form.$invalid) return;
-    if ($scope.isSaving) return;
-
-    $scope.isSaving = true;
-
-    if ($state.params.newVariant && $scope.variant.id === undefined) {
-      $scope.table.variants.push($scope.variant);
-    }
-
-    if ($scope.isBaseVariant) {
-      table.title = $scope.variant.title;
-      table.description = $scope.variant.description;
-    }
-
-    table.save().then(function () {
-      $scope.error = null;
-      $scope.variant.rules.forEach(function (item) {
-        item.isEditing = false;
-      });
-
-      if ($state.params.newVariant) {
-        $state.go('tables-details.edit', {
-          variantId: $scope.table.variants[$scope.table.variants.length - 1].id
-        });
-
-        return;
+    return table.variants.reduce(function (num, variant, index) {
+      if (~filterIndexes.indexOf(index)) {
+        return num;
       }
 
-      $timeout(function () {
-        $scope.saved = true;
-      });
+      return num += variant.probability;
+    }, 0);
+  }
 
-      $scope.variant = table.getVariant($scope.variant.id);
-      $scope.$broadcast('decisionTable:saved');
+  $scope.maxTrafficPercent = function (currentIndex) {
+    return 100 - sumVariants(0, currentIndex);
+  };
 
-      variantHash = $scope.variant.getHash();
-    }, function (err) {
-      $scope.error = err;
-    }).finally(function () {
+  $scope.saveTrafficAllocation = function (form) {
+    $scope.error = null;
+    $scope.isSaving = true;
+
+    if (form.$invalid || $scope.saved) return;
+
+    table.variants[0].probability = $scope.allTraffic;
+
+    table.save().then(function () {
+      $scope.saved = true;
       $scope.isSaving = false;
+
+      tableHash = table.getHash();
+    }).then(null, function (err) {
+      $scope.error = err;
+    });
+  };
+
+  $scope.onChangeMatchingType = function (type) {
+    var transformFn = function (val) {
+      return val
+    };
+
+    switch (type) {
+      case APP.matchingTypes.first:
+        transformFn = function (val) {
+          return '' + val;
+        };
+        break;
+      case APP.matchingTypes.all:
+        transformFn = function (val) {
+          val = Number(val);
+          return isNaN(val) ? 0 : val;
+        };
+        break;
+    }
+
+    table.variants.forEach(function (item) {
+      item.defaultDecision = transformFn(item.defaultDecision);
+      item.rules.forEach(function (item) {
+        item.than = transformFn(item.than);
+      });
+    });
+
+    table.matchingType = type;
+
+    tableHash = table.getHash();
+
+    table.save().then(null, function (error) {
+      $scope.error = error;
     });
   };
 
@@ -70,35 +87,38 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
         table: table
       }
     });
+
     modalInstance.result.then(function () {
-      if ($scope.isBaseVariant) {
-        table.delete().then(function () {
-          $state.go('tables-list');
-        });
-
-        return;
-      }
-
-      table.deleteVariant($scope.variant.id);
-
-      table.save().then(function () {
-        $state.go('tables-details.edit', {
-          variantId: $scope.table.variants[0].id
-        });
+      table.delete().then(function () {
+        $state.go('tables-list');
       });
     });
   };
 
-  $scope.$watch('variant', function (val) {
-    $scope.saved = (val.getHash() === variantHash);
+  $scope.changeTableName = function () {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/edit-table-name.html',
+      controller: 'EditTableNameController',
+      resolve: {
+        table: table
+      }
+    });
+
+    modalInstance.result.then(function (tableCopy) {
+      $scope.table.title = tableCopy.title;
+      $scope.table.description = tableCopy.description;
+
+      tableHash = table.getHash();
+    });
+  };
+
+  $scope.$watch('table.variants', function () {
+    var sum = sumVariants(0);
+    $scope.allTraffic = 100 - (isNaN(sum) ? 0 : sum);
   }, true);
 
-  var fnOnBeforeUnload = window.onbeforeunload;
-  window.onbeforeunload = function () {
-    return $scope.saved ? null : 'You have unsaved data';
-  };
-  $scope.$on('$destroy', function () {
-    window.onbeforeunload = fnOnBeforeUnload;
-  });
+  $scope.$watch('table', function () {
+    $scope.saved = (tableHash === table.getHash());
+  }, true);
 
 });
