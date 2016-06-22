@@ -9,9 +9,18 @@ angular.module('app').directive('conditionInput', function (CONDITIONS) {
       type: '=',
       value: '=',
       disabled: '=',
-      required: '='
+      required: '=',
+      number: '='
     },
     link: function (scope) {
+      if (scope.number === true) {
+        scope.value = Number(scope.value);
+
+        if (isNaN(scope.value)) {
+          scope.value = 1;
+        }
+      }
+
       scope.conditions = CONDITIONS;
     }
   }

@@ -2,7 +2,7 @@
   div(ng-if="type == $root.APP.types.number")
     //.input-group-addon
     select.field-condition.form-control(ng-model="$parent.condition", ng-options="(item | condition) for item in conditions.number")
-    condition-input.field-value(type="condition", value="$parent.value", disabled="!hasInput(condition)", required="hasInput(condition)")
+    condition-input.field-value(type="condition", number="true", value="$parent.value", disabled="!hasInput(condition)", required="hasInput(condition)")
   div(ng-if="type == $root.APP.types.bool")
     boolean-select.field-condition(value="$parent.value", condition="$parent.condition")
   div(ng-if="type == $root.APP.types.string")
