@@ -7,9 +7,12 @@
   h4 History Details
   .history-detail
 
-    h5 Table:  {{table.table.title}}
+    h5
+      | Table:  {{table.table.title}}
+      br
+      | Variant: {{table.variant.title}}
     .btn-group.btn-group-sm
-      a.btn.btn-primary(ui-sref="tables-details.edit({id: table.table.id})") Edit
+      a.btn.btn-primary(ui-sref="tables-details.edit({id: table.table.id, variantId: table.variant.id})") Edit
     h5 Request
     div.preview
       div.preview__external

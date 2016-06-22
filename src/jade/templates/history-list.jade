@@ -17,7 +17,7 @@
         th Timestamp
         th Decision name
           .small.light Decision description
-        th Table Name
+        th Table info
         th Decision
         th Action
     tr(ng-repeat="table in tables")
@@ -25,7 +25,11 @@
       td {{table.createdAt | date: 'M/d/yy HH:mm:ss'}}
       td {{table.title}}
         .small.light {{table.description}}
-      td {{table.table.title}}
+      td Table name: &nbsp
+        b {{table.table.title}}
+        br
+        | Table variant: &nbsp
+        b {{table.variant.title}}
       td {{table.finalDecision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
 
