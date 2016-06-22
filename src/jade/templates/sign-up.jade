@@ -10,9 +10,12 @@
           name="username",
           type="text",
           ng-model="model.username",
+          pattern="^[a-zA-Z0-9-_\.]+$",
           required,
           placeholder="Username"
         )
+        div.form-control-error(ng-messages="form.username.$error", ng-if="form.username.$dirty || form.$submitted")
+          div(ng-message="pattern") {{'validation.errors.invalid_username'|translate}}
       .form-group
         input.form-control(
           name="password",
