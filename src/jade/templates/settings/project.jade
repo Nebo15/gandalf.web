@@ -27,7 +27,7 @@
               span.small.subtitle {{user.scope | translateArray: 'scopes.users_details.' | join: ', '}}
             a.list-group-item(user-add="project"): b.text-primary + add collaborator
 
-   .row
+   .row(ng-if="project.consumers")
     .col-md-4.col-md-push-6
       include:marked ../../content/guides/settings-project-consumers.md
     .col-md-6.col-md-pull-4

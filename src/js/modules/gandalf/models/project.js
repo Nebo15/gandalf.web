@@ -9,14 +9,11 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.id = obj._id;
     this.title = obj.title;
     this.description = obj.description;
+    this.consumers = null;
 
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
-    this.consumers = (obj.consumers || []).map(function (item) {
-      return new ProjectConsumer(item);
-    });
-
   }
 
   Project.find = function () {
@@ -59,20 +56,39 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
 
   // Consumers
+
+  Project.prototype.fetchConsumers = function () {
+    var self = this;
+
+    return $gandalf.admin.getProjectConsumers().then(function (response) {
+      self.consumers = response.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
+      return self;
+    });
+  };
+
   Project.prototype.addConsumer = function (consumer) {
     var self = this;
     return $gandalf.admin.addProjectConsumer({
       description: consumer.description,
       scope: consumer.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     });
   };
   Project.prototype.removeConsumer = function (consumer) {
     var self = this;
     return $gandalf.admin.removeProjectConsumer(consumer.clientId).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     });
   };
@@ -83,7 +99,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       description: consumer.description,
       scope: consumer.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.consumers = resp.data.map(function (consumer) {
+        return new ProjectConsumer(consumer);
+      });
+
       return self;
     })
   };
