@@ -5,8 +5,10 @@
       th.table-decision-column-title Title
         .small.text-light Description
       th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
-      ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
-        .small.text-light {{condition.key}}
+      ng-class="{'is-deleted': condition.isDeleted}")
+        .text-overflow {{condition.title}}
+        .small.text-light
+          .text-overflow {{condition.key}}
           span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
       th.table-decision-column-add(add-new-field, table="table")
         div(uib-tooltip="Add Field"): div(uib-popover="Should have at least 1 column",

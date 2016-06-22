@@ -12,7 +12,8 @@
       th.table-decision-column-index #
       th.table-decision-column-title Title
         .small.text-light description
-      th.table-decision-column-condition(ng-repeat="field in table.fields") {{field.title}}
+      th.table-decision-column-condition(ng-repeat="field in table.fields")
+        .text-overflow {{field.title}}
       th.table-decision-column-decision Decision
     tbody
       tr(ng-repeat="rule in variant.rules")
