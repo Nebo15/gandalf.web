@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').service('ProjectsService', function (Project, $gandalf, $timeout, $rootScope, $localStorage, lodash, $cacheFactory, utils) {
+angular.module('app').service('ProjectsService', function (Project, $gandalf, $timeout, $rootScope, $localStorage, $q, lodash, $cacheFactory, utils) {
 
   var appCache = $cacheFactory('projects');
   var storage = $localStorage.$default({
@@ -32,8 +32,8 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   }
 
   function current () {
-    return $gandalf.admin.getCurrentProject().then(function (resp) {
-      var project = new Project(resp.data);
+    return $gandalf.admin.getCurrentProject().then(function (response) {
+      var project = new Project(response.data);
       selectProject(project);
       return project;
     });

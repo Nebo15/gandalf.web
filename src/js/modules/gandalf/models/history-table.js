@@ -1,10 +1,11 @@
-angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf, DecisionTable, DecisionHistoryRule) {
+angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf, DecisionTable, DecisionVariant, DecisionHistoryRule) {
 
   function DecisionHistoryTable () {
     this.finalDecision = null;
     this.request = null;
     this.createdAt = null;
     this.updatedAt = null;
+    this.variant = null;
 
     DecisionTable.apply(this, arguments);
   }
@@ -20,6 +21,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
     DecisionTable.prototype.parse.call(this, data);
 
     this.table = new DecisionTable(data.table.id, data.table);
+    this.variant = new DecisionVariant(data.table.variant);
 
     this.finalDecision = data.final_decision;
     this.request = data.request;

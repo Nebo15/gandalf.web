@@ -9,7 +9,7 @@
     | Create table
   br
   p.list-group
-    a.list-group-item(ui-sref="tables-details.edit({id: table.id})", ng-repeat="table in tables")
+    a.list-group-item(ui-sref="tables-details({id: table.id})", ng-repeat="table in tables")
       b.list-group-item-heading.tables-list__table-title {{table.title || 'Untitled project'}}
       br
       span: i.list-group-item-text {{table.description}}

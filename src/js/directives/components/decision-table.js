@@ -119,38 +119,6 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         return res;
       };
 
-
-      // Table
-
-      $scope.onChangeMatchingType = function (type) {
-
-        var transformFn = function (val) {
-          return val
-        };
-        switch (type) {
-          case APP.matchingTypes.first:
-            transformFn = function (val) {
-              return '' + val;
-            };
-            break;
-          case APP.matchingTypes.all:
-            transformFn = function (val) {
-              return +val;
-            };
-            break;
-        }
-
-        $scope.table.variants.forEach(function (item) {
-          item.defaultDecision = transformFn(item.defaultDecision);
-          item.rules.forEach(function (item) {
-            item.than = transformFn(item.than);
-
-            $scope.editRule(item);
-          });
-        })
-
-      };
-
     }
   }
 });

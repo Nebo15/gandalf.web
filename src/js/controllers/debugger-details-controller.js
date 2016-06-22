@@ -58,7 +58,11 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
   $scope.submit = function (form) {
     if (form.$invalid || $scope.loading) return;
     $scope.loading = true;
-    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'key', 'value')).catch(function (resp) {
+
+    var fields = arrayToObj($scope.fields, 'key', 'value');
+    fields.variant_id = $stateParams.variantId;
+
+    $gandalf.consumer.send(table.id, fields).catch(function (resp) {
       return resp;
     }).then(function (resp) {
       $scope.response = resp.data;
