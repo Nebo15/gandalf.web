@@ -2,7 +2,8 @@
   ul.nav.navbar-nav
     li(role="presentation", ng-if="table.variants.length > 1")
       .dropdown.variants-dropdown(uib-dropdown)
-        a.dropdown-toggle.table-title-overflow(role="button", uib-dropdown-toggle) {{variant.title || 'Untitled variant'}}
+        a.dropdown-toggle(role="button", uib-dropdown-toggle)
+          .text-overflow {{variant.title || 'Untitled variant'}}
           b.caret
         ul.dropdown-menu
           li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
