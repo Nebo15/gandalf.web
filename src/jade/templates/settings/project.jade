@@ -35,7 +35,8 @@
         .panel-heading API Consumers Credentials
         .panel-body
           div.list-group.list-group-panel
-            a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer") {{consumer.description}}
+            a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer")
+              .text-overflow.max-width {{consumer.description}}
             a.list-group-item(consumer-add="project"): b.text-primary + create consumer
 
 
