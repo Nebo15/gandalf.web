@@ -188,7 +188,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.admin.checkToken = function (oauthObj) {
         return $request({
-          endpoint: 'api/v1/users/current',
+          endpoint: 'api/v1/projects',
           method: 'get',
           headers: {
             Authorization: [oauthObj.token_type, oauthObj.access_token].join(' ')

@@ -4,12 +4,12 @@ angular.module('app').config(function ($stateProvider) {
     parent: 'auth',
     abstract: true,
     template: '<ui-view />',
-    controller: 'WelcomeController',
-    resolve: {
-      user: ['UserService', function (UserService) {
-        return UserService.current();
-      }]
-    }
+    controller: 'WelcomeController'
+    //resolve: {
+      //user: ['UserService', function (UserService) {
+      //  return UserService.current();
+      //}]
+    //}
   });
 
   $stateProvider.state('welcome-layout', {
