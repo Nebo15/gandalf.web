@@ -9,7 +9,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.id = obj._id;
     this.title = obj.title;
     this.description = obj.description;
-    this.consumers = null;
+    this.consumers = obj.consumers || null;
 
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
@@ -32,14 +32,14 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       role: user.role,
       scope: user.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.extend(resp.data);
       return self;
     });
   };
   Project.prototype.removeUser = function (user) {
     var self = this;
     return $gandalf.admin.removeProjectUser(user.id).then(function (resp) {
-      self.constructor(resp.data);
+      self.extend(resp.data);
       return self;
     });
   };
@@ -50,7 +50,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       role: user.role,
       scope: user.scope
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.extend(resp.data);
       return self;
     })
   };
@@ -115,7 +115,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       title: this.title,
       description: this.description
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.extend(resp.data);
       return self;
     });
   };
@@ -127,12 +127,16 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       title: updateObj.title,
       description: updateObj.description
     }).then(function (resp) {
-      self.constructor(resp.data);
+      self.extend(resp.data);
       return self;
     });
   };
   Project.prototype.delete = function () {
     return $gandalf.admin.deleteProject();
+  };
+
+  Project.prototype.extend = function (data) {
+    return this.constructor(_.assignIn(data, {consumers: this.consumers}));
   };
 
 
