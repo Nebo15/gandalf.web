@@ -6,10 +6,7 @@ angular.module('app').config(function ($stateProvider) {
     parent: 'private',
     url: '/groups',
     abstract: 'groups-list',
-    template: '<ui-view />',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    template: '<ui-view />'
   });
 
   $stateProvider.state('groups-list', {
@@ -19,10 +16,7 @@ angular.module('app').config(function ($stateProvider) {
       size: '25'
     },
     controller: 'GroupsListController',
-    templateUrl: 'templates/groups-list.html',
-    ncyBreadcrumb: {
-      label: 'Groups'
-    }
+    templateUrl: 'templates/groups-list.html'
   });
 
   $stateProvider.state('groups-details', {
@@ -34,10 +28,6 @@ angular.module('app').config(function ($stateProvider) {
       group: ['DecisionGroup', '$stateParams', 'projects', function (DecisionGroup, $stateParams, projects) {
         return (new DecisionGroup($stateParams.id)).fetch();
       }]
-    },
-    ncyBreadcrumb: {
-      label: '{{group.title}}',
-      parent: 'groups-list'
     }
   });
 

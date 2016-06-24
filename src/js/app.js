@@ -16,7 +16,6 @@ angular.module('app', [
 
   'ui.bootstrap',
   'ui.sortable',
-  'ncy-angular-breadcrumb',
   'uibModalConfirm',
 
   'hljs',
