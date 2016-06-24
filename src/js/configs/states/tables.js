@@ -28,7 +28,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'tables',
     abstract: '.edit',
     url: '/:id',
-    template: '<ui-view />',
+    templateUrl: 'templates/tables-details.html',
+    controller: 'TablesDetailsController',
     resolve: {
       table: ['DecisionTable', '$stateParams', 'projects', function (DecisionTable, $stateParams, projects) {
         return DecisionTable.byId($stateParams.id);
@@ -42,12 +43,26 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.edit', {
     url: '/edit',
     controller: 'TablesEditController',
-    templateUrl: 'templates/tables-edit.html'
-  }).state('tables-details.variant', {
+    templateUrl: 'templates/tables-details-edit.html',
+  }).state('tables-details.revisions', {
+    url: '/revisions',
+    controller: 'TablesRevisionsController',
+    templateUrl: 'templates/tables-details-revisions.html',
+  });
+
+  $stateProvider.state('tables-details.variant', {
     abstract: 'tables-details.variant.edit',
     url: '/:variantId',
-    controller: 'TablesDetailsController',
-    templateUrl: 'templates/tables-details.html',
+    views: {
+      "secondary-nav": {
+        templateUrl: 'templates/tables-details-variant_nav.html',
+        controller: 'TablesDetailsVariantController'
+      },
+      '': {
+        templateUrl: 'templates/tables-details-variant.html',
+        controller: 'TablesDetailsVariantController'
+      }
+    },
     resolve: {
       variant: ['table', '$stateParams', function (table, $stateParams) {
         return table.getVariant($stateParams.variantId);
@@ -57,24 +72,20 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.variant.edit', {
     url: '/edit',
     controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-edit-variant.html'
+    templateUrl: 'templates/tables-details-variant-edit.html'
   }).state('tables-details.variant.analytics', {
     url: '/analytics',
     controller: 'TablesAnalyticsController',
-    templateUrl: 'templates/tables-analytics.html',
+    templateUrl: 'templates/tables-details-variant-analytics.html',
     resolve: {
       analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
         return AnalyticsTable.byIdAndVariantId($stateParams.id, $stateParams.variantId);
       }]
     }
-  }).state('tables-details.variant.revisions', {
-    url: '/revisions',
-    controller: 'TablesRevisionsController',
-    templateUrl: 'templates/tables-revisions.html'
   }).state('tables-details.variant.debugger', {
     url: '/debug',
     controller: 'DebuggerDetailsController',
-    templateUrl: 'templates/tables-debugger.html',
+    templateUrl: 'templates/tables-details-variant-debugger.html',
     params: {
       id: null,
       decision: null
@@ -82,7 +93,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.variant.new', {
     url: '/new',
     controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-edit-variant.html',
+    templateUrl: 'templates/tables-details-variant-edit.html',
     params: {
       newVariant: true
     }
