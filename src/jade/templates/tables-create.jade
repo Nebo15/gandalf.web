@@ -20,7 +20,7 @@ form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form
     decision-table(model="table", variant="variant", form="form")
       .row
         .col-xs-6
-          select-matching-type(ng-model="table.matchingType")
+          select-matching-type(ng-model="table.matchingType", strict="table.getVariantsRules().length > 0")
         .col-xs-6.text-right
           button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
             .btn-loader: .glyphicon.glyphicon-refresh
