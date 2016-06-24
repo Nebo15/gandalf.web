@@ -4,7 +4,8 @@
     "api": {
       "endpoint": "//gandalf-sandbox.nebo15.com:81/",
       "clientId": "admin",
-      "clientSecret": "vqj66myg6xfp"
+      "clientSecret": "vqj66myg6xfp",
+      "host": "http://gandalf-sandbox.nebo15.com:81/"
     },
     "providers": {
       "bugsnag": {
@@ -24,7 +25,8 @@
   "production": {
     "debug": false,
     "api": {
-      "endpoint": "/"
+      "endpoint": "/",
+      "host": "https://api.gndf.io/"
     },
     "providers": {
       "bugsnag": {

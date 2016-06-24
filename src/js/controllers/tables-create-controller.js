@@ -15,6 +15,9 @@ angular.module('app').controller('TablesCreateController', function ($scope, $co
 
     if (form.$invalid) return;
 
+    $scope.variant.title = $scope.table.title;
+    $scope.variant.description = $scope.table.description;
+
     $scope.isSaving = true;
     $scope.table.create().then(function (resp) {
       $scope.error = null;

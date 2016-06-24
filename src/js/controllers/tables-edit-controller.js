@@ -1,42 +1,81 @@
 'use strict';
 
-angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, table) {
-  var tableHash = 0;
+angular.module('app').controller('TablesEditController', function ($scope, $state, $uibModal, table, APP) {
+  var tableHash = table.getHash();
 
   $scope.saved = true;
   $scope.isSaving = false;
   $scope.error = null;
+  $scope.allTraffic = 100;
 
   $scope.table = table;
-  $scope.variant = $scope.variant || null;
 
-  tableHash = table.getHash();
+  function sumVariants() {
+    var filterIndexes = Array.prototype.slice.call(arguments);
 
-  $scope.submit = function (form) {
+    return table.variants.reduce(function (num, variant, index) {
+      if (~filterIndexes.indexOf(index)) {
+        return num;
+      }
 
-    if (form.$invalid) return;
-    if ($scope.isSaving) return;
+      return num += variant.probability;
+    }, 0);
+  }
 
+  $scope.maxTrafficPercent = function (currentIndex) {
+    return 100 - sumVariants(0, currentIndex);
+  };
+
+  $scope.saveTrafficAllocation = function (form) {
+    $scope.error = null;
     $scope.isSaving = true;
 
+    if (form.$invalid || $scope.saved) return;
+
+    table.variants[0].probability = $scope.allTraffic;
+
     table.save().then(function () {
-      $scope.error = null;
-      $scope.variant.rules.forEach(function (item) {
-        item.isEditing = false;
-      });
-
-      $timeout(function () {
-        $scope.saved = true;
-      });
-
-      $scope.variant = table.getVariant($scope.variant.id);
-      $scope.$broadcast('decisionTable:saved');
+      $scope.saved = true;
+      $scope.isSaving = false;
 
       tableHash = table.getHash();
-    }, function (err) {
+    }).then(null, function (err) {
       $scope.error = err;
-    }).finally(function () {
-      $scope.isSaving = false;
+    });
+  };
+
+  $scope.onChangeMatchingType = function (type) {
+    var transformFn = function (val) {
+      return val
+    };
+
+    switch (type) {
+      case APP.matchingTypes.first:
+        transformFn = function (val) {
+          return '' + val;
+        };
+        break;
+      case APP.matchingTypes.all:
+        transformFn = function (val) {
+          val = Number(val);
+          return isNaN(val) ? 0 : val;
+        };
+        break;
+    }
+
+    table.variants.forEach(function (item) {
+      item.defaultDecision = transformFn(item.defaultDecision);
+      item.rules.forEach(function (item) {
+        item.than = transformFn(item.than);
+      });
+    });
+
+    table.matchingType = type;
+
+    tableHash = table.getHash();
+
+    table.save().then(null, function (error) {
+      $scope.error = error;
     });
   };
 
@@ -48,6 +87,7 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
         table: table
       }
     });
+
     modalInstance.result.then(function () {
       table.delete().then(function () {
         $state.go('tables-list');
@@ -55,20 +95,30 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.$watch('table', function (val) {
-    $scope.saved = (val.getHash() === tableHash);
+  $scope.changeTableName = function () {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'templates/modal/edit-table-name.html',
+      controller: 'EditTableNameController',
+      resolve: {
+        table: table
+      }
+    });
+
+    modalInstance.result.then(function (tableCopy) {
+      $scope.table.title = tableCopy.title;
+      $scope.table.description = tableCopy.description;
+
+      tableHash = table.getHash();
+    });
+  };
+
+  $scope.$watch('table.variants', function () {
+    var sum = sumVariants(0);
+    $scope.allTraffic = 100 - (isNaN(sum) ? 0 : sum);
   }, true);
 
-  var fnOnBeforeUnload = window.onbeforeunload;
-  window.onbeforeunload = function () {
-    return $scope.saved ? null : 'You have unsaved data';
-  };
-  $scope.$on('$destroy', function () {
-    window.onbeforeunload = fnOnBeforeUnload;
-  });
-
-  $timeout(function () {
-    $scope.saved = true;
-  })
+  $scope.$watch('table', function () {
+    $scope.saved = (tableHash === table.getHash());
+  }, true);
 
 });

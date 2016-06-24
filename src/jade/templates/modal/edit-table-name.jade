@@ -1,0 +1,21 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Edit table name
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-3.control-label Table name
+        .col-sm-9
+          input.form-control(ng-model="table.title", name="title" required)
+          div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
+      .form-group
+        label.col-sm-3.control-label Description
+        .col-sm-9
+          input.form-control(ng-model="table.description", name="description", required)
+          div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
+  .modal-footer.clearfix
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DebuggerDetailsController', function ($scope, table, $stateParams, $gandalf, DecisionHistoryTable) {
+angular.module('app').controller('DebuggerDetailsController', function ($scope, table, $stateParams, $gandalf, ENV) {
 
   function unique (collection, prop) {
     var props = [];
@@ -21,6 +21,8 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     });
     return res;
   }
+
+  $scope.apiHost = ENV.api.host;
 
   $scope.booleanVariants = [{
     title: 'true',
@@ -53,12 +55,26 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     });
   }
 
+  $scope.getRequestData = function (fields) {
+    var res = angular.copy(fields);
+    res.push({
+      key: 'variant_id',
+      value: $stateParams.variantId
+    });
+
+    return res;
+  };
+
   $scope.loading = false;
 
   $scope.submit = function (form) {
     if (form.$invalid || $scope.loading) return;
     $scope.loading = true;
-    $gandalf.consumer.send(table.id, arrayToObj($scope.fields, 'key', 'value')).catch(function (resp) {
+
+    var fields = arrayToObj($scope.fields, 'key', 'value');
+    fields.variant_id = $stateParams.variantId;
+
+    $gandalf.consumer.send(table.id, fields).catch(function (resp) {
       return resp;
     }).then(function (resp) {
       $scope.response = resp.data;

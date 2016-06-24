@@ -4,9 +4,6 @@
     include:marked ../content/guides/tables-debugger.md
 
 .container-fluid.block
-
-  div(ncy-breadcrumb)
-
   .row
     .col.col-md-12
       h2 {{table.title}}
@@ -15,9 +12,8 @@
     .col.col-md-6
       form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
         .form-group(ng-repeat="field in fields")
-          label.col-sm-4.control-label {{field.title}}
+          label.col-sm-4.control-label.text-overflow {{field.title}}
           .col-sm-8
-
             div(ng-switch="field.type")
               input.form-control(
                 ng-if="field.type == $root.APP.types.number"
@@ -58,10 +54,10 @@
 .info-panel: .container-fluid
   .info-panel-heading Sample CURL
   .info-panel-body
-    | Copy this
+    | Copy this&#32;
     a(href='https://en.wikipedia.org/wiki/CURL') CURL
-    | &nbsp;string to your CLI to make a test request to this table. Don't forget to set correct Client ID and Client Secret. You can find them on settings page.
+    | &#32;string to your CLI to make a test request to this table. Don't forget to set correct Client ID and Client Secret. You can find them on settings page.
     pre
-      | $ curl -u CLIENT_ID:CLIENT_SECRET -H 'X-Application: {{project.id}}' http://gandalf-api.nebo15.com/api/v1/tables/{{table.id}}/decisions \
-      |   -d '{{fields | sampleCurl}}'
+      | $ curl -u CLIENT_ID:CLIENT_SECRET -H 'X-Application: {{project.id}}' {{apiHost}}api/v1/tables/{{table.id}}/decisions \
+      |   -d '{{getRequestData(fields) | sampleCurl}}'
 

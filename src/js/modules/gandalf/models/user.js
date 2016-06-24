@@ -12,7 +12,6 @@ angular.module('ng-gandalf').factory('User', function ($gandalf) {
 
     this.accessTokens = obj.access_tokens;
     this.refreshTokens = obj.refresh_tokens;
-
   }
 
   User.find = function (size, page, filters) {

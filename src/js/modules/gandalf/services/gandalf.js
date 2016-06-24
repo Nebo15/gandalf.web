@@ -188,7 +188,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.admin.checkToken = function (oauthObj) {
         return $request({
-          endpoint: 'api/v1/users/current',
+          endpoint: 'api/v1/projects',
           method: 'get',
           headers: {
             Authorization: [oauthObj.token_type, oauthObj.access_token].join(' ')
@@ -303,6 +303,13 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
 
       // Project.consumers
+      self.admin.getProjectConsumers = function () {
+        return $request({
+          method: 'GET',
+          endpoint: 'api/v1/projects/consumers'
+        });
+      };
+
       self.admin.addProjectConsumer = function (consumer) {
         return $request({
           method: 'post',
@@ -360,7 +367,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'put'
         }, obj);
       };
-      self.admin.deleteTableById= function (id) {
+      self.admin.deleteTableById = function (id) {
         return $request({
           endpoint: 'api/v1/admin/tables/'+id,
           method: 'delete'

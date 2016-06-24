@@ -13,9 +13,6 @@ angular.module('app').config(function($stateProvider) {
         }
         return false;
       }]
-    },
-    ncyBreadcrumb: {
-      skip: true
     }
   });
 
@@ -23,7 +20,9 @@ angular.module('app').config(function($stateProvider) {
 
   $rootScope.$on('login:required', function () {
     $timeout(function () {
-      $state.go('sign-in');
+      $state.go('sign-in', {
+        errorCode: 401
+      });
     })
   });
 

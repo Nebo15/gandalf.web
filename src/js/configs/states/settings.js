@@ -6,10 +6,7 @@ angular.module('app').config(function ($stateProvider) {
     url: '/settings',
     parent: 'private',
     abstract: '.project',
-    template: '<ui-view />',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    template: '<ui-view />'
   });
 
   $stateProvider.state('settings.project', {
@@ -18,8 +15,15 @@ angular.module('app').config(function ($stateProvider) {
     templateUrl: 'templates/settings/project.html',
     resolve: {
       // projects is required for waiting
-      project: ['ProjectsService','projects', function (ProjectsService, projects) {
+      project: ['ProjectsService','projects', 'user', function (ProjectsService) {
         return ProjectsService.current();
+      }],
+      consumers: ['user', 'project', function (user, project) {
+        if (~user.scope.indexOf('get_consumers')) {
+          return project.fetchConsumers();
+        }
+
+        return null;
       }]
     }
   });

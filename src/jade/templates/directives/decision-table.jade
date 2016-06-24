@@ -5,8 +5,10 @@
       th.table-decision-column-title Title
         .small.text-light Description
       th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
-      ng-class="{'is-deleted': condition.isDeleted}") {{condition.title}}
-        .small.text-light {{condition.key}}
+      ng-class="{'is-deleted': condition.isDeleted}")
+        .text-overflow {{condition.title}}
+        .small.text-light
+          .text-overflow {{condition.key}}
           span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
       th.table-decision-column-add(add-new-field, table="table")
         div(uib-tooltip="Add Field"): div(uib-popover="Should have at least 1 column",
@@ -20,9 +22,12 @@
       th.table-decision-column-action Action
 
     tbody(ui-sortable="sortableOptions", ng-model="variant.rules")
-      tr(ng-repeat-start="rule in variant.rules",
+      tr(ng-repeat="rule in variant.rules",
         ng-class="{'is-deleted': rule.isDeleted, 'warning': isWarningRule(rule)}",
         skip-form="rule.isDeleted",
+        uib-tooltip="⬆︎ This rule have all «is set» conditions, so it will be executed regardless request parameters.",
+        tooltip-append-to-body="true",
+        tooltip-enable="isWarningRule(rule)",
         ng-form="ruleForm")
         td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
 
@@ -46,8 +51,6 @@
             //a.btn.btn-default-text(ng-click="editRule(rule)", ng-if="!rule.isEditing"): i.glyphicon.glyphicon-pencil
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
-      tr.table-decision-row-caption(ng-repeat-end, ng-if="isWarningRule(rule)")
-        td.table-decision-cell-warning(colspan="{{rule.conditions.length + 5}}", translate="warnings.rules.all_is_set")
 
   table.table.table-add-row: tr: td(ng-click="addNewRule()")
     div.form-error(ng-messages="tableForm.tableRules.$error", role="alert", ng-if="mainForm.$submitted")
@@ -79,11 +82,4 @@
     input(hidden, name="tableRules", ng-required="variant.numberOfRules() == 0", ng-model="hiddenRules.rules")
     input(hidden, name="tableFields", ng-required="variant.numberOfFields() == 0", ng-model="hiddenRules.fields")
 
-.row: .col-sm-6
-  h6.form-control-heading Table Type
-    | &#32;
-    a.glyphicon.glyphicon-question-sign(href="http://nebo15.github.io/qbill.docs/gandalf.html#types", target="__blank")
-.row
-  .col-sm-6
-    select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
-  .col-sm-6(ng-transclude)
+div(ng-transclude)
