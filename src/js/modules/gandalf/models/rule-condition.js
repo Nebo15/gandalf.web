@@ -3,6 +3,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (gandalfU
   function RuleCondition (obj) {
     var options = obj ? angular.copy(obj) : {};
 
+    this.id = options._id;
     this.fieldKey = options.field_key;
     this.value = options.value;
 
@@ -11,6 +12,7 @@ angular.module('ng-gandalf').factory('DecisionRuleCondition', function (gandalfU
   }
   RuleCondition.prototype.toJSON = function () {
     var res = {
+      _id: this.id,
       field_key: this.fieldKey,
       condition: gandalfUtils.orNull(this.condition),
       value: gandalfUtils.orNull(this.value)
