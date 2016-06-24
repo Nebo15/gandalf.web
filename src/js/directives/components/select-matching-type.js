@@ -13,7 +13,8 @@ angular.module('app').directive('selectMatchingType', function () {
     '</div>',
     scope: {
       model: '=ngModel',
-      callback: '&'
+      callback: '&',
+      strict: '='
     },
     link: function (scope) {
 
@@ -25,6 +26,7 @@ angular.module('app').directive('selectMatchingType', function () {
 
   var modalInstance = null;
   $scope.onChangeMatchingType = function (newType) {
+    if (!$scope.strict) return $scope.confirm();
     modalInstance = $uibModal.open({
       templateUrl: 'templates/modal/change-matching-type.html',
       scope: $scope

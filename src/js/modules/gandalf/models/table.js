@@ -76,6 +76,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     }));
   };
 
+
   DecisionTable.prototype.save = function () {
     this.clear();
 
