@@ -82,8 +82,4 @@
     input(hidden, name="tableRules", ng-required="variant.numberOfRules() == 0", ng-model="hiddenRules.rules")
     input(hidden, name="tableFields", ng-required="variant.numberOfFields() == 0", ng-model="hiddenRules.fields")
 
-.row: .col-sm-6
-
-.row
-  .col-sm-6
-  .col-sm-6(ng-transclude)
+div(ng-transclude)

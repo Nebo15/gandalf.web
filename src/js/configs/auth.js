@@ -13,9 +13,6 @@ angular.module('app').config(function($stateProvider) {
         }
         return false;
       }]
-    },
-    ncyBreadcrumb: {
-      skip: true
     }
   });
 

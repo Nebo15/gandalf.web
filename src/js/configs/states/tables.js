@@ -6,10 +6,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'private',
     url: '/tables',
     abstract: 'tables-list',
-    template: '<ui-view />',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    template: '<ui-view />'
   });
 
   $stateProvider.state('tables-list', {
@@ -19,19 +16,12 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       size: '25'
     },
     controller: 'TablesListController',
-    templateUrl: 'templates/tables-list.html',
-    ncyBreadcrumb: {
-      label: 'Tables'
-    }
+    templateUrl: 'templates/tables-list.html'
   }).state('tables-create', {
     parent: 'tables',
     url: '/create',
     controller: 'TablesCreateController',
-    templateUrl: 'templates/tables-create.html',
-    ncyBreadcrumb: {
-      label: 'Create new table',
-      parent: 'tables-list'
-    }
+    templateUrl: 'templates/tables-create.html'
   });
 
   $stateProvider.state('tables-details', {
@@ -54,16 +44,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/edit',
     controller: 'TablesEditController',
     templateUrl: 'templates/tables-details-edit.html',
-    ncyBreadcrumb: {
-      label: 'Table detail'
-    }
   }).state('tables-details.revisions', {
     url: '/revisions',
     controller: 'TablesRevisionsController',
     templateUrl: 'templates/tables-details-revisions.html',
-    ncyBreadcrumb: {
-      label: 'Revisions'
-    }
   });
 
   $stateProvider.state('tables-details.variant', {
@@ -83,18 +67,12 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       variant: ['table', '$stateParams', function (table, $stateParams) {
         return table.getVariant($stateParams.variantId);
       }]
-    },
-    ncyBreadcrumb: {
-      label: "{{variant.title || 'Untitled variant'}}"
     }
 
   }).state('tables-details.variant.edit', {
     url: '/edit',
     controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-details-variant-edit.html',
-    ncyBreadcrumb: {
-      label: 'Edit'
-    }
+    templateUrl: 'templates/tables-details-variant-edit.html'
   }).state('tables-details.variant.analytics', {
     url: '/analytics',
     controller: 'TablesAnalyticsController',
@@ -103,17 +81,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
         return AnalyticsTable.byIdAndVariantId($stateParams.id, $stateParams.variantId);
       }]
-    },
-    ncyBreadcrumb: {
-      label: 'Analytics'
     }
   }).state('tables-details.variant.debugger', {
     url: '/debug',
     controller: 'DebuggerDetailsController',
     templateUrl: 'templates/tables-details-variant-debugger.html',
-    ncyBreadcrumb: {
-      label: 'Debugger'
-    },
     params: {
       id: null,
       decision: null
@@ -122,9 +94,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/new',
     controller: 'TablesEditVariantController',
     templateUrl: 'templates/tables-details-variant-edit.html',
-    ncyBreadcrumb: {
-      label: 'New variant'
-    },
     params: {
       newVariant: true
     }
@@ -144,10 +113,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
           }
         })
       }]
-    },
-    ncyBreadcrumb: {
-      label: 'Diff: {{revision.id}}',
-      parent: 'tables-details.edit'
     }
   });
 
