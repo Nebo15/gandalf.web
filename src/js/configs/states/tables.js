@@ -38,7 +38,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'tables',
     abstract: '.edit',
     url: '/:id',
-    template: '<ui-view />',
+    templateUrl: 'templates/tables-details.html',
+    controller: 'TablesDetailsController',
     resolve: {
       table: ['DecisionTable', '$stateParams', 'projects', function (DecisionTable, $stateParams, projects) {
         return DecisionTable.byId($stateParams.id);
@@ -56,11 +57,28 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     ncyBreadcrumb: {
       label: 'Table detail'
     }
-  }).state('tables-details.variant', {
+  }).state('tables-details.revisions', {
+    url: '/revisions',
+    controller: 'TablesRevisionsController',
+    templateUrl: 'templates/tables-details-revisions.html',
+    ncyBreadcrumb: {
+      label: 'Revisions'
+    }
+  });
+
+  $stateProvider.state('tables-details.variant', {
     abstract: 'tables-details.variant.edit',
     url: '/:variantId',
-    controller: 'TablesDetailsController',
-    templateUrl: 'templates/tables-details-variant.html',
+    views: {
+      "secondary-nav": {
+        templateUrl: 'templates/tables-details-variant_nav.html',
+        controller: 'TablesDetailsVariantController'
+      },
+      '': {
+        templateUrl: 'templates/tables-details-variant.html',
+        controller: 'TablesDetailsVariantController'
+      }
+    },
     resolve: {
       variant: ['table', '$stateParams', function (table, $stateParams) {
         return table.getVariant($stateParams.variantId);
@@ -88,13 +106,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     },
     ncyBreadcrumb: {
       label: 'Analytics'
-    }
-  }).state('tables-details.variant.revisions', {
-    url: '/revisions',
-    controller: 'TablesRevisionsController',
-    templateUrl: 'templates/tables-details-variant-revisions.html',
-    ncyBreadcrumb: {
-      label: 'Revisions'
     }
   }).state('tables-details.variant.debugger', {
     url: '/debug',

@@ -1,0 +1,8 @@
+.navbar-second.navbar.navbar-primary.has-navbar: .container-fluid
+  ul.nav.navbar-nav
+    li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Info
+    li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
+    li(role="presentation" ui-sref-active="active" ui-sref='history-list({tableId: table.id})'): a History →
+  ul.nav.navbar-nav.nav-secondary(ui-view="secondary-nav")
+
+ui-view
