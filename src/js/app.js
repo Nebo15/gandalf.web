@@ -13,6 +13,7 @@ angular.module('app', [
 
   'ngStorage',
   'ngMessages',
+  'ngSanitize',
 
   'ui.bootstrap',
   'ui.sortable',

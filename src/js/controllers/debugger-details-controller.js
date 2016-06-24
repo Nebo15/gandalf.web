@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('DebuggerDetailsController', function ($scope, table, $stateParams, $gandalf, DecisionHistoryTable) {
+angular.module('app').controller('DebuggerDetailsController', function ($scope, table, $stateParams, $gandalf, ENV) {
 
   function unique (collection, prop) {
     var props = [];
@@ -21,6 +21,8 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     });
     return res;
   }
+
+  $scope.apiHost = ENV.api.host;
 
   $scope.booleanVariants = [{
     title: 'true',
