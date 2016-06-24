@@ -53,6 +53,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('sign-in', {
     parent: 'public',
     url: '/sign-in?username',
+    params: {
+      errorCode: null
+    },
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
     ncyBreadcrumb: {
