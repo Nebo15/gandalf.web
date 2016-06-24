@@ -52,7 +52,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.edit', {
     url: '/edit',
     controller: 'TablesEditController',
-    templateUrl: 'templates/tables-edit.html',
+    templateUrl: 'templates/tables-details-edit.html',
     ncyBreadcrumb: {
       label: 'Table detail'
     }
@@ -60,7 +60,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     abstract: 'tables-details.variant.edit',
     url: '/:variantId',
     controller: 'TablesDetailsController',
-    templateUrl: 'templates/tables-details.html',
+    templateUrl: 'templates/tables-details-variant.html',
     resolve: {
       variant: ['table', '$stateParams', function (table, $stateParams) {
         return table.getVariant($stateParams.variantId);
@@ -73,14 +73,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.variant.edit', {
     url: '/edit',
     controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-edit-variant.html',
+    templateUrl: 'templates/tables-details-variant-edit.html',
     ncyBreadcrumb: {
       label: 'Edit'
     }
   }).state('tables-details.variant.analytics', {
     url: '/analytics',
     controller: 'TablesAnalyticsController',
-    templateUrl: 'templates/tables-analytics.html',
+    templateUrl: 'templates/tables-details-variant-analytics.html',
     resolve: {
       analytics: ['AnalyticsTable', '$stateParams', function (AnalyticsTable, $stateParams) {
         return AnalyticsTable.byIdAndVariantId($stateParams.id, $stateParams.variantId);
@@ -92,14 +92,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.variant.revisions', {
     url: '/revisions',
     controller: 'TablesRevisionsController',
-    templateUrl: 'templates/tables-revisions.html',
+    templateUrl: 'templates/tables-details-variant-revisions.html',
     ncyBreadcrumb: {
       label: 'Revisions'
     }
   }).state('tables-details.variant.debugger', {
     url: '/debug',
     controller: 'DebuggerDetailsController',
-    templateUrl: 'templates/tables-debugger.html',
+    templateUrl: 'templates/tables-details-variant-debugger.html',
     ncyBreadcrumb: {
       label: 'Debugger'
     },
@@ -110,7 +110,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   }).state('tables-details.variant.new', {
     url: '/new',
     controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-edit-variant.html',
+    templateUrl: 'templates/tables-details-variant-edit.html',
     ncyBreadcrumb: {
       label: 'New variant'
     },
