@@ -11,6 +11,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.description = obj.description;
     this.consumers = obj.consumers || null;
 
+    this.settings = obj.settings;
+
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
@@ -125,7 +127,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
 
     return $gandalf.admin.updateProject({
       title: updateObj.title,
-      description: updateObj.description
+      description: updateObj.description,
+      settings: updateObj.settings
     }).then(function (resp) {
       self.extend(resp.data);
       return self;
@@ -146,7 +149,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       title: this.title,
       description: this.description,
       users: JSON.parse(JSON.stringify(this.users)),
-      consumers: JSON.parse(JSON.stringify(this.consumers))
+      consumers: JSON.parse(JSON.stringify(this.consumers)),
+      settings: this.settings
     };
   };
 
