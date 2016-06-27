@@ -18,5 +18,9 @@ angular.module('app').service('UserService', function ($cacheFactory, $rootScope
     return $gandalf.admin.getProjectUser().then(function (response) {
       return new User(response.data);
     });
+  };
+
+  this.verifyEmail = function (token) {
+    return $gandalf.admin.verifyUserEmail(token);
   }
 });

@@ -43,7 +43,13 @@ angular.module('ng-gandalf').factory('User', function ($gandalf) {
     })
   };
   User.prototype.getName = function () {
-    return [this.firstName, this.lastName].filter(function (item) { return item;}).join(' ') || this.username;
+    return [this.firstName, this.lastName].filter(function (item) {
+        return item;
+      }).join(' ') || this.username;
+  };
+
+  User.prototype.resendActivateMail = function () {
+    return $gandalf.admin.resendUserMail(this.email);
   };
 
   User.prototype.toJSON = function () {

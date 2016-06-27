@@ -14,6 +14,13 @@
 
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
+
+        div(ng-if="!user.active")
+          hr
+
+          p: b Your account not activated &#32
+          a.btn.btn-submit(ng-click="resendMail()") Resend activate e-mail
+
         hr
         .text-heading
           .text-heading-label Application ID

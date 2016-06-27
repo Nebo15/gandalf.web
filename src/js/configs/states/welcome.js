@@ -4,7 +4,12 @@ angular.module('app').config(function ($stateProvider) {
     parent: 'auth',
     abstract: true,
     templateUrl: 'templates/welcome/layout.html',
-    controller: 'WelcomeController'
+    controller: 'WelcomeController',
+    resolve: {
+      user: ['UserService', function (UserService) {
+        return UserService.current();
+      }]
+    }
   });
 
   $stateProvider.state('welcome-layout', {
@@ -23,5 +28,11 @@ angular.module('app').config(function ($stateProvider) {
     url: '/welcome/project/create',
     templateUrl: 'templates/welcome/project-add.html',
     controller: 'WelcomeProjectAddController'
+  });
+
+  $stateProvider.state('welcome-activate', {
+    parent: 'welcome-data',
+    url: '/welcome/activate',
+    templateUrl: 'templates/welcome/send-email.html'
   });
 });
