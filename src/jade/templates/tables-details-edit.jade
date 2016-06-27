@@ -31,14 +31,14 @@
                 .col-sm-1
                   div(class="variant-marker variant-color-{{$index % 4}}")
                 .col-sm-3.pull-right
-                  input.form-control(
+                  input.form-control.percent-input(
                     type="number",
                     ng-if="!$index"
                     ng-value="allTraffic",
                     readonly="readonly"
                     placeholder="Allocation percent"
                   )
-                  input.form-control(
+                  input.form-control.percent-input(
                     type="number",
                     ng-if="$index"
                     ng-model="variant.probability",
@@ -47,6 +47,7 @@
                     ng-disabled="table.variantsProbability !== 'percent'",
                     placeholder="Allocation percent"
                   )
+                  .percent-symbol %
 
             .list-group-item.traffic-allocation-visual
               div(
