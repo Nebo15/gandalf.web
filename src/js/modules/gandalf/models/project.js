@@ -12,6 +12,9 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.consumers = obj.consumers || null;
 
     this.settings = obj.settings;
+    if (Array.isArray(this.settings)) {
+      this.settings = {}; // hotfix for backend error
+    }
 
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
