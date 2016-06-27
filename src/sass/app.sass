@@ -102,6 +102,7 @@ $zindex-popover:             1040
 @import components/list-group
 @import components/welcome
 @import components/steps
+@import "components/public"
 
 +min-screen($container-lg)
   .container-fluid
@@ -290,7 +291,6 @@ tr.ui-sortable-helper
   text-overflow: ellipsis
   vertical-align: bottom
 
-.tables-list__table-title,
 .max-width
   max-width: 100%
 
@@ -298,11 +298,40 @@ tr.ui-sortable-helper
 condition-input
   vertical-align: middle
 
-//decision-input
-//  display: block
-//  position: relative
-//
-//  .form-control-error
-//    position: absolute
-//    bottom: -16px
-//    left: 0
+.sign-in,
+.sign-up
+  max-width: 490px
+  padding: 40px 70px
+  margin: 0 auto
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.18)
+  font-size: 12px
+
+  &__header
+    text-align: center
+
+  .forgotten
+    font-size: 10px
+    color: #3d3d3d
+    opacity: .5
+
+.sign-up .btn-submit
+  margin-top: 30px
+
+.tables-list
+  th
+    padding: 10px 20px !important
+  th, td
+    border-left: none !important
+    border-right: none !important
+  tbody tr:hover
+    background-color: #fefbf2 !important
+  .text-overflow
+    max-width: 400px
+
+.percent-input
+  padding-right: 32px
+.percent-symbol
+  position: absolute
+  right: 25px
+  top: 7px
+  opacity: .6

@@ -3,13 +3,8 @@ angular.module('app').config(function ($stateProvider) {
   $stateProvider.state('welcome-data', {
     parent: 'auth',
     abstract: true,
-    template: '<ui-view />',
+    templateUrl: 'templates/welcome/layout.html',
     controller: 'WelcomeController'
-    //resolve: {
-      //user: ['UserService', function (UserService) {
-      //  return UserService.current();
-      //}]
-    //}
   });
 
   $stateProvider.state('welcome-layout', {
@@ -24,7 +19,7 @@ angular.module('app').config(function ($stateProvider) {
   });
 
   $stateProvider.state('welcome-project-add', {
-    parent: 'welcome-layout',
+    parent: 'welcome-data',
     url: '/welcome/project/create',
     templateUrl: 'templates/welcome/project-add.html',
     controller: 'WelcomeProjectAddController'

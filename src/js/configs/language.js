@@ -57,7 +57,7 @@ angular.module('app').config(function($translateProvider) {
         'row_description_charsets': 'Description must be between 2 and 128 characters',
         'invalid_username': 'Invalid username. Use only alphabet characters, dash, underscore and number.',
         'username_minlength': 'Login should consist of more than 2 characters',
-        'invalid_password': 'Invalid password. Use minimum one upper and one lower charset.',
+        'invalid_password': 'Use minimum one upper, one lower charset and one number.',
         'password_minlength': 'Password should consist of more than 6 characters'
       }
     },
