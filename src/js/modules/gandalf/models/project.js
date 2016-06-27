@@ -50,14 +50,23 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
   Project.prototype.updateUser = function (user) {
     var self = this;
+
     return $gandalf.admin.updateProjectUser({
       user_id: user.id,
-      role: user.role,
+      role: user.role === 'admin' ? undefined : user.role,
       scope: user.scope
     }).then(function (resp) {
       self.extend(resp.data);
       return self;
     })
+  };
+  Project.prototype.setUserAdminRights = function (user) {
+    var self = this;
+
+    return $gandalf.admin.setProjectUserAdmin(user.id).then(function (resp) {
+      self.extend(resp.data);
+      return self;
+    });
   };
 
   // Consumers
