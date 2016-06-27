@@ -1,4 +1,4 @@
-.block.container-fluid
+.container-fluid
   .row
     .col-md-12
       .block
@@ -9,11 +9,18 @@
           .text-heading-label Description
           | {{project.description}}
         .text-heading
-          .text-heading-label Application ID
-          | {{project.id}}
+          .text-heading-label Decision Flow
+          | {{project.settings.show_meta | boolean: 'Enabled' : 'Disabled'}}
+
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
-.container-fluid
+        hr
+        .text-heading
+          .text-heading-label Application ID
+          | {{project.id}}
+        hr
+
+.block.container-fluid
   .row
     .col-md-4.col-md-push-6
       include:marked ../../content/guides/settings-project-users.md
@@ -39,8 +46,7 @@
               .text-overflow.max-width {{consumer.description}}
             a.list-group-item(consumer-add="project"): b.text-primary + create consumer
 
-
-   .row: .col-md-6
+  .row: .col-md-6
     button.btn.btn-danger(project-delete="project") Delete project
 
   p: br
