@@ -1,4 +1,7 @@
-.welcome
-  include ../../partitials/navbar-welcome
-  .container
-    ui-view
+.public
+  header.public__header
+    img(src="/images/svg/logo.svg", height=80)
+  article.public__content: ui-view
+  footer.public__footer
+    a(href="http://nebo15.com/" target="_blank")
+      img(src="/images/footer-logo.png", height=23)

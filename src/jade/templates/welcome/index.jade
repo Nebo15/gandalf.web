@@ -1,11 +1,6 @@
-.welcome.welcome-index: .container
-  .row
-    .col-md-6.col-md-push-3
-      h1 Welcome to Gandalf
-
-      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      p Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-
-
-      p.btn-actions
-        a.btn.btn-primary(ui-sref="welcome-project-add") Continue
+.welcome
+  h4.welcome__header Welcome to Gandalf
+  .welcome__content
+    include:marked ../../content/welcome.md
+  p.btn-actions
+    a.btn.btn-submit(ui-sref="welcome-project-add") Continue
