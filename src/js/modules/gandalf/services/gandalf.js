@@ -301,6 +301,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           user_id: userId
         });
       };
+      self.admin.setProjectUserAdmin = function (userId) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/projects/users/admin'
+        }, {
+          user_id: userId
+        });
+      };
 
       // Project.consumers
       self.admin.getProjectConsumers = function () {

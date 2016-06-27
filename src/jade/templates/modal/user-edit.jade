@@ -13,7 +13,7 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-2.control-label Role
         .col-sm-10
-          input.form-control(ng-model="user.role", disabled, required)
+          select.form-control(ng-model="user.role", ng-disabled="currentUser.role !== 'admin'", required, ng-options="role as role for role in ['manager', 'admin']")
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
         .col-sm-10.form-control-block
