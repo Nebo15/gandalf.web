@@ -12,5 +12,7 @@ ul.nav.navbar-nav.navbar-right
         br
         span {{user.email}}
       li.divider(role="separator")
+      li: a(profile-edit="user") Edit profile
+      li.divider(role="separator")
       li
         a(ng-click="logout()") Sign Out
