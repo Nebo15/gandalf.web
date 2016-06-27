@@ -238,6 +238,17 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.admin.getUser = function () {
         return $request.get('api/v1/users/current');
       };
+      self.admin.updateUser = function (user, password) {
+        return $request({
+          method: 'put',
+          endpoint: 'api/v1/users/current'
+        }, {
+          password: password,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
+        });
+      };
 
       // Projects
 
