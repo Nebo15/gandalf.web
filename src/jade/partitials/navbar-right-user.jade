@@ -1,6 +1,9 @@
 ul.nav.navbar-nav.navbar-right
   li.dropdown(uib-dropdown)
-    a.dropdown-toggle(role="button", uib-dropdown-toggle) {{user.username}}
+    a.dropdown-toggle(role="button", uib-dropdown-toggle)
+      span.user-avatar
+        img(gravatar-src="user.email", gravatar-size="36")
+        span {{user.username}}
       | &#32;
       b.caret
     ul.dropdown-menu
