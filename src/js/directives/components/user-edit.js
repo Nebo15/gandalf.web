@@ -27,10 +27,13 @@ angular.module('app').controller('userEditController', function ($scope, _, $q, 
     });
   };
 
+  $scope.removeError = null;
   $scope.remove = function () {
     $scope.project.removeUser($scope.user).then(function () {
       $uibModalInstance.dismiss('cancel');
-    });
+    }).catch(function (resp) {
+      $scope.removeError = resp;
+    })
   };
 
   $scope.isRequired = function () {

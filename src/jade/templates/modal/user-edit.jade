@@ -2,6 +2,10 @@ form(ng-submit="save(form)", name="form", novalidate)
   .modal-header
     h3.modal-title Edit collaborator
   .modal-body
+    .alert.alert-danger(ng-if="removeError")
+      b Denied
+      p You try to delete last admin user in this project. Ask user give you admin rights. Then you will be able to delete it.
+
     .form-horizontal
       .form-group
         label.col-sm-2.control-label Username
