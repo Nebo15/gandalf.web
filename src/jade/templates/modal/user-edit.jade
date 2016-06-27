@@ -20,7 +20,7 @@ form(ng-submit="save(form)", name="form", novalidate)
           user-scope-list(model="user.scope", required="isRequired()")
   .modal-footer.clearfix
     .pull-left
-      button.btn.btn-danger(type='button', ng-click='remove()', confirm="Are you sure? You will lost access to the project") Remove
+      button.btn.btn-danger(type='button', ng-if="user.id !== currentUser.id", ng-click='remove()', confirm="Are you sure? You will lost access to the project") Remove
     .pull-right
       button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
       button.btn.btn-primary(type='submit') Save
