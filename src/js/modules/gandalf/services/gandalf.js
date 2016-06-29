@@ -223,6 +223,19 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
 
+      self.admin.resetPassword= function (email) {
+        return $request({
+          endpoint: 'api/v1/users/password/reset',
+          method: 'post',
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+
+        }, {
+          email: email
+        });
+      };
+
       // User
 
       self.admin.getUsers = function (size, page, filter) {

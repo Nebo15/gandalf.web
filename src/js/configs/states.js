@@ -69,6 +69,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     ncyBreadcrumb: {
       label: 'Sign up to Gandalf'
     }
+  }).state('reset-password', {
+    parent: 'public',
+    url: '/reset?email',
+    controller: 'ResetPasswordController',
+    templateUrl: 'templates/reset-password.html',
+    ncyBreadcrumb: {
+      label: 'Reset Password'
+    }
   });
 
 
