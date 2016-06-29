@@ -6,6 +6,8 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
+  - 'npm install -g protractor'
+  - 'webdriver-manager update'
   - 'npm install -g bower'
   - 'gem install sass --version "=3.4.12"'
   - 'gem install compass --version "=1.0.3"'
@@ -13,6 +15,7 @@ before_script:
   - 'bower install'
 script:
   - 'gulp build'
+  - 'gulp test'
 
 notifications:
   email: false
