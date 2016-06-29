@@ -32,6 +32,9 @@
         b {{table.variant.title}}
       td {{table.finalDecision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
+    tr(ng-if="!tables.length")
+      td.text-center(colspan="6")
+        i No decisions
 
 
   uib-pagination(ng-if="filters.total", total-items="filters.total", boundary-link-numbers="true", rotate="true",
