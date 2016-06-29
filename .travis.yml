@@ -15,7 +15,7 @@ before_script:
   - 'bower install'
 script:
   - 'gulp build'
-  - 'gulp test'
+  - 'webdriver-manager start & gulp test'
 
 notifications:
   email: false
