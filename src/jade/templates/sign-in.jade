@@ -3,6 +3,7 @@
   .sign-in__content
     .alert.alert-danger(ng-if="translateErrorCode(errorCode)") {{translateErrorCode(errorCode)}}
     .alert.alert-danger(ng-if="error") Verify username and password and try again.
+    .alert.alert-success(ng-if="message") {{message}}
     form(ng-submit="submit(form)", name="form", novalidate)
       .form-group
         input.form-control.form-control-underline(

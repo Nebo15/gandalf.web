@@ -54,7 +54,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'public',
     url: '/sign-in?username',
     params: {
-      errorCode: null
+      errorCode: null,
+      message: null
     },
     controller: 'SignInController',
     templateUrl: 'templates/sign-in.html',
@@ -76,6 +77,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/reset-password.html',
     ncyBreadcrumb: {
       label: 'Reset Password'
+    }
+  }).state('reset-password-confirm', {
+    parent: 'public',
+    url: '/reset/confirm?token',
+    controller: 'ResetPasswordConfirmController',
+    templateUrl: 'templates/reset-password-confirm.html',
+    ncyBreadcrumb: {
+      label: 'Set new password'
     }
   });
 

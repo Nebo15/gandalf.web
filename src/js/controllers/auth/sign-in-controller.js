@@ -9,6 +9,7 @@ angular.module('app').controller('SignInController', function ($scope, $state, $
 
   $scope.errorCode = $stateParams.errorCode;
   $scope.error = null;
+  $scope.message = $stateParams.message;
 
   $scope.translateErrorCode = function (code) {
     var str = 'error_codes.' + code;
