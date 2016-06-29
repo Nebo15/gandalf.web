@@ -7,7 +7,10 @@ exports.config = {
     capabilities: {
         'shardTestFiles': true,
         'maxInstances': 1,
-        'browserName': 'chrome'
+        'browserName': 'chrome',
+        'chromeOptions': {
+          'args': ['whitelisted-ips=""']
+        }
     },
 
     framework: 'jasmine2',
