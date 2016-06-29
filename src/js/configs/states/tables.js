@@ -48,6 +48,18 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     url: '/revisions',
     controller: 'TablesRevisionsController',
     templateUrl: 'templates/tables-details-revisions.html',
+  }).state('tables-details.history', {
+    url: '/history?size?page',
+    params: {
+      size: '25'
+    },
+    controller: 'HistoryListController',
+    templateUrl: 'templates/history-list.html',
+    resolve: {
+      selectedTable: ['DecisionTable', '$stateParams', function (DecisionTable, $stateParams) {
+        return DecisionTable.byId($stateParams.id);
+      }]
+    }
   });
 
   $stateProvider.state('tables-details.variant', {
