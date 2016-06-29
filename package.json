@@ -39,7 +39,6 @@
     "lodash": "^4.0.1",
     "protractor-console": "2.0.0",
     "shelljs": "0.6.0",
-    "sleep": "3.0.1",
     "util": "^0.10.3",
     "yargs": "^3.25.0"
   }
