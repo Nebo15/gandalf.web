@@ -4,11 +4,13 @@
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
     "start": "gulp",
-    "test": "karma start karma.conf.js",
-    "test-single-run": "karma start karma.conf.js  --single-run"
+    "test": "gulp test",
+    "karma": "karma start karma.conf.js",
+    "karma-single-run": "karma start karma.conf.js  --single-run"
   },
   "devDependencies": {
     "browser-sync": "^2.9.6",
+    "faker": "3.0.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-clean": "^0.3.1",
@@ -24,25 +26,20 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-prefix": "0.0.14",
+    "gulp-protractor": "2.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.1",
     "gulp-uglify": "^1.5.1",
     "gulp-useref": "^3.0.4",
     "gulp-util": "^3.0.7",
+    "jasmine-core": "2.4.1",
     "jstransformer-marked": "^1.0.1",
     "karma-bower": "^1.0.1",
     "lodash": "^4.0.1",
+    "protractor-console": "2.0.0",
+    "shelljs": "0.6.0",
+    "util": "^0.10.3",
     "yargs": "^3.25.0"
-  },
-  "dependencies": {
-    "jasmine-core": "^2.3.4",
-    "karma": "~0.12",
-    "karma-browserify": "^4.4.2",
-    "karma-chrome-launcher": "^0.1.12",
-    "karma-firefox-launcher": "^0.1.6",
-    "karma-jasmine": "^0.3.5",
-    "karma-junit-reporter": "^0.2.2",
-    "karma-requirejs": "^0.2.2"
   }
 }
