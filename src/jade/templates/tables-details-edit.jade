@@ -25,9 +25,9 @@
             .list-group-item(ng-repeat="variant in table.variants")
               .row
                 .col-sm-6
-                  a.list-group-item-heading(ui-sref="tables-details.variant({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
+                  a.text-overflow.max-width.list-group-item-heading(ui-sref="tables-details.variant({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
                   br
-                  span: i.list-group-item-text {{variant.description}}
+                  span.text-overflow.max-width: i.list-group-item-text {{variant.description}}
                 .col-sm-1
                   div(class="variant-marker variant-color-{{$index % 4}}")
                 .col-sm-3.pull-right
