@@ -6,7 +6,7 @@
 .container-fluid
   .row: .col-sm-4: form
     .form-group
-      input.form-control(type="search", ng-model="filters.table.title", placeholder="Start typing table name..",
+      input.form-control(type="search", ng-if="isShowSearch", ng-model="filters.table.title", placeholder="Start typing table name..",
         typeahead-on-select="onSelectTable($item, $model, $label, $event)",
         uib-typeahead="table.title for table in searchHistories($viewValue)")
 

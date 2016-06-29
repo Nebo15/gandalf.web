@@ -10,6 +10,8 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
     table: selectedTable
   };
 
+  $scope.isShowSearch = !Boolean($stateParams.id);
+
   $scope.onSelectTable = function (item) {
     $scope.filters.table = item;
     $scope.filters.tableId = item.id;
@@ -41,7 +43,7 @@ angular.module('app').controller('HistoryListController', function ($scope, $sta
       location: 'replace'
     });
 
-    DecisionHistoryTable.find(val[0], val[1], val[2]).then(function (resp) {
+    DecisionHistoryTable.find(val[0] || $stateParams.id, val[1], val[2]).then(function (resp) {
       $scope.filters.total = resp.paging.total;
       $scope.tables = resp.data;
     });
