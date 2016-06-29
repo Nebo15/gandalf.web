@@ -24,6 +24,7 @@
     "angular-ui-router-default": "^0.0.3",
     "jquery": "~2",
     "angular-sanitize": "^1.5.7",
-    "angular-gravatar": "^0.4.2"
+    "angular-gravatar": "^0.4.2",
+    "zxcvbn": "^4.3.0"
   }
 }
