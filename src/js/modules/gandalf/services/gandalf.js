@@ -106,13 +106,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       config.clientId = clientId;
       config.clientSecret = clientSecret;
     },
-    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope)  {
+    $get: function ($httpParamSerializer, $http, $log, $q, $rootScope, $localStorage)  {
+      var refreshTokenPromise = $q.resolve();
 
       function $request(opts, data) {
-
         var endpoint = opts.endpoint,
           method = opts.method || 'get',
-          params = opts.params || {};
+          params = opts.params || {},
+          ignoreAuth = opts.ignoreAuth || false;
 
         if (angular.isUndefined(endpoint)) {
           throw Error('undefined request enpoint');
@@ -132,23 +133,33 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }
         if (config.projectId) {
           headers['X-Application'] = config.projectId;
-
         }
 
         headers = angular.extend(headers, opts.headers || {});
 
-        return $http({
-          method: method,
-          url: endpoint,
-          headers: headers,
-          data: data || null
-        }).then(function (resp) {
-          $log.debug('$request: response', resp);
-          return resp.data;
-        }, function (resp) {
-          $log.log(resp);
-          $rootScope.$broadcast('$gandalfError', resp);
-          return $q.reject(resp);
+        return refreshTokenPromise.then(function () {
+          return $http({
+            method: method,
+            url: endpoint,
+            headers: headers,
+            data: data || null
+          });
+        }).then(function (response) {
+          $log.debug('$request: response', response);
+          return response.data;
+        }).catch(function (response) {
+          if (response.status !== 401 || ignoreAuth) {
+            $log.log(response);
+            $rootScope.$broadcast('$gandalfError', response);
+
+            return $q.reject(response);
+          }
+
+          refreshTokenPromise = self.refreshToken();
+
+          return refreshTokenPromise.then(function () {
+            return $request(opts, data);
+          });
         });
       }
 
@@ -182,6 +193,29 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
       self.setProjectId = function (projectId) {
         config.projectId = projectId;
+      };
+
+      self.refreshToken = function () {
+        if (!config.user.refreshToken) {
+          return $q.reject(false);
+        }
+
+        return $request({
+          endpoint: 'api/v1/oauth',
+          method: 'post',
+          ignoreAuth: true,
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+        }, {
+          refresh_token: config.user.refreshToken,
+          grant_type: 'refresh_token'
+        }).then(function (response) {
+          self.setToken(response);
+          $localStorage.auth = response;
+
+          return response;
+        });
       };
 
       self.admin = {};
