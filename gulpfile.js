@@ -149,7 +149,7 @@ gulp.task('config', ['copy-scripts'],function () {
   var configObj = require('./settings/config');
   var defaultConfig = configObj['default'];
 
-  var envName = argv.production ? 'production' : 'dev';
+  var envName = argv.production ? 'production' : 'sandbox';
   var targetConfig = configObj[envName];
 
   var resultConfig = _.defaultsDeep(targetConfig, defaultConfig);

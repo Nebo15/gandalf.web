@@ -2,10 +2,10 @@
   "default": {
     "debug": false,
     "api": {
-      "endpoint": "//gandalf-sandbox.nebo15.com:81/",
+      "endpoint": "using for api service call",
       "clientId": "admin",
       "clientSecret": "vqj66myg6xfp",
-      "host": "http://gandalf-sandbox.nebo15.com:81/"
+      "host": "used in debugger url"
     },
     "providers": {
       "bugsnag": {
@@ -14,12 +14,22 @@
       }
     }
   },
-  "dev": {
+  "sandbox": {
     "debug": true,
+    "api": {
+      "endpoint": "http://sandbox.gndf.io:81/",
+      "host": "http://sandbox.gndf.io:81/"
+    },
     "providers": {
       "bugsnag": {
         "stage": "development"
       }
+    }
+  },
+  "beta": {
+    "api": {
+      "endpoint": "http://beta.gndf.io:81/",
+      "host": "http://beta.gndf.io:81/"
     }
   },
   "production": {
