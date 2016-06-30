@@ -157,7 +157,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
           return $q.reject(response);
 
-        }).catch(function (responce) {
+        }).catch(function (response) {
 
           $log.log('$request: catch', response);
           $rootScope.$broadcast('$gandalfError', response);
