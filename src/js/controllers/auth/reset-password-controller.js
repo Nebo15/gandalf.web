@@ -11,6 +11,8 @@ angular.module('app').controller('ResetPasswordController', function ($scope, $s
 
     return $gandalf.admin.resetPassword($scope.model.email).then(function (resp) {
       $scope.sent = true;
-    });
+    }).catch(function (error) {
+      $scope.error = error.data.meta;
+    })
   }
 });
