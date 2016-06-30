@@ -64,7 +64,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   }).state('sign-up', {
     parent: 'public',
-    url: '/sign-up?username?email',
+    url: '/sign-up?username?email?invite',
     controller: 'SignUpController',
     templateUrl: 'templates/sign-up.html',
     ncyBreadcrumb: {
