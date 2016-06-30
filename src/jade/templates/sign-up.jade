@@ -1,6 +1,7 @@
 .sign-up
   h4.sign-up__header Sign Up
   .sign-up__content
+    div(ng-if="byInvite"): include:marked ../content/invite-sign-up.md
     form(ng-submit="submit(form)", name="form", novalidate)
       .form-group
         input.form-control.form-control-underline(
