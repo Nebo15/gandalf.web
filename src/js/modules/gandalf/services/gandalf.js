@@ -107,7 +107,6 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       config.clientSecret = clientSecret;
     },
     $get: function ($httpParamSerializer, $http, $log, $q, $rootScope, $localStorage)  {
-      var refreshTokenPromise = $q.resolve();
 
       function $request(opts, data) {
         var endpoint = opts.endpoint,
@@ -137,13 +136,11 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
         headers = angular.extend(headers, opts.headers || {});
 
-        return refreshTokenPromise.then(function () {
-          return $http({
-            method: method,
-            url: endpoint,
-            headers: headers,
-            data: data || null
-          });
+        return $http({
+          method: method,
+          url: endpoint,
+          headers: headers,
+          data: data || null
         }).then(function (response) {
           $log.debug('$request: response', response);
           return response.data;
@@ -155,11 +152,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
             return $q.reject(response);
           }
 
-          refreshTokenPromise = self.refreshToken();
-
-          return refreshTokenPromise.then(function () {
-            return $request(opts, data);
-          });
+          return self.refreshToken();
+        }).then(function () {
+          return $request(opts, data);
         });
       }
 
