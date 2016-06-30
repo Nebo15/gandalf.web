@@ -46,10 +46,10 @@ node default {
   }->
   file { "/etc/sudoers.d/deploybot/frontend":
     content => "\
-Cmnd_Alias        API_PUPPET = /usr/bin/puppet
-Cmnd_Alias        API_SERVICE = /usr/bin/service
-deploybot  ALL=NOPASSWD: API_PUPPET
-deploybot  ALL=NOPASSWD: API_SERVICE
+Cmnd_Alias        WEB_PUPPET = /usr/bin/puppet
+Cmnd_Alias        WEB_SERVICE = /usr/bin/service
+deploybot  ALL=NOPASSWD: WEB_PUPPET
+deploybot  ALL=NOPASSWD: WEB_SERVICE
 ",
     mode    => 0440,
     owner   => root,
