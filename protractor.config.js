@@ -1,24 +1,24 @@
-
 exports.config = {
 
-    specs: ['tests/tests/*.js'],
+  specs: ['tests/tests/*.js'],
 
-    seleniumAddress: 'http://localhost:4444/wd/hub',
-    multiCapabilities: [
-      {
-        'browserName': 'firefox'
-      }
-    ],
+  capabilities: [
+    {
+      'shardTestFiles': true,
+      'maxInstances': 1,
+      'browserName': 'phantomjs'
+    }
+  ],
 
-    framework: 'jasmine2',
+  framework: 'jasmine2',
 
-    // Options to be passed to Jasmine.
-    jasmineNodeOpts: {
-        showColors: true,
-        defaultTimeoutInterval: 30000
-    },
-    plugins: [{
-        package: 'protractor-console',
-        logLevels: ['severe']
-    }]
+  // Options to be passed to Jasmine.
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000
+  },
+  plugins: [{
+    package: 'protractor-console',
+    logLevels: ['severe']
+  }]
 };

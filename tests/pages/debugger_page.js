@@ -5,9 +5,9 @@ require("../pages/decisions_page.js");
 var debugger_page = function () {
 
     this.debugTable = function (description, type) {
-        browser.isElementPresent(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div/div/ul/li[4]/a'));
-        element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div/div/ul/li[4]/a')).click();
-        browser.isElementPresent(by.className('btn btn-primary btn-loading'));
+        browser.isElementPresent(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div/div/ul[2]/li[3]/a'));
+        element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div/div/ul[2]/li[3]/a')).click();
+        browser.isElementPresent(by.model('$parent.field.value'));
         element(by.className('btn btn-primary btn-loading')).click();
         var tableTitle = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/ui-view/div[1]/div[2]/div[2]/div/div[2]/pre/code/span[7]')).getText();
         expect(tableTitle).toBe(description);

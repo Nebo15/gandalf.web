@@ -4,7 +4,11 @@
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
     "start": "gulp",
-    "test": "gulp test",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor protractor.config.js",
+    "test": "npm run protractor",
     "karma": "karma start karma.conf.js",
     "karma-single-run": "karma start karma.conf.js  --single-run"
   },
@@ -37,6 +41,7 @@
     "jstransformer-marked": "^1.0.1",
     "karma-bower": "^1.0.1",
     "lodash": "^4.0.1",
+    "protractor": "3.2.1",
     "protractor-console": "2.0.0",
     "shelljs": "0.6.0",
     "util": "^0.10.3",

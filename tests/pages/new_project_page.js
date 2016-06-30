@@ -6,18 +6,18 @@ require("../pages/settings_page.js");
 var new_project_page = function () {
 
     this.createNewProject = function () {
-        browser.isElementPresent(by.className('form-block'));
+        element(by.className('create-project ng-scope')).isDisplayed();
     };
 
     this.createProject = function (title, describe) {
         element(by.model('model.title')).sendKeys(title);
         element(by.model('model.description')).sendKeys(describe);
-        element(by.className('btn btn-primary')).click();
+        element(by.className('btn btn-submit')).click();
         return require("./table_page.js");
     };
 
     this.getSettings = function () {
-        browser.isElementPresent(by.css('[ui-sref="settings"]'));
+        element(by.css('[ui-sref="settings"]')).isDisplayed();
         element(by.css('[ui-sref="settings"]')).click();
         return require("./settings_page.js");
     };

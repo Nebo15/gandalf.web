@@ -14,7 +14,7 @@ describe('Gandalf', function () {
     var home_page = require("../pages/home_page.js");
 
     it('AddConsumer test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -24,7 +24,7 @@ describe('Gandalf', function () {
     });
 
     it('Rename Consumer test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -35,7 +35,7 @@ describe('Gandalf', function () {
     });
 
     it('Rename Consumer rus symbols test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -46,7 +46,7 @@ describe('Gandalf', function () {
     });
 
     it('AddConsumer numbers test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -56,7 +56,7 @@ describe('Gandalf', function () {
     });
 
     it('DeleteProject test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -67,7 +67,7 @@ describe('Gandalf', function () {
     });
 
     it('EditProject test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
@@ -77,7 +77,7 @@ describe('Gandalf', function () {
     });
 
     it('EditProject spec symbols test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();
