@@ -3,7 +3,6 @@ exports.config = {
 
     specs: ['tests/tests/*.js'],
 
-    seleniumAddress: 'http://localhost:4444/wd/hub',
     multiCapabilities: [
       {
         'browserName': 'firefox'
