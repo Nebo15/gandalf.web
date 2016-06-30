@@ -111,8 +111,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       function $request(opts, data) {
         var endpoint = opts.endpoint,
           method = opts.method || 'get',
-          params = opts.params || {},
-          ignoreAuth = opts.ignoreAuth || false;
+          params = opts.params || {};
 
         if (angular.isUndefined(endpoint)) {
           throw Error('undefined request enpoint');
@@ -145,17 +144,23 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           $log.debug('$request: response', response);
           return response.data;
         }).catch(function (response) {
-          if (response.status !== 401 || ignoreAuth) {
-            $log.log(response);
-            $rootScope.$broadcast('$gandalfError', response);
 
-            return $q.reject(response);
+          // refresh token logic
+          if (response.status === 401) {
+            return self.refreshToken().then(function () {
+              return $request(opts, data);
+            });
           }
 
-          return self.refreshToken();
-        }).then(function () {
-          return $request(opts, data);
-        });
+          return $q.reject(response);
+
+        }).catch(function (responce) {
+
+          $log.log('$request: catch', response);
+          $rootScope.$broadcast('$gandalfError', response);
+
+          return $q.reject(response);
+        })
       }
 
       $request.get = function (url, options) {
@@ -198,7 +203,6 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         return $request({
           endpoint: 'api/v1/oauth',
           method: 'post',
-          ignoreAuth: true,
           headers: {
             Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
           }
@@ -210,6 +214,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           $localStorage.auth = response;
 
           return response;
+        }).catch(function (resp) {
+          config.user.refreshToken = null;
+          return $q.reject(resp);
         });
       };
 
