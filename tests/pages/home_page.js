@@ -21,17 +21,17 @@ var home_page = function () {
     };
 
     this.submitForm = function () {
-        element(by.buttonText('Submit')).click();
+        element(by.className('btn btn-submit')).click();
         return require("./dashboard_page.js");
     };
 
     this.welcomePage = function () {
-        element(by.buttonText('Submit')).click();
+        element(by.className('btn btn-submit')).click();
         return require("./welcome_page.js");
     };
 
     this.assertAlertMessage = function () {
-        element(by.buttonText('Submit')).click();
+        element(by.className('btn btn-submit')).click();
         return require("./home_page.js");
     };
 };

@@ -14,7 +14,7 @@ describe('Gandalf', function () {
     var home_page = require("../pages/home_page.js");
 
     it('SignUp test', function () {
-        home_page.fillSignUpForm(faker.name.findName(), faker.name.findName(), faker.internet.email());
+        home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
         var welcome_page = home_page.welcomePage();
         var new_project_page = welcome_page.clickContinue();
         new_project_page.createNewProject();

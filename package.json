@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
+    "postinstall": "./node_modules/protractor/bin/webdriver-manager update",
     "start": "gulp",
     "test": "gulp test",
     "karma": "karma start karma.conf.js",
@@ -37,6 +38,7 @@
     "jstransformer-marked": "^1.0.1",
     "karma-bower": "^1.0.1",
     "lodash": "^4.0.1",
+    "protractor": "3.3.0",
     "protractor-console": "2.0.0",
     "shelljs": "0.6.0",
     "util": "^0.10.3",
