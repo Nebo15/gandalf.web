@@ -1,30 +1,34 @@
 (function () {
 
-  function toString (val) {
+  function anyToString (val) {
     return typeof val !== 'undefined' ? ('' + val) : '';
   }
-  function toNumber (val) {
+  function anyToNumber (val) {
     val = Number(val);
     return isNaN(val) ? 0 : val;
+  }
+  function anyToJSON (val) {
+
+    return JSON.parse(JSON.stringify(angular.isDefined(val) ? val : {}));
   }
 
   angular.module('ng-gandalf').constant('GANDALF_TRANSFORMS', {
     matchingType: {
       scoring: {
         decisionType: 'numeric',
-        transformFn: toNumber
+        transformFn: anyToNumber
       },
       decision: {
         decisionType: 'alpha_num',
-        transformFn: toString
+        transformFn: anyToString
       }
     },
     decisionType: {
       string: {
-        transformFn: toString
+        transformFn: anyToString
       },
       numeric: {
-        transformFn: toNumber
+        transformFn: anyToNumber
       },
       alpha_num: {
         transformFn: function (val) {
@@ -33,9 +37,7 @@
         }
       },
       json: {
-        transformFn: function (val) {
-          return JSON.parse(JSON.stringify(val));
-        }
+        transformFn: anyToJSON
       }
     }
   });

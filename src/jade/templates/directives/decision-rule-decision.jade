@@ -1,6 +1,6 @@
 div(ng-if="!isEditing").form-control-static {{rule.than}}
 div(ng-if="isEditing")
-  span(ng-if="type == matchingTypes.first")
-    decision-input(type="type", decisions="decisions", model="rule.than", placeholder="Decision")
-  span(ng-if="type == matchingTypes.all")
-    decision-input(type="type", decisions="decisions", model="rule.than", placeholder="Score")
+  span(ng-if="matchingType == matchingTypes.first")
+    decision-input(type="decisionType", decisions="decisions", model="rule.than", placeholder="Decision")
+  span(ng-if="matchingType == matchingTypes.all")
+    decision-input(type="decisionType", decisions="decisions", model="rule.than", placeholder="Score")

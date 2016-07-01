@@ -6,14 +6,14 @@ angular.module('app').directive('decisionRuleDecision', function ($timeout, APP)
     scope: {
       rule: '=',
       decisions: '=',
-      type: '=',
+      matchingType: '=',
+      decisionType: '=',
       isEditing: '='
     },
     templateUrl: 'templates/directives/decision-rule-decision.html',
     link: function (scope, el, attrs) {
 
       scope.matchingTypes = APP.matchingTypes;
-
       scope.edit = function () {
         scope.isEditing = true;
       };
