@@ -68,6 +68,11 @@ angular.module('app').config(function($translateProvider) {
     },
     "error_codes": {
       401: "You don't have access to this feature."
+    },
+    "api_errors": {
+      "reset_password": {
+        "user_not_found": "User not found. Check email"
+      }
     }
   });
   $translateProvider.preferredLanguage('en');

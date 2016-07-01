@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app').controller('TablesEditVariantController', function ($scope, $state, $log, $uibModal, $timeout, table) {
-  var variantHash = 0;
+  var tableHash = 0;
 
   $scope.saved = true;
   $scope.isSaving = false;
@@ -15,7 +15,7 @@ angular.module('app').controller('TablesEditVariantController', function ($scope
     $scope.variant = table.getVariant($state.params.variantId);
   }
 
-  variantHash = $state.params.newVariant ? 0 : $scope.variant.getHash();
+  tableHash = $state.params.newVariant ? 0 : $scope.table.getHash();
 
   $scope.submit = function (form) {
     if (form.$invalid) return;
@@ -48,7 +48,7 @@ angular.module('app').controller('TablesEditVariantController', function ($scope
       $scope.variant = table.getVariant($scope.variant.id);
       $scope.$broadcast('decisionTable:saved');
 
-      variantHash = $scope.variant.getHash();
+      tableHash = $scope.table.getHash();
     }, function (err) {
       $scope.error = err;
     }).finally(function () {
@@ -76,8 +76,8 @@ angular.module('app').controller('TablesEditVariantController', function ($scope
     });
   };
 
-  $scope.$watch('variant', function (val) {
-    $scope.saved = (val.getHash() === variantHash);
+  $scope.$watch('table', function (table) {
+    $scope.saved = (table.getHash() === tableHash);
   }, true);
 
   var fnOnBeforeUnload = window.onbeforeunload;

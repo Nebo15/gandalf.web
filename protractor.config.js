@@ -2,11 +2,8 @@ exports.config = {
 
   specs: ['tests/tests/*.js'],
 
-  seleniumAddress: 'http://localhost:4444/wd/hub',
   multiCapabilities: [
     {
-      'shardTestFiles': true,
-      'maxInstances': 1,
       'browserName': 'firefox'
     }
   ],

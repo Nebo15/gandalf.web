@@ -8,6 +8,7 @@ angular.module('app').controller('SignUpController', function ($scope, $state, $
     email: $stateParams.email
   };
 
+  $scope.byInvite = ($stateParams.invite === 'true');
   $scope.error = null;
 
   $scope.submit = function (form) {
