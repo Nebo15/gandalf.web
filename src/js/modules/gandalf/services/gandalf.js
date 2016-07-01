@@ -352,6 +352,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'delete'
         });
       };
+      self.admin.exportProject = function () {
+        return $request.get('api/v1/projects/export');
+      };
 
       // Project.users
       self.admin.addProjectUser = function (user) {
