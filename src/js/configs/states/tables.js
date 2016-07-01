@@ -26,7 +26,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('tables-details', {
     parent: 'tables',
-    abstract: '.info',
+    abstract: '.edit',
     url: '/:id/:variantId',
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',

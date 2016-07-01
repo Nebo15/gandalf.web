@@ -78,6 +78,7 @@ angular.module('app').controller('TablesInfoController', function ($scope, $stat
       $scope.table.description = tableCopy.description;
 
       tableHash = table.getHash();
+      return $scope.table.save();
     });
   };
 
