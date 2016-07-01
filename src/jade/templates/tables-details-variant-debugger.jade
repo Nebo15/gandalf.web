@@ -5,11 +5,11 @@
 
 .container-fluid.block
   .row
-    .col.col-md-12
+    .col-md-12
       h2 {{table.title}}
       p.lead {{table.description}}
   .row
-    .col.col-md-6
+    .col-md-6
       form.form-horizontal(novalidate, ng-submit="submit(form)", name="form")
         .form-group(ng-repeat="field in fields")
           label.col-sm-4.control-label.text-overflow {{field.title}}
@@ -39,11 +39,11 @@
               //    input(type="checkbox", ng-model="field.value",
               //      name="{{field.alias}}",)
         .form-group
-          .col-sm-8.col-sm-offset-4
+          .col-sm-8.col-sm-push-4
             button.btn.btn-primary.btn-loading(type="submit", ng-class="{'is-active': loading}") Send
               .btn-loader
                 .glyphicon.glyphicon-refresh
-    .col.col-sm-6
+    .col-sm-6
       div.preview
         div.preview__external
           a.btn.btn-clear(ng-if="response._id", ui-sref="history-details({id: response._id})") Open Decision

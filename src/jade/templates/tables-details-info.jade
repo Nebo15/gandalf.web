@@ -12,7 +12,7 @@
       hr
   .block
     h4.block-heading Split testing
-    a.btn.btn-primary(ui-sref="tables-details.variant.new", ng-if="table.variants.length < 2") Start split testing
+    a.btn.btn-primary(ui-sref="tables-details.variant-new", ng-if="table.variants.length == 1") Start split testing
 
     .row(ng-if="table.variants.length > 1")
       .col-md-6.col-md-push-6
@@ -29,7 +29,7 @@
               .list-group-item(ng-repeat="variant in table.variants")
                 .row
                   .col-sm-6
-                    a.text-overflow.max-width.list-group-item-heading(ui-sref="tables-details.variant({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
+                    a.text-overflow.max-width.list-group-item-heading(ui-sref="tables-details.edit({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
                     br
                     span.text-overflow.max-width: i.list-group-item-text {{variant.description}}
                   .col-sm-1

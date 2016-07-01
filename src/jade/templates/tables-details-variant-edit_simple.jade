@@ -1,0 +1,46 @@
+form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="form")
+
+  .info-panel: .container-fluid
+    .info-panel-body
+      .row: .col-sm-6
+        .form-group
+          input.form-control.form-control-underline(ng-model="table.title", name="title" placeholder="Table name", required)
+          div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
+        .form-group
+          input.form-control.form-control-underline(ng-model="table.description", name="description" placeholder="Description", required)
+          div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
+            div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
+
+  .container-fluid
+    .alert.alert-warning(ng-if="!saved").ng-cloak
+      .alert-btn-right
+        button.btn.btn-success.btn-loading(type="submit", ng-class="{'is-active': isSaving}")
+          .btn-loader: .glyphicon.glyphicon-refresh
+          | Save
+      p This table have unsaved data. You need to save changes manually.
+
+    .alert.alert-danger(ng-if="error").ng-cloak
+      h4 Error
+      p Check you data and <b>try again</b>.
+
+    decision-table(model="table", variant="variant", form="form")
+      .row
+        .col-xs-4.col-xs-push-8.text-right
+          button.btn.btn-danger(ng-click="deleteTable(table)")
+            | Delete
+          button.btn.btn-success.btn-loading(type="submit", ng-if="!saved", ng-class="{'is-active': isSaving}")
+            .btn-loader: .glyphicon.glyphicon-refresh
+            | Save
+          button.btn.btn-default(type="submit", ng-if="saved")
+            | Saved
+        .col-xs-8.col-xs-pull-4
+          select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType", strict="table.getVariantsRules().length > 0")
+      div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+        h3.form-control-heading Decision type
+        select-decision-type(ng-model="table.decisionType", callback="onChangeDecisionType", strict="table.getVariantsRules().length > 0")
+
+.info-panel: .container-fluid
+  .info-panel-heading Decision Table
+  .info-panel-body
+    include:marked ../content/guides/decision-tables.md
