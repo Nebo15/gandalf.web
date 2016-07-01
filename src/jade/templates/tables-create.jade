@@ -24,10 +24,10 @@ form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form
             .btn-loader: .glyphicon.glyphicon-refresh
             | Create
         .col-xs-8.col-xs-pull-4
-          select-matching-type(ng-model="table.matchingType", strict="table.getVariantsRules().length > 0")
+          select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType", strict="table.getVariantsRules().length > 0")
       div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         h3.form-control-heading Decision type
-        select-decision-type(ng-model="table.decisionType", strict="table.getVariantsRules().length > 0")
+        select-decision-type(ng-model="table.decisionType", callback="onChangeDecisionType", strict="table.getVariantsRules().length > 0")
 
 .info-panel: .container-fluid
   .info-panel-heading Decision Table

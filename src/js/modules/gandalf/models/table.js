@@ -1,5 +1,5 @@
 angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionVariant,
-                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils) {
+                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils, GANDALF_TRANSFORMS) {
 
   function DecisionTable(id, data) {
     this.id = id;
@@ -173,11 +173,36 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
 
   DecisionTable.prototype.transformDecisions = function (transformFn) {
     this.variants.forEach(function (item) {
+
       item.defaultDecision = transformFn(item.defaultDecision);
       item.rules.forEach(function (item) {
         item.than = transformFn(item.than);
       });
+
     });
+  };
+
+  DecisionTable.prototype.setMatchingType = function (type) {
+    console.log('setDecisionType', type, GANDALF_TRANSFORMS.matchingType[type]);
+    var changeConfig = GANDALF_TRANSFORMS.matchingType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    this.decisionType = changeConfig.decisionType;
+
+    this.transformDecisions(transformFn);
+    this.matchingType = type;
+  };
+  DecisionTable.prototype.setDecisionType = function (type) {
+    console.log('setDecisionType', type, GANDALF_TRANSFORMS.decisionType[type]);
+    var changeConfig = GANDALF_TRANSFORMS.decisionType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    this.transformDecisions(transformFn);
+    this.decisionType = type;
   };
 
   DecisionTable.prototype.getDecisionVariants = function () {
