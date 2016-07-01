@@ -6,7 +6,7 @@ exports.config = {
   capabilities: {
     'shardTestFiles': true,
     'maxInstances': 1,
-    'browserName': 'chrome'
+    'browserName': 'firefox'
   },
 
   framework: 'jasmine2',
