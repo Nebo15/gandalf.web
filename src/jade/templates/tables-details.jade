@@ -3,6 +3,13 @@
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Info
     li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
     li(role="presentation" ui-sref-active="active" ui-sref='.history'): a History
-  ul.nav.navbar-nav.nav-secondary(ui-view="secondary-nav")
+  ul.nav.navbar-nav.nav-secondary(ui-view="secondary-nav", ng-if="variant")
+    li(role="presentation" ui-sref-active="active" ui-sref='.variant.edit({variantId: variant.id})'): a Edit
+    li(role="presentation" ui-sref-active="active" ui-sref='.variant.analytics({variantId: variant.id})'): a Analytics
+    //li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
+    li(role="presentation" ui-sref-active="active" ui-sref='.variant.debugger({variantId: variant.id})'): a Debugger
+    //li(role="presentation" ui-sref="history-list({tableId: table.id})"): a Decisions History →
+  ul.nav.navbar-nav.nav-secondary(ui-view="secondary-nav", ng-if="!variant")
+
 
 ui-view
