@@ -6,6 +6,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.fields = [];
     this.variants = [];
     this.matchingType = 'decision';
+    this.decisionType = 'alpha_num';
 
     if (data) this.parse(data);
   }
@@ -150,6 +151,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
 
     this.matchingType = data.matching_type || 'decision';
+    this.decisionType = data.decision_type || 'alpha_num';
+
     this.variantsProbability = data.variants_probability || 'first';
 
     return this;
@@ -163,6 +166,7 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       title: this.title,
       description: this.description,
       matching_type: this.matchingType,
+      decision_type: this.decisionType,
       variants_probability: this.variantsProbability
     };
   };
