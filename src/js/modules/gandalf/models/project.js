@@ -145,6 +145,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     return this.constructor(_.assignIn(data, {consumers: this.consumers}));
   };
 
+  Project.prototype.getExportURL = function () {
+    return $gandalf.admin.exportProject();
+  };
+
 
   Project.prototype.toJSON = function () {
     return {
