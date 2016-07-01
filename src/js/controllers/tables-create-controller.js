@@ -9,8 +9,6 @@ angular.module('app').controller('TablesCreateController', function ($scope, $co
 
   $scope.table.variants.push($scope.variant);
 
-  //$scope.$broadcast('decisionTable:edit');
-
   $scope.submit = function (form) {
 
     if (form.$invalid) return;

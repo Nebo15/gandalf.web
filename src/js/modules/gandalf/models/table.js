@@ -171,6 +171,15 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     };
   };
 
+  DecisionTable.prototype.transformDecisions = function (transformFn) {
+    this.variants.forEach(function (item) {
+      item.defaultDecision = transformFn(item.defaultDecision);
+      item.rules.forEach(function (item) {
+        item.than = transformFn(item.than);
+      });
+    });
+  };
+
   DecisionTable.prototype.getDecisionVariants = function () {
 
     var variants = this.getVariantsRules().map(function (rule) {
