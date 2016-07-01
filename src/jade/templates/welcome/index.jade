@@ -3,4 +3,5 @@
   .welcome__content
     include:marked ../../content/welcome.md
   p.btn-actions
-    a.btn.btn-submit(ui-sref="welcome-project-add") Continue
+    a.btn.btn-submit(ui-sref="welcome-activate", ng-if="!user.active") Continue
+    a.btn.btn-submit(ui-sref="welcome-project-add", ng-if="user.active") Continue

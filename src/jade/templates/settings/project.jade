@@ -14,6 +14,13 @@
 
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
+
+        div(ng-if="!user.active")
+          hr
+
+          p: b Your account not activated &#32
+          a.btn.btn-submit(ng-click="resendMail()") Resend activate e-mail
+
         hr
         .text-heading
           .text-heading-label Application ID
@@ -47,7 +54,12 @@
             a.list-group-item(consumer-add="project"): b.text-primary + create consumer
 
   .row: .col-md-6
-    button.btn.btn-danger(project-delete="project") Delete project
+    button.btn.btn-success(ng-click="export()") Export your data
+    hr
+  .row
+    .col-md-6
+      button.btn.btn-danger(project-delete="project") Delete project
+
 
   p: br
 

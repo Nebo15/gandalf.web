@@ -320,6 +320,26 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         return $request.get('api/v1/projects/users');
       };
 
+      self.admin.resendUserMail = function (email) {
+        return $request({
+          endpoint: 'api/v1/users/verify/email/resend',
+          method: 'POST',
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+        }, {email: email});
+      };
+
+      self.admin.verifyUserEmail = function (token) {
+        return $request({
+          endpoint: 'api/v1/users/verify/email',
+          method: 'POST',
+          headers: {
+            Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          }
+        }, {token: token});
+      };
+
       // Projects
 
       self.admin.getCurrentProject = function () {
@@ -351,6 +371,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           endpoint: 'api/v1/projects',
           method: 'delete'
         });
+      };
+      self.admin.exportProject = function () {
+        return $request.get('api/v1/projects/export');
       };
 
       // Project.users
