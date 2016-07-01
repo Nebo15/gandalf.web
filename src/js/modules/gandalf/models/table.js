@@ -183,7 +183,6 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
   };
 
   DecisionTable.prototype.setMatchingType = function (type) {
-    console.log('setDecisionType', type, GANDALF_TRANSFORMS.matchingType[type]);
     var changeConfig = GANDALF_TRANSFORMS.matchingType[type] || {};
     var transformFn = changeConfig.transformFn || function (val) {
         return val
@@ -195,7 +194,6 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     this.matchingType = type;
   };
   DecisionTable.prototype.setDecisionType = function (type) {
-    console.log('setDecisionType', type, GANDALF_TRANSFORMS.decisionType[type]);
     var changeConfig = GANDALF_TRANSFORMS.decisionType[type] || {};
     var transformFn = changeConfig.transformFn || function (val) {
         return val

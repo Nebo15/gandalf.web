@@ -34,7 +34,6 @@ angular.module('app').directive('complexity', function () {
       scope.class = '';
 
       scope.$watch ('complexityPassword', function (val) {
-        console.log('password', val);
         var result = zxcvbn(val || '');
         scope.score = result.score;
         scope.class = config[scope.score].class;
