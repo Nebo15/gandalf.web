@@ -35,14 +35,14 @@ angular.module('app').directive('selectMatchingType', function () {
   };
   $scope.cancel = function () {
     $scope.matchingType = $scope.model;
-    modalInstance.close();
+    if (modalInstance) modalInstance.close();
   };
   $scope.confirm = function () {
     if ($scope.callback()) {
       $scope.callback()($scope.matchingType);
     }
     $scope.model = $scope.matchingType;
-    modalInstance.close();
+    if (modalInstance) modalInstance.close();
   }
 
 });

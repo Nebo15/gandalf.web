@@ -18,6 +18,7 @@
         popover-append-to-body="false") +
       th.table-decision-column-decision
         span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
+          .small type: {{table.decisionType}}
         span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
       th.table-decision-column-action Action
 
@@ -42,7 +43,7 @@
             .decision-condition-align
 
         td.table-decision-column-add
-        td.table-decision-column-decision(decision-rule-decision, rule="rule", decisions="decisions", type="table.matchingType", is-editing="rule.isEditingDecision")
+        td.table-decision-column-decision(decision-rule-decision, rule="rule", decisions="decisions", decision-type="table.decisionType", matching-type="table.matchingType",  is-editing="rule.isEditingDecision")
         td.table-decision-column-action
           div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
@@ -72,9 +73,9 @@
         div(ng-message="minlength, maxlength") {{'validation.errors.row_description_charsets'|translate}}
     td
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-        decision-input(type="table.matchingType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
+        decision-input(type="table.decisionType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-        decision-input(type="table.matchingType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Score")
+        decision-input(type="table.decisionType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Score")
 
 
   .hidden

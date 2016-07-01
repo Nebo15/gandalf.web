@@ -9,7 +9,14 @@ angular.module('app').controller('TablesCreateController', function ($scope, $co
 
   $scope.table.variants.push($scope.variant);
 
-  //$scope.$broadcast('decisionTable:edit');
+  $scope.onChangeDecisionType = function (type) {
+    $scope.table.setDecisionType (type);
+  };
+
+
+  $scope.onChangeMatchingType = function (type) {
+    $scope.table.setMatchingType(type);
+  };
 
   $scope.submit = function (form) {
 

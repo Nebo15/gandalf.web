@@ -1,5 +1,5 @@
 div(ng-form="decisionInput")
-  div(ng-if="type == $root.APP.matchingTypes.first")
+  div(ng-if="type == $root.APP.decisionTypes.alphaNumeric")
     input.form-control(type="text", ng-model="$parent.model", typeahead-min-length="0",
       uib-typeahead="decision for decision in getDecisions($viewValue) | filter:$viewValue ",
       validate="alphadashed",
@@ -10,8 +10,21 @@ div(ng-form="decisionInput")
     div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
       div(ng-message="alphadashed") {{'validation.errors.alphadashed_only'|translate}}
       div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
-  div(ng-if="type == $root.APP.matchingTypes.all")
+  div(ng-if="type == $root.APP.decisionTypes.string")
+    input.form-control(type="text", ng-model="$parent.model", typeahead-min-length="0",
+      uib-typeahead="decision for decision in getDecisions($viewValue) | filter:$viewValue ",
+      typeahead-on-select="onSelect($item)",
+      name="input",
+      placeholder="{{placeholder}}"
+      required
+    )
+    div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
+      div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
+
+  div(ng-if="type == $root.APP.decisionTypes.numeric")
     input.form-control(type="number", name="input", ng-model="$parent.model", required, placeholder="{{placeholder}}")
     div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
       div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
       div(ng-message="number") {{'validation.errors.number_only'|translate}}
+  div(ng-if="type == $root.APP.decisionTypes.json")
+    textarea.form-control(name="input", ng-model="$parent.model", required, placeholder="{{placeholder}}")

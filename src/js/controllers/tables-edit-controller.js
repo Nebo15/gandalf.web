@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('TablesEditController', function ($scope, $state, $uibModal, table, APP) {
+angular.module('app').controller('TablesEditController', function ($scope, $state, $uibModal, table) {
   var tableHash = table.getHash();
 
   $scope.saved = true;
@@ -44,34 +44,19 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.onChangeMatchingType = function (type) {
-    var transformFn = function (val) {
-      return val
-    };
 
-    switch (type) {
-      case APP.matchingTypes.first:
-        transformFn = function (val) {
-          return '' + val;
-        };
-        break;
-      case APP.matchingTypes.all:
-        transformFn = function (val) {
-          val = Number(val);
-          return isNaN(val) ? 0 : val;
-        };
-        break;
-    }
+  $scope.onChangeDecisionType = function (type) {
+    table.setDecisionType (type);
+    tableHash = table.getHash();
 
-    table.variants.forEach(function (item) {
-      item.defaultDecision = transformFn(item.defaultDecision);
-      item.rules.forEach(function (item) {
-        item.than = transformFn(item.than);
-      });
+    table.save().then(null, function (error) {
+      $scope.error = error;
     });
+  };
 
-    table.matchingType = type;
 
+  $scope.onChangeMatchingType = function (type) {
+    table.setMatchingType(type);
     tableHash = table.getHash();
 
     table.save().then(null, function (error) {
