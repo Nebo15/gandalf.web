@@ -13,4 +13,10 @@ angular.module('app').service('UserService', function ($cacheFactory, $rootScope
       return user;
     });
   };
+
+  this.projectUser = function () {
+    return $gandalf.admin.getProjectUser().then(function (response) {
+      return new User(response.data);
+    });
+  }
 });

@@ -316,6 +316,10 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         });
       };
 
+      self.admin.getProjectUser = function () {
+        return $request.get('api/v1/projects/users');
+      };
+
       // Projects
 
       self.admin.getCurrentProject = function () {
