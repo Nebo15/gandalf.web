@@ -10,9 +10,6 @@ angular.module('app').directive('selectMatchingType', function () {
     template: '<div class="btn-group btn-group-matching">' +
       '<label class="btn btn-primary-matching" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.all">Scoring</label> ' +
       '<label class="btn btn-primary-matching" ng-model="matchingType" ng-change="onChangeMatchingType(matchingType)" uib-btn-radio="$root.APP.matchingTypes.first">Decision</label>' +
-      '<label class="btn-select-wrap"><select class="btn btn-select" ng-if="model == $root.APP.matchingTypes.first">' +
-      '<option>JSON</option><option>String</option><option>Number</option><option>Alphanumeric</option>' +
-    '</select></label>' +
     '</div>',
     scope: {
       model: '=ngModel',
@@ -38,14 +35,14 @@ angular.module('app').directive('selectMatchingType', function () {
   };
   $scope.cancel = function () {
     $scope.matchingType = $scope.model;
-    modalInstance.close();
+    if (modalInstance) modalInstance.close();
   };
   $scope.confirm = function () {
     if ($scope.callback()) {
       $scope.callback()($scope.matchingType);
     }
     $scope.model = $scope.matchingType;
-    modalInstance.close();
+    if (modalInstance) modalInstance.close();
   }
 
 });

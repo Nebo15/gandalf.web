@@ -127,11 +127,20 @@
 
 
 .btn-group-matching
+  display: flex
+  flex-wrap: nowrap
+  flex-direction: row
+
   .btn
+    flex: 0 1 auto
     text-transform: uppercase
     border-color: #e4e4e4
     color: $text-color
     min-width: 100px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+    min-width: 0
 
     &.active
       border-color: $btn-primary-border

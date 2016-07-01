@@ -43,6 +43,12 @@ angular.module('app').constant('APP', {
   matchingTypes: {
     first : 'decision', // decision table
     all   : 'scoring'    // scoring
+  },
+  decisionTypes: {
+    alphaNumeric: 'alpha_num',
+    string: 'string',
+    json: 'json',
+    numeric: 'numeric'
   }
 }).run(function ($rootScope, $state, APP) {
   $rootScope.APP = APP;
