@@ -44,31 +44,78 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
   };
 
-  $scope.onChangeMatchingType = function (type) {
-    var transformFn = function (val) {
-      return val
-    };
-
-    switch (type) {
-      case APP.matchingTypes.first:
-        transformFn = function (val) {
-          return '' + val;
-        };
-        break;
-      case APP.matchingTypes.all:
-        transformFn = function (val) {
-          val = Number(val);
-          return isNaN(val) ? 0 : val;
-        };
-        break;
+  var changeDecisionType = {};
+  changeDecisionType[APP.decisionTypes.string] = {
+    transformFn: function (val) {
+      return '' + val;
     }
+  };
+  changeDecisionType[APP.decisionTypes.numeric] = {
+    transformFn: function (val) {
+      val = Number(val);
+      return isNaN(val) ? 0 : val;
+    }
+  };
+  changeDecisionType[APP.decisionTypes.alphaNumeric] = {
+    transformFn: function (val) {
+      var reg = /[a-zA-Z0-9_-]+/gmi;
+      return ('' + val).match(reg).join('')
+    }
+  };
+  changeDecisionType[APP.decisionTypes.json] = {
+    transformFn: function (val) {
+      return JSON.parse(JSON.stringify(val));
+    }
+  };
 
+  function transformDecisions(transformFn) {
     table.variants.forEach(function (item) {
       item.defaultDecision = transformFn(item.defaultDecision);
       item.rules.forEach(function (item) {
         item.than = transformFn(item.than);
       });
     });
+  }
+
+  $scope.onChangeDecisionType = function (type) {
+    var changeConfig = changeDecisionType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    transformDecisions(transformFn);
+
+    tableHash = table.getHash();
+
+    table.save().then(null, function (error) {
+      $scope.error = error;
+    });
+  };
+
+  var changeMatchingType = {};
+  changeMatchingType[APP.matchingTypes.all] = {
+    decisionType: APP.decisionTypes.numeric,
+    transformFn: function (val) {
+      val = Number(val);
+      return isNaN(val) ? 0 : val;
+    }
+  };
+  changeMatchingType[APP.matchingTypes.first] = {
+    decisionType: APP.decisionTypes.alphaNumeric,
+    transformFn: function (val) {
+      return '' + val;
+    }
+  };
+
+  $scope.onChangeMatchingType = function (type) {
+    var changeConfig = changeMatchingType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    table.decisionType = changeConfig.decisionType;
+
+    transformDecisions(transformFn);
 
     table.matchingType = type;
 

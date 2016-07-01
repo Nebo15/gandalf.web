@@ -82,7 +82,7 @@
         select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
       div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         h3.form-control-heading Decision type
-        select-decision-type(ng-model="table.decisionType", strict="table.getVariantsRules().length > 0")
+        select-decision-type(ng-model="table.decisionType", callback="onChangeDecisionType")
 
       hr
 
