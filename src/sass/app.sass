@@ -369,3 +369,34 @@ condition-input
   &.is-strong .is-active
     background-color: green
 
+.btn.btn-select
+
+  padding: 10px
+  padding-right: 25px
+  appearance: none
+  box-sizing: border-box
+
+  border-width: 1px
+  background: white
+  /* max-width: 40px; */
+  width: 31px
+  white-space: nowrap
+  display: inline-block
+  background: #e81a50
+  color: white
+  border-color: #e81a50
+  text-overflow: ellipsis
+  overflow: hidden
+  &:focus
+    outline: none
+
+.btn-select-wrap
+  position: relative
+  &:after
+    content: ''
+    +arr(8, 6, #fff, b)
+    position: absolute
+    top: 50%
+    margin-top: -3px
+    right: 10px
+
