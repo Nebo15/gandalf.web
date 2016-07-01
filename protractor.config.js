@@ -2,11 +2,12 @@ exports.config = {
 
   specs: ['tests/tests/*.js'],
 
-  multiCapabilities: [
-    {
-      'browserName': 'firefox'
-    }
-  ],
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+  capabilities: {
+    'shardTestFiles': true,
+    'maxInstances': 1,
+    'browserName': 'chrome'
+  },
 
   framework: 'jasmine2',
 
