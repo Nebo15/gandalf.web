@@ -21,6 +21,8 @@
         td {{table.description}}
       tr(ng-if="tables.length === 0")
         td.text-center(colspan="2")
-          i Not created any tables
+          i 
+            | You don't have any tables.&nbsp;
+            a(ui-sref="tables-create") Create your first table!
 
   uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
