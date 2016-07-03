@@ -9,8 +9,8 @@
           .text-heading-label Description
           | {{project.description}}
         .text-heading
-          .text-heading-label Decision Flow
-          | {{project.settings.show_meta | boolean: 'Enabled' : 'Disabled'}}
+          .text-heading-label Returns Decision Flow
+          | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
 
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
