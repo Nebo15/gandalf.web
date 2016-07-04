@@ -1,27 +1,25 @@
 "use strict";
 
 angular.module('app').constant('PROJECT_USER_SCOPES', [
-  'create',
-  'read',
-  'update',
-  'delete',
-  'check',
+  'tables_create',
+  'tables_view',
+  'tables_update',
+  'tables_delete',
+  'tables_query',
 
-  'get_consumers',
-  'create_consumers',
-  'update_consumers',
-  'delete_consumers',
+  'consumers_get',
+  'consumers_manage',
 
-  'update_users',
-  'add_user',
-  'delete_users',
+  'users_manage',
 
-  'edit_project',
-  'delete_project'
+  'project_update',
+  'project_delete',
+
+  'decisions_view'
 ]);
 
 
 angular.module('app').constant('PROJECT_CONSUMER_SCOPES', [
-  'read',
-  'check'
+  'decisions_view',
+  'decisions_make'
 ]);

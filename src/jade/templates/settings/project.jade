@@ -38,7 +38,7 @@
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
               br
-              span.small.subtitle {{user.scope | translateArray: 'scopes.users_details.' | join: ', '}}
+              span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
             a.list-group-item(user-add="project"): b.text-primary + add collaborator
 
    .row(ng-if="project.consumers")
