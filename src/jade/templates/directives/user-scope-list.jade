@@ -13,7 +13,7 @@ div
 div
   .form-control-heading-small Decision History
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['decisions_view']"): label
+    .checkbox-inline(ng-repeat="scope in ['decisions_view','decisions_make']"): label
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 

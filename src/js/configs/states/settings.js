@@ -22,7 +22,7 @@ angular.module('app').config(function ($stateProvider) {
         return UserService.projectUser();
       }],
       consumers: ['projectUser', 'project', function (user, project) {
-        if (~user.scope.indexOf('get_consumers')) {
+        if (~user.scope.indexOf('consumers_get')) {
           return project.fetchConsumers();
         }
 
