@@ -23,7 +23,7 @@ form(ng-submit="save(form)", name="form", novalidate)
             input(type="checkbox", checklist-model="model.scope", checklist-value="scope",
               ng-required="!(model.scope && model.scope.length > 0)"
             )
-            | {{scope}}
+            | {{('scopes.users.' + scope + '.details') | translate}}
   .modal-footer.clearfix
     .pull-left
       button.btn.btn-danger(type='button', ng-click='remove()') Remove

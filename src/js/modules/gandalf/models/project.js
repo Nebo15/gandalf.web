@@ -52,7 +52,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     var self = this;
     return $gandalf.admin.updateProjectUser({
       user_id: user.id,
-      role: user.role,
+      role: (user.role == 'admin') ? undefined : this.role,
       scope: user.scope
     }).then(function (resp) {
       self.extend(resp.data);
