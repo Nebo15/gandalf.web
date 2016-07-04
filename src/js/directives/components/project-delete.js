@@ -9,6 +9,7 @@ angular.module('app').controller('projectDeleteController', function ($scope, $s
   $scope.submit = function (form) {
     if (form.$invalid) return;
     project.delete().then(function () {
+      ProjectsService.clearProject();
       location.reload();
     });
   };

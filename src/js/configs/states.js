@@ -15,9 +15,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       user: ['UserService','projects', function (UserService,projects) {
         return UserService.current();
       }],
-      projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
+      projects: ['ProjectsService','$q', '$state', '_', function (ProjectsService, $q, $state, _) {
         return $q.when(ProjectsService.all()).then(function (resp) {
-          if (resp.length) return resp;
+          if (resp.length) {
+            return resp;
+          }
           $state.go('welcome-project-add');
         });
       }]
