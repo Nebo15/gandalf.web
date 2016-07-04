@@ -1,8 +1,32 @@
 .navbar-second.navbar.navbar-primary.has-navbar: .container-fluid
-  ul.nav.navbar-nav
-    li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Info
+  ul.nav.navbar-nav(ng-if="table.variants.length == 1")
+
+    li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
+    li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
+    li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
     li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
     li(role="presentation" ui-sref-active="active" ui-sref='.history'): a History
-  ul.nav.navbar-nav.nav-secondary(ui-view="secondary-nav")
+
+    li(role="presentation" ng-click="createNewVariant()" ng-if="table.variants.length == 1"): a Start Split Testing
+
+  div(ng-if="table.variants.length > 1")
+    ul.nav.navbar-nav
+      li(role="presentation" ui-sref-active="active" ui-sref='.info'): a Info
+      li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
+      li(role="presentation" ui-sref-active="active" ui-sref='.history'): a History
+    ul.nav.navbar-nav.nav-secondary
+      li(role="presentation", ng-if="table.variants.length > 1").dropdown(uib-dropdown)
+        a.dropdown-toggle(role="button", uib-dropdown-toggle)
+          .text-overflow {{variant.title || 'Untitled variant'}}
+          b.caret
+        ul.dropdown-menu
+          li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
+            a(ng-click="selectVariant(item)")
+              span.table-title-overflow {{item.title || 'Untitled variant'}}
+          li.divider(role="separator")
+          li: a(ng-click="createNewVariant()") + Create new variant
+      li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
+      li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
+      li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
 
 ui-view

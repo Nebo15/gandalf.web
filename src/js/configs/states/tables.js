@@ -27,12 +27,15 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('tables-details', {
     parent: 'tables',
     abstract: '.edit',
-    url: '/:id',
+    url: '/:id/:variantId',
     templateUrl: 'templates/tables-details.html',
     controller: 'TablesDetailsController',
     resolve: {
       table: ['DecisionTable', '$stateParams', 'projects', function (DecisionTable, $stateParams, projects) {
-        return DecisionTable.byId($stateParams.id);
+        return DecisionTable.byId($stateParams.id)
+      }],
+      variant: ['table', '$stateParams', '$state', function (table, $stateParams) {
+        return $stateParams.variantId ? table.getVariant($stateParams.variantId) : null;
       }]
     },
     ncyBreadcrumb: {
@@ -40,14 +43,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       parent: 'tables-list',
       skip: false
     }
-  }).state('tables-details.edit', {
-    url: '/edit',
-    controller: 'TablesEditController',
-    templateUrl: 'templates/tables-details-edit.html',
+  }).state('tables-details.info', {
+    url: '/info',
+    controller: 'TablesInfoController',
+    templateUrl: 'templates/tables-details-info.html'
   }).state('tables-details.revisions', {
     url: '/revisions',
     controller: 'TablesRevisionsController',
-    templateUrl: 'templates/tables-details-revisions.html',
+    templateUrl: 'templates/tables-details-revisions.html'
   }).state('tables-details.history', {
     url: '/history?size?page',
     params: {
@@ -60,32 +63,15 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
         return DecisionTable.byId($stateParams.id);
       }]
     }
-  });
-
-  $stateProvider.state('tables-details.variant', {
-    abstract: 'tables-details.variant.edit',
-    url: '/:variantId',
-    views: {
-      "secondary-nav": {
-        templateUrl: 'templates/tables-details-variant_nav.html',
-        controller: 'TablesDetailsVariantController'
-      },
-      '': {
-        templateUrl: 'templates/tables-details-variant.html',
-        controller: 'TablesDetailsVariantController'
-      }
-    },
-    resolve: {
-      variant: ['table', '$stateParams', function (table, $stateParams) {
-        return table.getVariant($stateParams.variantId);
-      }]
-    }
-
-  }).state('tables-details.variant.edit', {
+  }).state('tables-details.edit', {
     url: '/edit',
-    controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-details-variant-edit.html'
-  }).state('tables-details.variant.analytics', {
+    controller: 'TablesEditController',
+    templateProvider: ['table', '$templateRequest', function (table, $templateRequest) {
+      return $templateRequest(table.variants.length == 1 ? 'templates/tables-details-variant-edit_simple.html' :
+        'templates/tables-details-variant-edit.html'
+      );
+    }]
+  }).state('tables-details.analytics', {
     url: '/analytics',
     controller: 'TablesAnalyticsController',
     templateUrl: 'templates/tables-details-variant-analytics.html',
@@ -94,20 +80,13 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
         return AnalyticsTable.byIdAndVariantId($stateParams.id, $stateParams.variantId);
       }]
     }
-  }).state('tables-details.variant.debugger', {
+  }).state('tables-details.debugger', {
     url: '/debug',
     controller: 'DebuggerDetailsController',
     templateUrl: 'templates/tables-details-variant-debugger.html',
     params: {
       id: null,
       decision: null
-    }
-  }).state('tables-details.variant.new', {
-    url: '/new',
-    controller: 'TablesEditVariantController',
-    templateUrl: 'templates/tables-details-variant-edit.html',
-    params: {
-      newVariant: true
     }
   });
 
