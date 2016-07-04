@@ -61,7 +61,7 @@
                   class="variant-visual-item variant-color-{{$index % 4}}"
                 )
 
-              a.list-group-item(ui-sref="tables-details.variant.new"): b.text-primary + create variant
+              a.list-group-item(ng-click="createNewVariant()"): b.text-primary + create variant
         h3.form-control-heading Traffic allocation
         .row
           .col-sm-8
