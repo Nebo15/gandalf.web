@@ -9,6 +9,9 @@
           .text-heading-label Description
           | {{project.description}}
         .text-heading
+          .text-heading-label Application ID
+          | {{project.id}}
+        .text-heading
           .text-heading-label Returns Decision Flow
           | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
 
@@ -17,15 +20,8 @@
 
         div(ng-if="!user.active")
           hr
-
           p: b Your account not activated &#32
           a.btn.btn-submit(ng-click="resendMail()") Resend activate e-mail
-
-        hr
-        .text-heading
-          .text-heading-label Application ID
-          | {{project.id}}
-        hr
 
 .block.container-fluid
   .row
