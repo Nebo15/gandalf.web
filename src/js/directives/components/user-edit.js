@@ -3,7 +3,7 @@
 angular.module('app').controller('userEditController', function ($scope, project, user, $uibModalInstance, currentUser, PROJECT_USER_SCOPES) {
 
   $scope.currentUser = currentUser;
-  $scope.user = user; // from directive scope
+  $scope.user = angular.copy(user); // from directive scope
   $scope.project = project; // from directive scope
 
   $scope.scopes = PROJECT_USER_SCOPES;
