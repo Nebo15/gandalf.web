@@ -6,11 +6,11 @@ require("../pages/debugger_page.js");
 
 var new_tables_page = function () {
 
-  var buttonClick = element.all(by.className('table-decision-column-add ng-isolate-scope')).first();
+  var decisionCreateButton = element.all(by.className('table-decision-column-add ng-isolate-scope')).first();
   var buttonSuccess = element.all(by.className('btn btn-success btn-loading')).first();
 
   this.createNewTable = function (tableName, tableDesc, testData, testData2, testData3, rowData, rowData2, fieldTitle, fieldKey) {
-    buttonClick.click();
+    decisionCreateButton.click();
     browser.isElementPresent(by.model('field.title'));
     element(by.model('field.title')).sendKeys(fieldTitle);
     element(by.model('field.key')).sendKeys(fieldKey);
