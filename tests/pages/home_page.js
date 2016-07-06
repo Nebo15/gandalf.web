@@ -16,12 +16,9 @@ var home_page = function () {
     browser.isElementPresent(by.css('[ui-sref="sign-up"]'));
     var signUp = element.all(by.css('[ui-sref="sign-up"]')).first();
     signUp.click();
-    var userName = element.all(by.model('model.username')).first();
-    userName.sendKeys(login);
-    var userPass = element.all(by.model('model.password')).first();
-    userPass.sendKeys(password);
-    var userMail = element.all(by.model('model.email')).first();
-    userMail.sendKeys(mail);
+    element.all(by.model('model.username')).first().sendKeys(login);
+    element.all(by.model('model.password')).first().sendKeys(password);
+    element.all(by.model('model.email')).first().sendKeys(mail);
   };
 
   this.submitForm = function () {
