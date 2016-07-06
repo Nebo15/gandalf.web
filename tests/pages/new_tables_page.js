@@ -66,18 +66,15 @@ var new_tables_page = function () {
     return require("./table_page.js");
   };
 
-  this.cloneRows = function (message) {
-    element(by.className('text-overflow max-width list-group-item-heading ng-binding')).click();
+  this.cloneRows = function () {
     element(by.className('glyphicon glyphicon-duplicate')).click();
-    var changeMessage = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/ui-view/ui-view/form/div[2]/div/p')).getText();
-    expect(changeMessage).toBe(message);
     element(by.className('btn btn-success btn-loading')).click();
   };
 
   this.assertRowIsCloned = function (row1, row2) {
-    var firstRow = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/ui-view/ui-view/form/div[2]/decision-table/div[1]/div[1]/table[1]/tbody/tr[1]/td[2]/div/b')).getText();
+    var firstRow = element(by.className('ng-binding ng-scope')).getText();
     expect(firstRow).toBe(row1);
-    var secondRow = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/ui-view/ui-view/form/div[2]/decision-table/div[1]/div[1]/table[1]/tbody/tr[2]/td[2]/div/b')).getText();
+    var secondRow = element(by.className('ng-binding ng-scope')).getText();
     expect(secondRow).toBe(row2);
     expect(firstRow).toBe(secondRow);
   };
@@ -105,7 +102,6 @@ var new_tables_page = function () {
   };
 
   this.editTable = function (title, description, text) {
-    element(by.className('text-overflow max-width list-group-item-heading ng-binding')).click();
     element(by.css('[ng-if="rule.description"]')).click();
     element(by.model('rule.title')).sendKeys(title);
     element(by.model('rule.description')).sendKeys(description);
@@ -132,8 +128,7 @@ var new_tables_page = function () {
   };
 
   this.assertRevision = function (text) {
-    element(by.className('text-overflow max-width list-group-item-heading ng-binding')).click();
-    var editTable = element(by.css('[ng-if="rule.title"]')).getText();
+    var editTable = element(by.className('ng-binding ng-scope')).getText();
     expect(editTable).toBe(text);
   };
 };
