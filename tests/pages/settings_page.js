@@ -2,12 +2,15 @@
 
 var settings_page = function () {
 
+  var submitButton = element.all(by.className('btn btn-primary')).first();
+
   this.addConsumer = function (description) {
     browser.isElementPresent(by.className('text-primary'));
     element(by.linkText('+ create consumer')).click();
     element(by.model('model.description')).sendKeys(description);
-    element(by.model('checked')).click();
-    element(by.className('btn btn-primary')).click();
+    var checkButton = element.all(by.model('checked')).first();
+    checkButton.click();
+    submitButton.click();
     element(by.className('btn btn-warning')).click();
     var consumer = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div[2]/div[2]/div[2]/div/div[2]/div/a[1]')).getText();
     expect(consumer).toBe(description);
@@ -17,7 +20,7 @@ var settings_page = function () {
     element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div[2]/div[2]/div[2]/div/div[2]/div/a[1]')).click();
     element(by.model('model.description')).clear();
     element(by.model('model.description')).sendKeys(newConsumerName);
-    element(by.className('btn btn-primary')).click();
+    submitButton.click();
     var consumer = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/div[2]/div[2]/div[2]/div/div[2]/div/a[1]')).getText();
     expect(consumer).toBe(newConsumerName);
   };

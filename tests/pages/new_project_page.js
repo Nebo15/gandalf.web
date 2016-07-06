@@ -10,8 +10,10 @@ var new_project_page = function () {
   };
 
   this.createProject = function (title, describe) {
-    element(by.model('model.title')).sendKeys(title);
-    element(by.model('model.description')).sendKeys(describe);
+    var titleProject = element.all(by.model('model.title')).first();
+    titleProject.sendKeys(title);
+    var projectDesc = element.all(by.model('model.description')).first();
+    projectDesc.sendKeys(describe);
     element(by.className('btn btn-submit')).click();
     return require("./table_page.js");
   };

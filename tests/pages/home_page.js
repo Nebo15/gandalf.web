@@ -14,10 +14,14 @@ var home_page = function () {
 
   this.fillSignUpForm = function (login, password, mail) {
     browser.isElementPresent(by.css('[ui-sref="sign-up"]'));
-    element(by.css('[ui-sref="sign-up"]')).click();
-    element(by.model('model.username')).sendKeys(login);
-    element(by.model('model.password')).sendKeys(password);
-    element(by.model('model.email')).sendKeys(mail);
+    var signUp = element.all(by.css('[ui-sref="sign-up"]')).first();
+    signUp.click();
+    var userName = element.all(by.model('model.username')).first();
+    userName.sendKeys(login);
+    var userPass = element.all(by.model('model.password')).first();
+    userPass.sendKeys(password);
+    var userMail = element.all(by.model('model.email')).first();
+    userMail.sendKeys(mail);
   };
 
   this.submitForm = function () {

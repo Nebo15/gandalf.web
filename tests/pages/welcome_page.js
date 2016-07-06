@@ -6,7 +6,8 @@ var welcome_page = function () {
 
   this.clickContinue = function () {
     element(by.className('btn btn-submit')).isDisplayed();
-    element(by.className('btn btn-submit')).click();
+    var submit = element.all(by.className('btn btn-submit')).first();
+    submit.click();
     return require("./new_project_page.js");
   };
 };

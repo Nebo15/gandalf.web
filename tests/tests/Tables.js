@@ -21,7 +21,7 @@ describe('Gandalf', function () {
     var table_page = new_project_page.createProject('testProject', 'testDescription');
     var new_tables_page = table_page.addTable();
     new_tables_page.createNewTable('testName', 'testDescription', 'randData', 'description', 'testDescription', 'random', 'randomData', 'olol', 'dfdfs');
-    new_tables_page.assertNewTable('TESTPROJECT');
+    new_tables_page.assertNewTable('CREATE TABLE');
   });
 
   it('DeleteTable test', function () {
@@ -79,7 +79,7 @@ describe('Gandalf', function () {
     new_project_page.createNewProject();
     var table_page = new_project_page.createProject('testProject', 'testDescription');
     var new_tables_page = table_page.addTable();
-    new_tables_page.createEmptyTable('Name can not be empty');
+    new_tables_page.createEmptyTable('You should have at least 1 row');
   });
 
   it('Try Create Table Without Columns test', function () {
@@ -102,7 +102,7 @@ describe('Gandalf', function () {
     var new_tables_page = table_page.addTable();
     new_tables_page.createNewTable('testName', 'testDescription', 'randData', 'description', 'testDescription', 'random', 'randomData', 'olol', 'dfdfs');
     new_tables_page.cloneRows();
-    new_tables_page.assertRowIsCloned('random', 'random');
+    new_tables_page.assertRowIsCloned('random');
   });
 
   xit('Decisions history test', function () {

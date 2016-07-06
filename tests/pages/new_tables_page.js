@@ -6,8 +6,11 @@ require("../pages/debugger_page.js");
 
 var new_tables_page = function () {
 
+  var buttonClick = element.all(by.className('table-decision-column-add ng-isolate-scope')).first();
+  var buttonSuccess = element.all(by.className('btn btn-success btn-loading')).first();
+
   this.createNewTable = function (tableName, tableDesc, testData, testData2, testData3, rowData, rowData2, fieldTitle, fieldKey) {
-    element(by.className('table-decision-column-add ng-isolate-scope')).click();
+    buttonClick.click();
     browser.isElementPresent(by.model('field.title'));
     element(by.model('field.title')).sendKeys(fieldTitle);
     element(by.model('field.key')).sendKeys(fieldKey);
@@ -21,7 +24,7 @@ var new_tables_page = function () {
     element(by.className('plus')).click();
     element(by.model('rule.title')).sendKeys(rowData);
     element(by.model('rule.description')).sendKeys(rowData2);
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
     return require("./table_page.js");
   };
 
@@ -43,7 +46,7 @@ var new_tables_page = function () {
     element(by.className('plus')).click();
     element(by.model('rule.title')).sendKeys(rowData);
     element(by.model('table.defaultDescription')).sendKeys(rowData2);
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
     return require("./table_page.js");
   };
 
@@ -57,7 +60,7 @@ var new_tables_page = function () {
     element(by.className('plus')).click();
     element(by.model('rule.title')).sendKeys(data6);
     element(by.model('rule.description')).sendKeys(data7);
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
   };
 
   this.assertAlertMessage = function (alert) {
@@ -68,35 +71,32 @@ var new_tables_page = function () {
 
   this.cloneRows = function () {
     element(by.className('glyphicon glyphicon-duplicate')).click();
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
   };
 
-  this.assertRowIsCloned = function (row1, row2) {
-    var firstRow = element(by.className('ng-binding ng-scope')).getText();
-    expect(firstRow).toBe(row1);
-    var secondRow = element(by.className('ng-binding ng-scope')).getText();
-    expect(secondRow).toBe(row2);
-    expect(firstRow).toBe(secondRow);
+  this.assertRowIsCloned = function (row1) {
+    element.all(by.linkText(row1)).isDisplayed();
   };
 
-  this.createEmptyTable = function (text) {
+  this.createEmptyTable = function () {
     browser.isElementPresent(by.model('table.title'));
-    element(by.className('btn btn-success btn-loading')).click();
-    var message = element(by.css('[ng-message="required"]')).getText();
-    expect(message).toBe(text);
+    buttonSuccess.click();
+    buttonSuccess.click();
+    buttonSuccess.isDisplayed();
   };
 
   this.assertNewTable = function (name) {
     element(by.className('logo-img')).click();
-    browser.isElementPresent(by.className('text-overflow ng-binding'));
-    var tableName = element(by.className('text-overflow ng-binding')).getText();
+    browser.isElementPresent(by.css('[ui-sref="tables-create"]'));
+    var tableName = element(by.css('[ui-sref="tables-create"]')).getText();
     expect(tableName).toBe(name);
   };
 
   this.deleteTable = function (data) {
-    element(by.className('btn btn-danger')).click();
+    var danger = element.all(by.className('btn btn-danger')).first();
+    danger.click();
     element(by.model('model.code')).sendKeys(data);
-    element(by.className('btn btn-danger')).click();
+    danger.click();
     browser.isElementPresent(by.className('list-group'));
     return require("./table_page.js");
   };
@@ -106,7 +106,7 @@ var new_tables_page = function () {
     element(by.model('rule.title')).sendKeys(title);
     element(by.model('rule.description')).sendKeys(description);
     browser.isElementPresent(by.linkText('This table have unsaved data. You need to save changes manually.'));
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
     var editTable = element(by.css('[ng-if="rule.title"]')).getText();
     expect(editTable).toBe(text);
   };
@@ -114,7 +114,7 @@ var new_tables_page = function () {
   this.deleteRow = function (text) {
     element(by.className('glyphicon glyphicon-remove')).click();
     browser.isElementPresent(by.linkText('This table have unsaved data. You need to save changes manually.'));
-    element(by.className('btn btn-success btn-loading')).click();
+    buttonSuccess.click();
     var editTable = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/ui-view/form/div[2]/decision-table/div[1]/div[1]/table[1]/tbody/tr[1]/td[2]/div/b')).getText();
     expect(editTable).toBe(text);
   };
