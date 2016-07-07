@@ -2,6 +2,35 @@
 modules_dir=$(dirname $0)/../../modules
 cd ${modules_dir}/../..
 project_dir=$(pwd)
+new_relic_key=1231231231312312312
+
+show_help()
+{
+cat << EOF
+This script download files from remote server and download tar.gz to local machine or remote host.
+Usage: $0 options
+OPTIONS:
+    -u  new_relic_key
+    -h  show this message
+EOF
+}
+
+while getopts "n:h:" OPTION
+do
+     case ${OPTION} in
+         n)
+             new_relic_key=$OPTARG
+             ;;
+         h)
+             show_help
+             ;;
+         ?)
+             show_help
+             exit
+             ;;
+     esac
+done
+
 
 if [ ! -e /usr/bin/puppet ]; then
     source /etc/lsb-release
@@ -58,11 +87,15 @@ if [ ! -e ${modules_dir}/git ]; then
     sudo puppet module install --force puppetlabs-git --target-dir ${modules_dir}
 fi;
 
+if [ ! -e ${modules_dir}/newrelic ]; then
+    sudo puppet module install --force fsalum-newrelic --target-dir ${modules_dir}
+fi;
+
 if [ ! -e /etc/ssl/dhparam.pem ]
 then
     sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
 fi;
 
 
-sudo puppet apply --modulepath ${modules_dir} ${modules_dir}/../manifests/production/init.pp
+sudo FACTER_newrelic_key="${new_relic_key}" puppet apply --modulepath ${modules_dir} ${modules_dir}/../manifests/production/init.pp
 

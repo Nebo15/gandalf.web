@@ -1,6 +1,6 @@
 node default {
 
-  $host_name = "gndf.io"
+  $host_name = "apps.gndf.io"
 
   include stdlib
   include apt
@@ -13,6 +13,9 @@ node default {
     ensure  => "running",
     enable  => "true",
     require => Package["openssh-server"]
+  }
+  class { 'newrelic::server::linux':
+    newrelic_license_key  => $newrelic_key,
   }
 
   file_line { 'change_ssh_port':
@@ -46,10 +49,10 @@ node default {
   }->
   file { "/etc/sudoers.d/deploybot/first":
     content => "\
-Cmnd_Alias        API_PUPPET = /usr/bin/puppet
-Cmnd_Alias        API_SERVICE = /usr/bin/service
-deploybot  ALL=NOPASSWD: API_PUPPET
-deploybot  ALL=NOPASSWD: API_SERVICE
+Cmnd_Alias        WEB_PUPPET = /usr/bin/puppet
+Cmnd_Alias        WEB_SERVICE = /usr/bin/service
+deploybot  ALL=NOPASSWD: WEB_PUPPET
+deploybot  ALL=NOPASSWD: WEB_SERVICE
 Defaults env_keep += \"FACTER_newrelic_key\"
 ",
     mode    => 0440,
