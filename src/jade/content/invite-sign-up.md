@@ -1,1 +1,1 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+You received invitation to Gandalf. Sign up and get instant access to a shared projects!

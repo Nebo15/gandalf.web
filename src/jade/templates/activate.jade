@@ -1,12 +1,12 @@
 div(ng-if="user").welcome
-  h4.welcome__header Activate account success!
+  h4.welcome__header Your have activated your account!
   .welcome__content
     include:marked ../content/activate-success.md
   p.btn-actions
     a(ui-sref="tables").btn.btn-submit Continue
 
 div(ng-if="!user").welcome
-  h4.welcome__header Activate account failed!
+  h4.welcome__header Can't activate this account.
   .welcome__content
-    .text-center Invalid activation link
+    .text-center Maybe activation link is expired, try to re-send it.
 
