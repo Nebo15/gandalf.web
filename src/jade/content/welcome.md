@@ -1,3 +1,3 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+Woohoo! You have created Gandalf account.
 
-Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+Now you just minues away from making decisions or scoring your clients. Lets start with creating your first project.
