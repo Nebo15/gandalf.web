@@ -1,0 +1,12 @@
+div(ng-if="user").welcome
+  h4.welcome__header Activate account success!
+  .welcome__content
+    include:marked ../content/activate-success.md
+  p.btn-actions
+    a(ui-sref="tables").btn.btn-submit Continue
+
+div(ng-if="!user").welcome
+  h4.welcome__header Activate account failed!
+  .welcome__content
+    .text-center Invalid activation link
+

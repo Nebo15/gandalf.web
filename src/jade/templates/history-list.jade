@@ -6,7 +6,7 @@
 .container-fluid
   .row: .col-sm-4: form
     .form-group
-      input.form-control(type="search", ng-model="filters.table.title", placeholder="Start typing table name..",
+      input.form-control(type="search", ng-if="isShowSearch", ng-model="filters.table.title", placeholder="Start typing table name..",
         typeahead-on-select="onSelectTable($item, $model, $label, $event)",
         uib-typeahead="table.title for table in searchHistories($viewValue)")
 
@@ -32,6 +32,9 @@
         b {{table.variant.title}}
       td {{table.finalDecision}}
       td: a(ui-sref="history-details({id: table.id})") Show Details
+    tr(ng-if="!tables.length")
+      td.text-center(colspan="6")
+        i No decisions
 
 
   uib-pagination(ng-if="filters.total", total-items="filters.total", boundary-link-numbers="true", rotate="true",

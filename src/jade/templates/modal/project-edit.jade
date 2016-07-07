@@ -9,6 +9,11 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group
         label.col-sm-3.control-label Description
         .col-sm-9: input.form-control(ng-model="project.description", placeholder="e.g. Tell a few words about the project")
+      .form-group
+        label.col-sm-3.control-label Return Decision Flow
+        .col-sm-9: .checkbox: label
+          input(type="checkbox", ng-model="project.settings.show_meta")
+          | Decision results will contain decision flow for API consumers.
   .modal-footer.clearfix
     .pull-right
       button.btn.btn-warning(type='button', ng-click='cancel()') Cancel

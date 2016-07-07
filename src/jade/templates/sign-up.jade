@@ -1,12 +1,11 @@
-.container-fluid: .row
-  .col-md-4.col-md-offset-4
+.sign-up
+  h4.sign-up__header Sign Up
+  .sign-up__content
+    div(ng-if="byInvite"): include:marked ../content/invite-sign-up.md
     .alert.alert-danger(ng-if="error") User already exists
-    h2.form-heading Sign up
-      span.pull-right.form-caption or &#32;
-        a(ui-sref="sign-in") use existing account
     form(ng-submit="submit(form)", name="form", novalidate)
-      .form-group(show-errors)
-        input.form-control(
+      .form-group
+        input.form-control.form-control-underline(
           name="username",
           type="text",
           ng-model="model.username",
@@ -14,33 +13,44 @@
           minlength="2",
           maxlength="32",
           required,
-          placeholder="Username"
+          autocomplete="off",
+          placeholder="User name"
         )
         div.form-control-error(ng-messages="form.username.$error", ng-if="form.username.$dirty || form.$submitted")
           div(ng-message="pattern") {{'validation.errors.invalid_username'|translate}}
           div(ng-message="minlength") {{'validation.errors.username_minlength'|translate}}
-      .form-group
-        input.form-control(
+      .form-group.text-right
+        span.form-control-underline-subtitle(ng-switch="complexity.score")
+          span(ng-switch-when="0") Too short
+          span(ng-switch-when="1") Week
+          span(ng-switch-when="2") Fair
+          span(ng-switch-when="3") Good
+          span(ng-switch-when="4") Strong
+        input.form-control.form-control-underline(
           name="password",
           type="password",
           ng-model="model.password",
-
+          ng-model-options="{allowInvalid: true}",
           minlength="6",
           maxlength="32",
+          pattern=".*(?=.*[A-Z]+)(?=.*[a-z]+)(?=.*[\\d]+).*",
           required,
+          autocomplete="off",
           placeholder="Password"
         )
+        div.form-control-underline-complexity(complexity="complexity", complexity-password="model.password")
         div.form-control-error(ng-messages="form.password.$error", ng-if="form.password.$dirty || form.$submitted")
           div(ng-message="pattern") {{'validation.errors.invalid_password'|translate}}
           div(ng-message="minlength") {{'validation.errors.password_minlength'|translate}}
       .form-group
-        input.form-control(
+        input.form-control.form-control-underline(
           name="email",
           type="email",
           ng-model="model.email",
           required,
-          placeholder="example@example.com"
+          placeholder="E-mail address"
         )
-
-      .btn-actions
-        button.btn.btn-primary(type="submit") Submit
+      .btn-actions.text-center
+        button.btn.btn-submit(type="submit") Create account
+      .btn-actions.text-center Already have an account? &nbsp
+        a(ui-sref="sign-in") Sign In

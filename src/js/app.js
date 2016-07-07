@@ -29,7 +29,8 @@ angular.module('app', [
 
   'nebo-angular-validate',
 
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'ui.gravatar'
 ]);
 
 angular.module('app').constant('ENV', window.env);
@@ -42,6 +43,12 @@ angular.module('app').constant('APP', {
   matchingTypes: {
     first : 'decision', // decision table
     all   : 'scoring'    // scoring
+  },
+  decisionTypes: {
+    alphaNumeric: 'alpha_num',
+    string: 'string',
+    json: 'json',
+    numeric: 'numeric'
   }
 }).run(function ($rootScope, $state, APP) {
   $rootScope.APP = APP;

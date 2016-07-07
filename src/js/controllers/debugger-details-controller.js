@@ -57,10 +57,12 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
 
   $scope.getRequestData = function (fields) {
     var res = angular.copy(fields);
-    res.push({
-      key: 'variant_id',
-      value: $stateParams.variantId
-    });
+    if (table.variants.length > 1) {
+      res.push({
+        key: 'variant_id',
+        value: $stateParams.variantId
+      });
+    }
 
     return res;
   };

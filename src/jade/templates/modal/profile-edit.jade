@@ -1,0 +1,29 @@
+form(ng-submit="save(form)", name="form", novalidate)
+  .modal-header
+    h3.modal-title Edit profile
+  .modal-body
+    .form-horizontal
+      .form-group
+        label.col-sm-3.control-label Username
+        .col-sm-9: .form-control-static {{user.username}}
+      .form-group
+        label.col-sm-3.control-label Email
+        .col-sm-9: .form-control-static {{user.email}}
+      hr
+      .form-group(show-errors)
+        label.col-sm-3.control-label First name
+        .col-sm-9
+          input.form-control(ng-model="user.firstName", placeholder="John", autocomplete="off")
+      .form-group(show-errors)
+        label.col-sm-3.control-label Last name
+        .col-sm-9.form-control-block
+          input.form-control(ng-model="user.lastName", placeholder="Smith", autocomplete="off")
+      hr
+      .form-group(show-errors)
+        label.col-sm-3.control-label Password
+        .col-sm-9.form-control-block
+          input.form-control(ng-model="password", name="password", placeholder="Enter password to save changes", type="password", required)
+  .modal-footer.clearfix
+    .pull-right
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+      button.btn.btn-primary(type='submit') Save

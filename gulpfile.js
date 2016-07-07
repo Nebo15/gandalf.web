@@ -25,7 +25,10 @@ var gulp = require('gulp'),
   _ = require('lodash'),
   ngConstant = require('gulp-ng-constant'),
   gutil = require('gulp-util'),
-  stream = require('stream');
+  stream = require('stream'),
+
+  protractor = require('gulp-protractor');
+
 
 var src = {
   jade: ['src/jade/*.jade','src/jade/templates/**/*.jade'],
@@ -48,21 +51,23 @@ var plumberErrorHandler = {
 };
 
 
+var WEBSERVER_PORT = 8080;
 // Web Server
-gulp.task('server', function () {
+gulp.task('server', function (cb) {
   browserSync({
     server: {
       baseDir: './www',
       index: 'index.html'
     },
     files: ["www/**/*"],
-    port: 8080,
+    port: WEBSERVER_PORT,
     open: true,
     notify: false,
     ghostMode: false
   });
 
   gulp.watch("www/*.html").on('change', _.debounce(browserSync.reload, 300));
+  cb();
 });
 
 // Clean temporary folders
@@ -149,7 +154,7 @@ gulp.task('config', ['copy-scripts'],function () {
   var configObj = require('./settings/config');
   var defaultConfig = configObj['default'];
 
-  var envName = argv.production ? 'production' : 'dev';
+  var envName = argv.production ? 'production' : 'sandbox';
   var targetConfig = configObj[envName];
 
   var resultConfig = _.defaultsDeep(targetConfig, defaultConfig);
@@ -250,3 +255,26 @@ gulp.task('production', function (cb) {
 gulp.on('err', function(e){
   process.exit(1);
 });
+
+
+// TESTS
+
+gulp.task('test:protractor', function () {
+  return gulp.src(['./tests/tests/*.js'])
+    .pipe(protractor.protractor({
+      configFile: "./protractor.config.js",
+      args: ['--baseUrl', 'http://localhost:'+WEBSERVER_PORT]
+    }))
+    .on('error', function (e) {
+      console.error(e);
+    });
+});
+
+gulp.task('test', function (cb) {
+  sequence('server', 'test:build', cb);
+  gulp.watch(['tests/**/*.js'], ['test:build']);
+});
+
+gulp.task('test:build', [
+  'test:protractor'
+]);

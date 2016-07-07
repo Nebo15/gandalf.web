@@ -11,6 +11,11 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     this.description = obj.description;
     this.consumers = obj.consumers || null;
 
+    this.settings = obj.settings;
+    if (Array.isArray(this.settings)) {
+      this.settings = {}; // hotfix for backend error
+    }
+
     this.users = (obj.users || []).map(function(item) {
       return new ProjectUser(item);
     });
@@ -47,7 +52,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     var self = this;
     return $gandalf.admin.updateProjectUser({
       user_id: user.id,
-      role: user.role,
+      role: (user.role == 'admin') ? undefined : this.role,
       scope: user.scope
     }).then(function (resp) {
       self.extend(resp.data);
@@ -125,7 +130,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
 
     return $gandalf.admin.updateProject({
       title: updateObj.title,
-      description: updateObj.description
+      description: updateObj.description,
+      settings: updateObj.settings
     }).then(function (resp) {
       self.extend(resp.data);
       return self;
@@ -139,6 +145,10 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     return this.constructor(_.assignIn(data, {consumers: this.consumers}));
   };
 
+  Project.prototype.getExportURL = function () {
+    return $gandalf.admin.exportProject();
+  };
+
 
   Project.prototype.toJSON = function () {
     return {
@@ -146,7 +156,8 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       title: this.title,
       description: this.description,
       users: JSON.parse(JSON.stringify(this.users)),
-      consumers: JSON.parse(JSON.stringify(this.consumers))
+      consumers: JSON.parse(JSON.stringify(this.consumers)),
+      settings: this.settings
     };
   };
 

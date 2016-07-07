@@ -39,9 +39,7 @@ angular.module('uibModalConfirm', []).controller('ConfirmModalController', funct
         confirm: '@'
       },
       link: function (scope, element, attrs) {
-        console.log('link confirm', element, attrs);
         function reBind(func) {
-          console.log('rebind', func, 'click');
           element.unbind("click").bind("click", function () {
             func();
           });

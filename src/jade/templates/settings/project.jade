@@ -1,4 +1,4 @@
-.block.container-fluid
+.container-fluid
   .row
     .col-md-12
       .block
@@ -11,9 +11,19 @@
         .text-heading
           .text-heading-label Application ID
           | {{project.id}}
+        .text-heading
+          .text-heading-label Returns Decision Flow
+          | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
+
         .btn-actions: .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
-.container-fluid
+
+        div(ng-if="!user.active")
+          hr
+          p: b Your account not activated &#32
+          a.btn.btn-submit(ng-click="resendMail()") Resend activate e-mail
+
+.block.container-fluid
   .row
     .col-md-4.col-md-push-6
       include:marked ../../content/guides/settings-project-users.md
@@ -24,7 +34,7 @@
           div.list-group.list-group-panel
             a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
               br
-              span.small.subtitle {{user.scope | translateArray: 'scopes.users_details.' | join: ', '}}
+              span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
             a.list-group-item(user-add="project"): b.text-primary + add collaborator
 
    .row(ng-if="project.consumers")
@@ -38,10 +48,18 @@
             a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer")
               .text-overflow.max-width {{consumer.description}}
             a.list-group-item(consumer-add="project"): b.text-primary + create consumer
+  p: br
+  .row
+    .col-md-3.pull-left
+      button.btn.btn-danger(project-delete="project") Delete project
+    .col-md-3.text-right
+      button.btn.btn-success.btn-loading(ng-if="!exportDownload", ng-click="export()", ng-class="{'is-active': isExportLoading}")
+        .btn-loader: .glyphicon.glyphicon-refresh
+        | Export your data
+      button.btn.btn-default(disabled, ng-if="exportDownload")
+        i.glyphicon.glyphicon-check.btn-glyphicon
+        | Export done
 
-
-   .row: .col-md-6
-    button.btn.btn-danger(project-delete="project") Delete project
 
   p: br
 

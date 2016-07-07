@@ -56,6 +56,8 @@ html(ng-app="app")
     script(src='bower_components/nebo-angular-validate/nebo-angular-validate.js')
 
     script(src='bower_components/angular-translate/angular-translate.js')
+    script(src='bower_components/angular-gravatar/build/angular-gravatar.js')
+    script(src='bower_components/zxcvbn/dist/zxcvbn.js')
 
     script(src='js/config.js')
 
@@ -90,6 +92,8 @@ html(ng-app="app")
     script(src='js/modules/gandalf/models/project-consumer.js')
 
     script(src='js/modules/gandalf/models/user.js')
+
+    script(src='js/modules/gandalf/constants/transforms.js')
 
     script(src='js/modules/gandalf/services/gandalf.js')
     script(src='js/modules/gandalf/services/utils.js')
@@ -140,8 +144,11 @@ html(ng-app="app")
     script(src='js/directives/stop-propagation.js')
 
     script(src='js/directives/archive-values.js')
+    script(src='js/directives/complexity.js')
 
     script(src='js/directives/components/select-matching-type.js')
+    script(src='js/directives/components/select-decision-type.js')
+
     script(src='js/directives/components/decision-input.js')
     script(src='js/directives/components/decision-table.js')
     script(src='js/directives/components/decision-rule-title-description.js')
@@ -166,6 +173,8 @@ html(ng-app="app")
 
     script(src='js/directives/components/user-scope-list.js')
 
+    script(src='js/directives/components/profile-edit.js')
+
     script(src='js/filters/json.js')
     script(src='js/filters/to-fixed.js')
     script(src='js/filters/no-empty.js')
@@ -175,6 +184,7 @@ html(ng-app="app")
     script(src='js/filters/map.js')
     script(src='js/filters/translate-array.js')
     script(src='js/filters/max-length.js')
+    script(src='js/filters/boolean.js')
 
     script(src='js/services/auth.js')
     script(src='js/services/projects.js')
@@ -188,6 +198,9 @@ html(ng-app="app")
 
     script(src='js/controllers/auth/sign-in-controller.js')
     script(src='js/controllers/auth/sign-up-controller.js')
+    script(src='js/controllers/auth/reset-password-controller.js')
+    script(src='js/controllers/auth/reset-password-confirm-controller.js')
+    script(src='js/controllers/auth/activate-controller.js')
 
     script(src='js/controllers/add-field-controller.js')
     script(src='js/controllers/revert-field-controller.js')
@@ -197,11 +210,12 @@ html(ng-app="app")
     script(src='js/controllers/delete-table-controller.js')
     script(src='js/controllers/edit-table-name-controller.js')
 
-    script(src='js/controllers/tables-edit-controller.js')
-    script(src='js/controllers/tables-edit-variant-controller.js')
-    script(src='js/controllers/tables-details-controller.js')
-    script(src='js/controllers/tables-details-variant-controller.js')
     script(src='js/controllers/tables-create-controller.js')
+
+    script(src='js/controllers/tables-details-controller.js')
+
+    script(src='js/controllers/tables-info-controller.js')
+    script(src='js/controllers/tables-edit-controller.js')
     script(src='js/controllers/tables-list-controller.js')
     script(src='js/controllers/tables-diff-controller.js')
     script(src='js/controllers/tables-revisions-controller.js')

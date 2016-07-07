@@ -1,3 +1,9 @@
-include ../../partitials/navbar
-.wrap: ui-view
-include ../../partitials/footer
+//include ../../partitials/navbar
+.public
+  header.public__header
+    a(href="#"): img(src="/images/svg/logo.svg", height=80)
+  article.public__content: ui-view
+  footer.public__footer
+    a(href="http://nebo15.com/" target="_blank")
+      img(src="/images/footer-logo.png", height=23)
+//include ../../partitials/footer

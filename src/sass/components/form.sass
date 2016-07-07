@@ -52,6 +52,21 @@
   padding-left: 0
 
   font-size: 14px
+  &[disabled]
+    background-color: inherit
+    opacity: .45
+
+.form-control-underline-subtitle
+  text-align: right
+  padding-top: 6px
+  margin-bottom: -24px
+  display: block
+
+.form-control-underline-complexity
+  margin-top: -1px
+
+.form-control-underline-subtitle + .form-control-underline
+  padding-right: 40px
 
 .form-control-underline-small
   font-size: 12px
@@ -60,6 +75,7 @@
   color: $state-danger-text
   font-size: 10px
   margin-top: 5px
+  text-align: left
 
 .ng-submitted .form-control-error
   display: block !important
@@ -86,4 +102,9 @@
   label, input
     cursor: pointer
 
-
+// Override webkit input autocomplete styles
+input:-webkit-autofill
+  background-color: #fff !important
+  box-shadow: inset 0 0 0 50px #fff !important
+  -webkit-text-fill-color: #000 !important
+  transition: none

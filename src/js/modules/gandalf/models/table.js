@@ -1,11 +1,12 @@
 angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _, DecisionField, DecisionRule, DecisionVariant,
-                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils) {
+                                                                DecisionTableChangelog, CONDITION_TYPES, gandalfUtils, GANDALF_TRANSFORMS) {
 
   function DecisionTable(id, data) {
     this.id = id;
     this.fields = [];
     this.variants = [];
     this.matchingType = 'decision';
+    this.decisionType = 'alpha_num';
 
     if (data) this.parse(data);
   }
@@ -150,6 +151,8 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     });
 
     this.matchingType = data.matching_type || 'decision';
+    this.decisionType = data.decision_type || 'alpha_num';
+
     this.variantsProbability = data.variants_probability || 'first';
 
     return this;
@@ -163,8 +166,41 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
       title: this.title,
       description: this.description,
       matching_type: this.matchingType,
+      decision_type: this.decisionType,
       variants_probability: this.variantsProbability
     };
+  };
+
+  DecisionTable.prototype.transformDecisions = function (transformFn) {
+    this.variants.forEach(function (item) {
+
+      item.defaultDecision = transformFn(item.defaultDecision);
+      item.rules.forEach(function (item) {
+        item.than = transformFn(item.than);
+      });
+
+    });
+  };
+
+  DecisionTable.prototype.setMatchingType = function (type) {
+    var changeConfig = GANDALF_TRANSFORMS.matchingType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    this.decisionType = changeConfig.decisionType;
+
+    this.transformDecisions(transformFn);
+    this.matchingType = type;
+  };
+  DecisionTable.prototype.setDecisionType = function (type) {
+    var changeConfig = GANDALF_TRANSFORMS.decisionType[type] || {};
+    var transformFn = changeConfig.transformFn || function (val) {
+        return val
+      };
+
+    this.transformDecisions(transformFn);
+    this.decisionType = type;
   };
 
   DecisionTable.prototype.getDecisionVariants = function () {

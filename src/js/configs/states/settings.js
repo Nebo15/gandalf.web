@@ -15,11 +15,14 @@ angular.module('app').config(function ($stateProvider) {
     templateUrl: 'templates/settings/project.html',
     resolve: {
       // projects is required for waiting
-      project: ['ProjectsService','projects', 'user', function (ProjectsService) {
+      project: ['ProjectsService','projects', function (ProjectsService) {
         return ProjectsService.current();
       }],
-      consumers: ['user', 'project', function (user, project) {
-        if (~user.scope.indexOf('get_consumers')) {
+      projectUser: ['UserService', function (UserService) {
+        return UserService.projectUser();
+      }],
+      consumers: ['projectUser', 'project', function (user, project) {
+        if (~user.scope.indexOf('consumers_get')) {
           return project.fetchConsumers();
         }
 

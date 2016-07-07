@@ -23,6 +23,9 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
   this.selectedProject = function () {
     return new Project(storage.project);
   };
+  this.setProject = setProject;
+  this.clearProject = clearProject;
+
   this.current = current;
 
   // functions
@@ -48,13 +51,26 @@ angular.module('app').service('ProjectsService', function (Project, $gandalf, $t
     });
   }
 
+  function setProject(project) {
+    if (!project || (lodash.get(storage, 'project._id') == project.id && initialized)) return;
+    $gandalf.setProjectId(project.id);
+    storage.project = project.toJSON();
+    return storage.project;
+  }
+
   function selectProject(project) {
     if (!project || (lodash.get(storage, 'project._id') == project.id && initialized)) return;
     $gandalf.setProjectId(project.id);
     storage.project = project.toJSON();
-    $rootScope.$broadcast('projectDidSelect', project);
 
+    $rootScope.$broadcast('projectDidSelect', project);
     if (initialized) utils.reload();
+  }
+
+  function clearProject(project) {
+    storage.project = null;
+    $gandalf.setProjectId(null);
+    $rootScope.$broadcast('projectDidSelect', project);
   }
 
   function init(projects) {

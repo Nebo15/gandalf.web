@@ -8,10 +8,21 @@
     i.glyphicon.glyphicon-plus.btn-glyphicon
     | Create table
   br
-  p.list-group
-    a.list-group-item(ui-sref="tables-details({id: table.id})", ng-repeat="table in tables")
-      b.list-group-item-heading.tables-list__table-title {{table.title || 'Untitled project'}}
-      br
-      span: i.list-group-item-text {{table.description}}
-  uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")
 
+  table.table.table-hover.tables-list
+    thead
+      tr
+        th Name
+        th Description
+    tbody
+      tr(ng-repeat="table in tables", ui-sref="tables-details({id: table.id})")
+        td(width="30%")
+          .text-overflow {{table.title}}
+        td {{table.description}}
+      tr(ng-if="tables.length === 0")
+        td.text-center(colspan="2")
+          i 
+            | You don't have any tables.&nbsp;
+            a(ui-sref="tables-create") Create your first table!
+
+  uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")

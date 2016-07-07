@@ -102,6 +102,7 @@ $zindex-popover:             1040
 @import components/list-group
 @import components/welcome
 @import components/steps
+@import "components/public"
 
 +min-screen($container-lg)
   .container-fluid
@@ -167,7 +168,9 @@ tr.ui-sortable-helper
     margin-top: 10px
 
 .block
-  margin-bottom: 20px
+  margin-bottom: 30px
+  &-heading
+    margin-bottom: 20px
 
 .decision-buttons
   margin-top: 20px
@@ -290,7 +293,6 @@ tr.ui-sortable-helper
   text-overflow: ellipsis
   vertical-align: bottom
 
-.tables-list__table-title,
 .max-width
   max-width: 100%
 
@@ -298,11 +300,110 @@ tr.ui-sortable-helper
 condition-input
   vertical-align: middle
 
-//decision-input
-//  display: block
-//  position: relative
-//
-//  .form-control-error
-//    position: absolute
-//    bottom: -16px
-//    left: 0
+.sign-in,
+.sign-up,
+.reset-password
+  max-width: 490px
+  padding: 40px 70px
+  margin: 0 auto
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.18)
+  font-size: 12px
+
+  &__header
+    text-align: center
+
+  .forgotten
+    font-size: 10px
+    color: #3d3d3d
+    opacity: .5
+
+.sign-up .btn-submit
+  margin-top: 30px
+
+.reset-password__content
+  margin-top: 20px
+
+.tables-list
+  th
+    padding: 10px 20px !important
+  th, td
+    border-left: none !important
+    border-right: none !important
+  tbody tr:hover
+    background-color: #fefbf2 !important
+  .text-overflow
+    max-width: 400px
+
+.percent-input
+  width: 100px
+.percent-symbol
+  position: absolute
+  right: 25px
+  top: 7px
+  opacity: .6
+
+.user-avatar
+  img
+    border-radius: 50%
+    margin-right: 10px
+    margin-top: -15px
+    margin-bottom: -15px
+  img, span
+    display: inline-block
+    vertical-align: middle
+  span
+    text-transform: none
+
+.complexity
+  &-list
+    display: flex
+    flex-flow: row nowrap
+    span
+      flex: 1 1 auto
+      height: 1px
+
+  &.is-week .is-active
+    background-color: red
+  &.is-fair .is-active
+    background-color: yellow
+  &.is-good .is-active
+    background-color: blue
+  &.is-strong .is-active
+    background-color: green
+
+.btn.btn-select
+
+  padding: 10px
+  padding-right: 25px
+  appearance: none
+  box-sizing: border-box
+
+  border-width: 1px
+  background: white
+  /* max-width: 40px; */
+  width: 31px
+  white-space: nowrap
+  display: inline-block
+  background: #e81a50
+  color: white
+  border-color: #e81a50
+  text-overflow: ellipsis
+  overflow: hidden
+  &:focus
+    outline: none
+
+.btn-select-wrap
+  position: relative
+  &:after
+    content: ''
+    +arr(8, 6, #fff, b)
+    position: absolute
+    top: 50%
+    margin-top: -3px
+    right: 10px
+
+.activate-message
+  background-color: #fcf8e3
+  color: #8a6d3b
+  padding: 10px 50px
+  text-align: center

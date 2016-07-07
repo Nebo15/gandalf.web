@@ -4,40 +4,58 @@ angular.module('app').config(function($translateProvider) {
   $translateProvider.translations('en', {
     scopes: {
       users: {
-        'create': 'Create',
-        'read': 'View',
-        'update': 'Update',
-        'delete': 'Delete',
-        'check': 'Create Decision via API',
+        'tables_create': {
+          small: 'Create',
+          details: 'Create tables'
+        },
+        'tables_view': {
+          small: 'View',
+          details: 'View tables'
+        },
+        'tables_update': {
+          small: 'Update',
+          details: 'Update tables'
+        },
+        'tables_delete': {
+          small: 'Delete',
+          details: 'Delete tables'
+        },
+        'tables_query': {
+          small: 'Create Decision via API',
+          details: 'Create Decision via API'
+        },
 
-        'create_consumers': 'Create',
-        'update_consumers': 'Update',
-        'delete_consumers': 'Delete',
+        'consumers_get': {
+          small: 'Read',
+          details: 'View API keys'
+        },
+        'consumers_manage': {
+          small: 'Manage',
+          details: 'Update/Delete API keys'
+        },
 
-        'update_users': 'Update Access',
-        'add_user': 'Share Access',
-        'delete_users': 'Remove Access',
+        'users_manage': {
+          small: 'Manage',
+          details: 'Update/Remove User Access'
+        },
 
-        'edit_project': 'Change Settings',
-        'delete_project': 'Delete'
-      },
-      users_details: {
-        'create': 'Create tables',
-        'read': 'View tables',
-        'update': 'Update tables',
-        'delete': 'Delete tables',
-        'check': 'Create Decision via API',
+        'project_update': {
+          small: 'Change Settings',
+          details: 'Change Project Settings'
+        },
+        'project_delete': {
+          small: 'Delete',
+          details: 'Delete Project'
+        },
 
-        'create_consumers': 'Create API keys',
-        'update_consumers': 'Update API keys',
-        'delete_consumers': 'Delete API keys',
-
-        'update_users': 'Update User Access',
-        'add_user': 'Share User Access',
-        'delete_users': 'Remove User Access',
-
-        'edit_project': 'Change Project Settings',
-        'delete_project': 'Delete Project'
+        'decisions_view': {
+          small: 'View',
+          details: 'View Decisions History'
+        },
+        'decisions_make': {
+          small: 'Make',
+          details: 'Make API call for decision'
+        }
       }
     },
 
@@ -57,7 +75,7 @@ angular.module('app').config(function($translateProvider) {
         'row_description_charsets': 'Description must be between 2 and 128 characters',
         'invalid_username': 'Invalid username. Use only alphabet characters, dash, underscore and number.',
         'username_minlength': 'Login should consist of more than 2 characters',
-        'invalid_password': 'Invalid password. Use minimum one upper and one lower charset.',
+        'invalid_password': 'Use minimum one upper, one lower charset and one number.',
         'password_minlength': 'Password should consist of more than 6 characters'
       }
     },
@@ -68,6 +86,11 @@ angular.module('app').config(function($translateProvider) {
     },
     "error_codes": {
       401: "You don't have access to this feature."
+    },
+    "api_errors": {
+      "reset_password": {
+        "user_not_found": "User not found. Check email"
+      }
     }
   });
   $translateProvider.preferredLanguage('en');

@@ -1,0 +1,5 @@
+node_modules
+**/.*/
+testresults
+phantomjsdriver.log
+*.log

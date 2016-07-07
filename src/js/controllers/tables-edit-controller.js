@@ -1,87 +1,55 @@
 'use strict';
 
-angular.module('app').controller('TablesEditController', function ($scope, $state, $uibModal, table, APP) {
-  var tableHash = table.getHash();
+angular.module('app').controller('TablesEditController', function ($scope, $state, $log, $uibModal, $timeout, table, variant) {
+  var tableHash = 0;
 
   $scope.saved = true;
   $scope.isSaving = false;
   $scope.error = null;
-  $scope.allTraffic = 100;
 
   $scope.table = table;
+  $scope.variant = variant;
 
-  function sumVariants() {
-    var filterIndexes = Array.prototype.slice.call(arguments);
+  tableHash = $scope.table.getHash();
 
-    return table.variants.reduce(function (num, variant, index) {
-      if (~filterIndexes.indexOf(index)) {
-        return num;
-      }
-
-      return num += variant.probability;
-    }, 0);
-  }
-
-  $scope.maxTrafficPercent = function (currentIndex) {
-    return 100 - sumVariants(0, currentIndex);
-  };
-
-  $scope.saveTrafficAllocation = function (form) {
-    $scope.error = null;
-    $scope.isSaving = true;
-
-    if (form.$invalid || $scope.saved) return;
-
-    table.variants[0].probability = $scope.allTraffic;
-
-    table.save().then(function () {
-      $scope.saved = true;
-      $scope.isSaving = false;
-
-      tableHash = table.getHash();
-    }).then(null, function (err) {
-      $scope.error = err;
-    });
+  $scope.onChangeDecisionType = function (type) {
+    table.setDecisionType (type);
   };
 
   $scope.onChangeMatchingType = function (type) {
-    var transformFn = function (val) {
-      return val
-    };
+    table.setMatchingType(type);
+  };
 
-    switch (type) {
-      case APP.matchingTypes.first:
-        transformFn = function (val) {
-          return '' + val;
-        };
-        break;
-      case APP.matchingTypes.all:
-        transformFn = function (val) {
-          val = Number(val);
-          return isNaN(val) ? 0 : val;
-        };
-        break;
-    }
+  $scope.submit = function (form) {
+    if (form.$invalid) return;
+    if ($scope.isSaving) return;
 
-    table.variants.forEach(function (item) {
-      item.defaultDecision = transformFn(item.defaultDecision);
-      item.rules.forEach(function (item) {
-        item.than = transformFn(item.than);
+    $scope.isSaving = true;
+
+    table.save().then(function () {
+      $scope.error = null;
+      $scope.variant.rules.forEach(function (item) {
+        item.isEditing = false;
       });
-    });
 
-    table.matchingType = type;
+      $timeout(function () {
+        $scope.saved = true;
+      });
 
-    tableHash = table.getHash();
+      $scope.variant = table.getVariant($scope.variant.id);
+      $scope.$broadcast('decisionTable:saved');
 
-    table.save().then(null, function (error) {
-      $scope.error = error;
+      tableHash = $scope.table.getHash();
+    }, function (err) {
+      $scope.error = err;
+    }).finally(function () {
+      $scope.isSaving = false;
     });
   };
 
-  $scope.deleteTable = function (table) {
+  $scope.deleteVariant = function () {
     var modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/delete-table.html',
+      templateUrl: 'templates/modal/delete-variant.html',
       controller: 'DeleteTableController',
       resolve: {
         table: table
@@ -89,36 +57,29 @@ angular.module('app').controller('TablesEditController', function ($scope, $stat
     });
 
     modalInstance.result.then(function () {
-      table.delete().then(function () {
-        $state.go('tables-list');
+      table.deleteVariant($scope.variant.id);
+
+      if (table.variants.length == 1) {
+        table.variants[0].title = table.title;
+        table.variants[0].description = table.description;
+      }
+
+      table.save().then(function (table) {
+        $scope.selectVariant(table.variants[0]);
       });
     });
   };
 
-  $scope.changeTableName = function () {
-    var modalInstance = $uibModal.open({
-      templateUrl: 'templates/modal/edit-table-name.html',
-      controller: 'EditTableNameController',
-      resolve: {
-        table: table
-      }
-    });
+  $scope.$watch('table', function (table) {
+    $scope.saved = (table.getHash() === tableHash);
+  }, true);
 
-    modalInstance.result.then(function (tableCopy) {
-      $scope.table.title = tableCopy.title;
-      $scope.table.description = tableCopy.description;
-
-      tableHash = table.getHash();
-    });
+  var fnOnBeforeUnload = window.onbeforeunload;
+  window.onbeforeunload = function () {
+    return $scope.saved ? null : 'You have unsaved data';
   };
-
-  $scope.$watch('table.variants', function () {
-    var sum = sumVariants(0);
-    $scope.allTraffic = 100 - (isNaN(sum) ? 0 : sum);
-  }, true);
-
-  $scope.$watch('table', function () {
-    $scope.saved = (tableHash === table.getHash());
-  }, true);
+  $scope.$on('$destroy', function () {
+    window.onbeforeunload = fnOnBeforeUnload;
+  });
 
 });

@@ -3,10 +3,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('main', {
 
     abstract: true,
-    template: '<ui-view />',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    template: '<ui-view />'
   });
 
   $stateProvider.state('private-load', {
@@ -14,16 +11,15 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     abstract: true,
     auth: true,
     template: '<ui-view />',
-    ncyBreadcrumb: {
-      skip: true
-    },
     resolve: {
       user: ['UserService','projects', function (UserService,projects) {
         return UserService.current();
       }],
-      projects: ['ProjectsService','$q', '$state', function (ProjectsService, $q, $state) {
+      projects: ['ProjectsService','$q', '$state', '_', function (ProjectsService, $q, $state, _) {
         return $q.when(ProjectsService.all()).then(function (resp) {
-          if (resp.length) return resp;
+          if (resp.length) {
+            return resp;
+          }
           $state.go('welcome-project-add');
         });
       }]
@@ -35,39 +31,59 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     parent: 'private-load',
     abstract: true,
     auth: true,
-    templateUrl: 'templates/layouts/private.html',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    templateUrl: 'templates/layouts/private.html'
   });
+
   $stateProvider.state('public', {
     parent: 'auth',
     abstract: true,
     auth: false,
-    templateUrl: 'templates/layouts/public.html',
-    ncyBreadcrumb: {
-      skip: true
-    }
+    templateUrl: 'templates/layouts/public.html'
   });
 
   $stateProvider.state('sign-in', {
     parent: 'public',
     url: '/sign-in?username',
     params: {
-      errorCode: null
+      errorCode: null,
+      message: null
     },
     controller: 'SignInController',
-    templateUrl: 'templates/sign-in.html',
-    ncyBreadcrumb: {
-      label: 'Sign in to Gandalf'
-    }
+    templateUrl: 'templates/sign-in.html'
   }).state('sign-up', {
     parent: 'public',
-    url: '/sign-up?username?email',
+    url: '/sign-up?username?email?invite',
     controller: 'SignUpController',
-    templateUrl: 'templates/sign-up.html',
+    templateUrl: 'templates/sign-up.html'
+  }).state('activate', {
+    parent: 'public',
+    url: '/activate/:token',
+    controller: 'ActivateController',
+    templateUrl: 'templates/activate.html',
+    resolve: {
+      user: ['UserService', 'AuthService', '$state', '$stateParams', function (UserService, AuthService, $state, $stateParams) {
+        return UserService.verifyEmail($stateParams.token).then(function (response) {
+          return response.data;
+        }).then(null, function () {
+          return null;
+        });
+      }]
+    }
+  }).state('reset-password', {
+    parent: 'public',
+    url: '/reset?email',
+    controller: 'ResetPasswordController',
+    templateUrl: 'templates/reset-password.html',
     ncyBreadcrumb: {
-      label: 'Sign up to Gandalf'
+      label: 'Reset Password'
+    }
+  }).state('reset-password-confirm', {
+    parent: 'public',
+    url: '/reset/confirm?token',
+    controller: 'ResetPasswordConfirmController',
+    templateUrl: 'templates/reset-password-confirm.html',
+    ncyBreadcrumb: {
+      label: 'Set new password'
     }
   });
 

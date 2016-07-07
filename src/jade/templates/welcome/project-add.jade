@@ -1,5 +1,28 @@
+.create-project
+  h4.create-project__header Create new project
+  .create-project__content
+    include:marked ../../content/guides/create-project.md
+  form(ng-submit="submit(form)", name="form", novalidate)
+    .form-group
+      input.form-control.form-control-underline(
+      name="title",
+      type="text",
+      ng-model="model.title",
+      required,
+      placeholder="Project title"
+      )
+    .form-group.text-right
+      input.form-control.form-control-underline(
+      name="description",
+      type="text",
+      ng-model="model.description",
+      required,
+      placeholder="Project description"
+      )
+    .btn-actions.text-center
+      button.btn.btn-submit(type="submit") Create
 
-.row: .col-md-8.col-md-push-2: form(novalidate, ng-submit="submit(form)", name="form")
+.row.hide: .col-md-8.col-md-push-2: form(novalidate, ng-submit="submit(form)", name="form")
 
   ol.steps
     li.steps-item
@@ -19,7 +42,7 @@
     .form-group: input.form-control.form-control-underline.form-control-underline(ng-model="model.title", placeholder="Project name", required)
     .form-group: input.form-control.form-control-underline.form-control-underline(ng-model="model.description", placeholder="Describe a project", required)
 
-  // .form-block
+  .form-block
     h4.form-block-heading Invite collaborators (optional)
 
     .form-group: input.form-control(ng-model="table.users")

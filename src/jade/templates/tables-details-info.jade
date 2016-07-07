@@ -1,0 +1,92 @@
+.container-fluid
+  .row
+    .col-md-12
+      .text-heading
+        .text-heading-label Table name
+        | {{table.title || 'Untitled table'}}
+      .text-heading(ng-if="table.description")
+        .text-heading-label Description
+        | {{table.description}}
+      .btn-actions: .btn-group.btn-group-sm
+        a.btn.btn-primary(ng-click="changeTableName()") Edit
+      hr
+  .block
+    h4.block-heading Split testing
+    a.btn.btn-primary(ui-sref="tables-details.variant-new", ng-if="table.variants.length == 1") Start split testing
+
+    .row(ng-if="table.variants.length > 1")
+      .col-md-6.col-md-push-6
+        include:marked ../content/guides/tables-variants.md
+      form.col-md-6.col-md-pull-6(name="form", ng-submit="saveTrafficAllocation(form)")
+        .alert.alert-danger(ng-if="error").ng-cloak
+          h4 Error
+          p Check you data and <b>try again</b>.
+        .panel.panel-default
+          .panel-heading
+              b Table variants
+          .panel-body
+            .list-group.list-group-panel
+              .list-group-item(ng-repeat="variant in table.variants")
+                .row
+                  .col-sm-6
+                    a.text-overflow.max-width.list-group-item-heading(ui-sref="tables-details.edit({variantId: variant.id})" title="Edit table variant") {{variant.title || 'Untitled variant'}}
+                    br
+                    span.text-overflow.max-width: i.list-group-item-text {{variant.description}}
+                  .col-sm-1
+                    div(class="variant-marker variant-color-{{$index % 4}}")
+                  .col-sm-3.pull-right
+                    input.form-control.percent-input(
+                      type="number",
+                      ng-if="!$index"
+                      ng-value="allTraffic",
+                      readonly="readonly"
+                      placeholder="Allocation percent"
+                    )
+                    input.form-control.percent-input(
+                      type="number",
+                      ng-if="$index"
+                      ng-model="variant.probability",
+                      max="{{maxTrafficPercent($index)}}"
+                      min="0"
+                      ng-disabled="table.variantsProbability !== 'percent'",
+                      placeholder="Allocation percent"
+                    )
+                    .percent-symbol %
+
+              .list-group-item.traffic-allocation-visual
+                div(
+                  ng-if="table.variants.length > 1"
+                  ng-repeat="variant in table.variants",
+                  style="width: {{$index === 0 ? allTraffic : variant.probability}}%",
+                  class="variant-visual-item variant-color-{{$index % 4}}"
+                )
+
+              a.list-group-item(ng-click="createNewVariant()"): b.text-primary + create variant
+        h3.form-control-heading Traffic allocation
+        .row
+          .col-sm-8
+            .btn-group.btn-group-matching
+              label.btn.btn-primary-matching(uib-btn-radio="'first'", ng-model="table.variantsProbability") First
+              label.btn.btn-primary-matching(uib-btn-radio="'percent'", ng-model="table.variantsProbability") Percent
+              label.btn.btn-primary-matching(uib-btn-radio="'random'", ng-model="table.variantsProbability") Random
+          .col-sm-4.text-right
+            button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
+              .btn-loader: .glyphicon.glyphicon-refresh
+              | Save allocation
+            button.btn.btn-default(disabled, ng-if="saved", type="submit")
+              i.glyphicon.glyphicon-check.btn-glyphicon
+              | Allocation saved
+
+  .block
+    h4.block-heading Settings
+    h3.form-control-heading Table Type
+      | &#32;
+      a.glyphicon.glyphicon-question-sign(href="http://nebo15.github.io/qbill.docs/gandalf.html#types", target="__blank")
+    div
+      select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
+    div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+      h3.form-control-heading Decision type
+      select-decision-type(ng-model="table.decisionType", callback="onChangeDecisionType")
+
+  .block
+    button.btn.btn-danger(ng-click="deleteTable(table)") Delete Table

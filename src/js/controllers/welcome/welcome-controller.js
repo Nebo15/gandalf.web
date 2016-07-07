@@ -1,6 +1,3 @@
-
-angular.module('app').controller('WelcomeController', function ($scope) {
-
-  //$scope.user = user;
-
+angular.module('app').controller('WelcomeController', function ($scope, user) {
+  $scope.user = user;
 });
