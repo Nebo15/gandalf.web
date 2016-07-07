@@ -1,1 +1,1 @@
-Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore M
+It's time to create your first project. Later you can share it with your collaborators and create credentians for API consumers.
