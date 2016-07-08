@@ -32,14 +32,10 @@
         .panel-heading Collaborators
         .panel-body
           div.list-group.list-group-panel
-            a.list-group-item(
-              ng-repeat="user in project.users",
-              user-edit="project"
-              user-edit-model="user",
-              ng-class="{'no-access-control':!project.hasUserAccess('users', 'manage')}"
-            ) {{user.username}}
-              br
-              span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
+            div(has-access="users.manage" project="project")
+              a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
+                br
+                span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
             a.list-group-item(user-add="project", ng-if="project.hasUserAccess('users', 'manage')")
               b.text-primary + add collaborator
 
@@ -51,12 +47,7 @@
         .panel-heading API Consumers Credentials
         .panel-body
           .list-group.list-group-panel
-            a.list-group-item(
-              ng-repeat="consumer in project.consumers",
-              consumer-edit="project",
-              consumer-edit-model="consumer",
-              ng-class="{'no-access-control':!project.hasUserAccess('consumers', 'manage')}"
-              )
+            a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer")
               .text-overflow.max-width {{consumer.description}}
             a.list-group-item(consumer-add="project", ng-if="project.hasUserAccess('consumers', 'manage')"): b.text-primary + create consumer
   p: br
