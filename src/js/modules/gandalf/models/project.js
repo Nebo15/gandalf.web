@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser, ProjectConsumer) {
+angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser, ProjectConsumer, UserService) {
+  var usersScopeMap = Object.create(null);
 
   function Project (options) {
-
     var obj = options || {};
 
     this.id = obj._id;
@@ -17,8 +17,14 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     }
 
     this.users = (obj.users || []).map(function(item) {
-      return new ProjectUser(item);
-    });
+      var user = new ProjectUser(item);
+
+      if (user.id === UserService.userId) {
+        usersScopeMap[this.id] = user.scope;
+      }
+
+      return user;
+    }, this);
   }
 
   Project.find = function () {
@@ -57,7 +63,11 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
     }).then(function (resp) {
       self.extend(resp.data);
       return self;
-    })
+    });
+  };
+
+  Project.prototype.hasUserAccess = function (group, name) {
+    return Boolean(~this.userScope.indexOf(name ? (group + '_' + name) : group));
   };
 
   // Consumers
@@ -160,6 +170,12 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       settings: this.settings
     };
   };
+
+  Object.defineProperty(Project.prototype, 'userScope', {
+    get: function () {
+      return usersScopeMap[this.id] || []
+    }
+  });
 
   return Project;
 

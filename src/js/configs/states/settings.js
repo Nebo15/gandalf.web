@@ -18,7 +18,7 @@ angular.module('app').config(function ($stateProvider) {
       project: ['ProjectsService','projects', function (ProjectsService) {
         return ProjectsService.current();
       }],
-      projectUser: ['UserService', function (UserService) {
+      projectUser: ['UserService', 'projects', function (UserService) {
         return UserService.projectUser();
       }],
       consumers: ['projectUser', 'project', function (user, project) {

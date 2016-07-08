@@ -3,17 +3,17 @@
 
     li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
     li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
-    li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
+    li(role="presentation" ui-sref-active="active" ui-sref='.debugger' ng-if="project.hasUserAccess('decisions', 'make')"): a Debugger
     li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
-    li(role="presentation" ui-sref-active="active" ui-sref='.history'): a History
+    li(role="presentation" ui-sref-active="active" ui-sref='.history', ng-if="project.hasUserAccess('decisions', 'view')"): a History
 
-    li(role="presentation" ng-click="createNewVariant()" ng-if="table.variants.length == 1"): a Start Split Testing
+    li(role="presentation" ng-click="createNewVariant()" ng-if="table.variants.length == 1 && project.hasUserAccess('tables', 'update')"): a Start Split Testing
 
   div(ng-if="table.variants.length > 1")
     ul.nav.navbar-nav
       li(role="presentation" ui-sref-active="active" ui-sref='.info'): a Info
       li(role="presentation" ui-sref-active="active" ui-sref='.revisions'): a Revisions
-      li(role="presentation" ui-sref-active="active" ui-sref='.history'): a History
+      li(role="presentation" ui-sref-active="active" ui-sref='.history' ng-if="project.hasUserAccess('decisions', 'view')"): a History
     ul.nav.navbar-nav.nav-secondary
       li(role="presentation", ng-if="table.variants.length > 1").dropdown(uib-dropdown)
         a.dropdown-toggle(role="button", uib-dropdown-toggle)
@@ -23,10 +23,10 @@
           li(ng-repeat="item in table.variants", ng-class="{'active': variant.id == item.id}")
             a(ng-click="selectVariant(item)")
               span.table-title-overflow {{item.title || 'Untitled variant'}}
-          li.divider(role="separator")
-          li: a(ng-click="createNewVariant()") + Create new variant
+          li(ng-if="project.hasUserAccess('tables', 'update')").divider(role="separator")
+          li(ng-if="project.hasUserAccess('tables', 'update')"): a(ng-click="createNewVariant()") + Create new variant
       li(role="presentation" ui-sref-active="active" ui-sref='.edit'): a Edit
       li(role="presentation" ui-sref-active="active" ui-sref='.analytics'): a Analytics
-      li(role="presentation" ui-sref-active="active" ui-sref='.debugger'): a Debugger
+      li(role="presentation" ui-sref-active="active" ui-sref='.debugger' ng-if="project.hasUserAccess('decisions', 'make')"): a Debugger
 
 ui-view

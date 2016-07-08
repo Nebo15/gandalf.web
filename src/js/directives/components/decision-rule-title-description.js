@@ -6,7 +6,8 @@ angular.module('app').directive('decisionRuleTitleDescription', function ($timeo
     templateUrl: 'templates/directives/decision-rule-title-description.html',
     scope: {
       rule: '=model',
-      isEditing: '='
+      isEditing: '=',
+      readonly: '='
     },
     link: function (scope, el, attrs) {
 

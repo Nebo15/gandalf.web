@@ -1,4 +1,4 @@
-div(ng-if="isEditing", ng-form="titleFields")
+div(ng-if="isEditing && !readonly", ng-form="titleFields")
   .decision-title-form
     .decision-title-form-fields
       input.form-control(type="text", name="title", ng-model="rule.title", placeholder="Title", ng-minlength="2", ng-maxlength="128")
@@ -7,6 +7,6 @@ div(ng-if="isEditing", ng-form="titleFields")
       input.form-control(type="text", name="description" ng-model="rule.description", placeholder="Description", ng-minlength="2", ng-maxlength="128")
       div.form-control-error(ng-messages="titleFields.description.$error")
         div(ng-message="minlength, maxlength") {{'validation.errors.row_description_charsets'|translate}}
-div(ng-if="!isEditing")
+div(ng-if="!isEditing || readonly")
   b(ng-if="rule.title", uib-tooltip="{{rule.title}}") {{(rule.title || '') | maxLength: 64}}
   .small(ng-if="rule.description", uib-tooltip="{{rule.description}}") {{rule.description | maxLength: 180}}

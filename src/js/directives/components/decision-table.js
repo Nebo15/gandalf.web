@@ -7,7 +7,8 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
     scope: {
       table: '=model',
       variant: '=variant',
-      mainForm: '=form'
+      mainForm: '=form',
+      readonly: '='
     },
     transclude: true,
     templateUrl: 'templates/directives/decision-table.html',
