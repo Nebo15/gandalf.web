@@ -60,7 +60,7 @@ describe('Gandalf', function () {
     new_tables_page.assertRevision('testDescription');
   });
 
-  xit('Debugger test', function () {
+  it('Debugger test', function () {
     home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
     var welcome_page = home_page.welcomePage();
     var new_project_page = welcome_page.clickContinue();
@@ -69,7 +69,7 @@ describe('Gandalf', function () {
     var new_tables_page = table_page.addTable();
     new_tables_page.createNewTable('testName', 'testDescription', 'randData', 'description', 'testDescription', 'random', 'randomData', 'olol', 'dfdfs');
     var debugger_page = new_tables_page.getDebugger();
-    debugger_page.debugTable('"testName"', '"first"');
+    debugger_page.debugTable('"testName"', '"testDescription"');
   });
 
   it('Try Create Empty Table test', function () {
@@ -105,7 +105,7 @@ describe('Gandalf', function () {
     new_tables_page.assertRowIsCloned('random');
   });
 
-  xit('Decisions history test', function () {
+  it('Decisions history test', function () {
     home_page.fillSignUpForm(faker.internet.userName(), 'Gt40vt14d', faker.internet.email());
     var welcome_page = home_page.welcomePage();
     var new_project_page = welcome_page.clickContinue();
@@ -114,8 +114,8 @@ describe('Gandalf', function () {
     var new_tables_page = table_page.addTable();
     new_tables_page.createNewTable('testName', 'testDescription', 'randData', 'description', 'testDescription', 'random', 'randomData', 'olol', 'dfdfs');
     var debugger_page = new_tables_page.getDebugger();
-    debugger_page.debugTable('"testName"', '"first"');
+    debugger_page.debugTable('"testName"', '"testDescription"');
     var decision_page = debugger_page.setValue('1');
-    decision_page.assertRequest('"1"', 'is set');
+    decision_page.assertRequest('"1"');
   });
 });
