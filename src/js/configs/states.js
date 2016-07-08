@@ -49,12 +49,30 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       message: null
     },
     controller: 'SignInController',
-    templateUrl: 'templates/sign-in.html'
+    templateUrl: 'templates/sign-in.html',
+    resolve: {
+      isAuth: ['AuthService', '$state', function (AuthService, $state) {
+        return AuthService.checkAuth().then(function () {
+          $state.go('tables-list');
+        }).catch(function () {
+          return null;
+        });
+      }]
+    }
   }).state('sign-up', {
     parent: 'public',
     url: '/sign-up?username?email?invite',
     controller: 'SignUpController',
-    templateUrl: 'templates/sign-up.html'
+    templateUrl: 'templates/sign-up.html',
+    resolve: {
+      isAuth: ['AuthService', '$state', function (AuthService, $state) {
+        return AuthService.checkAuth().then(function () {
+          $state.go('tables-list');
+        }).catch(function () {
+          return null;
+        });
+      }]
+    }
   }).state('activate', {
     parent: 'public',
     url: '/activate/:token',
