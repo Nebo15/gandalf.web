@@ -67,7 +67,7 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
 
   Project.prototype.hasUserAccess = function (group, name) {
-    return Boolean(~this.userScope.indexOf(name ? (group + '_' + name) : group));
+    return Boolean(~(usersScopeMap[this.id] || []).indexOf(name ? (group + '_' + name) : group));
   };
 
   // Consumers
@@ -170,12 +170,6 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
       settings: this.settings
     };
   };
-
-  Object.defineProperty(Project.prototype, 'userScope', {
-    get: function () {
-      return usersScopeMap[this.id] || []
-    }
-  });
 
   return Project;
 
