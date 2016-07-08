@@ -31,7 +31,7 @@ angular.module('app').run(function ($rootScope, $state, $stateParams, $log, Auth
 
   AuthService.signInFromStorage();
 
-}).service('AuthService', function ($gandalf, $localStorage, $rootScope, $cacheFactory) {
+}).service('AuthService', function ($gandalf, $localStorage, $rootScope, $cacheFactory, $q) {
 
   var storage = $localStorage.$default({
     auth: {}
@@ -70,6 +70,14 @@ angular.module('app').run(function ($rootScope, $state, $stateParams, $log, Auth
   // local testing of authentication
   this.isAuthenticated = function () {
     return !!storage.auth.access_token;
+  };
+
+  this.checkAuth = function () {
+    if (!this.isAuthenticated()) {
+      return $q.reject(null);
+    }
+
+    return $gandalf.admin.checkToken(storage.auth);
   };
 
 });
