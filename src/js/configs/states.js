@@ -12,10 +12,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     auth: true,
     template: '<ui-view />',
     resolve: {
-      user: ['UserService','projects', function (UserService,projects) {
+      user: ['UserService', function (UserService) {
         return UserService.current();
       }],
-      projects: ['ProjectsService','$q', '$state', '_', function (ProjectsService, $q, $state, _) {
+      projects: ['ProjectsService','$q', '$state', 'user', function (ProjectsService, $q, $state) {
         return $q.when(ProjectsService.all()).then(function (resp) {
           if (resp.length) {
             return resp;

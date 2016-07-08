@@ -4,11 +4,11 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
       .row
         .col-sm-6
           .form-group
-            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="Variant name", required)
+            input.form-control.form-control-underline(ng-model="variant.title", name="title" placeholder="Variant name", required, has-access="tables.update", project="project")
             div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
               div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
           .form-group
-            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", required)
+            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", required, has-access="tables.update", project="project")
             div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
               div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
 
@@ -24,9 +24,9 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
       h4 Error
       p Check you data and <b>try again</b>.
 
-    decision-table(model="table", variant="variant", form="form")
-      .decision-buttons
-        button.btn.btn-danger(type="button", ng-click="deleteVariant()")
+    decision-table(model="table", variant="variant", form="form", readonly="!project.hasUserAccess('tables', 'update')")
+      .decision-buttons(ng-if="project.hasUserAccess('tables', 'update')")
+        button.btn.btn-danger(type="button", ng-click="deleteVariant()", ng-if="project.hasUserAccess('tables', 'delete')")
           | Delete variant
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh

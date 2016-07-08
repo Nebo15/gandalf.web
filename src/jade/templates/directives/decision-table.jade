@@ -1,7 +1,7 @@
 .table-group(ng-form="tableForm")
   .table-responsive: table.table.table-hover.table-decision(dragcolumns="table.fields", dragcolumns-callback="onReorderFields")
     thead(table-fixed-row): tr
-      th.table-decision-column-index #
+      th.table-decision-column-index(ng-if="!readonly") #
       th.table-decision-column-title Title
         .small.text-light Description
       th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
@@ -10,7 +10,7 @@
         .small.text-light
           .text-overflow {{condition.key}}
           span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
-      th.table-decision-column-add(add-new-field, table="table")
+      th.table-decision-column-add(add-new-field, table="table", ng-if="!readonly")
         div(uib-tooltip="Add Field"): div(uib-popover="Should have at least 1 column",
         popover-placement="right",
         popover-is-open="tableForm.tableFields.$error.required && mainForm.$submitted",
@@ -20,7 +20,7 @@
         span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
           .small type: {{table.decisionType}}
         span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Scoring
-      th.table-decision-column-action Action
+      th.table-decision-column-action(ng-if="!readonly") Action
 
     tbody(ui-sortable="sortableOptions", ng-model="variant.rules")
       tr(ng-repeat="rule in variant.rules",
@@ -30,21 +30,23 @@
         tooltip-append-to-body="true",
         tooltip-enable="isWarningRule(rule)",
         ng-form="ruleForm")
-        td.table-decision-column-index.table-decision-handler: i.glyphicon.glyphicon-menu-hamburger
+        td.table-decision-column-index.table-decision-handler(ng-if="!readonly"): i.glyphicon.glyphicon-menu-hamburger
 
-        td.table-decision-column-title(decision-rule-title-description, model="rule", is-editing="rule.isEditingTitle")
+        td.table-decision-column-title(decision-rule-title-description, model="rule", is-editing="rule.isEditingTitle", readonly="readonly")
 
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-          field-static.table-decision-condition-field(ng-if="!condition.isEditing", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
+          field-static.table-decision-condition-field(ng-if="!condition.isEditing && !readonly", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
           div.decision-condition(ng-if="condition.isEditing")
             field.decision-condition-field(type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value")
             .decision-condition-btn.btn-group.btn-group-sm
               button.btn.btn-primary(ng-click="saveCondition(condition)") Save
             .decision-condition-align
+          div(ng-if="readonly") {{condition.value}}
 
-        td.table-decision-column-add
-        td.table-decision-column-decision(decision-rule-decision, rule="rule", decisions="decisions", decision-type="table.decisionType", matching-type="table.matchingType",  is-editing="rule.isEditingDecision")
-        td.table-decision-column-action
+        td.table-decision-column-add(ng-if="!readonly")
+        td.table-decision-column-decision(ng-if="!readonly", decision-rule-decision, rule="rule", decisions="decisions", decision-type="table.decisionType", matching-type="table.matchingType",  is-editing="rule.isEditingDecision")
+        td.table-decision-column-decision(ng-if="readonly") {{rule.than}}
+        td.table-decision-column-action(ng-if="!readonly")
           div(ng-if="rule.isDeleted").btn-group
             a.btn.btn-default(ng-click="revertRule(rule)", uib-tooltip="Revert rule"): i.glyphicon.glyphicon-repeat
           div(ng-if="!rule.isDeleted").btn-group
@@ -53,29 +55,29 @@
             a.btn(ng-click="copyRule(rule)", stop-propagation="click", uib-tooltip="Copy rule"): i.glyphicon.glyphicon-duplicate
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
 
-  table.table.table-add-row: tr: td(ng-click="addNewRule()")
+  table.table.table-add-row(ng-if="!readonly"): tr: td(ng-click="addNewRule()")
     div.form-error(ng-messages="tableForm.tableRules.$error", role="alert", ng-if="mainForm.$submitted")
       div(ng-message="required") You should have at least 1 row
     span.plus +
     | Add row
 
-  .table-responsive: table.table.table-default-decision
+  .table-responsive: table.table.table-default-decision(ng-class="{'readonly': readonly}")
     th
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
     td
-      input.form-control(type="text", ng-model="variant.defaultTitle", name="title", placeholder="Title", ng-minlength="2", ng-maxlength="128")
+      input.form-control(type="text", ng-readonly="readonly" ng-model="variant.defaultTitle", name="title", placeholder="Title", ng-minlength="2", ng-maxlength="128")
       div.form-control-error(ng-messages="tableForm.title.$error")
         div(ng-message="minlength, maxlength") {{'validation.errors.row_title_charsets'|translate}}
     td
-      input.form-control(type="text", ng-model="variant.defaultDescription", name="description", placeholder="Description", ng-minlength="2", ng-maxlength="128")
+      input.form-control(type="text", ng-readonly="readonly" ng-model="variant.defaultDescription", name="description", placeholder="Description", ng-minlength="2", ng-maxlength="128")
       div.form-control-error(ng-messages="tableForm.description.$error")
         div(ng-message="minlength, maxlength") {{'validation.errors.row_description_charsets'|translate}}
     td
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
-        decision-input(type="table.decisionType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
+        decision-input(type="table.decisionType", readonly="readonly", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
-        decision-input(type="table.decisionType", decisions="decisions", model="variant.defaultDecision", placeholder="Default Score")
+        decision-input(type="table.decisionType", readonly="readonly", decisions="decisions", model="variant.defaultDecision", placeholder="Default Score")
 
 
   .hidden

@@ -5,6 +5,8 @@ angular.module('app').controller('consumerEditController', function ($scope, pro
   $scope.model = angular.copy(consumer); // from directive scope
   $scope.project = project; // from directive scope
 
+  $scope.readonly = !project.hasUserAccess('consumers', 'manage');
+
   $scope.scopes = PROJECT_CONSUMER_SCOPES;
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');

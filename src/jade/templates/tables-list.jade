@@ -4,7 +4,7 @@
     include:marked ../content/guides/decision-tables-list.md
 
 .container-fluid
-  div: a.btn.btn-primary.btn-icon(ui-sref="tables-create")
+  div(ng-if="project.hasUserAccess('tables', 'create')"): a.btn.btn-primary.btn-icon(ui-sref="tables-create")
     i.glyphicon.glyphicon-plus.btn-glyphicon
     | Create table
   br
@@ -21,8 +21,8 @@
         td {{table.description}}
       tr(ng-if="tables.length === 0")
         td.text-center(colspan="2")
-          i 
+          i
             | You don't have any tables.&nbsp;
-            a(ui-sref="tables-create") Create your first table!
+            a(ui-sref="tables-create", ng-if="project.hasUserAccess('tables', 'create')") Create your first table!
 
   uib-pagination(ng-if="filters.total", total-items="filters.total" ng-model="filters.page", items-per-page="filters.size", max-size="5")

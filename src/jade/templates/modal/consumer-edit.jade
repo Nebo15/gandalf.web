@@ -15,18 +15,18 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-3.control-label Description
         .col-sm-9
-          input.form-control(ng-model="model.description", required)
+          input.form-control(ng-model="model.description", required, ng-readonly="readonly")
       .form-group(show-errors)
         label.col-sm-3.control-label Scopes
         .col-sm-9
           .checkbox(ng-repeat="scope in scopes"): label
             input(type="checkbox", checklist-model="model.scope", checklist-value="scope",
-              ng-required="!(model.scope && model.scope.length > 0)"
+              ng-required="!(model.scope && model.scope.length > 0)", ng-disabled="readonly"
             )
             | {{('scopes.users.' + scope + '.details') | translate}}
   .modal-footer.clearfix
     .pull-left
-      button.btn.btn-danger(type='button', ng-click='remove()') Remove
+      button.btn.btn-danger(type='button', ng-click='remove()', ng-if="!readonly") Remove
     .pull-right
-      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
-      button.btn.btn-primary(type='submit') Save
+      button.btn.btn-warning(type='button', ng-click='cancel()') {{readonly ? 'Close' : 'Cancel'}}
+      button.btn.btn-primary(type='submit', ng-if="!readonly") Save

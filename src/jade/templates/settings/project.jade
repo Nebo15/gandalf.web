@@ -15,7 +15,7 @@
           .text-heading-label Returns Decision Flow
           | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
 
-        .btn-actions: .btn-group.btn-group-sm
+        .btn-actions(ng-if="project.hasUserAccess('project', 'update')"): .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
 
         div(ng-if="!user.active")
@@ -32,10 +32,12 @@
         .panel-heading Collaborators
         .panel-body
           div.list-group.list-group-panel
-            a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
-              br
-              span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
-            a.list-group-item(user-add="project"): b.text-primary + add collaborator
+            div(has-access="users.manage" project="project")
+              a.list-group-item(ng-repeat="user in project.users", user-edit="project" user-edit-model="user") {{user.username}}
+                br
+                span.small.subtitle {{user.scope | translateArray: 'scopes.users.':'.details' | join: ', '}}
+            a.list-group-item(user-add="project", ng-if="project.hasUserAccess('users', 'manage')")
+              b.text-primary + add collaborator
 
    .row(ng-if="project.consumers")
     .col-md-4.col-md-push-6
@@ -44,14 +46,14 @@
       .panel.panel-default
         .panel-heading API Consumers Credentials
         .panel-body
-          div.list-group.list-group-panel
+          .list-group.list-group-panel
             a.list-group-item(ng-repeat="consumer in project.consumers", consumer-edit="project", consumer-edit-model="consumer")
               .text-overflow.max-width {{consumer.description}}
-            a.list-group-item(consumer-add="project"): b.text-primary + create consumer
+            a.list-group-item(consumer-add="project", ng-if="project.hasUserAccess('consumers', 'manage')"): b.text-primary + create consumer
   p: br
   .row
     .col-md-3.pull-left
-      button.btn.btn-danger(project-delete="project") Delete project
+      button.btn.btn-danger(project-delete="project", ng-if="project.hasUserAccess('project', 'delete')") Delete project
     .col-md-3.text-right
       button.btn.btn-success.btn-loading(ng-if="!exportDownload", ng-click="export()", ng-class="{'is-active': isExportLoading}")
         .btn-loader: .glyphicon.glyphicon-refresh

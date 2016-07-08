@@ -32,7 +32,7 @@ nav.navbar.navbar-static-top.navbar-default: .container-fluid
 
     ul.nav.navbar-nav.nav-main
       li(ui-sref-active="active"): a(ui-sref="tables") Tables
-      li(ui-sref-active="active"): a(ui-sref="history") History
+      li(ui-sref-active="active"): a(ui-sref="history", ng-if="project.hasUserAccess('decisions', 'view')") History
       li(ui-sref-active="active"): a(ui-sref="settings") Settings
       // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
     include ./navbar-right-user

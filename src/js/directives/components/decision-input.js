@@ -6,6 +6,7 @@ angular.module('app').directive('decisionInput', function () {
     scope: {
       type: '=',
       decisions: '=',
+      readonly: '=',
       model: '=model',
       placeholder: '@'
     },
