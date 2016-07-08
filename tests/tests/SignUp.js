@@ -11,6 +11,11 @@ describe('Gandalf', function () {
     browser.get(url);
   });
 
+  afterEach(function () {
+    browser.executeScript('window.sessionStorage.clear();');
+    browser.executeScript('window.localStorage.clear();');
+  });
+
   var home_page = require("../pages/home_page.js");
 
   it('SignUp test', function () {
