@@ -27,6 +27,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
     this.request = data.request;
     this.createdAt = new Date(data.created_at);
     this.updatedAt = new Date(data.updated_at);
+    this.defaultDecision = data.default_decision;
 
     return this;
   };
