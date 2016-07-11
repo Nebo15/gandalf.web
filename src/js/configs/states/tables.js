@@ -1,7 +1,6 @@
 "use strict";
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
-
   $stateProvider.state('tables', {
     parent: 'private',
     url: '/tables',
