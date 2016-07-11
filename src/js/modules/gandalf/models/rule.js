@@ -43,7 +43,8 @@ angular.module('ng-gandalf').factory('DecisionRule', function (DecisionRuleCondi
       than: this.than,
       title: gandalfUtils.orNull(this.title),
       description: gandalfUtils.orNull(this.description),
-      conditions: JSON.parse(JSON.stringify(this.conditions))
+      conditions: JSON.parse(JSON.stringify(this.conditions)),
+      isDeleted: this.isDeleted || undefined
     };
   };
   Rule.prototype.clone = function () {
