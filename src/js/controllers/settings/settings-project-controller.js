@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('app').controller('SettingsProjectController', function ($scope, project, user, $uibModal) {
+angular.module('app').controller('SettingsProjectController', function ($scope, project, user) {
   $scope.project = project;
   $scope.user = user;
 
@@ -20,12 +20,4 @@ angular.module('app').controller('SettingsProjectController', function ($scope, 
       window.location.href = response.data.url;
     });
   };
-
-  $scope.resendMail = function () {
-    user.resendActivateMail().then(function () {
-      $uibModal.open({
-        templateUrl: 'templates/modal/resend-activate-mail-success.html'
-      });
-    });
-  }
 });
