@@ -56,10 +56,11 @@
             a.btn.btn-danger-text(ng-click="deleteRule(rule)", uib-tooltip="Remove rule"): i.glyphicon.glyphicon-remove
 
   table.table.table-add-row(ng-if="!readonly"): tr: td(ng-click="addNewRule()")
+    p
+      span.plus +
+      | Add row
     div.form-error(ng-messages="tableForm.tableRules.$error", role="alert", ng-if="mainForm.$submitted")
-      div(ng-message="required") You should have at least 1 row
-    span.plus +
-    | Add row
+      span(ng-message="required") You should have at least 1 row
 
   .table-responsive: table.table.table-default-decision(ng-class="{'readonly': readonly}")
     th
