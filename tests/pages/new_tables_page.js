@@ -9,11 +9,16 @@ var new_tables_page = function () {
   var decisionCreateButton = element.all(by.className('table-decision-column-add ng-isolate-scope')).first();
   var buttonSuccess = element.all(by.className('btn btn-success btn-loading')).first();
 
-  this.createNewTable = function (tableName, tableDesc, testData, testData2, testData3, rowData, rowData2, fieldTitle, fieldKey) {
+  this.createNewTable = function (tableName, tableDesc, testData, testData2, testData3, rowData, rowData2, fieldTitle, fieldKey, option) {
     decisionCreateButton.click();
     browser.isElementPresent(by.model('field.title'));
     element(by.model('field.title')).sendKeys(fieldTitle);
     element(by.model('field.key')).sendKeys(fieldKey);
+    element(by.model('isEnablePreset')).click();
+    element(by.model('$parent.condition')).click();
+    element.all(by.cssContainingText('option', option)).click();
+    element.all(by.model('$parent.$parent.value')).click();
+    element(by.model('$parent.$parent.value')).sendKeys('true');
     element(by.className('btn btn-primary')).click();
     browser.isElementPresent(by.model('table.title'));
     element(by.model('table.title')).sendKeys(tableName);
@@ -27,6 +32,7 @@ var new_tables_page = function () {
     buttonSuccess.click();
     return require("./table_page.js");
   };
+
 
   this.createNewScoringTable = function (tableName, tableDesc, testData, testData2, testData3, rowData, rowData2, fieldTitle, fieldKey) {
     element(by.className('table-decision-column-add ng-isolate-scope')).click();
@@ -64,7 +70,7 @@ var new_tables_page = function () {
   };
 
   this.assertAlertMessage = function (alert) {
-    var message = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/form/div[2]/div/p')).getText();
+    var message = element(by.xpath('/html/body/div/ui-view/ui-view/div/ui-view/ui-view/form/div[2]/decision-table/div[1]/div[1]/table[1]/thead/tr/th[3]/div/div[2]/div[2]/div')).getText();
     expect(message).toBe(alert);
     return require("./table_page.js");
   };
@@ -127,9 +133,8 @@ var new_tables_page = function () {
     return require("./debugger_page.js");
   };
 
-  this.assertRevision = function (text) {
-    var editTable = element(by.className('ng-binding ng-scope')).getText();
-    expect(editTable).toBe(text);
+  this.assertRevision = function () {
+    browser.isElementPresent(by.model('field.title'));
   };
 };
 
