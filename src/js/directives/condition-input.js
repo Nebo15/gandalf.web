@@ -13,14 +13,6 @@ angular.module('app').directive('conditionInput', function (CONDITIONS) {
       number: '='
     },
     link: function (scope) {
-      if (scope.number === true) {
-        scope.value = Number(scope.value);
-
-        if (isNaN(scope.value)) {
-          scope.value = 1;
-        }
-      }
-
       scope.conditions = CONDITIONS;
     }
   }
