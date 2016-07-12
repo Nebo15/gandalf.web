@@ -44,6 +44,7 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
     res.request = this.request;
     res.created_at = this.createdAt;
     res.updated_at = this.updatedAt;
+    res.default_decision = this.defaultDecision;
 
     return res;
   };
