@@ -66,7 +66,8 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
 
       var editingCondition = [];
       // Conditions
-      $scope.saveCondition = function (condition) {
+      $scope.saveCondition = function (field, condition) {
+        if (!field.$valid) return;
         condition.isEditing = false;
       };
       $scope.editCondition = function (condition) {
