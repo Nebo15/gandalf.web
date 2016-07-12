@@ -23,7 +23,8 @@ angular.module('ng-gandalf').factory('DecisionField', function (gandalfUtils) {
       type: this.type,
       title: this.title,
       source: this.source,
-      preset: this.preset
+      preset: this.preset,
+      isDeleted: this.isDeleted || undefined
     };
   };
 
