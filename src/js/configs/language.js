@@ -20,10 +20,6 @@ angular.module('app').config(function($translateProvider) {
           small: 'Delete',
           details: 'Delete tables'
         },
-        'tables_query': {
-          small: 'Create Decision via API',
-          details: 'Create Decision via API'
-        },
 
         'consumers_get': {
           small: 'Read',
