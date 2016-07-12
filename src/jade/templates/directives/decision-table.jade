@@ -12,10 +12,10 @@
           span(ng-if="condition.preset") &#32;{{condition.preset.condition | condition}} {{condition.preset.value | string}}
       th.table-decision-column-add(add-new-field, table="table", ng-if="!readonly")
         div(uib-tooltip="Add Field"): div(uib-popover="Should have at least 1 column",
-        popover-placement="right",
-        popover-is-open="tableForm.tableFields.$error.required && mainForm.$submitted",
-        popover-trigger="custom",
-        popover-append-to-body="false") +
+          popover-placement="right",
+          popover-is-open="tableForm.tableFields.$error.required && mainForm.$submitted",
+          popover-trigger="custom",
+          popover-append-to-body="false") +
       th.table-decision-column-decision
         span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Decision
           .small type: {{table.decisionType}}
@@ -84,6 +84,6 @@
   .hidden
     // table model validations
     input(hidden, name="tableRules", ng-required="variant.numberOfRules() == 0", ng-model="hiddenRules.rules")
-    input(hidden, name="tableFields", ng-required="variant.numberOfFields() == 0", ng-model="hiddenRules.fields")
+    input(hidden, name="tableFields", ng-required="table.numberOfFields() == 0", ng-model="hiddenRules.fields")
 
 div(ng-transclude)
