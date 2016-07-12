@@ -6,6 +6,7 @@ div(ng-form="decisionInput")
       typeahead-on-select="onSelect($item)",
       name="input",
       placeholder="{{placeholder}}"
+      ng-readonly="readonly"
       required)
     div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
       div(ng-message="alphadashed") {{'validation.errors.alphadashed_only'|translate}}
@@ -16,6 +17,7 @@ div(ng-form="decisionInput")
       typeahead-on-select="onSelect($item)",
       name="input",
       placeholder="{{placeholder}}"
+      ng-readonly="readonly"
       required
     )
     div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")

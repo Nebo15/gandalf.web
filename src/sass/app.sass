@@ -103,6 +103,7 @@ $zindex-popover:             1040
 @import components/welcome
 @import components/steps
 @import "components/public"
+@import "components/error-page"
 
 +min-screen($container-lg)
   .container-fluid
@@ -117,8 +118,7 @@ $zindex-popover:             1040
   cursor: pointer
 
 .wrap
-  min-height: calc(100vh - #{$navbar-height} - 120px)
-  // 90px - footer height
+  min-height: calc(100vh - 112px)
 
 .border-left
   border-left: 1px solid $table-border-color
@@ -407,3 +407,8 @@ condition-input
   color: #8a6d3b
   padding: 10px 50px
   text-align: center
+
+.no-access-control
+  pointer-events: none
+  opacity: .6
+

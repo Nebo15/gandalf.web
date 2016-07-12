@@ -5,10 +5,25 @@ form(ng-submit="save(form)", name="form", novalidate)
     .form-horizontal
       .form-group
         label.col-sm-3.control-label Username
-        .col-sm-9: .form-control-static {{user.username}}
+        .col-sm-9
+          input.form-control(
+            name="username",
+            ng-model="user.username",
+            pattern="^[a-zA-Z0-9-_\.]+$",
+            minlength="2",
+            maxlength="32",
+            placeholder="User name",
+            autocomplete="off"
+          )
+          div.form-control-error(ng-messages="form.username.$error", ng-if="form.username.$dirty || form.$submitted")
+            div(ng-message="pattern") {{'validation.errors.invalid_username'|translate}}
+            div(ng-message="minlength") {{'validation.errors.username_minlength'|translate}}
       .form-group
         label.col-sm-3.control-label Email
-        .col-sm-9: .form-control-static {{user.email}}
+        .col-sm-9
+          input.form-control(type="email", name="email", ng-model="user.email", autocomplete="off", placeholder="E-mail address")
+          div.form-control-error(ng-messages="form.email.$error", ng-if="form.email.$dirty || form.$submitted")
+            div(ng-message="email") {{'validation.errors.invalid_email'|translate}}
       hr
       .form-group(show-errors)
         label.col-sm-3.control-label First name

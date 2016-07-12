@@ -149,7 +149,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }).catch(function (response) {
 
           // refresh token logic
-          if (response.status === 401) {
+          if (response.status === 401 && !data.skipRefreshToken) {
             return self.refreshToken().then(function () {
               return $request(opts, data);
             });
@@ -246,7 +246,8 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }, {
           username: username,
           password: password,
-          grant_type: 'password'
+          grant_type: 'password',
+          skipRefreshToken: true
         });
       };
 
@@ -304,16 +305,23 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       self.admin.getUser = function () {
         return $request.get('api/v1/users/current');
       };
-      self.admin.updateUser = function (user, password) {
+      self.admin.updateUser = function (user, password, newPassword) {
+        var data = {
+          current_password: password,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          username: user.username
+        };
+
+        if (newPassword) {
+          data.password = newPassword;
+        }
+
         return $request({
           method: 'put',
           endpoint: 'api/v1/users/current'
-        }, {
-          password: password,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          email: user.email
-        });
+        }, data);
       };
 
       self.admin.getProjectUser = function () {

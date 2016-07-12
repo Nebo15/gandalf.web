@@ -1,7 +1,6 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('main', {
-
     abstract: true,
     template: '<ui-view />'
   });
@@ -12,10 +11,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     auth: true,
     template: '<ui-view />',
     resolve: {
-      user: ['UserService','projects', function (UserService,projects) {
+      user: ['UserService', function (UserService) {
         return UserService.current();
       }],
-      projects: ['ProjectsService','$q', '$state', '_', function (ProjectsService, $q, $state, _) {
+      projects: ['ProjectsService','$q', '$state', 'user', function (ProjectsService, $q, $state) {
         return $q.when(ProjectsService.all()).then(function (resp) {
           if (resp.length) {
             return resp;
@@ -49,12 +48,30 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
       message: null
     },
     controller: 'SignInController',
-    templateUrl: 'templates/sign-in.html'
+    templateUrl: 'templates/sign-in.html',
+    resolve: {
+      isAuth: ['AuthService', '$state', function (AuthService, $state) {
+        return AuthService.checkAuth().then(function () {
+          $state.go('tables-list');
+        }).catch(function () {
+          return null;
+        });
+      }]
+    }
   }).state('sign-up', {
     parent: 'public',
     url: '/sign-up?username?email?invite',
     controller: 'SignUpController',
-    templateUrl: 'templates/sign-up.html'
+    templateUrl: 'templates/sign-up.html',
+    resolve: {
+      isAuth: ['AuthService', '$state', function (AuthService, $state) {
+        return AuthService.checkAuth().then(function () {
+          $state.go('tables-list');
+        }).catch(function () {
+          return null;
+        });
+      }]
+    }
   }).state('activate', {
     parent: 'public',
     url: '/activate/:token',
@@ -87,6 +104,19 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
+  $stateProvider.state('error', {
+    parent: 'private',
+    url: '/error/:code',
+    params: {
+      code: '404',
+      message: 'Page not found'
+    },
+    templateUrl: 'templates/error.html',
+    controller: function ($scope, $stateParams) {
+      $scope.code = $stateParams.code;
+      $scope.message = $stateParams.message;
+    }
+  });
 
   $urlRouterProvider.otherwise('/tables');
 });

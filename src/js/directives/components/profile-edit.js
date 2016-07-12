@@ -33,7 +33,7 @@ angular.module('app').controller('profileEditController', function ($scope, user
     if (form.$invalid) return;
 
     $scope.user.update($scope.password).then(function () {
-      user.constructor($scope.user);
+      user.setData($scope.user);
       $uibModalInstance.dismiss('cancel');
     });
   };

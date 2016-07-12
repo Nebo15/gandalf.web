@@ -7,7 +7,7 @@
       .text-heading(ng-if="table.description")
         .text-heading-label Description
         | {{table.description}}
-      .btn-actions: .btn-group.btn-group-sm
+      .btn-actions(ng-if="project.hasUserAccess('tables', 'update')"): .btn-group.btn-group-sm
         a.btn.btn-primary(ng-click="changeTableName()") Edit
       hr
   .block
@@ -48,7 +48,7 @@
                       ng-model="variant.probability",
                       max="{{maxTrafficPercent($index)}}"
                       min="0"
-                      ng-disabled="table.variantsProbability !== 'percent'",
+                      ng-disabled="table.variantsProbability !== 'percent' || !project.hasUserAccess('tables', 'update')",
                       placeholder="Allocation percent"
                     )
                     .percent-symbol %
@@ -61,11 +61,12 @@
                   class="variant-visual-item variant-color-{{$index % 4}}"
                 )
 
-              a.list-group-item(ng-click="createNewVariant()"): b.text-primary + create variant
+              a.list-group-item(ng-click="createNewVariant()", ng-if="project.hasUserAccess('tables', 'update')")
+                b.text-primary + create variant
         h3.form-control-heading Traffic allocation
         .row
           .col-sm-8
-            .btn-group.btn-group-matching
+            .btn-group.btn-group-matching(has-access="tables.update", project="project")
               label.btn.btn-primary-matching(uib-btn-radio="'first'", ng-model="table.variantsProbability") First
               label.btn.btn-primary-matching(uib-btn-radio="'percent'", ng-model="table.variantsProbability") Percent
               label.btn.btn-primary-matching(uib-btn-radio="'random'", ng-model="table.variantsProbability") Random
@@ -82,11 +83,11 @@
     h3.form-control-heading Table Type
       | &#32;
       a.glyphicon.glyphicon-question-sign(href="http://docs.gandalf4.apiary.io/#introduction/tables", target="__blank")
-    div
+    div(has-access="tables.update", project="project")
       select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType")
-    div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
+    div(ng-if="table.matchingType == $root.APP.matchingTypes.first", has-access="tables.update", project="project")
       h3.form-control-heading Decision type
       select-decision-type(ng-model="table.decisionType", callback="onChangeDecisionType")
 
   .block
-    button.btn.btn-danger(ng-click="deleteTable(table)") Delete Table
+    button.btn.btn-danger(ng-click="deleteTable(table)", ng-if="project.hasUserAccess('tables', 'delete')") Delete Table

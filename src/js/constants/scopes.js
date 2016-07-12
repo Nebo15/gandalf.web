@@ -5,7 +5,6 @@ angular.module('app').constant('PROJECT_USER_SCOPES', [
   'tables_view',
   'tables_update',
   'tables_delete',
-  'tables_query',
 
   'consumers_get',
   'consumers_manage',

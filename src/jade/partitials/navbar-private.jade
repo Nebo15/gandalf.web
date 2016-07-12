@@ -1,5 +1,5 @@
 .activate-message(ng-if="!user.active") Your account not activated. &#32;
-  a(ui-sref="settings") Activate now
+  a(ng-click="resendMail()") Activate now
 nav.navbar.navbar-static-top.navbar-default: .container-fluid
   .navbar-header
     button.navbar-toggle.collapsed(type='button',
@@ -23,7 +23,7 @@ nav.navbar.navbar-static-top.navbar-default: .container-fluid
           b.caret
         ul.dropdown-menu
           li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}")
-            a(ng-click="selectProject(item)")
+            a(ui-sref="tables-list", ng-click="selectProject(item)")
               .text-overflow {{item.title}}
           li.divider(role="separator")
           li: a(project-add) + add new project
@@ -32,7 +32,7 @@ nav.navbar.navbar-static-top.navbar-default: .container-fluid
 
     ul.nav.navbar-nav.nav-main
       li(ui-sref-active="active"): a(ui-sref="tables") Tables
-      li(ui-sref-active="active"): a(ui-sref="history") History
+      li(ui-sref-active="active"): a(ui-sref="history", ng-if="project.hasUserAccess('decisions', 'view')") History
       li(ui-sref-active="active"): a(ui-sref="settings") Settings
       // li(ui-sref-active="active"): a(ui-sref="groups-list") Groups
     include ./navbar-right-user

@@ -6,12 +6,17 @@ angular.module('app').service('UserService', function ($cacheFactory, $rootScope
     cache.removeAll();
   });
 
+  this.userId = null;
+
   this.current = function () {
     return cache.get('user') || $gandalf.admin.getUser().then(function (resp) {
       var user = new User(resp.data);
+
       cache.put('user', user);
+      this.userId = user.id;
+
       return user;
-    });
+    }.bind(this));
   };
 
   this.projectUser = function () {
@@ -21,6 +26,9 @@ angular.module('app').service('UserService', function ($cacheFactory, $rootScope
   };
 
   this.verifyEmail = function (token) {
-    return $gandalf.admin.verifyUserEmail(token);
-  }
+    return $gandalf.admin.verifyUserEmail(token).then(function (response) {
+      cache.removeAll();
+      return response;
+    });
+  };
 });

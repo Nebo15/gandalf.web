@@ -20,7 +20,7 @@
           div(ng-message="pattern") {{'validation.errors.invalid_username'|translate}}
           div(ng-message="minlength") {{'validation.errors.username_minlength'|translate}}
       .form-group.text-right
-        span.form-control-underline-subtitle(ng-switch="complexity.score")
+        span.form-control-underline-subtitle(ng-switch="complexity.score", ng-if="form.password.$dirty")
           span(ng-switch-when="0") Too short
           span(ng-switch-when="1") Week
           span(ng-switch-when="2") Fair

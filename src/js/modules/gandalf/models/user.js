@@ -1,4 +1,4 @@
-angular.module('ng-gandalf').factory('User', function ($gandalf) {
+angular.module('ng-gandalf').factory('User', function ($gandalf, $q) {
 
   function User(data) {
     var obj = data || {};
@@ -31,17 +31,19 @@ angular.module('ng-gandalf').factory('User', function ($gandalf) {
     });
   };
 
-  User.prototype.update = function (password) {
+  User.prototype.update = function (password, newPassword) {
     var self = this;
     return $gandalf.admin.updateUser({
       first_name: this.firstName,
       last_name: this.lastName,
-      email: this.email
-    }, password).then(function (resp) {
+      email: this.email,
+      username: this.username
+    }, password, newPassword).then(function (resp) {
       self.constructor(resp.data);
       return self;
     })
   };
+
   User.prototype.getName = function () {
     return [this.firstName, this.lastName].filter(function (item) {
         return item;
@@ -74,8 +76,17 @@ angular.module('ng-gandalf').factory('User', function ($gandalf) {
       updated_at: this.updatedAt
     };
   };
+
   User.prototype.copy = function () {
     return new User(this.toJSON());
+  };
+
+  User.prototype.setData = function (data) {
+    Object.keys(this).forEach(function (key) {
+      this[key] = data[key];
+    }, this);
+
+    return this;
   };
 
   return User;
