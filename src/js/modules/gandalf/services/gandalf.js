@@ -149,7 +149,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }).catch(function (response) {
 
           // refresh token logic
-          if (response.status === 401) {
+          if (response.status === 401 && !data.skipRefreshToken) {
             return self.refreshToken().then(function () {
               return $request(opts, data);
             });
@@ -246,7 +246,8 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }, {
           username: username,
           password: password,
-          grant_type: 'password'
+          grant_type: 'password',
+          skipRefreshToken: true
         });
       };
 
