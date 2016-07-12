@@ -23,7 +23,7 @@ nav.navbar.navbar-static-top.navbar-default: .container-fluid
           b.caret
         ul.dropdown-menu
           li(ng-repeat="item in projects", ng-class="{'active': project.id == item.id}")
-            a(ng-click="selectProject(item)")
+            a(ui-sref="tables-list", ng-click="selectProject(item)")
               .text-overflow {{item.title}}
           li.divider(role="separator")
           li: a(project-add) + add new project

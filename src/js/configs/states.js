@@ -1,7 +1,6 @@
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('main', {
-
     abstract: true,
     template: '<ui-view />'
   });
@@ -105,6 +104,19 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     }
   });
 
+  $stateProvider.state('error', {
+    parent: 'private',
+    url: '/error/:code',
+    params: {
+      code: '404',
+      message: 'Page not found'
+    },
+    templateUrl: 'templates/error.html',
+    controller: function ($scope, $stateParams) {
+      $scope.code = $stateParams.code;
+      $scope.message = $stateParams.message;
+    }
+  });
 
   $urlRouterProvider.otherwise('/tables');
 });
