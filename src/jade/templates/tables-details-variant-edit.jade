@@ -8,7 +8,7 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
             div.form-control-error(ng-messages="form.title.$error", ng-if="form.title.$dirty || form.$submitted")
               div(ng-message="required") {{'validation.errors.table_name_empty'|translate}}
           .form-group
-            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", required, has-access="tables.update", project="project")
+            input.form-control.form-control-underline(ng-model="variant.description", name="description" placeholder="Description", has-access="tables.update", project="project")
             div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
               div(ng-message="required") {{'validation.errors.table_description_empty'|translate}}
 
