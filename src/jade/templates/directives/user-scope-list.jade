@@ -7,7 +7,7 @@ div
 div
   .form-control-heading-small Decision Tables
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['tables_create','tables_view','tables_update','tables_delete','tables_query']"): label
+    .checkbox-inline(ng-repeat="scope in ['tables_create','tables_view','tables_update','tables_delete']"): label
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 div
