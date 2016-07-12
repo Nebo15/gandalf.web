@@ -11,17 +11,18 @@
         .text-heading
           .text-heading-label Application ID
           | {{project.id}}
-        .text-heading
-          .text-heading-label Returns Decision Flow
-          | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
+        .row
+          .col-md-3
+            .text-heading
+              .text-heading-label Returns Decision Flow
+              | {{project.settings.show_meta | boolean: 'Yes' : 'No'}}
+          .col-md-3
+            .text-heading
+              .text-heading-label Active account
+              | {{user.active | boolean: 'Yes' : 'No'}}
 
         .btn-actions(ng-if="project.hasUserAccess('project', 'update')"): .btn-group.btn-group-sm
           a.btn.btn-primary(project-edit="project") Edit
-
-        div(ng-if="!user.active")
-          hr
-          p: b Your account not activated &#32
-          a.btn.btn-submit(ng-click="resendMail()") Resend activate e-mail
 
 .block.container-fluid
   .row
