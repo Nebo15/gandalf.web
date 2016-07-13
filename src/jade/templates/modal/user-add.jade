@@ -20,7 +20,7 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
         .col-sm-10.form-control-block
-          user-scope-list(model="user.scope", required="isRequired()")
+          user-scope-list(model="user.scope", required="isRequired()", project="project")
           //
           //.checkbox(ng-repeat="scope in scopes"): label
           //  input(type="checkbox", checklist-model="user.scope", checklist-value="scope",
