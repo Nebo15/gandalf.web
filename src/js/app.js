@@ -30,7 +30,9 @@ angular.module('app', [
   'nebo-angular-validate',
 
   'pascalprecht.translate',
-  'ui.gravatar'
+  'ui.gravatar',
+
+  'toastr'
 ]);
 
 angular.module('app').constant('ENV', window.env);
