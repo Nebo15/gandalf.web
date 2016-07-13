@@ -14,7 +14,7 @@ angular.module('app').directive('doubledInput', function ($timeout) {
     link: function (scope) {
       scope.separator = scope.separator || ';';
 
-      scope.values = scope.value.split(scope.separator).map(function (item) {return +item;});
+      scope.values = String(scope.value).split(scope.separator).map(function (item) {return +item;});
 
       var __valuesChanged = false,
         __valueChanged = false;
