@@ -22,7 +22,6 @@ form(ng-submit="submit(form)", name="form", novalidate)
           name="description",
           type="text",
           ng-model="model.description",
-          required,
           placeholder="e.g. Tell a few words about the project"
           )
           div.form-control-error(ng-messages="form.description.$error", ng-if="form.description.$dirty || form.$submitted")
