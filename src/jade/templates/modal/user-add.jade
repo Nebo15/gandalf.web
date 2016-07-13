@@ -5,9 +5,13 @@ form(ng-submit="save(form)", name="form", novalidate)
     .form-horizontal
       .form-group
         label.col-sm-2.control-label Username
-        .col-sm-10: input.form-control(type="text", ng-model="userSearch", typeahead-min-length="1",
+        .col-sm-10
+          input.form-control(type="text", ng-model="userSearch", typeahead-min-length="1",
             uib-typeahead="user as user.username for user in getUsers($viewValue)",
             required)
+      .form-group(ng-if="shouldInvite(userSearch)")
+        .col-sm-10.col-sm-push-2
+          .alert.alert-info Invitation letter will be sent to the user email
       hr
       .form-group(show-errors)
         label.col-sm-2.control-label Role
@@ -16,7 +20,7 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
         .col-sm-10.form-control-block
-          user-scope-list(model="user.scope", required="isRequired()")
+          user-scope-list(model="user.scope", required="isRequired()", project="project")
           //
           //.checkbox(ng-repeat="scope in scopes"): label
           //  input(type="checkbox", checklist-model="user.scope", checklist-value="scope",

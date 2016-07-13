@@ -26,7 +26,7 @@ form.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form)", name="f
 
     decision-table(model="table", variant="variant", form="form", readonly="!project.hasUserAccess('tables', 'update')")
       .decision-buttons(ng-if="project.hasUserAccess('tables', 'update')")
-        button.btn.btn-danger(type="button", ng-click="deleteVariant()", ng-if="project.hasUserAccess('tables', 'delete')")
+        button.btn.btn-danger(type="button", ng-click="deleteVariant()", ng-if="project.hasUserAccess('tables', 'update')")
           | Delete variant
         button.btn.btn-success.btn-loading(ng-if="!saved", type="submit", ng-class="{'is-active': isSaving}")
           .btn-loader: .glyphicon.glyphicon-refresh

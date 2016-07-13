@@ -24,6 +24,9 @@ form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form
             .btn-loader: .glyphicon.glyphicon-refresh
             | Create
         .col-xs-8.col-xs-pull-4
+          h3.form-control-heading Table Type
+            | &#32;
+            a.glyphicon.glyphicon-question-sign(href="http://docs.gandalf4.apiary.io/#introduction/tables", target="__blank")
           select-matching-type(ng-model="table.matchingType", callback="onChangeMatchingType", strict="table.getVariantsRules().length > 0")
       div(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         h3.form-control-heading Decision type

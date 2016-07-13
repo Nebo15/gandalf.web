@@ -29,7 +29,6 @@ angular.module('app').directive('decisionRuleDecision', function ($timeout, APP)
           scope.edit();
         });
       });
-
     }
   };
 })

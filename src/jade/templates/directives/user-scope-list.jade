@@ -1,31 +1,31 @@
 div
   .form-control-heading-small Project
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['project_update','project_delete']"): label
+    .checkbox-inline(ng-repeat="scope in ['project_update','project_delete']"): label(has-access="{{scope}}", project="project")
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 div
   .form-control-heading-small Decision Tables
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['tables_create','tables_view','tables_update','tables_delete']"): label
+    .checkbox-inline(ng-repeat="scope in ['tables_create','tables_view','tables_update','tables_delete']"): label(has-access="{{scope}}", project="project")
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 div
   .form-control-heading-small Decision History
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['decisions_view','decisions_make']"): label
+    .checkbox-inline(ng-repeat="scope in ['decisions_view','decisions_make']"): label(has-access="{{scope}}", project="project")
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 
 div
   .form-control-heading-small API Consumer Credentials
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['consumers_manage','consumers_get']"): label
+    .checkbox-inline(ng-repeat="scope in ['consumers_manage','consumers_get']"): label(has-access="{{scope}}", project="project")
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}
 div
   .form-control-heading-small Project Collaborators
   .checkbox-group
-    .checkbox-inline(ng-repeat="scope in ['users_manage']"): label
+    .checkbox-inline(ng-repeat="scope in ['users_manage']"): label(has-access="{{scope}}", project="project")
       input(type="checkbox", checklist-model="model", checklist-value="scope", ng-required="isRequired")
       | {{('scopes.users.' + scope + '.small') | translate}}

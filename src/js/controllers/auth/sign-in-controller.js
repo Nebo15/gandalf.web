@@ -21,6 +21,8 @@ angular.module('app').controller('SignInController', function ($scope, $state, $
   $scope.submit = function (form) {
     if (form.$invalid) return;
 
+    $scope.message = null;
+
     AuthService.signIn($scope.model.username, $scope.model.password).then(function () {
       $state.go('tables-list');
     }).catch(function (error) {

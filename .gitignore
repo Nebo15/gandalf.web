@@ -5,3 +5,6 @@ node_modules
 www
 *.log
 locales/*.tmp.json
+
+settings/*.json
+!settings/config.sample.json

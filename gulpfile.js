@@ -151,16 +151,9 @@ function string_src (filename, string) {
 }
 
 gulp.task('config', ['copy-scripts'],function () {
-  var configObj = require('./settings/config');
-  var defaultConfig = configObj['default'];
-
-  var envName = argv.production ? 'production' : 'sandbox';
-  var targetConfig = configObj[envName];
-
-  var resultConfig = _.defaultsDeep(targetConfig, defaultConfig);
-
-  return string_src('config.js', 'window.env = ' + JSON.stringify(resultConfig, null, 2) + ';')
-    // Writes config.js to dist/ folder
+  var configObj = require('./settings/settings');
+  return string_src('config.js', 'window.env = ' + JSON.stringify(configObj, null, 2) + ';')
+    // Writes settings.js to dist/ folder
     .pipe(gulp.dest('www/js'));
 });
 
@@ -227,7 +220,7 @@ gulp.task('watch', function () {
   gulp.watch('./src/fonts/**/*', ['copy-fonts']);
 
   gulp.watch('./locales/**/*', ['localize']);
-  gulp.watch('./settings/config.json', ['config']);
+  gulp.watch('./settings/*.json', ['config']);
 });
 
 // Deploy gh-pages
@@ -267,6 +260,9 @@ gulp.task('test:protractor', function () {
     }))
     .on('error', function (e) {
       console.error(e);
+    })
+    .on('end', function() {
+      process.exit();
     });
 });
 
