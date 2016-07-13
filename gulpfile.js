@@ -260,13 +260,16 @@ gulp.on('err', function(e){
 // TESTS
 
 gulp.task('test:protractor', function () {
-  return gulp.src(['./tests/tests/*.js'])
+  return gulp.src(['./tests/tests/Settings.js'])
     .pipe(protractor.protractor({
       configFile: "./protractor.config.js",
       args: ['--baseUrl', 'http://localhost:'+WEBSERVER_PORT]
     }))
     .on('error', function (e) {
       console.error(e);
+    })
+    .on('end', function() {
+      process.exit();
     });
 });
 
