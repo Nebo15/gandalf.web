@@ -14,10 +14,13 @@ angular.module('app').config(function(toastrConfig) {
       var errorMsg = Object.keys(error.data.data).map(function (item) {
         return error.data.data[item][0];
       });
-      toastr.error(errorMsg[0], error.data.meta.error_message);
+      return toastr.error(errorMsg[0], error.data.meta.error_message);
     }
     if (error.data.error) {
-      toastr.error(error.data.error_message, error.data.error);
+      return toastr.error(error.data.error_message, error.data.error);
+    }
+    if (error.data.meta) {
+      return toastr.error(error.data.meta.error_message);
     }
   });
 });
