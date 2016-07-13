@@ -112,7 +112,8 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       function $request(opts, data) {
         var endpoint = opts.endpoint,
           method = opts.method || 'get',
-          params = opts.params || {};
+          params = opts.params || {},
+          options = opts.options || {};
 
         if (angular.isUndefined(endpoint)) {
           throw Error('undefined request enpoint');
@@ -149,7 +150,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
         }).catch(function (response) {
 
           // refresh token logic
-          if (response.status === 401 && !data.skipRefreshToken) {
+          if (response.status === 401 && !options.skipRefreshToken) {
             return self.refreshToken().then(function () {
               return $request(opts, data);
             });
@@ -242,12 +243,14 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           method: 'post',
           headers: {
             Authorization: 'Basic ' + base64.encode([config.clientId, config.clientSecret].join(':'))
+          },
+          options: {
+            skipRefreshToken: true
           }
         }, {
           username: username,
           password: password,
-          grant_type: 'password',
-          skipRefreshToken: true
+          grant_type: 'password'
         });
       };
 
