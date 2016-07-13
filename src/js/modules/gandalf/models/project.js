@@ -36,6 +36,16 @@ angular.module('ng-gandalf').factory('Project', function ($gandalf, ProjectUser,
   };
 
   // Users
+  Project.prototype.inviteUser = function (user) {
+    var self = this;
+    return $gandalf.admin.inviteProjectUser({
+      email: user.email,
+      role: user.role,
+      scope: user.scope
+    }).then(function (resp) {
+      return self;
+    });
+  };
   Project.prototype.addUser = function (user) {
     var self = this;
     return $gandalf.admin.addProjectUser({

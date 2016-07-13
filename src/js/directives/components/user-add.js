@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('app').controller('userAddController', function ($scope, _, $uibModalInstance, project, PROJECT_USER_SCOPES, ProjectUser, User, $q) {
+angular.module('app').controller('userAddController', function ($scope, _, $uibModalInstance, project, $alert, PROJECT_USER_SCOPES, ProjectUser, User, $q, $validate) {
 
   $scope.project = project;
   $scope.userSearch = null;
@@ -9,12 +9,23 @@ angular.module('app').controller('userAddController', function ($scope, _, $uibM
   });
   $scope.scopes = PROJECT_USER_SCOPES;
 
+  $scope.searchUsers = null;
+  $scope.isEmail = function (value) {
+    return $validate.validate('email', value);
+  };
+  $scope.shouldInvite = function (query) {
+    return !($scope.searchUsers && $scope.searchUsers.length) && $scope.isEmail(query);
+  };
   $scope.getUsers = _.throttle(function (str) {
     return User.find(null, null, {
       name: str
     }).then(function (resp) {
+      $scope.searchUsers = resp.data;
       return resp.data;
-    });
+    }, function () {
+      $scope.searchUsers = [];
+      return [];
+    })
   }, 300);
 
   $scope.openModal = function () {
@@ -25,9 +36,24 @@ angular.module('app').controller('userAddController', function ($scope, _, $uibM
   };
   $scope.save = function (form) {
     if (form.$invalid) return;
-    $scope.user.id = $scope.userSearch.id;
 
-    $scope.project.addUser($scope.user).then(function () {
+    var promise = $q.resolve();
+    if ($scope.shouldInvite($scope.userSearch)) {
+      $scope.user.email = $scope.userSearch;
+      promise = $scope.project.inviteUser($scope.user).then(function (resp) {
+        return $alert({
+          title: 'Invitation letter have been sent',
+          text: "User will receive invitation letter on email"
+        }).then(function () {
+          return resp;
+        })
+      })
+    } else {
+      $scope.user.id = $scope.userSearch.id;
+      promise = $scope.project.addUser($scope.user);
+    }
+
+    return promise.then(function () {
       $uibModalInstance.dismiss('cancel');
     });
   };
