@@ -18,10 +18,16 @@ angular.module('ng-gandalf').factory('DecisionHistoryTable', function ($gandalf,
 
   DecisionHistoryTable.prototype.parse = function (data) {
 
+    var self = this;
+
     DecisionTable.prototype.parse.call(this, data);
 
     this.table = new DecisionTable(data.table.id, data.table);
     this.variant = new DecisionVariant(data.table.variant);
+
+    this.rules = data.rules.map(function (item) {
+      return new self._modelRule(item);
+    });
 
     this.finalDecision = data.final_decision;
     this.request = data.request;
