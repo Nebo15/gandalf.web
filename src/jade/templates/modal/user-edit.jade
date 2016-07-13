@@ -17,7 +17,7 @@ form(ng-submit="save(form)", name="form", novalidate)
       .form-group(show-errors)
         label.col-sm-2.control-label Scopes
         .col-sm-10.form-control-block
-          user-scope-list(model="user.scope", required="isRequired()")
+          user-scope-list(model="user.scope", required="isRequired()", project="project")
   .modal-footer.clearfix
     .pull-left
       button.btn.btn-danger(type='button', ng-click='remove()', confirm="Are you sure? You will lost access to the project") Remove
