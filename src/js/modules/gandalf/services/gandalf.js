@@ -389,6 +389,16 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
       };
 
       // Project.users
+      self.admin.inviteProjectUser = function (user) {
+        return $request({
+          method: 'post',
+          endpoint: 'api/v1/invite'
+        }, {
+          email: user.email,
+          role: user.role,
+          scope: user.scope
+        });
+      };
       self.admin.addProjectUser = function (user) {
         return $request({
           method: 'post',
