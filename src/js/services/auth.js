@@ -19,7 +19,7 @@ angular.module('app').run(function ($rootScope, $state, $stateParams, $log, Auth
   });
 
   $rootScope.$on('$gandalfError', function (e, data) {
-    if (data.status === 401) {
+    if (data.status === 401 || (data.status === 400 && data.data.error == "invalid_grant")) {
       AuthService.logout();
       $rootScope.$broadcast('login:required');
     }

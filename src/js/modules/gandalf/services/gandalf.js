@@ -219,6 +219,7 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
 
           return response;
         }).catch(function (resp) {
+          self.setToken({});
           config.user.refreshToken = null;
           return $q.reject(resp);
         });
