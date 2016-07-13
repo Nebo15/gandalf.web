@@ -29,4 +29,6 @@ div(ng-form="decisionInput")
       div(ng-message="required") {{'validation.errors.decision_empty'|translate}}
       div(ng-message="number") {{'validation.errors.number_only'|translate}}
   div(ng-if="type == $root.APP.decisionTypes.json")
-    textarea.form-control(name="input", ng-model="$parent.model", required, placeholder="{{placeholder}}")
+    textarea.form-control(name="input", ng-model="$parent.model", ng-blur="$parent.$parent.save()" required, validate="json" placeholder="{{placeholder}}")
+    div.form-control-error(ng-messages="decisionInput.input.$error", ng-show="decisionInput.input.$dirty")
+      div(ng-message="json") {{'validation.errors.invalid_json'|translate}}

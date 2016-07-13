@@ -23,7 +23,7 @@ angular.module('app').directive('decisionInput', function () {
         if (scope.decisions.indexOf($item) === -1) {
           scope.decisions.push($item);
         }
-      }
+      };
     }
   };
 });

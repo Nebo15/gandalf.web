@@ -73,7 +73,8 @@ angular.module('app').config(function($translateProvider) {
         'username_minlength': 'Login should consist of more than 2 characters',
         'invalid_password': 'Use minimum one upper, one lower charset and one number.',
         'password_minlength': 'Password should consist of more than 6 characters',
-        'invalid_email': 'Invalid e-mail address'
+        'invalid_email': 'Invalid e-mail address',
+        'invalid_json': 'Invalid JSON string'
       }
     },
     "warnings": {
