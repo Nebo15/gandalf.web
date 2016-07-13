@@ -9,7 +9,7 @@
   }
   function anyToJSON (val) {
 
-    return JSON.parse(JSON.stringify(angular.isDefined(val) ? val : {}));
+    return JSON.stringify(angular.isDefined(val) ? val : {});
   }
 
   angular.module('ng-gandalf').constant('GANDALF_TRANSFORMS', {
