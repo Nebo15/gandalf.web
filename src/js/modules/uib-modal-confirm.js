@@ -8,12 +8,40 @@ angular.module('uibModalConfirm', []).controller('ConfirmModalController', funct
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+}).controller('AlertModalController', function ($scope, $uibModalInstance, data) {
+  $scope.data = angular.copy(data);
+
+  $scope.ok = function () {
+    $uibModalInstance.close();
+  };
+
 }).value('$confirmModalDefaults', {
-  template: '<div class="modal-header"><h3 class="modal-title">Confirm</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>',
+  template: '<div class="modal-header"><h3 class="modal-title">{{data.title}}</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>',
   controller: 'ConfirmModalController'
+}).value('$alertModalDefaults', {
+  template: '<div class="modal-header"><h3 class="modal-title">{{data.title}}</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button></div>',
+  controller: 'AlertModalController'
 }).factory('$confirm', function ($uibModal, $confirmModalDefaults) {
     return function (data, settings) {
       settings = angular.extend($confirmModalDefaults, (settings || {}));
+      data = data || {};
+
+      if ('templateUrl' in settings && 'template' in settings) {
+        delete settings.template;
+      }
+
+      settings.resolve = {
+        data: function () {
+          return data;
+        }
+      };
+
+      return $uibModal.open(settings).result;
+    };
+  })
+  .factory('$alert', function ($uibModal, $alertModalDefaults) {
+    return function (data, settings) {
+      settings = angular.extend($alertModalDefaults, (settings || {}));
       data = data || {};
 
       if ('templateUrl' in settings && 'template' in settings) {
