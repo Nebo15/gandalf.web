@@ -3,6 +3,7 @@ angular.module('app').directive('userScopeList', function () {
     restrict: 'E',
     scope: {
       model: '=',
+      project: '=',
       isRequired: '='
     },
     templateUrl: 'templates/directives/user-scope-list.html',
