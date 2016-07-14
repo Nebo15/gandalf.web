@@ -97,6 +97,8 @@ body table.table
 .table-decision-column-condition
   position: relative
   min-width: 120px
+  &.readonly
+    pointer-events: none
   .text-overflow
     max-width: 400px
 .table-decision-column-decision
@@ -135,7 +137,8 @@ body table.table
 .table.table-default-decision
   background-color: #eefff9
 
-  &.readonly input[type="text"]
+  &.readonly input[type="text"],
+  &.readonly input[type=number]
     background-color: transparent
     border: none
     box-shadow: none
@@ -172,3 +175,11 @@ body table.table
 
 .table-decision-final-decision-row
   background-color: #fefbf2
+
+.decision-placeholder
+  opacity: .6
+  font-size: 12px
+  padding-left: 10px
+
+field-static.readonly
+  pointer-events: none

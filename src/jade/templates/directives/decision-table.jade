@@ -5,7 +5,7 @@
       th.table-decision-column-title Title
         .small.text-light Description
       th.table-decision-column-condition(dragcolumns-item="condition", dragcolumns-item-key="condition.id", ng-repeat="condition in table.fields", ng-click="editField(condition)",
-      ng-class="{'is-deleted': condition.isDeleted}")
+      ng-class="{'is-deleted': condition.isDeleted, 'readonly': readonly}")
         .text-overflow {{condition.title}}
         .small.text-light
           .text-overflow {{condition.key}}
@@ -35,13 +35,12 @@
         td.table-decision-column-title(decision-rule-title-description, model="rule", is-editing="rule.isEditingTitle", readonly="readonly")
 
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-          field-static.table-decision-condition-field(ng-if="!condition.isEditing && !readonly", condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
+          field-static.table-decision-condition-field(ng-if="!condition.isEditing", ng-class="{readonly}" condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
           div.decision-condition(ng-if="condition.isEditing")
             field.decision-condition-field(type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value", ng-form="field")
             .decision-condition-btn.btn-group.btn-group-sm
               a.btn.btn-primary(ng-click="saveCondition(field, condition)") Save
             .decision-condition-align
-          div(ng-if="readonly") {{condition.value}}
 
         td.table-decision-column-add(ng-if="!readonly")
         td.table-decision-column-decision(ng-if="!readonly", decision-rule-decision, rule="rule", decisions="decisions", decision-type="table.decisionType", matching-type="table.matchingType",  is-editing="rule.isEditingDecision")
@@ -67,14 +66,17 @@
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first") Default Decision
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all") Default Score
     td
+      .decision-placeholder(ng-if="readonly") Title
       input.form-control(type="text", ng-readonly="readonly" ng-model="variant.defaultTitle", name="title", placeholder="Title", ng-minlength="2", ng-maxlength="128")
       div.form-control-error(ng-messages="tableForm.title.$error")
         div(ng-message="minlength, maxlength") {{'validation.errors.row_title_charsets'|translate}}
     td
+      .decision-placeholder(ng-if="readonly") Description
       input.form-control(type="text", ng-readonly="readonly" ng-model="variant.defaultDescription", name="description", placeholder="Description", ng-minlength="2", ng-maxlength="128")
       div.form-control-error(ng-messages="tableForm.description.$error")
         div(ng-message="minlength, maxlength") {{'validation.errors.row_description_charsets'|translate}}
     td
+      .decision-placeholder(ng-if="readonly") {{table.matchingType == $root.APP.matchingTypes.first ? 'Default Decision' : 'Default Score'}}
       span(ng-if="table.matchingType == $root.APP.matchingTypes.first")
         decision-input(type="table.decisionType", readonly="readonly", decisions="decisions", model="variant.defaultDecision", placeholder="Default Decision")
       span(ng-if="table.matchingType == $root.APP.matchingTypes.all")
