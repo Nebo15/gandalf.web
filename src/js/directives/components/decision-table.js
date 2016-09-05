@@ -47,6 +47,7 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
         var modalInstance = $uibModal.open({
           templateUrl: 'templates/modal/add-field.html',
           controller: 'AddFieldController',
+
           resolve: {
             field: function () {
               return field;
@@ -56,10 +57,11 @@ angular.module('app').directive('decisionTable', function ($uibModal, APP) {
             }
           }
         });
-        modalInstance.result.then(function (field) {
-          if (!field.typeChanged) return;
-          $scope.table.findConditionsByField(field).forEach(function (item) {
-            item.reset();
+        var oldFieldKey = field.key;
+        modalInstance.result.then(function (newField) {
+          $scope.table.findConditionsByFieldKey(oldFieldKey).forEach(function (item) {
+            if (newField.typeChanged) item.reset();
+            item.fieldKey = newField.key;
           });
         })
       };
