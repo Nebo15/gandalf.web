@@ -50,8 +50,9 @@ angular.module('app').controller('AddFieldController', function ($scope, APP, $u
     if ($scope.sameKeyColumns && $scope.field.type !== $scope.sameKeyColumnsType) {
       $scope.sameKeyColumns.forEach(function (field) {
         field.type = $scope.field.type;
-        table.findConditionsByField(field).forEach(function (item) {
+        table.findConditionsByField($scope.startField).forEach(function (item) {
           item.reset();
+          item.fieldKey = $scope.startField.key;
         });
       })
     }

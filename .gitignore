@@ -7,4 +7,4 @@ www
 locales/*.tmp.json
 
 settings/*.json
-!settings/config.sample.json
+!settings/settings.sample.json

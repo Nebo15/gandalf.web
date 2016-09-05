@@ -60,15 +60,21 @@ angular.module('ng-gandalf').factory('DecisionTable', function ($gandalf, $q, _,
     })
   };
 
-  DecisionTable.prototype.findConditionsByField = function (field) {
+  DecisionTable.prototype.findConditionsByFieldKey = function (fieldKey) {
 
     var conditions = this.getVariantsRules().map(function (item) {
       return item.conditions;
     });
 
     return _.flattenDeep(conditions).filter(function (condition) {
-      return condition.fieldKey === field.key;
+      return condition.fieldKey === fieldKey;
     });
+  };
+
+
+  DecisionTable.prototype.findConditionsByField = function (field) {
+
+    return this.findConditionsByFieldKey(field.key);
   };
 
   DecisionTable.prototype.getVariantsRules = function () {
