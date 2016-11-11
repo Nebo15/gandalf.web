@@ -148,7 +148,6 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           $log.debug('$request: response', response);
           return response.data;
         }).catch(function (response) {
-
           // refresh token logic
           if (response.status === 401 && !options.skipRefreshToken) {
             return self.refreshToken().then(function () {
@@ -220,7 +219,9 @@ angular.module('ng-gandalf').provider('$gandalf', function () {
           return response;
         }).catch(function (resp) {
           self.setToken({});
-          config.user.refreshToken = null;
+          $localStorage.auth = {};
+          refreshTokenPromise = $q.resolve();
+
           return $q.reject(resp);
         });
 
