@@ -30,7 +30,7 @@ form.has-navbar.ng-cloak.block(ng-if="table", novalidate, ng-submit="submit(form
           button.btn.btn-success.btn-loading(type="submit", ng-if="!saved", ng-class="{'is-active': isSaving}")
             .btn-loader: .glyphicon.glyphicon-refresh
             | Save
-          button.btn.btn-default(type="submit", ng-if="saved")
+          button.btn.btn-default(type="submit", ng-if="saved", ng-disabled="saved")
             | Saved
         .col-xs-8.col-xs-pull-4
           h3.form-control-heading Table Type
