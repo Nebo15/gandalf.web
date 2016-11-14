@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
-    "postinstall": "./node_modules/protractor/bin/webdriver-manager update",
+    "postinstall": "bower install && ./node_modules/protractor/bin/webdriver-manager update",
     "start": "gulp",
     "test": "gulp test",
     "karma": "karma start karma.conf.js",
