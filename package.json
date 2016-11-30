@@ -8,10 +8,14 @@
     "start": "gulp",
     "test": "gulp test",
     "karma": "karma start karma.conf.js",
-    "karma-single-run": "karma start karma.conf.js  --single-run"
+    "karma-single-run": "karma start karma.conf.js  --single-run",
+    "docker:reset": "npm run docker:down && npm run docker:up",
+    "docker:up": "docker-compose -f ./docker/dc.selenium.yml up -d",
+    "docker:down": "docker-compose -f ./docker/dc.selenium.yml down"
   },
   "devDependencies": {
     "browser-sync": "^2.9.6",
+    "chromedriver": "^2.25.1",
     "faker": "3.0.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.2",
@@ -41,6 +45,7 @@
     "lodash": "^4.0.1",
     "protractor": "3.3.0",
     "protractor-console": "2.0.0",
+    "selenium-server-standalone-jar": "^3.0.1",
     "shelljs": "0.6.0",
     "util": "^0.10.3",
     "yargs": "^3.25.0"

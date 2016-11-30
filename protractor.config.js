@@ -5,11 +5,11 @@ exports.config = {
   capabilities: {
     'shardTestFiles': true,
     'maxInstances': 1,
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
 
   framework: 'jasmine2',
-
+  seleniumAddress: 'http://localhost:4444',
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
     showColors: true,
