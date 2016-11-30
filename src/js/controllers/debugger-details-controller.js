@@ -22,7 +22,7 @@ angular.module('app').controller('DebuggerDetailsController', function ($scope, 
     return res;
   }
 
-  $scope.apiHost = ENV.api.host;
+  $scope.apiHost = ENV.api.endpoint;
 
   $scope.booleanVariants = [{
     title: 'true',

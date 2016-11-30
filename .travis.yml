@@ -1,19 +1,31 @@
 language: node_js
 node_js:
-  - '5.11.1'
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
+  - 'stable'
+sudo: required
+cache:
+  directories:
+    - ~/.nvm
+    - node_modules
+services:
+  - docker
+git:
+  depth: 1
+env:
+  global:
+    - RELEASE_BRANCH="master"
+    - DOCKER_HUB_ACCOUNT=nebo15
+    - MAIN_BRANCHES="master develop"
+    - secure: "OlEMc7XOIo1HRF/knwOaCFPUq7gBTHv13oodLQ9xY4DXKo7Uurk5fMj65lZxQnHyyk046kuNLcI9fK4w/2Y7+f0Jl47/7D8eZarvds+KoRhEsqJsDE2ycmzxY8slklyvXQgcZtkkGpv7DwAr8MjZukQS4DD7dHv3BgxB4t0nRlggg/vCi7TRxFu42/TxhzbnjSCcLcJDgddX6iuHeW773dBiPBXHxhbRmnO/GR6mI6DwmWDVqPlti5RA5SuyXPC/ubRcmROCWdxrrA7QsclOPsegls7ZN4WfhL9CYmtSt7C2l3P7En7fGc4jAIJTd1QeeZj7vcGDlrcejwZc75E67IkKG6C5S+6idaJTF1dMuLTOMLyTydvlkKf6PZ1VOf9UVP2G9UhmTWMlkhcHIktRyQyAR+C5YR3MYZ5dMpRS4vpnHlqR5mNiB+bciXELny12e35xeCUHjWgiEkwwRp5M0UFxsU4i94KaJweHjzo0fRv1rbI7Q4fUIrdHDqzL1XAqTqi1wMSSOyBt44nlKIrmC72RgJMG+qefSaa2MLTgcnThai6IbU7jeYtoZ7kT6hbG8wjN5CyaKUDRFHOAs5jxGyK3zs5Wv6pAE1uZu1AGR1s/nVFtpWZLCmO6De9dUHth1NUQtI9YYwb/tHz5afAFQodG3DjYMxU2SxxiD4KuELw="
+install:
+  - npm install
+  - sh ./bin/install-docker-travis.sh
 before_script:
+  - npm run docker:up && docker logs selenium || { exit 1; }
+  - chmod -R +x bin
   - npm install -g bower
   - gem install sass --version "=3.4.12"
   - gem install compass --version "=1.0.3"
   - npm install -g bower grunt-cli
-  - bower install
 script:
-  - 'gulp build'
-  - 'npm test'
-notifications:
-  email: false
+  - ./bin/version-increment.sh && ./bin/build.sh && ./bin/start.sh || { exit 1; }
+  - 'npm test' || { exit 1; }

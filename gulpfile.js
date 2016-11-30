@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+  fs = require('fs'),
   sequence = require('gulp-sequence'),
   path = require('path'),
   argv = require('yargs').argv,
@@ -151,8 +152,17 @@ function string_src (filename, string) {
 }
 
 gulp.task('config', ['copy-scripts'],function () {
-  var configObj = require('./settings/settings');
-  return string_src('config.js', 'window.env = ' + JSON.stringify(configObj, null, 2) + ';')
+
+  return true;
+
+  var configObj = {};
+  try {
+    configObj = require('./settings/settings');
+  } catch(e) {
+    console.warn('you can specify settings/settings.json for app configuration');
+  }
+
+  return string_src('config.js', 'window.env = "' + escape(JSON.stringify(configObj)) + '";')
     // Writes settings.js to dist/ folder
     .pipe(gulp.dest('www/js'));
 });
@@ -256,7 +266,7 @@ gulp.task('test:protractor', function () {
   return gulp.src(['./tests/tests/*.js'])
     .pipe(protractor.protractor({
       configFile: "./protractor.config.js",
-      args: ['--baseUrl', 'http://localhost:'+WEBSERVER_PORT]
+      args: ['--baseUrl', 'http://localhost:8080']
     }))
     .on('error', function (e) {
       console.error(e);
@@ -266,11 +276,4 @@ gulp.task('test:protractor', function () {
     });
 });
 
-gulp.task('test', function (cb) {
-  sequence('server', 'test:build', cb);
-  gulp.watch(['tests/**/*.js'], ['test:build']);
-});
-
-gulp.task('test:build', [
-  'test:protractor'
-]);
+gulp.task('test', ['test:protractor']);

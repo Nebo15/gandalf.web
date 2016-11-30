@@ -4,6 +4,7 @@
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
     "postinstall": "bower install && ./node_modules/protractor/bin/webdriver-manager update",
+    "build": "gulp build --production",
     "start": "gulp",
     "test": "gulp test",
     "karma": "karma start karma.conf.js",
@@ -43,5 +44,12 @@
     "shelljs": "0.6.0",
     "util": "^0.10.3",
     "yargs": "^3.25.0"
+  },
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "ejs": "^2.5.3",
+    "express": "^4.14.0",
+    "lodash": "^4.17.2",
+    "proxy-middleware": "^0.15.0"
   }
 }

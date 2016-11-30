@@ -35,7 +35,28 @@ angular.module('app', [
   'toastr'
 ]);
 
-angular.module('app').constant('ENV', window.env);
+var config = {};
+try {
+  config = JSON.parse(unescape(window.env));
+} catch (e) {
+  console.warn('Error while parsing env config', e);
+}
+
+angular.module('app').constant('ENV', {
+  "debug": env.DEBUG,
+  "api": {
+    "endpoint": env.API_HOSTNAME,
+    "clientId": env.API_CLIENTID,
+    "clientSecret": env.API_CLIENTSECRET
+  },
+  "providers": {
+    "bugsnag": {
+      "apiKey": env.PROVIDERS_BUGSNAG_APIKEY,
+      "stage": env.PROVIDERS_BUGSNAG_STAGE,
+    },
+  },
+});
+
 angular.module('app').constant('APP', {
   types: {
     number: 'numeric',
@@ -68,5 +89,3 @@ angular.module('app').config(function (hljsServiceProvider) {
     tabReplace: '  '
   });
 });
-
-
