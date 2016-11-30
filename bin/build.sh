@@ -26,7 +26,7 @@ PROJECT_VERSION=$(cat "${PROJECT_DIR}/package.json" \
 
 echo "[I] Building a Webp App"
 
-# npm run build
+npm run build
 
 echo "[I] Building a Docker container '${PROJECT_NAME}' (version '${PROJECT_VERSION}') from path '${PROJECT_DIR}'.."
 
