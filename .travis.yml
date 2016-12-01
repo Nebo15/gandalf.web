@@ -28,6 +28,8 @@ before_script:
   - npm install -g bower grunt-cli
 script:
   - ./bin/version-increment.sh && ./bin/build.sh && ./bin/start.sh || { exit 1; }
+  - sleep 5
+  - docker ps
   - npm test || { exit 1; }
 after_success:
   - ./bin/ci/push.sh
