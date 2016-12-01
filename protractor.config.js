@@ -9,8 +9,6 @@ exports.config = {
   },
 
   framework: 'jasmine2',
-  chromeDriver: './node_modules/chromedriver/lib/chromedriver/chromedriver',
-  // Options to be passed to Jasmine.
   getPageTimeout: 30000,
   jasmineNodeOpts: {
     showColors: true,
