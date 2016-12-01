@@ -9,12 +9,11 @@ exports.config = {
   },
 
   framework: 'jasmine2',
-  chromeDriver: './node_modules/chromedriver/lib/chromedriver/chromedriver',
+  seleniumAddress: 'http://127.0.0.1:4444',
   // Options to be passed to Jasmine.
-  getPageTimeout: 30000,
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 60000
+    defaultTimeoutInterval: 30000
   },
   plugins: [{
     package: 'protractor-console',

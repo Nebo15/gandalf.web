@@ -1,7 +1,5 @@
 FROM mhart/alpine-node:6.9.1
 
-RUN apk update && apk add git
-
 EXPOSE 8080
 
 ADD package.json /tmp/package.json

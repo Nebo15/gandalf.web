@@ -43,16 +43,16 @@ try {
 }
 
 angular.module('app').constant('ENV', {
-  "debug": env.DEBUG,
+  "debug": config.DEBUG,
   "api": {
-    "endpoint": env.API_HOSTNAME,
-    "clientId": env.API_CLIENTID,
-    "clientSecret": env.API_CLIENTSECRET
+    "endpoint": config.API_HOSTNAME,
+    "clientId": config.API_CLIENTID,
+    "clientSecret": config.API_CLIENTSECRET
   },
   "providers": {
     "bugsnag": {
-      "apiKey": env.PROVIDERS_BUGSNAG_APIKEY,
-      "stage": env.PROVIDERS_BUGSNAG_STAGE,
+      "apiKey": config.PROVIDERS_BUGSNAG_APIKEY,
+      "stage": config.PROVIDERS_BUGSNAG_STAGE,
     },
   },
 });

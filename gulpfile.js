@@ -30,6 +30,8 @@ var gulp = require('gulp'),
 
   protractor = require('gulp-protractor');
 
+var webdriver_standalone = protractor.webdriver_standalone;
+
 
 var src = {
   jade: ['src/jade/*.jade','src/jade/templates/**/*.jade'],
@@ -262,7 +264,7 @@ gulp.on('err', function(e){
 
 // TESTS
 
-gulp.task('test:protractor', function () {
+gulp.task('test', function () {
   return gulp.src(['./tests/tests/*.js'])
     .pipe(protractor.protractor({
       configFile: "./protractor.config.js",
@@ -275,5 +277,18 @@ gulp.task('test:protractor', function () {
       process.exit();
     });
 });
+gulp.task('test:travis', function () {
+  return gulp.src(['./tests/tests/*.js'])
+    .pipe(protractor.protractor({
+      configFile: "./protractor.travis.js",
+      args: ['--baseUrl', 'http://localhost:8080']
+    }))
+    .on('error', function (e) {
+      console.error(e);
+    })
+    .on('end', function() {
+      process.exit();
+    });
+});
 
-gulp.task('test', ['test:protractor']);
+gulp.task('selenium', webdriver_standalone);
