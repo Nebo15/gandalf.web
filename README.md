@@ -28,6 +28,16 @@ gulp production # or gulp build --production
 
 # Installation Guide
 
+Basic configuration. Copy `settings/settings.sample.json` file to `settings/settings.json`.
+
+```
+cp settings/settings.sample.json settings/settings.json
+```
+
+Configure API access parameters and providers keys.
+
+### Vagrant
+
 You can use [Vagrant](https://www.vagrantup.com/) to intialize a development environment. Simply install it, ```cd``` into your project directory and run:
 
 ```
