@@ -2,6 +2,7 @@ angular.module('app').config(function ($stateProvider) {
 
   $stateProvider.state('welcome-data', {
     parent: 'auth',
+    auth: true,
     abstract: true,
     templateUrl: 'templates/welcome/layout.html',
     controller: 'WelcomeController',
