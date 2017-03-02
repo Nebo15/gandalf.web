@@ -8,7 +8,7 @@
   },
   "providers": {
     "bugsnag": {
-      "apiKey": "bugsnag_apikey",
+      "apiKey": null,
       "stage": "stage_name"
     }
   }
