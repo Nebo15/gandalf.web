@@ -1,5 +1,7 @@
 # gandalf.web
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Nebo15/gandalf.web.svg)](https://greenkeeper.io/)
+
 [![Deployment status from DeployBot](https://nebo15.deploybot.com/badge/66802254055260/64890.svg)](http://deploybot.com) [![Build Status](https://travis-ci.org/Nebo15/gandalf.web.svg?branch=master)](https://travis-ci.org/Nebo15/gandalf.web)
 
 This is a Front-End project for our Open-Source Decision Engine for Big-Data. You can find Back-End here: [Nebo15/gandalf.api](https://github.com/Nebo15/gandalf.api).
