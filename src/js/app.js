@@ -44,6 +44,7 @@ try {
 angular.module('app').constant('ENV', {
   "debug": config.DEBUG === 'true',
   "api": {
+    "endpoint": config.API_ENDPOINT,
     "proxyPath": config.API_PROXY_PATH,
     "clientId": config.API_CLIENTID,
     "clientSecret": config.API_CLIENTSECRET
