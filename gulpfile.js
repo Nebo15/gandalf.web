@@ -134,23 +134,6 @@ function string_src (filename, string) {
   return src
 }
 
-gulp.task('config', ['copy-scripts'],function () {
-
-  return true;
-
-  var configObj = {};
-  try {
-    configObj = require('./settings/settings');
-  } catch(e) {
-    console.warn('you can specify settings/settings.json for app configuration');
-  }
-
-  return string_src('config.js', 'window.env = "' + escape(JSON.stringify(configObj)) + '";')
-    // Writes settings.js to dist/ folder
-    .pipe(gulp.dest('www/js'));
-});
-
-
 gulp.task('minimize', function (cb) {
   if (!argv.production) {
     return cb();
@@ -206,14 +189,13 @@ gulp.task('localize', ['build-jade', 'copy-statics', 'load-locales'], function (
 gulp.task('watch', function () {
   gulp.watch('./src/sass/**/*', ['build-styles']);
   gulp.watch('./src/images/**/*', ['copy-images', 'build-styles']);
-  gulp.watch('./src/js/**/*', ['copy-scripts','config']);
+  gulp.watch('./src/js/**/*', ['copy-scripts']);
   gulp.watch('./src/jade/**/*', ['build-jade', 'localize']);
   gulp.watch('./src/bower_components/**/*.js', ['copy-bower']);
   gulp.watch('./src/static/**/*', ['copy-statics']);
   gulp.watch('./src/fonts/**/*', ['copy-fonts']);
 
   gulp.watch('./locales/**/*', ['localize']);
-  gulp.watch('./settings/*.json', ['config']);
 });
 
 // Deploy gh-pages
@@ -238,7 +220,7 @@ gulp.task('server', function () {
 // Base tasks
 gulp.task('default', sequence('build', ['server', 'watch']));
 gulp.task('build', function (cb) {
-  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'minimize')(cb);
+  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'build-styles', 'build-jade'], 'minimize')(cb);
 });
 gulp.task('production', function (cb) {
   argv.production = true;
