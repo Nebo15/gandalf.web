@@ -25,6 +25,7 @@ install:
   - npm install
   - bower install
 script:
+  - touch .env
   - ./bin/version-increment.sh && ./bin/build.sh && ./bin/start.sh || { exit 1; }
   - sleep 5
   - docker ps
