@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Nebo15/gandalf.web.svg?branch=master)](https://travis-ci.org/Nebo15/gandalf.web)
 
+[![Gandalf Logo](https://raw.githubusercontent.com/Nebo15/gandalf.web/docker/src/images/svg/logo.svg))(https://gndf.io)
+
 This is a Front-End project for our Open-Source Decision Engine for Big-Data. You can find Back-End here: [Nebo15/gandalf.api](https://github.com/Nebo15/gandalf.api).
 
 API docs is [here](http://docs.gandalf4.apiary.io/#).
