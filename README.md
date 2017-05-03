@@ -6,6 +6,20 @@ This is a Front-End project for our Open-Source Decision Engine for Big-Data. Yo
 
 API docs is [here](http://docs.gandalf4.apiary.io/#).
 
+## Requirements
+
+- Bower
+- Node JS
+- Compass
+- Gulp
+
+### Installation
+
+```
+npm i -g bower gulp
+gem install compass
+```
+
 ## Usage
 
 Developement

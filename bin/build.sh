@@ -24,7 +24,7 @@ PROJECT_VERSION=$(cat "${PROJECT_DIR}/package.json" \
   | sed 's/[",]//g' \
   | tr -d '[[:space:]]')
 
-echo "[I] Building a Webp App"
+echo "[I] Build a WebApp"
 
 npm run build
 

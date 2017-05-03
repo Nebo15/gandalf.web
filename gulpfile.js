@@ -250,7 +250,7 @@ gulp.task('deploy', ['deploy-prefix'], function () {
 // Base tasks
 gulp.task('default', sequence('build', ['server', 'watch']));
 gulp.task('build', function (cb) {
-  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'extract-locales', 'localize', 'minimize')(cb);
+  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'minimize')(cb);
 });
 gulp.task('production', function (cb) {
   argv.production = true;
