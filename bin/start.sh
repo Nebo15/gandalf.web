@@ -34,5 +34,6 @@ echo "${HOST_NAME}:${HOST_IP}"
 docker run -p 8080:8080 \
        -d \
        --restart=always \
+       --env .env \
        --name ${PROJECT_NAME} \
        "${PROJECT_NAME}:${PROJECT_VERSION}"
