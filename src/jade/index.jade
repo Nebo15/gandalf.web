@@ -14,7 +14,8 @@ html(ng-app="app")
   body.app
     div(ui-view='')
 
-    script(src='js/config.js')
+    script(type="text/javascript").
+      window.__CONFIG__ = "<%= CONFIG %>"
 
     // build:js js/app.min.js
     script(src='bower_components/jquery/dist/jquery.js')

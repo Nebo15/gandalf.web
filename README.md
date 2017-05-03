@@ -30,6 +30,11 @@ Application supports these environment variables:
 
 ### Vagrant
 
+Create `.env` file with configurations.
+Configure API access parameters and providers keys.
+
+### Vagrant
+
 You can use [Vagrant](https://www.vagrantup.com/) to intialize a development environment. Simply install it, ```cd``` into your project directory and run:
 
 ```

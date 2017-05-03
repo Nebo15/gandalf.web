@@ -35,7 +35,7 @@
         td.table-decision-column-title(decision-rule-title-description, model="rule", is-editing="rule.isEditingTitle", readonly="readonly")
 
         td.table-decision-column-condition(ng-repeat="condition in rule.conditions", ng-class="{'is-deleted': table.fields[$index].isDeleted}")
-          field-static.table-decision-condition-field(ng-if="!condition.isEditing", ng-class="{readonly}" condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
+          field-static.table-decision-condition-field(ng-if="!condition.isEditing", ng-class="{'readonly': readonly}" condition="condition.condition", value="condition.value", ng-click="editCondition(condition)")
           div.decision-condition(ng-if="condition.isEditing")
             field.decision-condition-field(type="table.fields[$index].preset ? $root.APP.types.bool : table.fields[$index].type", condition="condition.condition", value="condition.value", ng-form="field")
             .decision-condition-btn.btn-group.btn-group-sm

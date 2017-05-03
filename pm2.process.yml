@@ -1,5 +1,5 @@
 apps:
-  - script   : 'server.js'
+  - script   : 'server'
     name     : 'app'
     log_type : 'json'
     exec_mode: 'cluster'

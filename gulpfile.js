@@ -27,6 +27,7 @@ var gulp = require('gulp'),
   ngConstant = require('gulp-ng-constant'),
   gutil = require('gulp-util'),
   stream = require('stream'),
+  nodemon = require('gulp-nodemon'),
 
   protractor = require('gulp-protractor');
 
@@ -52,26 +53,6 @@ var plumberErrorHandler = {
     message: "Error: <%= error.message %>"
   })
 };
-
-
-var WEBSERVER_PORT = 8080;
-// Web Server
-gulp.task('server', function (cb) {
-  browserSync({
-    server: {
-      baseDir: './www',
-      index: 'index.html'
-    },
-    files: ["www/**/*"],
-    port: WEBSERVER_PORT,
-    open: true,
-    notify: false,
-    ghostMode: false
-  });
-
-  gulp.watch("www/*.html").on('change', _.debounce(browserSync.reload, 300));
-  cb();
-});
 
 // Clean temporary folders
 gulp.task('clean', function () {
@@ -245,6 +226,13 @@ gulp.task('deploy-prefix', ['production'], function () {
 gulp.task('deploy', ['deploy-prefix'], function () {
   return gulp.src('./www/**/*')
     .pipe(ghPages());
+});
+
+gulp.task('server', function () {
+  return nodemon({
+    script: 'server',
+    watch: ['server','.env'],
+  });
 });
 
 // Base tasks

@@ -1,6 +1,6 @@
 {
   "name": "gandalf",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "bootstrap-sass": "3.3.6",
     "angular": "1.5.0",

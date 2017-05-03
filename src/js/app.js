@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('app', [
   'conditions',
   'ng-equal',
@@ -37,15 +36,15 @@ angular.module('app', [
 
 var config = {};
 try {
-  config = JSON.parse(unescape(window.env));
+  config = JSON.parse(unescape(window.__CONFIG__));
 } catch (e) {
   console.warn('Error while parsing env config', e);
 }
 
 angular.module('app').constant('ENV', {
-  "debug": config.DEBUG,
+  "debug": config.DEBUG === 'true',
   "api": {
-    "endpoint": config.API_ENDPOINT,
+    "proxyPath": config.API_PROXY_PATH,
     "clientId": config.API_CLIENTID,
     "clientSecret": config.API_CLIENTSECRET
   },
