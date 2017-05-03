@@ -17,7 +17,7 @@ server.get('/404', function (req, res) {
 
 var env = {
   DEBUG: process.env.DEBUG,
-  API_HOSTNAME: process.env.API_HOSTNAME,
+  API_ENDPOINT: process.env.API_ENDPOINT,
   API_CLIENTID: process.env.API_CLIENTID,
   API_CLIENTSECRET: process.env.API_CLIENTSECRET,
   PROVIDERS_BUGSNAG_APIKEY: process.env.PROVIDERS_BUGSNAG_APIKEY,
@@ -31,7 +31,7 @@ server.use('/js/config.js', function (req, res) {
   res.send(configJsFileContent);
 });
 
-server.use('/api', proxy(env.API_HOSTNAME));
+server.use('/api', proxy(env.API_ENDPOINT));
 server.use(Express.static(path.resolve(__dirname, './www')));
 server.use(function (req, res) {
   res.sendFile(path.resolve(__dirname, './www/404.html'));

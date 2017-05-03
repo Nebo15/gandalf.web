@@ -45,7 +45,7 @@ try {
 angular.module('app').constant('ENV', {
   "debug": config.DEBUG,
   "api": {
-    "endpoint": config.API_HOSTNAME,
+    "endpoint": config.API_ENDPOINT,
     "clientId": config.API_CLIENTID,
     "clientSecret": config.API_CLIENTSECRET
   },
