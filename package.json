@@ -4,7 +4,7 @@
   "repository": "https://github.com/Nebo15/gandalf.web.git",
   "scripts": {
     "build": "gulp build --production",
-    "start": "gulp",
+    "start": "node server.js",
     "test": "gulp test",
     "test:travis": "gulp test:travis",
     "karma": "karma start karma.conf.js",

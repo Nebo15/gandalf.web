@@ -21,6 +21,9 @@ before_install:
   - gem install sass --version "=3.4.12"
   - gem install compass --version "=1.0.3"
   - npm install -g bower grunt-cli
+install:
+  - npm install
+  - bower install
 script:
   - ./bin/version-increment.sh && ./bin/build.sh && ./bin/start.sh || { exit 1; }
   - sleep 5

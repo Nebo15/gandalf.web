@@ -10,10 +10,6 @@ API docs is [here](http://docs.gandalf4.apiary.io/#).
 
 ## Installation Guide
 
-### Heroku One-Click Deployment
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nebo15/gandalf.web)
-
 ### Docker
 
 #### Deployment
