@@ -5,7 +5,7 @@ ENV DEBUG=false \
     NODE_ENV=production
 
 COPY package.json /tmp/package.json
-RUN set -xe;
+RUN set -xe; \
     cd /tmp && \
     npm install --production && \
     mkdir -p /opt/app && \
