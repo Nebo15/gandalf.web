@@ -20,7 +20,7 @@ before_install:
   - chmod -R +x bin
   - gem install sass --version "=3.4.12"
   - gem install compass --version "=1.0.3"
-  - npm install -g bower grunt-cli
+  - npm install -g bower
 install:
   - npm install
   - bower install
