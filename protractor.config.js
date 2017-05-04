@@ -5,15 +5,14 @@ exports.config = {
   capabilities: {
     'shardTestFiles': true,
     'maxInstances': 1,
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
 
   framework: 'jasmine2',
-
-  // Options to be passed to Jasmine.
+  getPageTimeout: 30000,
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 60000
   },
   plugins: [{
     package: 'protractor-console',

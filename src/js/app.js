@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('app', [
   'conditions',
   'ng-equal',
@@ -35,7 +34,29 @@ angular.module('app', [
   'toastr'
 ]);
 
-angular.module('app').constant('ENV', window.env);
+var config = {};
+try {
+  config = JSON.parse(unescape(window.__CONFIG__));
+} catch (e) {
+  console.warn('Error while parsing env config', e);
+}
+
+angular.module('app').constant('ENV', {
+  "debug": config.DEBUG === 'true',
+  "api": {
+    "endpoint": config.API_ENDPOINT,
+    "proxyPath": config.API_PROXY_PATH,
+    "clientId": config.API_CLIENTID,
+    "clientSecret": config.API_CLIENTSECRET
+  },
+  "providers": {
+    "bugsnag": {
+      "apiKey": config.PROVIDERS_BUGSNAG_APIKEY,
+      "stage": config.PROVIDERS_BUGSNAG_STAGE,
+    },
+  },
+});
+
 angular.module('app').constant('APP', {
   types: {
     number: 'numeric',
@@ -68,5 +89,3 @@ angular.module('app').config(function (hljsServiceProvider) {
     tabReplace: '  '
   });
 });
-
-
