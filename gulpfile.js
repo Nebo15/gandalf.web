@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+  fs = require('fs'),
   sequence = require('gulp-sequence'),
   path = require('path'),
   argv = require('yargs').argv,
@@ -26,8 +27,11 @@ var gulp = require('gulp'),
   ngConstant = require('gulp-ng-constant'),
   gutil = require('gulp-util'),
   stream = require('stream'),
+  nodemon = require('gulp-nodemon'),
 
   protractor = require('gulp-protractor');
+
+var webdriver_standalone = protractor.webdriver_standalone;
 
 
 var src = {
@@ -49,26 +53,6 @@ var plumberErrorHandler = {
     message: "Error: <%= error.message %>"
   })
 };
-
-
-var WEBSERVER_PORT = 8080;
-// Web Server
-gulp.task('server', function (cb) {
-  browserSync({
-    server: {
-      baseDir: './www',
-      index: 'index.html'
-    },
-    files: ["www/**/*"],
-    port: WEBSERVER_PORT,
-    open: true,
-    notify: false,
-    ghostMode: false
-  });
-
-  gulp.watch("www/*.html").on('change', _.debounce(browserSync.reload, 300));
-  cb();
-});
 
 // Clean temporary folders
 gulp.task('clean', function () {
@@ -150,14 +134,6 @@ function string_src (filename, string) {
   return src
 }
 
-gulp.task('config', ['copy-scripts'],function () {
-  var configObj = require('./settings/settings');
-  return string_src('config.js', 'window.env = ' + JSON.stringify(configObj, null, 2) + ';')
-    // Writes settings.js to dist/ folder
-    .pipe(gulp.dest('www/js'));
-});
-
-
 gulp.task('minimize', function (cb) {
   if (!argv.production) {
     return cb();
@@ -213,14 +189,13 @@ gulp.task('localize', ['build-jade', 'copy-statics', 'load-locales'], function (
 gulp.task('watch', function () {
   gulp.watch('./src/sass/**/*', ['build-styles']);
   gulp.watch('./src/images/**/*', ['copy-images', 'build-styles']);
-  gulp.watch('./src/js/**/*', ['copy-scripts','config']);
+  gulp.watch('./src/js/**/*', ['copy-scripts']);
   gulp.watch('./src/jade/**/*', ['build-jade', 'localize']);
   gulp.watch('./src/bower_components/**/*.js', ['copy-bower']);
   gulp.watch('./src/static/**/*', ['copy-statics']);
   gulp.watch('./src/fonts/**/*', ['copy-fonts']);
 
   gulp.watch('./locales/**/*', ['localize']);
-  gulp.watch('./settings/*.json', ['config']);
 });
 
 // Deploy gh-pages
@@ -235,10 +210,17 @@ gulp.task('deploy', ['deploy-prefix'], function () {
     .pipe(ghPages());
 });
 
+gulp.task('server', function () {
+  return nodemon({
+    script: 'server',
+    watch: ['server','.env'],
+  });
+});
+
 // Base tasks
 gulp.task('default', sequence('build', ['server', 'watch']));
 gulp.task('build', function (cb) {
-  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'config', 'build-styles', 'build-jade'], 'extract-locales', 'localize', 'minimize')(cb);
+  sequence('clean', ['copy-bower', 'copy-fonts', 'copy-images', 'copy-statics', 'copy-scripts', 'build-styles', 'build-jade'], 'minimize')(cb);
 });
 gulp.task('production', function (cb) {
   argv.production = true;
@@ -252,11 +234,24 @@ gulp.on('err', function(e){
 
 // TESTS
 
-gulp.task('test:protractor', function () {
+gulp.task('test', function () {
   return gulp.src(['./tests/tests/*.js'])
     .pipe(protractor.protractor({
       configFile: "./protractor.config.js",
-      args: ['--baseUrl', 'http://localhost:'+WEBSERVER_PORT]
+      args: ['--baseUrl', 'http://localhost:8080']
+    }))
+    .on('error', function (e) {
+      console.error(e);
+    })
+    .on('end', function() {
+      process.exit();
+    });
+});
+gulp.task('test:travis', function () {
+  return gulp.src(['./tests/tests/*.js'])
+    .pipe(protractor.protractor({
+      configFile: "./protractor.travis.js",
+      args: ['--baseUrl', 'http://localhost:8080']
     }))
     .on('error', function (e) {
       console.error(e);
@@ -266,11 +261,4 @@ gulp.task('test:protractor', function () {
     });
 });
 
-gulp.task('test', function (cb) {
-  sequence('server', 'test:build', cb);
-  gulp.watch(['tests/**/*.js'], ['test:build']);
-});
-
-gulp.task('test:build', [
-  'test:protractor'
-]);
+gulp.task('selenium', webdriver_standalone);

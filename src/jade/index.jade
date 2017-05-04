@@ -14,6 +14,9 @@ html(ng-app="app")
   body.app
     div(ui-view='')
 
+    script(type="text/javascript").
+      window.__CONFIG__ = "<%= CONFIG %>"
+
     // build:js js/app.min.js
     script(src='bower_components/jquery/dist/jquery.js')
     script(src='bower_components/jquery-ui/jquery-ui.js')
@@ -61,8 +64,6 @@ html(ng-app="app")
     script(src='bower_components/zxcvbn/dist/zxcvbn.js')
 
     script(src='bower_components/angular-toastr/dist/angular-toastr.tpls.js')
-
-    script(src='js/config.js')
 
     script(src='js/modules/gandalf/gandalf.js')
 

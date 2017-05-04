@@ -1,0 +1,6 @@
+apps:
+  - script   : 'server'
+    name     : 'app'
+    log_type : 'json'
+    exec_mode: 'cluster'
+    instances: 0

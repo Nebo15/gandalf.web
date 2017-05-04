@@ -8,3 +8,4 @@ locales/*.tmp.json
 
 settings/*.json
 !settings/settings.sample.json
+.env
