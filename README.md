@@ -85,17 +85,6 @@ gulp build [--production] ## build project
 gulp production # or gulp build --production
 ```
 
-### Workflow
-
-#### Git flow
-
-Every task should start a new branch. Branch should be named as task number what its corresponding.
-After finish work on a task, you need to create PR.
-
-#### Pull Requests
-
-Every task finishes with PR. Eslint, Stylelint, and tests are blocking PRs. To simplify PR review, we deploy every PR's branch automatically on Heroku.
-
 ## License
 
 See [LICENSE.md](LICENSE).
