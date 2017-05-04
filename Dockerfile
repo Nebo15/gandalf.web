@@ -1,11 +1,15 @@
 FROM nebo15/alpine-node:6.9.5
 
-ENV DEBUG false
-ENV PORT 8080
-ENV NODE_ENV production
+ENV DEBUG=false \
+    PORT=8080 \
+    NODE_ENV=production
 
 COPY package.json /tmp/package.json
-RUN cd /tmp && npm install --production || { exit 1; } && mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
+RUN set -xe; \
+    cd /tmp && \
+    npm install --production && \
+    mkdir -p /opt/app && \
+    cp -a /tmp/node_modules /opt/app/
 
 WORKDIR /opt/app
 COPY . /opt/app
