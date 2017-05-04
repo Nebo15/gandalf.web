@@ -12,7 +12,6 @@ RUN set -xe; \
     cp -a /tmp/node_modules /opt/app/
 
 WORKDIR /opt/app
-
 COPY . /opt/app
 
 CMD ["pm2-docker", "pm2.process.yml"]
