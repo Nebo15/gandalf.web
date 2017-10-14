@@ -90,7 +90,9 @@ gulp production # or gulp build --production
 We want to thank our sponsors for supporting open source community.
 
 <a href="https://www.digitalocean.com/"><img src="https://www.digitalocean.com/assets/media/logos-badges/png/DO_Powered_by_Badge_blue-fe4c6688.png" width="150" /></a>
+
 <a href="https://www.browserstack.com/"><img src="https://cloud.githubusercontent.com/assets/7864462/12837037/452a17c6-cb73-11e5-9f39-fc96893bc9bf.png" width="150" /></a>
+
 <a href="https://blog.bugsnag.com/bugsnag-loves-open-source"><img src="https://www.bugsnag.com/images/logo-f11ffe87.svg" width="150" /></a>
 
 Their products are awesome, give them a try :)!
