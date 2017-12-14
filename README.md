@@ -73,6 +73,7 @@ And your server will be ready for production use!
 
 ```
 npm i -g bower gulp
+bower install
 gem install compass
 ```
 
